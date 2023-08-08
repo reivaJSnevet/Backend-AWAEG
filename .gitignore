@@ -1,0 +1,28 @@
+
+# Dependencias
+/node_modules
+npm-debug.log
+yarn-error.log
+
+# Archivos de configuración
+.env
+
+# Archivos generados por IDEs
+.vscode/
+.idea/
+
+# Archivos generados por sistemas operativos
+.DS_Store
+Thumbs.db
+
+# Archivos de registro
+*.log
+
+# Cache de Sequelize
+/models/.cache
+
+# Build de distribución
+/dist
+/build
+
+# Dependiendo de tu entorno y configuración, es posible que desees excluir otros archivos específicos.
