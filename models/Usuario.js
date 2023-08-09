@@ -10,7 +10,7 @@ const Usuario = db.define(
             type: DataTypes.STRING,
             allowNull: false
         },
-        correo:{
+        correo: {
             type: DataTypes.STRING,
             allowNull: false
         },

@@ -1,32 +1,57 @@
-import {Rol} from "../models/index.js";
+import {Estudiante} from "../models/index.js";
 
 
-const rolController = {
+const estudianteController = {
 
     // Obtener todos los roles
-    getAllRoles: async (req, res) => {
+    getAllEstudiantes: async (req, res) => {
         try {
-            const roles = await Rol.findAll();
-            res.status(200).json(roles);
+            const estudiantes = await Estudiante.findAll();
+            res.status(200).json(estudiantes);
         }catch (error) {
-            res.status(500).json({ error: "Error al obtener los roles" });
+            res.status(500).json({ error: "Error al obtener los estudiantes" });
         }
     },
 
-    // Crear un nuevo rol
-    createRol: async (req, res) => {
+    // Crear un nuevo estudiante
+    createEstudiante: async (req, res) => {
         try {
-            const { nombre, nivelPrivilegio, descripcion } = req.body;
-            //console.log("Datos recibidos:", { nombre, correo, contraseña });
-            const nuevoRol = await Rol.create({
+            const { id, nombre, apellido1, apellido2, fechaNacimiento, sexo } = req.body;
+
+            console.log("Datos recibidos:", { id, nombre, apellido1, apellido2, fechaNacimiento, sexo });
+            /* const nuevoEstudiante = await Estudiante.create({
+                id,
                 nombre,
-                nivelPrivilegio,
-                descripcion,
+                apellido1,
+                apellido2,
+                fechaNacimiento,
+                sexo,
             });
-            res.status(201).json(nuevoRol);
+            
+            res.status(201).json(nuevoEstudiante); */
+
+
+
+
+            const nuevoEstudiante = await Estudiante.create({
+                id,
+                nombre,
+                apellido1,
+                apellido2,
+                fechaNacimiento,
+                sexo,
+            });
+            
+            console.log("Estudiante creado:", nuevoEstudiante);
+            
+            res.status(201).json(nuevoEstudiante);
+
+
+
+
 
         } catch (error) {
-            res.status(500).json({ error: "Error al crear el rol" });
+            res.status(500).json({ error: "Error al crear el estudiante" });
             console.log(error)
         }
     },
@@ -82,4 +107,4 @@ const rolController = {
 
 };
 
-export default rolController;
+export default estudianteController;

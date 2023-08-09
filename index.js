@@ -2,6 +2,7 @@ import express from "express";
 import db from "./config/db.js";
 import usuarioRouter from "./routes/usuarioRoutes.js";
 import rolRouter from "./routes/rolRoutes.js";
+import estudianteRouter from "./routes/estudianteRoutes.js";
 
 
 
@@ -35,6 +36,7 @@ try {
 //Rutas
 app.use("/api/", usuarioRouter)
 app.use("/api/", rolRouter)
+app.use("/api/", estudianteRouter)
 
 
 //definir puerto y inicializacion del server
