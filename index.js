@@ -4,6 +4,8 @@ import usuarioRouter from "./routes/usuarioRoutes.js";
 import rolRouter from "./routes/rolRoutes.js";
 import estudianteRouter from "./routes/estudianteRoutes.js";
 
+import './tasks/actualizadorEdades.js';
+
 
 
 //Creacion de la app
