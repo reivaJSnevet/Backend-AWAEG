@@ -18,21 +18,6 @@ const estudianteController = {
         try {
             const { id, nombre, apellido1, apellido2, fechaNacimiento, sexo } = req.body;
 
-            console.log("Datos recibidos:", { id, nombre, apellido1, apellido2, fechaNacimiento, sexo });
-            /* const nuevoEstudiante = await Estudiante.create({
-                id,
-                nombre,
-                apellido1,
-                apellido2,
-                fechaNacimiento,
-                sexo,
-            });
-            
-            res.status(201).json(nuevoEstudiante); */
-
-
-
-
             const nuevoEstudiante = await Estudiante.create({
                 id,
                 nombre,
@@ -41,14 +26,8 @@ const estudianteController = {
                 fechaNacimiento,
                 sexo,
             });
-            
-            console.log("Estudiante creado:", nuevoEstudiante);
-            
+                        
             res.status(201).json(nuevoEstudiante);
-
-
-
-
 
         } catch (error) {
             res.status(500).json({ error: "Error al crear el estudiante" });

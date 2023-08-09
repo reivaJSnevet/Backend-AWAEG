@@ -39,16 +39,18 @@ const Estudiante = db.define(
         hooks:{
 
             beforeCreate: (estudiante) => {
+
                 const nacimiento = new Date(estudiante.fechaNacimiento);
                 const hoy = new Date();
-                const edadCalculada = hoy.getFullYear() - nacimiento.getFullYear();   
-                const hoySinHora = new Date(hoy.getFullYear(), hoy.getMonth(), hoy.getDate());
                 
+                let edadExacta = hoy.getFullYear() - nacimiento.getFullYear();
+              
+                // Ajustamos la edad si el cumpleaños aún no ha ocurrido este año
+                if (nacimiento.getMonth() > hoy.getMonth() || (nacimiento.getMonth() === hoy.getMonth() && nacimiento.getDate() >= hoy.getDate())) {
+                  edadExacta--;
+                }
 
-                
-                const edadAjustada = nacimiento > hoySinHora ? edadCalculada - 1 : edadCalculada;
-
-                estudiante.setDataValue('edad', edadAjustada);
+                estudiante.setDataValue('edad', edadExacta);
             },
 
         }
