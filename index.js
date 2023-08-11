@@ -4,6 +4,7 @@ import usuarioRouter from "./routes/usuarioRoutes.js";
 import rolRouter from "./routes/rolRoutes.js";
 import estudianteRouter from "./routes/estudianteRoutes.js";
 import grupoRouter from "./routes/grupoRoutes.js";
+import horarioRouter from "./routes/horarioRoutes.js";
 
 import './tasks/actualizadorEdades.js';
 
@@ -41,6 +42,7 @@ app.use("/api/", usuarioRouter)
 app.use("/api/", rolRouter)
 app.use("/api/", estudianteRouter)
 app.use("/api/", grupoRouter)
+app.use("/api/", horarioRouter)
 
 
 //definir puerto y inicializacion del server
