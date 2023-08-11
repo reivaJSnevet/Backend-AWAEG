@@ -1,6 +1,7 @@
 import Rol from "./Rol.js";
 import Usuario from "./Usuario.js";
 import Estudiante from "./Estudiante.js";
+import Grupo from "./Grupo.js";
 
 
 // Definir la relación de muchos a muchos entre Rol y Usuario
@@ -11,13 +12,19 @@ Usuario.belongsToMany(Rol, { through: 'RolUsuario' });
 Usuario.hasOne(Estudiante);   
 Estudiante.belongsTo(Usuario);
 
+//Relacion de uno a muchos entre estudiante y grupo
+Grupo.hasMany(Estudiante);
+Estudiante.belongsTo(Grupo);
+
+
 
 
 
 export {
     Rol,
     Usuario,
-    Estudiante
+    Estudiante,
+    Grupo
 }
 
 

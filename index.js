@@ -3,6 +3,7 @@ import db from "./config/db.js";
 import usuarioRouter from "./routes/usuarioRoutes.js";
 import rolRouter from "./routes/rolRoutes.js";
 import estudianteRouter from "./routes/estudianteRoutes.js";
+import grupoRouter from "./routes/grupoRoutes.js";
 
 import './tasks/actualizadorEdades.js';
 
@@ -39,6 +40,7 @@ try {
 app.use("/api/", usuarioRouter)
 app.use("/api/", rolRouter)
 app.use("/api/", estudianteRouter)
+app.use("/api/", grupoRouter)
 
 
 //definir puerto y inicializacion del server
