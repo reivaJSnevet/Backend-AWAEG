@@ -1,24 +1,20 @@
-import {Estudiante} from "../models/index.js";
-
+import estudianteRepository from "../repositories/estudianteRepository.js";
 
 const estudianteController = {
-
-    // Obtener todos los roles
+    
     getAllEstudiantes: async (req, res) => {
         try {
-            const estudiantes = await Estudiante.findAll();
+        const estudiantes = await estudianteRepository.getAll();
             res.status(200).json(estudiantes);
-        }catch (error) {
-            res.status(500).json({ error: "Error al obtener los estudiantes" });
+        } catch (error) {
+            res.status(500).json({ error: error.message });
         }
     },
 
-    // Crear un nuevo estudiante
     createEstudiante: async (req, res) => {
         try {
             const { id, nombre, apellido1, apellido2, fechaNacimiento, sexo } = req.body;
-
-            const nuevoEstudiante = await Estudiante.create({
+            const nuevoEstudiante = await estudianteRepository.create({
                 id,
                 nombre,
                 apellido1,
@@ -26,44 +22,35 @@ const estudianteController = {
                 fechaNacimiento,
                 sexo,
             });
-                        
             res.status(201).json(nuevoEstudiante);
-
         } catch (error) {
-            res.status(500).json({ error: "Error al crear el estudiante" });
-            console.log(error)
+            res.status(500).json({ error: error.message });
         }
     },
 
-    // Obtener un rol por ID
-    getRolById: async (req, res) => {
-        const { id } = req.params;
+    getEstudianteById: async (req, res) => {
         try {
-            const rol = await Rol.findByPk(id);
-        if (!rol) {
-            res.status(404).json({ error: "Rol no encontrado" });
-        } else {
-            res.status(200).json(rol);
-        }
+            const { id } = req.params;
+            const estudiante = await estudianteRepository.getById(id);
+            res.status(200).json(estudiante);
         } catch (error) {
-            res.status(500).json({ error: "Error al obtener el rol" });
+            res.status(500).json({ error: error.message });
         }
     },
 
-    // Actualizar un rol por ID
-    updateRolById: async (req, res) => {
-        const { id } = req.params;
+ 
+    updateEstudianteById: async (req, res) => {         
         try {
-            const rol = await Rol.findByPk(id);
-        if (!rol) {
-            res.status(404).json({ error: "Rol no encontrado" });
-        } else {
-            await rol.update(req.body);
-            res.status(200).json(rol);
-        }
-        } catch (error) {
-            res.status(500).json({ error: "Error al actualizar el rol" });
-        }
+            const { id } = req.params;
+            const { nombre, apellido1, apellido2, fechaNacimiento, sexo } = req.body;
+            const datos = { nombre, apellido1, apellido2, fechaNacimiento, sexo }
+
+            const estudiante = await estudianteRepository.updateById(id, datos)
+            return estudiante
+            } catch (error) {
+                 console.error("Error al actualizar estudiante:", error);
+            return res.status(500).json({ error: "Error interno del servidor." });
+            }
     },
 
     // Eliminar un rol por ID
