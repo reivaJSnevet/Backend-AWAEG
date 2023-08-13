@@ -1,10 +1,12 @@
 import express from "express";
 import db from "./config/db.js";
-import usuarioRouter from "./routes/usuarioRoutes.js";
+/* import usuarioRouter from "./routes/usuarioRoutes.js";
 import rolRouter from "./routes/rolRoutes.js";
 import estudianteRouter from "./routes/estudianteRoutes.js";
 import grupoRouter from "./routes/grupoRoutes.js";
-import horarioRouter from "./routes/horarioRoutes.js";
+import horarioRouter from "./routes/horarioRoutes.js"; */
+
+import { estudianteRoutes, grupoRoutes, horarioRoutes, rolRoutes, usuarioRoutes} from "./routes/index.js";
 
 import './tasks/actualizadorEdades.js';
 
@@ -38,11 +40,11 @@ try {
 
 
 //Rutas
-app.use("/api/", usuarioRouter)
-app.use("/api/", rolRouter)
-app.use("/api/", estudianteRouter)
-app.use("/api/", grupoRouter)
-app.use("/api/", horarioRouter)
+app.use("/api/", estudianteRoutes)
+app.use("/api/", grupoRoutes)
+app.use("/api/", horarioRoutes)
+app.use("/api/", rolRoutes)
+app.use("/api/", usuarioRoutes)
 
 
 //definir puerto y inicializacion del server
