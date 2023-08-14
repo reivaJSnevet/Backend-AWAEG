@@ -3,3 +3,4 @@ export { default as grupoRoutes } from './grupoRoutes.js';
 export { default as horarioRoutes } from './horarioRoutes.js';
 export { default as rolRoutes } from './rolRoutes.js';
 export { default as usuarioRoutes } from './usuarioRoutes.js';
+export { default as prematriculaRoutes } from './prematriculaRoutes.js';
