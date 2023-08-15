@@ -3,6 +3,10 @@ import Usuario from "./Usuario.js";
 import Estudiante from "./Estudiante.js";
 import Grupo from "./Grupo.js";
 import Horario from "./Horario.js";
+import Prematricula from "./Prematricula.js";
+
+
+
 
 
 // Definir la relación de muchos a muchos entre Rol y Usuario
@@ -21,6 +25,8 @@ Estudiante.belongsTo(Grupo);
 Grupo.hasOne(Horario);
 Horario.belongsTo(Grupo);
 
+//Relacion de uno a uno entre prematricula y estudiante
+
 
 
 export {
@@ -28,5 +34,8 @@ export {
     Usuario,
     Estudiante,
     Grupo,
-    Horario
+    Horario,
+    Prematricula, 
+
+
 }
