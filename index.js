@@ -1,11 +1,5 @@
 import express from "express";
 import db from "./config/db.js";
-/* import usuarioRouter from "./routes/usuarioRoutes.js";
-import rolRouter from "./routes/rolRoutes.js";
-import estudianteRouter from "./routes/estudianteRoutes.js";
-import grupoRouter from "./routes/grupoRoutes.js";
-import horarioRouter from "./routes/horarioRoutes.js"; */
-
 import { estudianteRoutes, grupoRoutes, horarioRoutes, rolRoutes, usuarioRoutes} from "./routes/index.js";
 
 import './tasks/actualizadorEdades.js';
@@ -28,7 +22,7 @@ try {
     console.log('Conexion Correcta a la Base de datos ')
 
     try{
-       db.sync() 
+       db.sync({force: false})
     }catch(error){
         console.log(error)
     }
