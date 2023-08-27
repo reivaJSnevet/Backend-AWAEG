@@ -13,7 +13,7 @@ const estudianteController = {
 
     createEstudiante: async (req, res) => {
         try {
-            const { id, nombre, apellido1, apellido2, fechaNacimiento, sexo } = req.body;
+            const { id, nombre, apellido1, apellido2, fechaNacimiento, sexo, direccion } = req.body;
             const nuevoEstudiante = await estudianteRepository.create({
                 id,
                 nombre,
@@ -21,6 +21,7 @@ const estudianteController = {
                 apellido2,
                 fechaNacimiento,
                 sexo,
+                direccion,
             });
             res.status(201).json(nuevoEstudiante);
         } catch (error) {

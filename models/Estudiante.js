@@ -32,6 +32,10 @@ const Estudiante = db.define(
         sexo: {
             type: DataTypes.BOOLEAN,
             allowNull: true
+        },
+        direccion:{
+            type: DataTypes.STRING,
+            allowNull: false
         }
 
     },

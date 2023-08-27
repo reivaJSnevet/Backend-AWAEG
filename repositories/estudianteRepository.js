@@ -1,11 +1,16 @@
 import { Estudiante } from "../models/index.js";
+import GenericRepository from "./genericRepository.js";
+
+
+const estudianteRepo = new GenericRepository(Estudiante);
 
 const estudianteRepository = {
     getAll: async () => {
         try {
-            return await Estudiante.findAll();
+            const estudiantes = await estudianteRepo.getAll();
+            console.log('Estudiantes:', estudiantes);
         } catch (error) {
-            throw new Error("Error al obtener los estudiantes");
+            console.log(error);
         }
     },
 
@@ -13,7 +18,7 @@ const estudianteRepository = {
         try {
             return await Estudiante.create(estudianteData);
         } catch (error) {
-            throw new Error("Error al crear el estudiante");
+            console.log(error);
         }
     },
 
@@ -25,7 +30,7 @@ const estudianteRepository = {
             }
             return estudiante;
         } catch (error) {
-            throw new Error("Error al obtener el estudiante");
+            console.log(error);
         }
     },
 
@@ -38,7 +43,7 @@ const estudianteRepository = {
             await estudiante.update(updatedData);
             return estudiante;
         } catch (error) {
-            throw new Error("Error al actualizar el estudiante");
+            console.log(error);
         } 
     },
 
@@ -51,7 +56,7 @@ const estudianteRepository = {
             await estudiante.destroy();
             return true;
         } catch (error) {
-            throw new Error("Error al eliminar el estudiante");
+            console.log(error);
         }
     },
 };
