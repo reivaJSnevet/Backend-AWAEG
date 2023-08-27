@@ -5,7 +5,6 @@ import { estudianteRoutes, grupoRoutes, horarioRoutes, rolRoutes, usuarioRoutes}
 import './tasks/actualizadorEdades.js';
 
 
-
 //Creacion de la app
 const app = express()
 
@@ -16,20 +15,19 @@ app.use( express.urlencoded({ extended: true }))
 app.use(express.json());
 
 //Conexion a la Base de datos
-try {
-    
+try {  
     await db.authenticate();
     console.log('Conexion Correcta a la Base de datos ')
 
     try{
-       db.sync({force: false})
+       await db.sync({force: false})
+       console.log('Sincronización en la Base de datos exitosa')
     }catch(error){
-        console.log(error)
+        console.log('Error en la sincronización de la Base de datos:', error)
     }
-    
-    
+
 } catch (error) {
-    console.log(error)
+    console.log('Error en la conexión a la Base de datos:', error)
 }
 
 

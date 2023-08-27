@@ -1,6 +1,45 @@
 import { Rol } from "../models/index.js";
 
-class rolRepository{
+const rolRepository = {
+
+    crear: async (rol) =>{
+        try {
+            return await Rol.create(rol)
+        } catch (error) {
+            console.log(error)
+        }
+    },
+
+    obtenerTodos: async () => {
+            return await Rol.findAll()
+    },
+
+    obtenerPorId: async (id) => {
+        return await Rol.findByPk(id)
+    },
+
+    actualizar: async (id, nuevosDatos) => {
+        const rol = await Rol.findByPk(id)
+        
+        return await rol.update(nuevosDatos)
+    },
+
+    borrar: async (id) => {
+        return await Rol.destroy({
+            where: {id},
+        })
+    }
+}
+
+
+export default rolRepository
+
+
+
+
+//Manera usando clases en vez de objetos literales
+
+/* class rolRepository{
 
     async crear(nombre, nivelPrivilegio, descripcion){
         return await Rol.create({
@@ -35,4 +74,4 @@ class rolRepository{
     }
 }
 
-export default new rolRepository()
+export default new rolRepository() */
