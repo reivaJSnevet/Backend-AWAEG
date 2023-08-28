@@ -4,7 +4,9 @@ import Estudiante from "./Estudiante.js";
 import Grupo from "./Grupo.js";
 import Horario from "./Horario.js";
 import Prematricula from "./Prematricula.js";
-
+import Funcionario from "./Funcionario.js";
+import Encargado from "./Encargado.js";
+import Nota from "./Nota.js";
 
 
 
@@ -25,7 +27,10 @@ Estudiante.belongsTo(Grupo);
 Grupo.hasOne(Horario);
 Horario.belongsTo(Grupo);
 
-//Relacion de uno a uno entre prematricula y estudiante
+
+
+
+
 
 
 
@@ -36,6 +41,8 @@ export {
     Grupo,
     Horario,
     Prematricula, 
-
+    Funcionario,
+    Encargado,
+    Nota
 
 }

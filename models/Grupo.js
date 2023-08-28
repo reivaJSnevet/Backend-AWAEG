@@ -25,6 +25,9 @@ const Grupo = db.define(
             type: DataTypes.INTEGER,
             allowNull: false
         },
+        turno: {
+            type: DataTypes.BOOLEAN
+        }
     }
 
 );

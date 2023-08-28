@@ -1,12 +1,12 @@
 import { DataTypes } from "sequelize";
-import db from "../config/db.js";
+import db  from "../config/db.js";
 
-const Funcionario = db.define(
-    'funcionarios',
+const Encargado = db.define(
+    'encargados',
     {
         id: {
             type: DataTypes.INTEGER,
-            allowNull: false, 
+            allowNull: false,
             primaryKey: true
         },
         nombre: {
@@ -20,20 +20,8 @@ const Funcionario = db.define(
         apellido2: {
             type: DataTypes.STRING,
             allowNull: false
-        },
-        fechaNacimiento: {
-            type: DataTypes.DATEONLY,
-            allowNull: false
-        },
-        edad: {
-            type: DataTypes.INTEGER,
-            allowNull: true
-        },
-        sexo: {
-            type: DataTypes.STRING,
-            allowNull: true
         }
     }
 );
 
-export default Funcionario;
+export default Encargado;

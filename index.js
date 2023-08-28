@@ -6,7 +6,7 @@ import estudianteRouter from "./routes/estudianteRoutes.js";
 import grupoRouter from "./routes/grupoRoutes.js";
 import horarioRouter from "./routes/horarioRoutes.js"; */
 
-import { estudianteRoutes, grupoRoutes, horarioRoutes, rolRoutes, usuarioRoutes, prematriculaRoutes} from "./routes/index.js";
+import { estudianteRoutes, grupoRoutes, horarioRoutes, rolRoutes, usuarioRoutes, prematriculaRoutes, funcionarioRoutes, encargadoRoutes, notasRoutes} from "./routes/index.js";
 
 import './tasks/actualizadorEdades.js';
 
@@ -46,6 +46,9 @@ app.use("/api/", horarioRoutes)
 app.use("/api/", rolRoutes)
 app.use("/api/", usuarioRoutes)
 app.use("/api/", prematriculaRoutes)
+app.use("/api/", funcionarioRoutes)
+app.use("/api/", encargadoRoutes)
+app.use("/api/", notasRoutes)
 
 
 //definir puerto y inicializacion del server
