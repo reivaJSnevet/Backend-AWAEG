@@ -16,16 +16,10 @@ const grupoController = {
     // Crear un nuevo grupo
     crearGrupo: async (req, res) => {
         try {
-            const { seccion, ciclo, grado, aula, cantAlumno, turno} = req.body;
+            const { seccion, ciclo, grado, aula, cantAlumno, turno, profesorGuia} = req.body;
+            const datos = {seccion, ciclo, grado, aula, cantAlumno, turno, profesorGuia}
 
-            const nuevoGrupo = await grupoServices.crearGrupo({
-                seccion,
-                ciclo,
-                grado,
-                aula,
-                cantAlumno,
-                turno
-            });
+            const nuevoGrupo = await grupoServices.crearGrupo(datos);
                         
             res.status(201).json(nuevoGrupo);
 

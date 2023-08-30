@@ -27,8 +27,21 @@ Estudiante.belongsTo(Grupo);
 Grupo.hasOne(Horario);
 Horario.belongsTo(Grupo);
 
+//Relacion de uno a uno de funcionario y usuario
+Usuario.hasOne(Funcionario);
+Funcionario.belongsTo(Usuario);
 
+//Relacion de uno a muchos entre Nota y Funcionario
+Funcionario.hasMany(Nota);
+Nota.belongsTo(Funcionario);
 
+//Relacion de uno a muchos entre  Grupo y Funcionario
+Funcionario.hasMany(Grupo, { foreignKey: 'ProfesorGuia'});
+Grupo.belongsTo(Funcionario, { foreignKey: 'ProfesorGuia'});
+
+//Relacion de una a muchos entre Estudiantes y Encargados
+Encargado.hasMany(Estudiante);
+Estudiante.belongsTo(Encargado);
 
 
 

@@ -17,16 +17,10 @@ const funcionarioController = {
     //Crear un nuevo funcionario
     createFuncionario: async (req, res) => {
         try {
-            const { id, nombre, apellido1, apellido2, fechaNacimiento, sexo } = req.body;
+            const { id, nombre, apellido1, apellido2, fechaNacimiento, sexo, usuarioId } = req.body;
+            const datos = {id, nombre, apellido1, apellido2, fechaNacimiento, sexo, usuarioId};
 
-            const nuevoFuncionario = await funcionarioService.crearFuncionario({
-                id,
-                nombre,
-                apellido1,
-                apellido2,
-                fechaNacimiento,
-                sexo
-            });
+            const nuevoFuncionario = await funcionarioService.crearFuncionario(datos);
                         
             res.status(201).json(nuevoFuncionario);
 

@@ -17,15 +17,9 @@ const estudianteController = {
     createEstudiante: async (req, res) => {
         try {
             const { id, nombre, apellido1, apellido2, fechaNacimiento, sexo } = req.body;
+            const datos = {id, nombre, apellido1, apellido2, fechaNacimiento, sexo, encargadoId};
 
-            const nuevoEstudiante = await Estudiante.create({
-                id,
-                nombre,
-                apellido1,
-                apellido2,
-                fechaNacimiento,
-                sexo,
-            });
+            const nuevoEstudiante = await Estudiante.create(datos);
                         
             res.status(201).json(nuevoEstudiante);
 
