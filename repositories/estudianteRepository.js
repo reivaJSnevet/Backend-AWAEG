@@ -1,62 +1,65 @@
 import { Estudiante } from "../models/index.js";
-import GenericRepository from "./genericRepository.js";
+/* import GenericRepository from "./genericRepository.js"; */
 
-
-const estudianteRepo = new GenericRepository(Estudiante);
+//posible implementacion de genericRepositoty
+/* const estudianteRepo = new GenericRepository(Estudiante) */
 
 const estudianteRepository = {
-    getAll: async () => {
+
+    crear: async (estudianteData) => {
         try {
-            const estudiantes = await estudianteRepo.getAll();
-            console.log('Estudiantes:', estudiantes);
+            return await Estudiante.create(estudianteData)
         } catch (error) {
             console.log(error);
         }
     },
 
-    create: async (estudianteData) => {
+    obtenerTodos: async () => {
         try {
-            return await Estudiante.create(estudianteData);
+            return await Estudiante.findAll()
+            /* const estudiantes = await estudianteRepo.getAll();
+            console.log('Estudiantes:', estudiantes); */
         } catch (error) {
             console.log(error);
         }
     },
 
-    getById: async (id) => {
+    obtenerPorId: async (id) => {
         try {
-            const estudiante = await Estudiante.findByPk(id);
+            const estudiante = await Estudiante.findByPk(id)
             if (!estudiante) {
-                throw new Error("Estudiante no encontrado");
+                throw new Error("Estudiante no encontrado")
             }
-            return estudiante;
+            return estudiante
         } catch (error) {
-            console.log(error);
+            console.log(error)
         }
     },
 
-    updateById: async (id, updatedData) => {
+    actualizar: async (id, nuevosDatos) => {
         try {
-            const estudiante = await Estudiante.findByPk(id);
+            const estudiante = await Estudiante.findByPk(id)
             if (!estudiante) {
-                throw new Error("Estudiante no encontrado");
+                throw new Error("Estudiante no encontrado")
             }
-            await estudiante.update(updatedData);
-            return estudiante;
+            await estudiante.update(nuevosDatos)
+            return estudiante
         } catch (error) {
-            console.log(error);
+            console.log(error)
         } 
     },
 
-    deleteById: async (id) => {
+    borrar: async (id) => {
         try {
-            const estudiante = await Estudiante.findByPk(id);
+            const estudiante = await Estudiante.findByPk(id)
             if (!estudiante) {
-                throw new Error("Estudiante no encontrado");
+                throw new Error("Estudiante no encontrado")
             }
-            await estudiante.destroy();
-            return true;
+        return await Estudiante.destroy({
+            where: {id},
+        })
         } catch (error) {
-            console.log(error);
+            console.log(error)
         }
     },
 };
