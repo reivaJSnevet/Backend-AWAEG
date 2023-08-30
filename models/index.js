@@ -24,8 +24,9 @@ Grupo.hasMany(Estudiante);
 Estudiante.belongsTo(Grupo);
 
 //Relaciones de uno a uno entre grupo y horario
-Grupo.hasOne(Horario);
-Horario.belongsTo(Grupo);
+Horario.hasOne(Grupo);
+Grupo.belongsTo(Horario);
+
 
 //Relacion de uno a uno de funcionario y usuario
 Usuario.hasOne(Funcionario);

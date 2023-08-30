@@ -4,18 +4,17 @@ import db from "../config/db.js";
 const Horario = db.define(
     'horarios',
     {
-        cicloLectivo: {
-            type: DataTypes.STRING,
-            allowNull: false
+        idHorario: {
+            type: DataTypes.INTEGER,
+            autoIncrement: true,
+            primaryKey: true
         },
-        provicional: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false
+        provisional: {
+            type: DataTypes.BOOLEAN
         },
-        turno: {
-            type: DataTypes.STRING,
-            allowNull: false
-        },
+        habilitado: {
+            type: DataTypes.BOOLEAN
+        }
     }
 
 );
