@@ -1,52 +1,14 @@
-import { Usuario, Rol } from "../models/index.js";
+import usuarioService from "../services/usuarioService.js";
 
 const usuarioController = {
-
-    // Obtener todos los usuarios
-    getAllUsuarios: async (req, res) => {
-        try {
-            const usuarios = await Usuario.findAll();
-            const usuariosRoles = []
-            
-            for (const usuario of usuarios) {
-                const roles = await usuario.getRoles();
-                usuariosRoles.push({
-                    id: usuario.id,
-                    nombre: usuario.nombre,
-                    correo: usuario.correo,
-                    contraseña: usuario.contraseña,
-                    roles: roles
-                });
-            }
-
-            res.status(200).json(usuariosRoles);
-        } catch (error) {
-      res.status(500).json({ error: "Error al obtener los usuarios" });
-      console.log(error)
-    }
-  },
-
+    
     // Crear un nuevo usuario
     createUsuario: async (req, res) => {
         try {
-            const { nombre, correo, contraseña, idRol } = req.body;
-           /*console.log("Datos recibidos:", { nombre, correo, contraseña, idRol }); */
+            const { nombre, correo, contraseña, roleId } = req.body;
+            const datos = { nombre, correo, contraseña, roleId }
 
-            const nuevoUsuario = await Usuario.create({
-                nombre,
-                correo,
-                contraseña,
-            });
-
-            if (idRol) {
-                // Buscar el rol según el idRol proporcionado
-                const rol = await Rol.findByPk(idRol);
-    
-                if (rol) {
-                    // Agregar el rol al usuario
-                    await nuevoUsuario.addRoles([rol]);
-                }
-            }
+            const nuevoUsuario = await usuarioService.crearUsuario(datos)
             res.status(201).json(nuevoUsuario);
 
         } catch (error) {
@@ -55,26 +17,28 @@ const usuarioController = {
         }
     },
 
+    // Obtener todos los usuarios
+    getAllUsuarios: async (req, res) => {
+        try {
+            const usuarios = await usuarioService.obtenerTodosUsuario()
+            res.status(200).json(usuarios);
+        } catch (error) {
+            res.status(500).json({ error: "Error al obtener los usuarios" });
+            console.log(error)
+        }
+  },
+
   // Obtener un usuario por ID
     getUsuarioById: async (req, res) => {
         const { id } = req.params;
 
         try {
-
-            const usuario = await Usuario.findByPk(id);
+            const usuario = await usuarioService.obtenerUsuarioPorId(id)
             
             if (!usuario) {
                 res.status(404).json({ error: "Usuario no encontrado" });
             } else {
-                const roles = await usuario.getRoles()
-                const usuarioRoles = {
-                    id: usuario.id,
-                    nombre: usuario.nombre,
-                    correo: usuario.correo,
-                    contraseña: usuario.contraseña,
-                    roles: roles
-                }
-                res.status(200).json(usuarioRoles);
+                res.status(200).json(usuario);
             }
 
         } catch (error) {
@@ -87,13 +51,13 @@ const usuarioController = {
     updateUsuarioById: async (req, res) => {
         const { id } = req.params;
         try {
-            const usuario = await Usuario.findByPk(id);
-        if (!usuario) {
-            res.status(404).json({ error: "Usuario no encontrado" });
-        } else {
-            await usuario.update(req.body);
-            res.status(200).json(usuario);
-        }
+            const usuario = await usuarioService.obtenerUsuarioPorId(id);
+            if (!usuario) {
+                res.status(404).json({ error: "Usuario no encontrado" });
+            } else {
+                await usuarioService.actualizarUsuario(id)
+                res.status(200).json(usuario);
+            }
         } catch (error) {
             res.status(500).json({ error: "Error al actualizar el usuario" });
         }
@@ -103,13 +67,14 @@ const usuarioController = {
     deleteUsuarioById: async (req, res) => {
         const { id } = req.params;
         try {
-            const usuario = await Usuario.findByPk(id);
-        if (!usuario) {
-            res.status(404).json({ error: "Usuario no encontrado" });
-        } else {
-            await usuario.destroy();
-            res.status(200).json({ message: "Usuario eliminado correctamente" });
-        }
+            const usuario = await usuarioService.obtenerUsuarioPorId(id);
+
+            if (!usuario) {
+                res.status(404).json({ error: "Usuario no encontrado" });
+            } else {
+                await usuarioService.borrarUsuario(id);
+                res.status(200).json({ message: "Usuario eliminado correctamente" });
+            }
         } catch (error) {
             res.status(500).json({ error: "Error al eliminar el usuario" });
         }

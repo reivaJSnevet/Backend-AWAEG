@@ -1,15 +1,9 @@
 import express from "express";
 import db from "./config/db.js";
-/* import usuarioRouter from "./routes/usuarioRoutes.js";
-import rolRouter from "./routes/rolRoutes.js";
-import estudianteRouter from "./routes/estudianteRoutes.js";
-import grupoRouter from "./routes/grupoRoutes.js";
-import horarioRouter from "./routes/horarioRoutes.js"; */
+import { estudianteRoutes, grupoRoutes, horarioRoutes, rolRoutes, usuarioRoutes, Prematricula} from "./routes/index.js";
 
-import { estudianteRoutes, grupoRoutes, horarioRoutes, rolRoutes, usuarioRoutes, prematriculaRoutes} from "./routes/index.js";
 
 import './tasks/actualizadorEdades.js';
-
 
 
 //Creacion de la app
@@ -22,20 +16,19 @@ app.use( express.urlencoded({ extended: true }))
 app.use(express.json());
 
 //Conexion a la Base de datos
-try {
-    
+try {  
     await db.authenticate();
     console.log('Conexion Correcta a la Base de datos ')
 
     try{
-       db.sync() 
+       await db.sync({force: false})
+       console.log('Sincronización en la Base de datos exitosa')
     }catch(error){
-        console.log(error)
+        console.log('Error en la sincronización de la Base de datos:', error)
     }
-    
-    
+
 } catch (error) {
-    console.log(error)
+    console.log('Error en la conexión a la Base de datos:', error)
 }
 
 

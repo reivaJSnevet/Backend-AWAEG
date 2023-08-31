@@ -1,88 +1,82 @@
-import {Estudiante} from "../models/index.js";
-
+import estudianteService from "../services/estudianteService.js";
 
 const estudianteController = {
-
-    // Obtener todos los roles
-    getAllEstudiantes: async (req, res) => {
-        try {
-            const estudiantes = await Estudiante.findAll();
-            res.status(200).json(estudiantes);
-        }catch (error) {
-            res.status(500).json({ error: "Error al obtener los estudiantes" });
-        }
-    },
-
-    // Crear un nuevo estudiante
+    
     createEstudiante: async (req, res) => {
         try {
-            const { id, nombre, apellido1, apellido2, fechaNacimiento, sexo } = req.body;
-
-            const nuevoEstudiante = await Estudiante.create({
+            const { id, nombre, apellido1, apellido2, fechaNacimiento, sexo, direccion, usuarioId } = req.body;
+            
+            const nuevoEstudiante = await estudianteService.crearEstudiante({
                 id,
                 nombre,
                 apellido1,
                 apellido2,
                 fechaNacimiento,
                 sexo,
+                direccion,
+                usuarioId
             });
-                        
             res.status(201).json(nuevoEstudiante);
-
         } catch (error) {
-            res.status(500).json({ error: "Error al crear el estudiante" });
-            console.log(error)
+            if (error.errors) {
+                const erroresValidacion = error.errors.map(err => err.message);
+                res.status(400).json({ errores: erroresValidacion });
+              } else {
+                res.status(500).json({ error: "Error al crear el rol" });
+              };
+        }
+    },
+    
+    getAllEstudiantes: async (req, res) => {
+        try {
+        const estudiantes = await estudianteService.obtenerTodosEstudiante();
+            res.status(200).json(estudiantes);
+        } catch (error) {
+            res.status(500).json({ error: error.message });
         }
     },
 
-    // Obtener un rol por ID
-    getRolById: async (req, res) => {
-        const { id } = req.params;
+    
+    getEstudianteById: async (req, res) => {
         try {
-            const rol = await Rol.findByPk(id);
-        if (!rol) {
-            res.status(404).json({ error: "Rol no encontrado" });
-        } else {
-            res.status(200).json(rol);
-        }
+            const { id } = req.params;
+            const estudiante = await estudianteService.obtenerEstudiantelPorId(id);
+            res.status(200).json(estudiante);
         } catch (error) {
-            res.status(500).json({ error: "Error al obtener el rol" });
+            res.status(500).json({ error: error.message });
         }
     },
 
-    // Actualizar un rol por ID
-    updateRolById: async (req, res) => {
-        const { id } = req.params;
+ 
+    updateEstudianteById: async (req, res) => {         
         try {
-            const rol = await Rol.findByPk(id);
-        if (!rol) {
-            res.status(404).json({ error: "Rol no encontrado" });
-        } else {
-            await rol.update(req.body);
-            res.status(200).json(rol);
-        }
-        } catch (error) {
-            res.status(500).json({ error: "Error al actualizar el rol" });
-        }
+            const { id } = req.params;
+            const { nombre, apellido1, apellido2, fechaNacimiento, sexo } = req.body;
+            const datos = { nombre, apellido1, apellido2, fechaNacimiento, sexo }
+
+            const estudiante = await estudianteRepository.updateById(id, datos)
+            return estudiante
+            } catch (error) {
+                 console.error("Error al actualizar estudiante:", error);
+            return res.status(500).json({ error: "Error interno del servidor." });
+            }
     },
 
     // Eliminar un rol por ID
-    deleteRolById: async (req, res) => {
+    deleteEstudianteById: async (req, res) => {
         const { id } = req.params;
         try {
-            const rol = await Rol.findByPk(id);
-        if (!rol) {
-            res.status(404).json({ error: "Rol no encontrado" });
+            const estudiante = estudianteService.obtenerEstudiantelPorId(id);
+        if (!estudiante) {
+            res.status(404).json({ error: "estudiante no encontrado" });
         } else {
-            await rol.destroy();
-            res.status(200).json({ message: "Rol eliminado correctamente" });
+            await estudianteService.borrarEstudiante(id)
+            res.status(200).json({ message: "estudiante eliminado correctamente" });
         }
         } catch (error) {
-            res.status(500).json({ error: "Error al eliminar el Rol" });
+            res.status(500).json({ error: "Error al eliminar el estudiante" });
         }
     },
-
-
 
 };
 
