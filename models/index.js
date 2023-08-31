@@ -4,6 +4,7 @@ import Estudiante from "./Estudiante.js";
 import Encargado from "./Encargado.js";
 import Grupo from "./Grupo.js";
 import Horario from "./Horario.js";
+import Prematricula from "./Prematricula.js";
 import Clase from "./Clase.js";
 import Nota from "./Nota.js";
 
@@ -49,5 +50,5 @@ export {
     Horario,
     Prematricula,
     Clase,
-    Nota
+    Nota,
 }

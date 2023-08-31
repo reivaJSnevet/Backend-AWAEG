@@ -5,7 +5,7 @@ const Clase = db.define(
     'clases',
     {
         dia: {
-            type: DataTypes.STRING,
+            type: DataTypes.DATE,
             allowNull: false
         },
         horaInicio: {
@@ -15,6 +15,9 @@ const Clase = db.define(
         horaSalida: {
             type: DataTypes.TIME,
             allowNull: false
+        },
+        leccion: {
+            type: DataTypes.CHAR,
         },
     }
 

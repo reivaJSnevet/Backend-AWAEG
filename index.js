@@ -1,6 +1,7 @@
 import express from "express";
+import cors from "cors"
 import db from "./config/db.js";
-import { estudianteRoutes, grupoRoutes, horarioRoutes, rolRoutes, usuarioRoutes, Prematricula} from "./routes/index.js";
+import { estudianteRoutes, grupoRoutes, horarioRoutes, rolRoutes, usuarioRoutes, prematriculaRoutes} from "./routes/index.js";
 
 
 import './tasks/actualizadorEdades.js';
@@ -8,6 +9,15 @@ import './tasks/actualizadorEdades.js';
 
 //Creacion de la app
 const app = express()
+
+
+//habilitar CORS
+const corsOptions = {
+    origin: ['http://localhost:5173'],
+    optionsSuccessStatus: 200
+  }
+
+app.use(cors(corsOptions))
 
 //habilitar lectura de datos de en la soliccitud URL 
 app.use( express.urlencoded({ extended: true }))
