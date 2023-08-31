@@ -2,6 +2,7 @@ import express from "express";
 import db from "./config/db.js";
 import { estudianteRoutes, grupoRoutes, horarioRoutes, rolRoutes, usuarioRoutes, Prematricula} from "./routes/index.js";
 
+
 import './tasks/actualizadorEdades.js';
 
 
@@ -37,6 +38,7 @@ app.use("/api/", grupoRoutes)
 app.use("/api/", horarioRoutes)
 app.use("/api/", rolRoutes)
 app.use("/api/", usuarioRoutes)
+app.use("/api/", prematriculaRoutes)
 
 
 //definir puerto y inicializacion del server

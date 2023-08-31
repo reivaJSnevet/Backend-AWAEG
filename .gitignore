@@ -4,8 +4,12 @@
 npm-debug.log
 yarn-error.log
 
+#recordatorios del Dyllan
+Memory.txt
+
 # Archivos de configuración
 .env
+
 
 # Archivos generados por IDEs
 .vscode/

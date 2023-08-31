@@ -36,6 +36,8 @@ Clase.belongsTo(Horario);
 Clase.hasMany(Nota);
 Nota.belongsTo(Clase);
 
+//Relacion de uno a uno entre prematricula y estudiante
+
 
 
 export {
