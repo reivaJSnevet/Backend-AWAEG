@@ -8,19 +8,17 @@ const estudianteRepository = {
 
     crear: async (estudianteData) => {
         try {
-            return await Estudiante.create(estudianteData)
+          return await Estudiante.create(estudianteData);
         } catch (error) {
-            console.log(error);
+            throw error // Propaga el error para que sea manejado en los controladores
         }
-    },
+      },
 
     obtenerTodos: async () => {
         try {
             return await Estudiante.findAll()
-            /* const estudiantes = await estudianteRepo.getAll();
-            console.log('Estudiantes:', estudiantes); */
         } catch (error) {
-            console.log(error);
+            throw error
         }
     },
 
@@ -32,7 +30,7 @@ const estudianteRepository = {
             }
             return estudiante
         } catch (error) {
-            console.log(error)
+            throw error
         }
     },
 
@@ -45,8 +43,8 @@ const estudianteRepository = {
             await estudiante.update(nuevosDatos)
             return estudiante
         } catch (error) {
-            console.log(error)
-        } 
+            throw error
+        }
     },
 
     borrar: async (id) => {
@@ -59,7 +57,7 @@ const estudianteRepository = {
             where: {id},
         })
         } catch (error) {
-            console.log(error)
+            throw error
         }
     },
 };

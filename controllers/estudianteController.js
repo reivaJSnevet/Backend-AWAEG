@@ -18,7 +18,12 @@ const estudianteController = {
             });
             res.status(201).json(nuevoEstudiante);
         } catch (error) {
-            res.status(500).json({ error: error.message });
+            if (error.errors) {
+                const erroresValidacion = error.errors.map(err => err.message);
+                res.status(400).json({ errores: erroresValidacion });
+              } else {
+                res.status(500).json({ error: "Error al crear el rol" });
+              };
         }
     },
     

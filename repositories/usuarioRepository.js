@@ -3,39 +3,61 @@ import { Rol, Usuario } from "../models/index.js";
 const usuarioRepository = {
 
     crear: async (usuario) =>{
-        const nuevoUsuario = await Usuario.create(usuario)
-        return nuevoUsuario
+        try {
+            const nuevoUsuario = await Usuario.create(usuario)
+            return nuevoUsuario
+        } catch (error) {
+            throw error
+        }
     },
 
     obtenerTodos: async () => {
-            return await Usuario.findAll({
+        try {
+           return await Usuario.findAll({
                 attributes: ['nombre', 'correo', 'contraseña'],
                 include: [{
                     model: Rol,
                     attributes:['nombre']
                 }]
             })
+        } catch (error) {
+            throw error
+        }  
     },
 
     obtenerPorId: async (id) => {
-        return await Usuario.findByPk(id, {
-            attributes: ['nombre', 'correo', 'contraseña'],
-            include: [{
-                model: Rol,
-                attributes:['nombre']
-            }]
-        })
+        try {
+            return await Usuario.findByPk(id, {
+                attributes: ['nombre', 'correo', 'contraseña'],
+                include: [{
+                    model: Rol,
+                    attributes:['nombre']
+                }]
+            })            
+        } catch (error) {
+            throw error
+        }
+
     },
 
     actualizar: async (id, nuevosDatos) => {
-        const rol = await Usuario.findByPk(id)
-        return await rol.update(nuevosDatos)
+        try {
+            const rol = await Usuario.findByPk(id)
+            return await rol.update(nuevosDatos)            
+        } catch (error) {
+            throw error
+        }
+
     },
 
     borrar: async (id) => {
-        return await Usuario.destroy({
-            where: {id},
-        })
+        try {
+            return await Usuario.destroy({
+                where: {id},
+            })            
+        } catch (error) {
+            throw error
+        }
     }
 }
 

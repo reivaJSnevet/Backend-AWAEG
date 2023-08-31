@@ -6,28 +6,47 @@ const rolRepository = {
         try {
             return await Rol.create(rol)
         } catch (error) {
-            console.log(error)
+            throw error
         }
     },
 
     obtenerTodos: async () => {
+        try {
             return await Rol.findAll()
+        } catch (error) {
+            throw error
+        }
+            
     },
 
     obtenerPorId: async (id) => {
-        return await Rol.findByPk(id)
+        try {
+            return await Rol.findByPk(id)
+        } catch (error) {
+            throw error
+        }
+        
     },
 
     actualizar: async (id, nuevosDatos) => {
-        const rol = await Rol.findByPk(id)
-        
-        return await rol.update(nuevosDatos)
+        try {
+            const rol = await Rol.findByPk(id)
+            return await rol.update(nuevosDatos)
+        } catch (error) {
+            throw error
+        }
+
     },
 
     borrar: async (id) => {
-        return await Rol.destroy({
-            where: {id},
-        })
+        try {
+            return await Rol.destroy({
+                where: {id},
+            })
+        } catch (error) {
+            throw error
+        }
+
     }
 }
 
