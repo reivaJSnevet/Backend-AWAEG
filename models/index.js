@@ -45,6 +45,7 @@ export {
     Encargado,
     Grupo,
     Horario,
+    Prematricula,
     Clase,
     Nota
 }

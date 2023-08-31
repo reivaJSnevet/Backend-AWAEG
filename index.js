@@ -1,6 +1,6 @@
 import express from "express";
 import db from "./config/db.js";
-import { estudianteRoutes, grupoRoutes, horarioRoutes, rolRoutes, usuarioRoutes} from "./routes/index.js";
+import { estudianteRoutes, grupoRoutes, horarioRoutes, rolRoutes, usuarioRoutes, Prematricula} from "./routes/index.js";
 
 import './tasks/actualizadorEdades.js';
 
