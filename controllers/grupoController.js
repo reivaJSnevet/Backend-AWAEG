@@ -1,3 +1,4 @@
+import grupoService from "../services/grupoServices.js";
 import grupoServices from "../services/grupoServices.js";
 
 
@@ -17,34 +18,38 @@ const grupoController = {
     crearGrupo: async (req, res) => {
         try {
             const { seccion, ciclo, grado, aula, cantAlumno, turno, horarioId,profesorGuia} = req.body;
-            const datos = {seccion, ciclo, grado, aula, cantAlumno, turno, horarioId,profesorGuia}
-
-            const nuevoGrupo = await grupoServices.crearGrupo(datos);
+            const nuevoGrupo = await grupoServices.crearGrupo({
+                seccion,
+                ciclo,
+                grado,
+                aula,
+                cantAlumno,
+                turno,
+                horarioId,
+                profesorGuia
+            });
                         
             res.status(201).json(nuevoGrupo);
 
         } catch (error) {
-            res.status(500).json({ error: "Error al crear el grupo" });
-            console.log(error)
-        }
+            if (error.errors) {
+                 const erroresValidacion = error.errors.map(err => err.message);
+                 res.status(400).json({ errores: erroresValidacion});
+            } else {
+             res.status(500).json({ error: "Error al crear el grupo"})
+            };
+         }
     },
 
 
     //encontrar grupo por seccion
     obtenerGrupo: async(req, res) => {
-        const { seccion } = req.params;
-        
         try {
-            const grupo = await grupoServices.obtenerGrupoPorId(seccion);
-
-            
-        if (!grupo) {
-            res.status(404).json({ error: "Grupo no encontrado" });
-        } else {
-                res.status(200).json(grupo);
-        }
+            const { seccion } = req.params;
+            const grupo = await grupoServices.actualizarGrupo(seccion);
+            res.status(200).json(grupo);
         } catch (error) {
-            res.status(500).json({ error: "Error al obtener el grupo" });
+            res.status(500).json({ error: error.message });
         }
     },
 
@@ -54,26 +59,31 @@ const grupoController = {
         try{
             const { seccion } = req.params;
             const { ciclo, grado, aula, cantAlumno, turno} = req.body;
-    
-            await grupoServices.actualizarGrupo(seccion, {ciclo, grado, aula, cantAlumno, turno});
-            res.json({message: "Grupo actualizado con exito!"});
-    
-          }catch (error) {
-                res.status(500).json({error: "Error al actualizar el grupo"});
-          }
+            const datos = { ciclo, grado, aula, cantAlumno, turno }
+
+            const grupo = await grupoServices.actualizarGrupo(seccion, datos)
+            return grupo
+            } catch (error) {
+                 console.error("Error al actualizar el grupo:", error);
+            return res.status(500).json({ error: "Error interno del servidor." });
+            }
     },
 
     //eliminar Grupo
 
     eliminarGrupo: async (req, res) => {
-        try{
             const { seccion } = req.params;
-            await grupoServices.borrarGrupo(seccion);
-            res.json({ message: 'Seccion borrada correctamente' });
-
-       } catch (error) {
-            res.status(500).json({ error: "Error al borrar el grupo " });
-        }
+            try {
+                const grupo = grupoServices.obtenerGrupoPorId(seccion);
+            if (!grupo) {
+                res.status(404).json({ error: "Grupo no encontrado" });
+            } else {
+                await grupoService.borrarGrupo(seccion)
+                res.status(200).json({ message: "Grupo eliminado correctamente" });
+            }
+            } catch (error) {
+                res.status(500).json({ error: "Error al eliminar el grupo" });
+            }
     }
 };
 

@@ -11,23 +11,50 @@ const grupoRepository = {
     },
 
     obtenerTodos: async () => {
-        return await Grupo.findAll()
+        try{
+            return await Grupo.findAll()
+            }catch (error){
+                throw error
+            }
     },
 
     obetenerPorId: async (seccion) => {
-        return await Grupo.findByPk(seccion)
+        try {
+            const grupo = await Grupo.findByPk(seccion)
+            if (!grupo) {
+                throw new Error("Grupo no encontrado")
+            }
+            return grupo
+        } catch (error) {
+            throw error
+        }
     },
 
     actualizar: async (seccion, nuevosDatos) => {
-        const grupo = await Grupo.findByPk(seccion)
-
-        return await grupo.update(nuevosDatos)
+        try {
+            const grupo = await Grupo.findByPk(seccion)
+            if (!grupo) {
+                throw new Error("Grupo no encontrado")
+            }
+            await grupo.update(nuevosDatos)
+            return grupo;
+        } catch (error) {
+            throw error
+        }
     },
 
     borrar: async (seccion) => {
+        try {
+            const grupo = await Grupo.findByPk(seccion)
+            if (!grupo) {
+                throw new Error("Grupo no encontrado")
+            }
         return await Grupo.destroy({
-            where: {seccion}
+            where: {seccion},
         })
+        } catch (error) {
+            throw error
+        }
     }
 }
 
