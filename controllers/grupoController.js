@@ -1,5 +1,5 @@
-import grupoService from "../services/grupoServices.js";
 import grupoServices from "../services/grupoServices.js";
+
 
 
 const grupoController = {
@@ -36,7 +36,7 @@ const grupoController = {
                  const erroresValidacion = error.errors.map(err => err.message);
                  res.status(400).json({ errores: erroresValidacion});
             } else {
-             res.status(500).json({ error: "Error al crear el grupo"})
+             res.status(500).json({ error: "Error al crear el funcionario"})
             };
          }
     },

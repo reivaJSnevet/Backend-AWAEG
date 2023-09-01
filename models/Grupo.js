@@ -9,13 +9,12 @@ const Grupo = db.define(
             allowNull: false,
             primaryKey: true,
             validate: {
-                isValidSeccion: function (value) {
-                    if (!/^[1-6]-$/.test(value)) {
-                        throw new Error(
-                            "La seccion debe de tener el formato 'm-n', donde m es igual a un numero entre el 1 al 6"
-                        )
-                    }
+               esSeccionValida: value => {
+                const patron = /^[1-6]-\+$/;
+                if (!patron.test(value)) {
+                    throw new Error('La seccion debe tener el formato "m-n", donde m es igual a un numero entre 1 y 6')
                 }
+               }
             }
         },
         ciclo: {
@@ -41,7 +40,7 @@ const Grupo = db.define(
             allowNull: false,
             validate: {
                 notEmpty: {
-                    msg: "El ciclo no puede estar vacio"
+                    msg: "El aula no puede estar vacio"
                 }
             }
         },
