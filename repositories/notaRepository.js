@@ -6,28 +6,55 @@ const notaRepository = {
         try {
             return await Nota.create(nota)
         } catch (error) {
-            console.log(error)
+           throw error;
         }
     },
 
     obtenerTodos: async () => {
-        return await Nota.findAll()
+        try{
+            return await Nota.findAll()
+            }catch (error){
+                throw error
+            }
     },
 
     obetenerPorId: async (id) => {
-        return await Nota.findByPk(id)
+        try {
+            const nota = await Nota.findByPk(id)
+            if (!nota) {
+                throw new Error("Nota no encontrada")
+            }
+            return nota
+        } catch (error) {
+            throw error
+        }
     },
 
     actualizar: async (id, nuevosDatos) => {
-        const nota = await Nota.findByPk(id)
-
-        return await nota.update(nuevosDatos)
+        try {
+            const nota = await Nota.findByPk(id)
+            if (!nota) {
+                throw new Error("Nota no encontrada")
+            }
+            await nota.update(nuevosDatos)
+            return nota;
+        } catch (error) {
+            throw error
+        }
     },
 
     borrar: async (id) => {
+        try {
+            const nota = await Nota.findByPk(id)
+            if (!nota) {
+                throw new Error("Nota no encontrada")
+            }
         return await Nota.destroy({
-            where: {id}
+            where: {id},
         })
+        } catch (error) {
+            throw error
+        }
     }
 };
 

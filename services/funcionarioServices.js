@@ -11,7 +11,7 @@ const funcionarioService = {
     },
 
     obtenerFuncionarioPorId: async (id) => {
-        return await funcionarioRepository.obetenerPorId(id);
+        return await funcionarioRepository.obtenerPorId(id);
     },
 
     actualizarFuncionario: async (id, nuevosDatos) => {

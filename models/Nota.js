@@ -1,4 +1,4 @@
-import { DataTypes, INTEGER } from "sequelize";
+import { DataTypes} from "sequelize";
 import db from "../config/db.js"
 
 const Nota = db.define(
@@ -7,16 +7,37 @@ const Nota = db.define(
         id: {
            type: DataTypes.INTEGER,
            primaryKey: true,
-            autoIncrement: true
+            autoIncrement: true,
         },
         calificacion: {
-            type: DataTypes.INTEGER
+            type: DataTypes.INTEGER,
+            validate: {
+                notEmpty: {
+                  msg: "la calificacion no puede estar vacia"
+                },
+                isInt: {
+                  msg: "la calificacion debe de ser un numero entero"
+                },
+               min:0,
+               max:100
+            }
         },
         periodo: {
-            type: DataTypes.STRING
+            type: DataTypes.STRING,
+            validate: {
+                notEmpty: {
+                    msg: "El periodo no puede estar vacio"
+                }
+            }
         },
         fechaSubida: {
-            type: DataTypes.DATEONLY
+            type: DataTypes.DATEONLY,
+            allowNull: false,
+            validate: {
+                isDate: {
+                    msg: "La fecha no es valida"
+                }
+            }
         }
     }
 );

@@ -7,23 +7,51 @@ const Funcionario = db.define(
         id: {
             type: DataTypes.INTEGER,
             allowNull: false, 
-            primaryKey: true
+            primaryKey: true,
+            validate: {
+                esCedulaValida: cedula => {
+                    const patron = /^(?:[1-8]|1558)\d{8}$/;
+                    if (!patron.test(cedula)) { 
+                        throw new Error('El número de cedula no cumple con el formato requerido');
+                    }
+                }
+            },
         },
         nombre: {
             type: DataTypes.STRING,
             allowNull: false,
+            validate: {
+                notEmpty: {
+                  msg: 'El nombre no puede estar vacío'
+                }
+              }
         },
         apellido1: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            validate: {
+                notEmpty: {
+                  msg: 'El primer apellido no puede estar vacío'
+                }
+              }
         },
         apellido2: {
             type: DataTypes.STRING,
-            allowNull: false
+            allowNull: false,
+            validate: {
+                notEmpty: {
+                  msg: 'El segundo apellido no puede estar vacío'
+                }
+              }
         },
         fechaNacimiento: {
             type: DataTypes.DATEONLY,
-            allowNull: false
+            allowNull: false,
+            validate: {
+                isDate:{
+                    msg: 'La fecha no es valida'
+                }
+              }
         },
         edad: {
             type: DataTypes.INTEGER,
@@ -33,7 +61,25 @@ const Funcionario = db.define(
             type: DataTypes.STRING,
             allowNull: true
         }
-    }
-);
+    },
+    {
+        hooks: {
+          beforeCreate: (funcionario) => {
+            const nacimiento = new Date(funcionario.fechaNacimiento);
+            const hoy = new Date();
+            
+            let edadExacta = hoy.getFullYear() - nacimiento.getFullYear();
+          
+            // Ajustamos la edad si el cumpleaños aún no ha ocurrido este año
+            if (nacimiento.getMonth() > hoy.getMonth() || (nacimiento.getMonth() === hoy.getMonth() && nacimiento.getDate() >= hoy.getDate())) {
+              edadExacta--;
+            }
+    
+            funcionario.setDataValue('edad', edadExacta);
+          },
+        }
+      }
+    );
+    
 
 export default Funcionario;
