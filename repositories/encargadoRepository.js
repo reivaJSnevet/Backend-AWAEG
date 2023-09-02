@@ -6,28 +6,55 @@ const encargadoRepository = {
         try{
             return await Encargado.create(encargado);
         }catch (error){
-            console.log(error);
+            throw error;
         }
     },
 
     obtenerTodos: async () => {
-        return await Encargado.findAll()
+        try{
+            return await Encargado.findAll()
+            }catch (error){
+                throw error
+            }
     },
 
     obetenerPorId: async (id) => {
-        return await Encargado.findByPk(id)
+        try {
+            const encargado = await Encargado.findByPk(id)
+            if (!encargado) {
+                throw new Error("Encargado no encontrado")
+            }
+            return encargado
+        } catch (error) {
+            throw error
+        }
     },
 
     actualizar: async (id, nuevosDatos) => {
-        const encargado = await Encargado.findByPk(id)
-
-        return await encargado.update(nuevosDatos)
+        try {
+            const encargado = await Encargado.findByPk(id)
+            if (!encargado) {
+                throw new Error("Encargado no encontrado")
+            }
+            await encargado.update(nuevosDatos)
+            return encargado;
+        } catch (error) {
+            throw error
+        }
     },
 
     borrar: async (id) => {
+        try {
+            const encargado = await Encargado.findByPk(id)
+            if (!encargado) {
+                throw new Error("Encargado no encontrado")
+            }
         return await Encargado.destroy({
-            where: {id}
+            where: {id},
         })
+        } catch (error) {
+            throw error
+        }
     }
 }
 

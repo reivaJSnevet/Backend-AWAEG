@@ -3,32 +3,59 @@ import { Horario } from "../models/index.js"
 
 const horarioRepository = {
 
-    crear: async (Horario) => {
+    crear: async (horario) => {
         try {
             return await Horario.create(horario)
         } catch (error) {
-            console.log(error)
+           throw error
         }
     },
 
     obtenerTodos: async () => {
-        return await Horario.findAll()
+        try{
+            return await Horario.findAll()
+            }catch (error){
+                throw error
+            }
     },
 
     obetenerPorId: async (idHorario) => {
-        return await Horario.findByPk(idHorario)
+        try {
+            const horario = await Horario.findByPk(idHorario)
+            if (!horario) {
+                throw new Error("Horario no encontrado")
+            }
+            return horario
+        } catch (error) {
+            throw error
+        }
     },
 
     actualizar: async (idHorario, nuevosDatos) => {
-        const horario = await Horario.findByPk(idHorario)
-
-        return await horario.update(nuevosDatos)
+        try {
+            const horario = await Horario.findByPk(idHorario)
+            if (!horario) {
+                throw new Error("Horario no encontrado")
+            }
+            await horario.update(nuevosDatos)
+            return horario;
+        } catch (error) {
+            throw error
+        }
     },
 
     borrar: async (idHorario) => {
+        try {
+            const horario = await Horario.findByPk(idHorario)
+            if (!horario) {
+                throw new Error("Horario no encontrado")
+            }
         return await Horario.destroy({
-            where: {idHorario}
+            where: {idHorario},
         })
+        } catch (error) {
+            throw error
+        }
     }
 }
 

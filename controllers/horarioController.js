@@ -17,34 +17,32 @@ const horarioController = {
     crearHorario: async (req, res) => {
         try {
             const {provisional, habilitado} = req.body;
-            const datos = {provisional, habilitado}
-
-            const nuevoHorario = await horarioServices.crearHorario(datos);
+            const nuevoHorario = await horarioServices.crearHorario({
+                provisional,
+                habilitado,
+            });
                         
             res.status(201).json(nuevoHorario);
 
         } catch (error) {
-            res.status(500).json({ error: "Error al crear el horario" });
-            console.log(error)
+           if (error.errors) {
+                const erroresValidacion = error.errors.map(err => err.message);
+                res.status(400).json({ errores: erroresValidacion});
+           } else {
+            res.status(500).json({ error: "Error al crear el horario"})
+           };
         }
     },
 
 
     //encontrar horario por id
     obtenerHorario: async(req, res) => {
-        const { idHorario } = req.params;
-        
         try {
-            const horario = await horarioServices.obtenerHorarioPorId(idHorario);
-
-            
-        if (!horario) {
-            res.status(404).json({ error: "Horario no encontrado" });
-        } else {
-                res.status(200).json(horario);
-        }
+            const { idHorario } = req.params;
+            const horario = await horarioServices.actualizarHorario(idHorario);
+            res.status(200).json(horario);
         } catch (error) {
-            res.status(500).json({ error: "Error al obtener el horario" });
+            res.status(500).json({ error: error.message})
         }
     },
 
@@ -54,25 +52,30 @@ const horarioController = {
         try{
             const { idHorario } = req.params;
             const { provisional, habilitado} = req.body;
+            const datos = {provisional, habilitado};
     
-            await horarioServices.actualizarHorario(idHorario, {provisional, habilitado});
-            res.json({message: "Horario actualizado con exito!"});
-    
-          }catch (error) {
-                res.status(500).json({error: "Error al actualizar el horario"});
+            const horario = await horarioServices.actualizarHorario(idHorario, datos)
+            return horario
+          } catch (error){
+            console.error("Error al actualizar el horario:", error);
+            return res.status(500).json({ error: "Error interno del servidor."})
           }
     },
 
     //eliminar Horario
 
     eliminarHorario: async (req, res) => {
-        try{
-            const { idHorario } = req.params;
-            await horarioServices.borrarHorario(idHorario);
-            res.json({ message: 'Horario borrado correctamente' });
-
-       } catch (error) {
-            res.status(500).json({ error: "Error al borrar el horario " });
+        const {idHorario} = req.params;
+        try {
+            const horario = horarioServices.obtenerHorarioPorId(idHorario);
+        if (!horario) {
+            res.status(404).json({ error: "horario no encontrado"});
+        } else{
+            await horarioServices.borrarHorario(idHorario)
+            res.status(200).json({ message: "horario eliminado con exito"});
+        }
+        }catch (error) {
+            res.status(500).json({error: "Error al eliminar el Horario"})
         }
     }
 };

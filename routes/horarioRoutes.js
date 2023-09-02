@@ -8,8 +8,8 @@ const horarioRouter = express.Router();
 horarioRouter.get('/horarios', horarioController.obtenerHorarios);
 horarioRouter.post('/horarios', horarioController.crearHorario);
 horarioRouter.get('/horarios/:idHorario', horarioController.obtenerHorario);
-horarioRouter.put('/grupos/:idHorario', horarioController.actualizarHorario);
-horarioRouter.delete('/grupos/:seccion', horarioController.eliminarHorario);
+horarioRouter.put('/horarios/:idHorario', horarioController.actualizarHorario);
+horarioRouter.delete('/horarios/:idHorario', horarioController.eliminarHorario);
 
 
 export default horarioRouter;

@@ -1,4 +1,3 @@
-import funcionarioRepository from "../repositories/funcionarioRepository.js";
 import funcionarioService from "../services/funcionarioServices.js";
 
 

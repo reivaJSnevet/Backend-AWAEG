@@ -33,6 +33,7 @@ Usuario.hasOne(Funcionario);
 Funcionario.belongsTo(Usuario);
 
 //Relacion de uno a muchos entre Nota y Funcionario
+
 Funcionario.hasMany(Nota);
 Nota.belongsTo(Funcionario);
 
