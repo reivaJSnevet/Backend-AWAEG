@@ -11,7 +11,7 @@ const encargadoService = {
     },
 
     obtenerEncargadoPorId: async (id) => {
-        return await encargadoRepository.obetenerPorId(id);
+        return await encargadoRepository.obtenerPorId(id);
     },
 
     actualizarEncargado: async (id, nuevosDatos) => {

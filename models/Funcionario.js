@@ -58,7 +58,7 @@ const Funcionario = db.define(
             allowNull: true
         },
         sexo: {
-            type: DataTypes.STRING,
+            type: DataTypes.BOOLEAN,
             allowNull: true
         }
     },

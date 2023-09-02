@@ -18,7 +18,7 @@ const encargadoRepository = {
             }
     },
 
-    obetenerPorId: async (id) => {
+    obtenerPorId: async (id) => {
         try {
             const encargado = await Encargado.findByPk(id)
             if (!encargado) {
