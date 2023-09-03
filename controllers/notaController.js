@@ -58,7 +58,7 @@ const notaController = {
             const datos = { calificacion, periodo, fechaSubida, funcionarioId }
 
             const nota = await notaRepository.actualizar(id, datos)
-            return nota
+            return res.status(200).json(nota);
             } catch (error) {
                  console.error("Error al actualizar nota:", error);
             return res.status(500).json({ error: "Error interno del servidor." });

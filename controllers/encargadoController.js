@@ -55,7 +55,7 @@ const encargadoController = {
             const datos = {nombre, apellido1, apellido2};
     
             const encargado = await encargadoService.actualizarEncargado(id, datos)
-            return encargado
+            return res.status(200).json(encargado)
           } catch (error){
             console.error("Error al actualizar el encargado:", error);
             return res.status(500).json({ error: "Error interno del servidor."})

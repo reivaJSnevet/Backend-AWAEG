@@ -62,7 +62,7 @@ const grupoController = {
             const datos = { ciclo, grado, aula, cantAlumno, turno }
 
             const grupo = await grupoServices.actualizarGrupo(seccion, datos)
-            return grupo
+            return res.status(200).json(grupo);
             } catch (error) {
                  console.error("Error al actualizar el grupo:", error);
             return res.status(500).json({ error: "Error interno del servidor." });

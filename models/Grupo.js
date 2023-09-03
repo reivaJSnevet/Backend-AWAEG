@@ -10,7 +10,7 @@ const Grupo = db.define(
             primaryKey: true,
             validate: {
                esSeccionValida: value => {
-                const patron = /^[1-6]-\+$/;
+                const patron = /^[1-6]-\d+$/;
                 if (!patron.test(value)) {
                     throw new Error('La seccion debe tener el formato "m-n", donde m es igual a un numero entre 1 y 6')
                 }

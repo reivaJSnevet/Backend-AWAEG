@@ -55,7 +55,7 @@ const horarioController = {
             const datos = {provisional, habilitado};
     
             const horario = await horarioServices.actualizarHorario(idHorario, datos)
-            return horario
+            return res.status(200).json(horario)
           } catch (error){
             console.error("Error al actualizar el horario:", error);
             return res.status(500).json({ error: "Error interno del servidor."})

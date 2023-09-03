@@ -25,7 +25,7 @@ Estudiante.belongsTo(Grupo);
 
 //Relaciones de uno a uno entre grupo y horario
 Horario.hasOne(Grupo);
-Grupo.belongsTo(Horario);
+Grupo.belongsTo(Horario)
 
 
 //Relacion de uno a uno de funcionario y usuario

@@ -61,7 +61,7 @@ const funcionarioController = {
         const datos = {nombre, apellido1, apellido2, fechaNacimiento, sexo, usuarioId};
 
         const funcionario = await funcionarioService.actualizarFuncionario(id, datos)
-        return funcionario
+        return res.status(200).json(funcionario)
       } catch (error){
         console.error("Error al actualizar el funcionario:", error);
         return res.status(500).json({ error: "Error interno del servidor."})
