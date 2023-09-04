@@ -22,10 +22,10 @@ const Encargado = db.define(
             allowNull: false,
             validate: {
                 notEmpty: {
-                  msg: 'El nombre no puede estar vacío'
-                }
+                msg: 'El nombre no puede estar vacío'
               }
-        },
+            }
+          },
         apellido1: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -35,6 +35,7 @@ const Encargado = db.define(
                 }
               }
         },
+
         apellido2: {
             type: DataTypes.STRING,
             allowNull: false,
@@ -44,6 +45,7 @@ const Encargado = db.define(
                 }
               }
         }
+
     }
 );
 

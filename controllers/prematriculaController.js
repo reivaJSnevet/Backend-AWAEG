@@ -1,4 +1,4 @@
-import { Prematricula } from "../models/index.js";
+import {Prematricula} from "../models/index.js"
 
 const prematriculaController = {
 

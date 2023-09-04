@@ -56,9 +56,10 @@ const Grupo = db.define(
                 }
             }
         },
-        turno: {
-            type: DataTypes.BOOLEAN
-        }
+        turno:{
+            type: DataTypes.BOOLEAN,
+            allowNull: false
+        },
     }
 
 );
