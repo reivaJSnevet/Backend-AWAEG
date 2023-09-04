@@ -1,24 +1,24 @@
-import {Rol} from '../models/index.js'
-import faker from 'faker';
+import { Rol } from "../models/index.js";
+import faker from "faker";
 
 const usuarios = async () => {
-  const users = [];
-  
-  for (let i = 0; i < 50; i++) {
-    const nombre = faker.name.firstName();
-    const correo = faker.internet.email();
-    const contraseña = 'password'; 
-    const rol = Math.floor(Math.random() * 4) + 1
+	const users = [];
 
-    users.push({
-      nombre,
-      correo,
-      contraseña,
-      roleId: rol
-    })
-  }
+	for (let i = 0; i < 50; i++) {
+		const nombre = faker.name.firstName();
+		const correo = faker.internet.email();
+		const contraseña = "password";
+		const rol = Math.floor(Math.random() * 4) + 1;
 
-  return users;
-}
+		users.push({
+			nombre,
+			correo,
+			contraseña,
+			roleId: rol,
+		});
+	}
 
-export default usuarios
+	return users;
+};
+
+export default usuarios;

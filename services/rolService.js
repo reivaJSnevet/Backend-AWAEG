@@ -1,44 +1,28 @@
-import rolRepository from '../repositories/rolRepository.js';
-
-
+import rolRepository from "../repositories/rolRepository.js";
 
 const rolService = {
+	crearRol: async (rol) => {
+		return await rolRepository.crear(rol);
+	},
 
-    crearRol: async (rol) => {
-        return await rolRepository.crear(rol)
-    },
+	obtenerTodosRol: async () => {
+		return await rolRepository.obtenerTodos();
+	},
 
-    obtenerTodosRol: async () => {
-        return await rolRepository.obtenerTodos();
-    },
+	obtenerRolPorId: async (id) => {
+		return await rolRepository.obtenerPorId(id);
+	},
 
-    obtenerRolPorId: async (id) => {
-        return await rolRepository.obtenerPorId(id);
-    },
+	actualizarRol: async (id, nuevosDatos) => {
+		return await rolRepository.actualizar(id, nuevosDatos);
+	},
 
-    actualizarRol: async (id, nuevosDatos) => {
-        return await rolRepository.actualizar(id, nuevosDatos)
-    },
+	borrarRol: async (id) => {
+		return await rolRepository.borrar(id);
+	},
+};
 
-    borrarRol: async (id) => {
-        return await rolRepository.borrar(id);
-    }
-
-
-
-    
-}
-
-export default rolService
-
-
-
-
-
-
-
-
-
+export default rolService;
 
 /* class RolService {
     async crearRol(nombre, nivelPrivilegio, descripcion) {

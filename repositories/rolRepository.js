@@ -1,60 +1,51 @@
 import { Rol } from "../models/index.js";
 
 const rolRepository = {
+	crear: async (rol) => {
+		try {
+			return await Rol.create(rol);
+		} catch (error) {
+			throw error;
+		}
+	},
 
-    crear: async (rol) =>{
-        try {
-            return await Rol.create(rol)
-        } catch (error) {
-            throw error
-        }
-    },
+	obtenerTodos: async () => {
+		try {
+			return await Rol.findAll();
+		} catch (error) {
+			throw error;
+		}
+	},
 
-    obtenerTodos: async () => {
-        try {
-            return await Rol.findAll()
-        } catch (error) {
-            throw error
-        }
-            
-    },
+	obtenerPorId: async (id) => {
+		try {
+			return await Rol.findByPk(id);
+		} catch (error) {
+			throw error;
+		}
+	},
 
-    obtenerPorId: async (id) => {
-        try {
-            return await Rol.findByPk(id)
-        } catch (error) {
-            throw error
-        }
-        
-    },
+	actualizar: async (id, nuevosDatos) => {
+		try {
+			const rol = await Rol.findByPk(id);
+			return await rol.update(nuevosDatos);
+		} catch (error) {
+			throw error;
+		}
+	},
 
-    actualizar: async (id, nuevosDatos) => {
-        try {
-            const rol = await Rol.findByPk(id)
-            return await rol.update(nuevosDatos)
-        } catch (error) {
-            throw error
-        }
+	borrar: async (id) => {
+		try {
+			return await Rol.destroy({
+				where: { id },
+			});
+		} catch (error) {
+			throw error;
+		}
+	},
+};
 
-    },
-
-    borrar: async (id) => {
-        try {
-            return await Rol.destroy({
-                where: {id},
-            })
-        } catch (error) {
-            throw error
-        }
-
-    }
-}
-
-
-export default rolRepository
-
-
-
+export default rolRepository;
 
 //Manera usando clases en vez de objetos literales
 

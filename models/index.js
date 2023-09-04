@@ -9,9 +9,6 @@ import Funcionario from "./Funcionario.js";
 import Nota from "./Nota.js";
 import Clase from "./Clase.js";
 
-
-
-
 //Relación de uno a muchos entre Rol y Usuario
 Rol.hasMany(Usuario);
 Usuario.belongsTo(Rol);
@@ -25,14 +22,12 @@ Encargado.hasMany(Estudiante);
 Estudiante.belongsTo(Encargado);
 
 //Relacion de uno a muchos entre estudiante y grupo
-Grupo.hasMany(Estudiante, {foreignKey: 'seccion'});
-Estudiante.belongsTo(Grupo, {foreignKey: 'seccion'});
-
+Grupo.hasMany(Estudiante, { foreignKey: "seccion" });
+Estudiante.belongsTo(Grupo, { foreignKey: "seccion" });
 
 //Relaciones de uno a uno entre grupo y horario
 Horario.hasOne(Grupo);
 Grupo.belongsTo(Horario);
-
 
 //Relacion de uno a uno de funcionario y usuario
 Usuario.hasOne(Funcionario);
@@ -44,8 +39,8 @@ Funcionario.hasMany(Nota);
 Nota.belongsTo(Funcionario);
 
 //Relacion de uno a muchos entre  Grupo y Funcionario
-Funcionario.hasMany(Grupo, { foreignKey: 'ProfesorGuia'});
-Grupo.belongsTo(Funcionario, { foreignKey: 'ProfesorGuia'});
+Funcionario.hasMany(Grupo, { foreignKey: "ProfesorGuia" });
+Grupo.belongsTo(Funcionario, { foreignKey: "ProfesorGuia" });
 
 //Relacion uno a mucho entre horario y clase
 Horario.hasMany(Clase);
@@ -55,21 +50,15 @@ Clase.belongsTo(Horario);
 Clase.hasMany(Nota);
 Nota.belongsTo(Clase);
 
-
-
-
-
 export {
-    Rol,
-    Usuario,
-    Estudiante,
-    Encargado,
-    Grupo,
-    Horario,
-    Prematricula, 
-    Funcionario,
-    Nota,
-    Clase,
-   
-
-}
+	Rol,
+	Usuario,
+	Estudiante,
+	Encargado,
+	Grupo,
+	Horario,
+	Prematricula,
+	Funcionario,
+	Nota,
+	Clase,
+};

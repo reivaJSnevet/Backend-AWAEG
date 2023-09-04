@@ -1,32 +1,25 @@
-import estudianteRepository from "../repositories/estudianteRepository.js"
-
-
+import estudianteRepository from "../repositories/estudianteRepository.js";
 
 const estudianteService = {
+	crearEstudiante: async (estudiante) => {
+		return await estudianteRepository.crear(estudiante);
+	},
 
-    crearEstudiante: async (estudiante) => {
-        return await estudianteRepository.crear(estudiante)
-    },
+	obtenerTodosEstudiante: async () => {
+		return await estudianteRepository.obtenerTodos();
+	},
 
-    obtenerTodosEstudiante: async () => {
-        return await estudianteRepository.obtenerTodos();
-    },
+	obtenerEstudiantelPorId: async (id) => {
+		return await estudianteRepository.obtenerPorId(id);
+	},
 
-    obtenerEstudiantelPorId: async (id) => {
-        return await estudianteRepository.obtenerPorId(id);
-    },
+	actualizarEstudiante: async (id, nuevosDatos) => {
+		return await estudianteRepository.actualizar(id, nuevosDatos);
+	},
 
-    actualizarEstudiante: async (id, nuevosDatos) => {
-        return await estudianteRepository.actualizar(id, nuevosDatos)
-    },
+	borrarEstudiante: async (id) => {
+		return await estudianteRepository.borrar(id);
+	},
+};
 
-    borrarEstudiante: async (id) => {
-        return await estudianteRepository.borrar(id);
-    }
-
-
-
-    
-}
-
-export default estudianteService
+export default estudianteService;
