@@ -64,22 +64,24 @@ const Funcionario = db.define(
     },
     {
         hooks: {
-          beforeCreate: (funcionario) => {
-            const nacimiento = new Date(funcionario.fechaNacimiento);
-            const hoy = new Date();
-            
-            let edadExacta = hoy.getFullYear() - nacimiento.getFullYear();
-          
-            // Ajustamos la edad si el cumpleaños aún no ha ocurrido este año
-            if (nacimiento.getMonth() > hoy.getMonth() || (nacimiento.getMonth() === hoy.getMonth() && nacimiento.getDate() >= hoy.getDate())) {
-              edadExacta--;
-            }
-    
-            funcionario.setDataValue('edad', edadExacta);
-          },
+          beforeCreate:(funcionario) => CalcularEdad(funcionario),
+          beforeUpdate:(funcionario) => CalcularEdad(funcionario)
         }
       }
     );
+        const CalcularEdad = (funcionario) => {
+      const nacimiento = new Date(funcionario.fechaNacimiento);
+      const hoy = new Date();
+      
+      let edadExacta = hoy.getFullYear() - nacimiento.getFullYear();
     
+      // Ajustamos la edad si el cumpleaños aún no ha ocurrido este año
+      if (nacimiento.getMonth() > hoy.getMonth() || (nacimiento.getMonth() === hoy.getMonth() && nacimiento.getDate() >= hoy.getDate())) {
+        edadExacta--;
+      }
 
+      funcionario.setDataValue('edad', edadExacta);
+    }   
+
+    
 export default Funcionario;

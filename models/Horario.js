@@ -4,11 +4,6 @@ import db from "../config/db.js";
 const Horario = db.define(
     'horarios',
     {
-        idHorario: {
-            type: DataTypes.INTEGER,
-            autoIncrement: true,
-            primaryKey: true
-        },
         provisional: {
             type: DataTypes.BOOLEAN
         },

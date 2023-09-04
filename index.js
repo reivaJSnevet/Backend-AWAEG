@@ -9,7 +9,7 @@ import horarioRouter from "./routes/horarioRoutes.js"; */
 import { estudianteRoutes, grupoRoutes, horarioRoutes, rolRoutes, usuarioRoutes, prematriculaRoutes, funcionarioRoutes, encargadoRoutes, notasRoutes} from "./routes/index.js";
 
 import './tasks/actualizadorEdades.js';
-
+import './tasks/actualizarEdadFuncionario.js'
 
 
 //Creacion de la app

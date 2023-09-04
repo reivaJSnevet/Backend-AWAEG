@@ -1,3 +1,4 @@
+import Horario from "../models/Horario.js";
 import grupoServices from "../services/grupoServices.js";
 
 
@@ -17,7 +18,9 @@ const grupoController = {
     // Crear un nuevo grupo
     crearGrupo: async (req, res) => {
         try {
-            const { seccion, ciclo, grado, aula, cantAlumno, turno, horarioId,profesorGuia} = req.body;
+            const {seccion, ciclo, grado, aula, cantAlumno, turno, horarioIdHorario, ProfesorGuia} = req.body;
+            
+
             const nuevoGrupo = await grupoServices.crearGrupo({
                 seccion,
                 ciclo,
@@ -25,10 +28,9 @@ const grupoController = {
                 aula,
                 cantAlumno,
                 turno,
-                horarioId,
-                profesorGuia
+                horarioIdHorario,
+                ProfesorGuia
             });
-                        
             res.status(201).json(nuevoGrupo);
 
         } catch (error) {
@@ -76,13 +78,13 @@ const grupoController = {
             try {
                 const grupo = grupoServices.obtenerGrupoPorId(seccion);
             if (!grupo) {
-                res.status(404).json({ error: "Grupo no encontrado" });
-            } else {
-                await grupoService.borrarGrupo(seccion)
-                res.status(200).json({ message: "Grupo eliminado correctamente" });
+                res.status(404).json({ error: "Grupo no encontrado"});
+            } else{
+                await grupoServices.borrarGrupo(seccion)
+                res.status(200).json({ message: "Grupo eliminado con exito"});
             }
-            } catch (error) {
-                res.status(500).json({ error: "Error al eliminar el grupo" });
+            }catch (error) {
+                res.status(500).json({error: "Error al eliminar el Grupo"})
             }
     }
 };
