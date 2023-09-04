@@ -1,8 +1,10 @@
 import { exit } from "node:process";
 import db from "../config/db.js";
-import { Rol, Usuario } from "../models/index.js";
+import { Rol, Usuario, Clase } from "../models/index.js";
 import usuarios from "./usuarios.js";
 import roles from "./roles.js";
+import clases from "./clases.js";
+
 
 const importarDatos = async () => {
 	try {
@@ -11,11 +13,16 @@ const importarDatos = async () => {
 
 		// Crea registros de roles
 		await Rol.bulkCreate(roles);
-		console.log("Datos de roles generados correctamente");
+		
 
 		// generar usuarios
 		await Usuario.bulkCreate(await usuarios());
 
+
+        await Clase.bulkCreate(clases)
+
+
+        console.log("Datos de roles generados correctamente");
 		exit(0);
 	} catch (error) {
 		console.log(error);
