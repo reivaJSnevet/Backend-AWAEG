@@ -6,7 +6,6 @@ import Grupo from "./Grupo.js";
 import Horario from "./Horario.js";
 import Prematricula from "./Prematricula.js";
 import Funcionario from "./Funcionario.js";
-import Encargado from "./Encargado.js";
 import Nota from "./Nota.js";
 import Clase from "./Clase.js";
 
@@ -69,7 +68,6 @@ export {
     Horario,
     Prematricula, 
     Funcionario,
-    Encargado,
     Nota,
     Clase,
    
