@@ -7,3 +7,4 @@ export { default as prematriculaRoutes } from "./prematriculaRoutes.js";
 export { default as funcionarioRoutes } from "./funcionarioRoutes.js";
 export { default as encargadoRoutes } from "./encargadoRoutes.js";
 export { default as notasRoutes } from "./notaRoutes.js";
+export { default as claseRoutes } from "./claseRoutes.js";

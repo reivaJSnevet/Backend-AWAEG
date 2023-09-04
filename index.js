@@ -3,6 +3,7 @@ import cors from "cors";
 import db from "./config/db.js";
 
 import {
+	claseRoutes,
 	estudianteRoutes,
 	grupoRoutes,
 	horarioRoutes,
@@ -59,10 +60,11 @@ app.use("/api/", prematriculaRoutes);
 app.use("/api/", funcionarioRoutes);
 app.use("/api/", encargadoRoutes);
 app.use("/api/", notasRoutes);
+app.use("/api/", claseRoutes);
 
 //definir puerto y inicializacion del server
 const port = process.env.PORT || 3000;
 
 app.listen(port, () => {
-	console.log(`El server esta funcionando correctamente. Puerto:${port}`);
+	console.log(`El server esta corriendo en el Puerto:${port}`);
 });
