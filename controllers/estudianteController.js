@@ -16,6 +16,7 @@ const estudianteController = {
                 direccion,
                 usuarioId
             });
+
             res.status(201).json(nuevoEstudiante);
         } catch (error) {
             if (error.errors) {

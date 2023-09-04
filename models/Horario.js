@@ -4,10 +4,12 @@ import db from "../config/db.js";
 const Horario = db.define(
     'horarios',
     {
-        provicional: {
-            type: DataTypes.BOOLEAN,
-            allowNull: false
+        provisional: {
+            type: DataTypes.BOOLEAN
         },
+        habilitado: {
+            type: DataTypes.BOOLEAN
+        }
     }
 
 );

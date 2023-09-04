@@ -1,10 +1,13 @@
 import express from "express";
 import cors from "cors"
 import db from "./config/db.js";
-import { estudianteRoutes, grupoRoutes, horarioRoutes, rolRoutes, usuarioRoutes, prematriculaRoutes} from "./routes/index.js";
 
+
+import { estudianteRoutes, grupoRoutes, horarioRoutes, rolRoutes, usuarioRoutes, prematriculaRoutes, funcionarioRoutes, encargadoRoutes, notasRoutes} from "./routes/index.js";
 
 import './tasks/actualizadorEdades.js';
+import './tasks/actualizarEdadFuncionario.js'
+
 
 
 //Creacion de la app
@@ -49,6 +52,9 @@ app.use("/api/", horarioRoutes)
 app.use("/api/", rolRoutes)
 app.use("/api/", usuarioRoutes)
 app.use("/api/", prematriculaRoutes)
+app.use("/api/", funcionarioRoutes)
+app.use("/api/", encargadoRoutes)
+app.use("/api/", notasRoutes)
 
 
 //definir puerto y inicializacion del server
