@@ -73,21 +73,26 @@ const Estudiante = db.define(
   },
   {
     hooks: {
-      beforeCreate: (estudiante) => {
-        const nacimiento = new Date(estudiante.fechaNacimiento);
-        const hoy = new Date();
-        
-        let edadExacta = hoy.getFullYear() - nacimiento.getFullYear();
-      
-        // Ajustamos la edad si el cumpleaños aún no ha ocurrido este año
-        if (nacimiento.getMonth() > hoy.getMonth() || (nacimiento.getMonth() === hoy.getMonth() && nacimiento.getDate() >= hoy.getDate())) {
-          edadExacta--;
-        }
-
-        estudiante.setDataValue('edad', edadExacta);
-      },
+        beforeCreate: (estudiante) => calcularEdad(estudiante),
+        beforeUpdate: (estudiante) => calcularEdad(estudiante),    
     }
   }
 );
+
+
+const calcularEdad = (estudiante) => {
+    const nacimiento = new Date(estudiante.fechaNacimiento);
+    const hoy = new Date();
+  
+    let edadExacta = hoy.getFullYear() - nacimiento.getFullYear();
+  
+    // Ajustamos la edad si el cumpleaños aún no ha ocurrido este año
+    if (nacimiento.getMonth() > hoy.getMonth() || (nacimiento.getMonth() === hoy.getMonth() && nacimiento.getDate() >= hoy.getDate())) {
+      edadExacta--;
+    }
+  
+    estudiante.setDataValue('edad', edadExacta);
+  }
+
 
 export default Estudiante;

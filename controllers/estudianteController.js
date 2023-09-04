@@ -52,11 +52,12 @@ const estudianteController = {
     updateEstudianteById: async (req, res) => {         
         try {
             const { id } = req.params;
-            const { nombre, apellido1, apellido2, fechaNacimiento, sexo } = req.body;
-            const datos = { nombre, apellido1, apellido2, fechaNacimiento, sexo }
+            const { nombre, apellido1, apellido2, fechaNacimiento, sexo, direccion } = req.body;
+            const datos = { nombre, apellido1, apellido2, fechaNacimiento, sexo, direccion }
 
-            const estudiante = await estudianteRepository.updateById(id, datos)
-            return estudiante
+            const estudiante = await estudianteService.actualizarEstudiante(id,datos)
+            return res.status(200).json(estudiante);
+
             } catch (error) {
                  console.error("Error al actualizar estudiante:", error);
             return res.status(500).json({ error: "Error interno del servidor." });
