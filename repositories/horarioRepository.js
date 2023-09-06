@@ -17,9 +17,9 @@ const horarioRepository = {
 		}
 	},
 
-	obetenerPorId: async (idHorario) => {
+	obtenerPorId: async (id) => {
 		try {
-			const horario = await Horario.findByPk(idHorario);
+			const horario = await Horario.findByPk(id);
 			if (!horario) {
 				throw new Error("Horario no encontrado");
 			}
@@ -29,9 +29,9 @@ const horarioRepository = {
 		}
 	},
 
-	actualizar: async (idHorario, nuevosDatos) => {
+	actualizar: async (id, nuevosDatos) => {
 		try {
-			const horario = await Horario.findByPk(idHorario);
+			const horario = await Horario.findByPk(id);
 			if (!horario) {
 				throw new Error("Horario no encontrado");
 			}
@@ -42,14 +42,10 @@ const horarioRepository = {
 		}
 	},
 
-	borrar: async (idHorario) => {
+	borrar: async (id) => {
 		try {
-			const horario = await Horario.findByPk(idHorario);
-			if (!horario) {
-				throw new Error("Horario no encontrado");
-			}
 			return await Horario.destroy({
-				where: { idHorario },
+				where: { id },
 			});
 		} catch (error) {
 			throw error;

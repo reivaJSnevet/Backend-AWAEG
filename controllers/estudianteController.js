@@ -12,6 +12,8 @@ const estudianteController = {
 				sexo,
 				direccion,
 				usuarioId,
+				encargadoId,
+				seccion
 			} = req.body;
 
 			const nuevoEstudiante = await estudianteService.crearEstudiante({
@@ -23,6 +25,8 @@ const estudianteController = {
 				sexo,
 				direccion,
 				usuarioId,
+				encargadoId,
+				seccion
 			});
 
 			res.status(201).json(nuevoEstudiante);
@@ -96,13 +100,14 @@ const estudianteController = {
 	deleteEstudianteById: async (req, res) => {
 		const { id } = req.params;
 		try {
-			const estudiante = estudianteService.obtenerEstudiantelPorId(id);
+			const estudiante = await estudianteService.obtenerEstudiantelPorId(id);
+
 			if (!estudiante) {
-				res.status(404).json({ error: "estudiante no encontrado" });
+				res.status(404).json({ error: "Estudiante no encontrado" });
 			} else {
 				await estudianteService.borrarEstudiante(id);
 				res.status(200).json({
-					message: "estudiante eliminado correctamente",
+					message: "Estudiante eliminado correctamente",
 				});
 			}
 		} catch (error) {

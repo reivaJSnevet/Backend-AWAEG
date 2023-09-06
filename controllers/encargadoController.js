@@ -71,13 +71,14 @@ const encargadoController = {
 	eliminarEncargado: async (req, res) => {
 		const { id } = req.params;
 		try {
-			const encargado = encargadoService.obtenerEncargadoPorId(id);
+			const encargado = await encargadoService.obtenerEncargadoPorId(id);
+
 			if (!encargado) {
-				res.status(404).json({ error: "encargado no encontrado" });
+				res.status(404).json({ error: "Encargado no encontrado" });
 			} else {
 				await encargadoService.borrarEncargado(id);
 				res.status(200).json({
-					message: "Encargado eliminado con exito",
+					message: "Encargado eliminado correctamente",
 				});
 			}
 		} catch (error) {

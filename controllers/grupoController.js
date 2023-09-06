@@ -1,14 +1,13 @@
-import Horario from "../models/Horario.js";
-import grupoServices from "../services/grupoServices.js";
+import grupoService from "../services/grupoServices.js";
 
 const grupoController = {
 	// Obtener todos los grupos
 	obtenerGrupos: async (req, res) => {
 		try {
-			const grupos = await grupoServices.obtenerTodosGrupos();
+			const grupos = await grupoService.obtenerTodosGrupos();
 			res.status(200).json(grupos);
 		} catch (error) {
-			res.status(500).json({ error: "Error al obtener los grupos" });
+			res.status(500).json({ error: error.message });
 		}
 	},
 
@@ -22,18 +21,18 @@ const grupoController = {
 				aula,
 				cantAlumno,
 				turno,
-				horarioIdHorario,
+				horarioId,
 				ProfesorGuia,
 			} = req.body;
 
-			const nuevoGrupo = await grupoServices.crearGrupo({
+			const nuevoGrupo = await grupoService.crearGrupo({
 				seccion,
 				ciclo,
 				grado,
 				aula,
 				cantAlumno,
 				turno,
-				horarioIdHorario,
+				horarioId,
 				ProfesorGuia,
 			});
 			res.status(201).json(nuevoGrupo);
@@ -45,7 +44,7 @@ const grupoController = {
 				res.status(400).json({ errores: erroresValidacion });
 			} else {
 				res.status(500).json({
-					error: "Error al crear el funcionario",
+					error: "Error al crear el Grupo",
 				});
 			}
 		}
@@ -55,7 +54,7 @@ const grupoController = {
 	obtenerGrupo: async (req, res) => {
 		try {
 			const { seccion } = req.params;
-			const grupo = await grupoServices.actualizarGrupo(seccion);
+			const grupo = await grupoService.actualizarGrupo(seccion);
 			res.status(200).json(grupo);
 		} catch (error) {
 			res.status(500).json({ error: error.message });
@@ -67,10 +66,10 @@ const grupoController = {
 	actualizarGrupo: async (req, res) => {
 		try {
 			const { seccion } = req.params;
-			const { ciclo, grado, aula, cantAlumno, turno } = req.body;
-			const datos = { ciclo, grado, aula, cantAlumno, turno };
+			const { ciclo, grado, aula, cantAlumno, turno, horarioId, ProfesorGuia } = req.body;
+			const datos = { ciclo, grado, aula, cantAlumno, turno, horarioId, ProfesorGuia };
 
-			const grupo = await grupoServices.actualizarGrupo(seccion, datos);
+			const grupo = await grupoService.actualizarGrupo(seccion, datos);
 			return res.status(200).json(grupo);
 		} catch (error) {
 			console.error("Error al actualizar el grupo:", error);
@@ -85,11 +84,11 @@ const grupoController = {
 	eliminarGrupo: async (req, res) => {
 		const { seccion } = req.params;
 		try {
-			const grupo = grupoServices.obtenerGrupoPorId(seccion);
+			const grupo = grupoService.obtenerGrupoPorId(seccion);
 			if (!grupo) {
 				res.status(404).json({ error: "Grupo no encontrado" });
 			} else {
-				await grupoServices.borrarGrupo(seccion);
+				await grupoService.borrarGrupo(seccion);
 				res.status(200).json({ message: "Grupo eliminado con exito" });
 			}
 		} catch (error) {

@@ -9,16 +9,16 @@ const horarioService = {
 		return await horarioRepository.obtenerTodos();
 	},
 
-	obtenerHorarioPorId: async (idHorario) => {
-		return await horarioRepository.obetenerPorId(idHorario);
+	obtenerHorarioPorId: async (id) => {
+		return await horarioRepository.obtenerPorId(id);
 	},
 
-	actualizarHorario: async (idHorario, nuevosDatos) => {
-		return await horarioRepository.actualizar(idHorario, nuevosDatos);
+	actualizarHorario: async (id, nuevosDatos) => {
+		return await horarioRepository.actualizar(id, nuevosDatos);
 	},
 
-	borrarHorario: async (idHorario) => {
-		return await horarioRepository.borrar(idHorario);
+	borrarHorario: async (id) => {
+		return await horarioRepository.borrar(id);
 	},
 };
 

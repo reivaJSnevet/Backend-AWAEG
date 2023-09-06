@@ -15,13 +15,14 @@ const notaController = {
 	//Crear Nota
 	crearNota: async (req, res) => {
 		try {
-			const { calificacion, periodo, fechaSubida, funcionarioId } =
+			const { calificacion, periodo, fechaSubida, funcionarioId, claseId } =
 				req.body;
 			const nuevaNota = await notaService.crearNota({
 				calificacion,
 				periodo,
 				fechaSubida,
 				funcionarioId,
+				claseId
 			});
 
 			res.status(201).json(nuevaNota);
@@ -52,9 +53,9 @@ const notaController = {
 	actualizarNota: async (req, res) => {
 		try {
 			const { id } = req.params;
-			const { calificacion, periodo, fechaSubida, funcionarioId } =
+			const { calificacion, periodo, fechaSubida, funcionarioId, claseId } =
 				req.body;
-			const datos = { calificacion, periodo, fechaSubida, funcionarioId };
+			const datos = { calificacion, periodo, fechaSubida, funcionarioId,claseId };
 
 			const nota = await notaRepository.actualizar(id, datos);
 			return res.status(200).json(nota);
