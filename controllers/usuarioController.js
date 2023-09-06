@@ -47,17 +47,21 @@ const usuarioController = {
 	// Actualizar un usuario por ID
 	updateUsuarioById: async (req, res) => {
 		const { id } = req.params;
-		try {
-			const usuario = await usuarioService.obtenerUsuarioPorId(id);
-			if (!usuario) {
-				res.status(404).json({ error: "Usuario no encontrado" });
-			} else {
-				await usuarioService.actualizarUsuario(id);
-				res.status(200).json(usuario);
-			}
-		} catch (error) {
-			res.status(500).json({ error: "Error al actualizar el usuario" });
-		}
+        const { nombre, correo, contraseña, roleId} = req.body;
+        const datos = {nombre, correo, contraseña, roleId}; // Los nuevos datos del usuario que se van a actualizar
+
+        try {
+            const usuario = await usuarioService.obtenerUsuarioPorId(id);
+            if (!usuario) {
+            res.status(404).json({ error: "Usuario no encontrado" });
+         } else {
+        // Actualizar el usuario con los nuevos datos
+        await usuarioService.actualizarUsuario(id, datos);
+        res.status(200).json({ mensaje: "Usuario actualizado correctamente" });
+    }
+} catch (error) {
+    res.status(500).json({ error: "Error al actualizar el usuario" });
+}
 	},
 
 	// Eliminar un usuario por ID
