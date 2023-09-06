@@ -44,10 +44,6 @@ const notaRepository = {
 
 	borrar: async (id) => {
 		try {
-			const nota = await Nota.findByPk(id);
-			if (!nota) {
-				throw new Error("Nota no encontrada");
-			}
 			return await Nota.destroy({
 				where: { id },
 			});

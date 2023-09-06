@@ -44,10 +44,6 @@ const funcionarioRepository = {
 
 	borrar: async (id) => {
 		try {
-			const funcionario = await Funcionario.findByPk(id);
-			if (!funcionario) {
-				throw new Error("Funcionario no encontrado");
-			}
 			return await Funcionario.destroy({
 				where: { id },
 			});

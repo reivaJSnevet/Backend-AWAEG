@@ -44,10 +44,6 @@ const grupoRepository = {
 
 	borrar: async (seccion) => {
 		try {
-			const grupo = await Grupo.findByPk(seccion);
-			if (!grupo) {
-				throw new Error("Grupo no encontrado");
-			}
 			return await Grupo.destroy({
 				where: { seccion },
 			});

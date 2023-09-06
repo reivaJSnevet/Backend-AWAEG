@@ -83,16 +83,19 @@ const claseController = {
 
 	deleteClaseById: async (req, res) => {
 		const { id } = req.params;
-
-		if (!id) {
-			return res.status(400).json({ error: "Faltan datos obligatorios" });
-		}
-
 		try {
-			await claseService.borrarClase(id);
-			res.json({ message: "Clase borrada correctamente" });
+			const clase = await claseService.obtenerClasePorId(id);
+
+			if (!clase) {
+				res.status(404).json({ error: "Clase no encontrada" });
+			} else {
+				await claseService.borrarClase(id);
+				res.status(200).json({
+					message: "Clase eliminada correctamente",
+				});
+			}
 		} catch (error) {
-			res.status(500).json({ error: "Error al borrar la clase" });
+			res.status(500).json({ error: "Error al eliminar la clase" });
 		}
 	},
 };

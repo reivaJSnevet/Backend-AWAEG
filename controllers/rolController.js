@@ -62,12 +62,20 @@ const rolController = {
 
 	// Eliminar un rol por ID
 	deleteRolById: async (req, res) => {
+		const { id } = req.params;
 		try {
-			const { id } = req.params;
-			await rolService.borrarRol(id);
-			res.json({ message: "Rol borrado correctamente" });
+			const rol = await rolService.obtenerRolPorId(id);
+
+			if (!rol) {
+				res.status(404).json({ error: "Rol no encontrado" });
+			} else {
+				await rolService.borrarRol(id);
+				res.status(200).json({
+					message: "Rol eliminado correctamente",
+				});
+			}
 		} catch (error) {
-			res.status(500).json({ error: "Error al borrar el rol" });
+			res.status(500).json({ error: "Error al eliminar el rol" });
 		}
 	},
 };

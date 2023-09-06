@@ -44,10 +44,6 @@ const encargadoRepository = {
 
 	borrar: async (id) => {
 		try {
-			const encargado = await Encargado.findByPk(id);
-			if (!encargado) {
-				throw new Error("Encargado no encontrado");
-			}
 			return await Encargado.destroy({
 				where: { id },
 			});

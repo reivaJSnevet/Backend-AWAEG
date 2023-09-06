@@ -41,11 +41,9 @@ const claseRepository = {
 
 	borrar: async (id) => {
 		try {
-			const clase = await Clase.findByPk(id);
-			if (!clase) {
-				throw new Error("Clase no encontrada");
-			}
-			return await clase.destroy(); //Probar Luego AQUI POSIBLE ERROR
+			return await Clase.destroy({
+				where: { id },
+			});
 		} catch (error) {
 			throw error;
 		}

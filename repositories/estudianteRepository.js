@@ -48,10 +48,6 @@ const estudianteRepository = {
 
 	borrar: async (id) => {
 		try {
-			const estudiante = await Estudiante.findByPk(id);
-			if (!estudiante) {
-				throw new Error("Estudiante no encontrado");
-			}
 			return await Estudiante.destroy({
 				where: { id },
 			});

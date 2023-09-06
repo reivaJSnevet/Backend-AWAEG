@@ -1,4 +1,3 @@
-import notaRepository from "../repositories/notaRepository.js";
 import notaService from "../services/notaServices.js";
 
 const notaController = {
@@ -57,7 +56,7 @@ const notaController = {
 				req.body;
 			const datos = { calificacion, periodo, fechaSubida, funcionarioId,claseId };
 
-			const nota = await notaRepository.actualizar(id, datos);
+			const nota = await notaService.actualizarNota(id, datos);
 			return res.status(200).json(nota);
 		} catch (error) {
 			console.error("Error al actualizar nota:", error);
@@ -73,11 +72,11 @@ const notaController = {
 		try {
 			const nota = notaService.obtenerNotaPorId(id);
 			if (!nota) {
-				res.status(404).json({ error: "nota no encontrada" });
+				res.status(404).json({ error: "Nota no encontrada" });
 			} else {
 				await notaService.borrarNota(id);
 				res.status(200).json({
-					message: "nota eliminada correctamente",
+					message: "Nota eliminada correctamente",
 				});
 			}
 		} catch (error) {
