@@ -31,14 +31,8 @@ const estudianteController = {
 
 			res.status(201).json(nuevoEstudiante);
 		} catch (error) {
-			if (error.errors) {
-				const erroresValidacion = error.errors.map(
-					(err) => err.message,
-				);
-				res.status(400).json({ errores: erroresValidacion });
-			} else {
-				res.status(500).json({ error: "Error al crear el rol" });
-			}
+			res.status(500).json({ error: "Error al crear el estudiante" });
+			console.log(error);
 		}
 	},
 

@@ -6,8 +6,9 @@ const grupoController = {
 		try {
 			const grupos = await grupoService.obtenerTodosGrupos();
 			res.status(200).json(grupos);
-		} catch (error) {
-			res.status(500).json({ error: error.message });
+		}  catch (error) {
+			res.status(500).json({ error: "Error al obtener los grupos" });
+			console.log(error);
 		}
 	},
 
@@ -37,16 +38,8 @@ const grupoController = {
 			});
 			res.status(201).json(nuevoGrupo);
 		} catch (error) {
-			if (error.errors) {
-				const erroresValidacion = error.errors.map(
-					(err) => err.message,
-				);
-				res.status(400).json({ errores: erroresValidacion });
-			} else {
-				res.status(500).json({
-					error: "Error al crear el Grupo",
-				});
-			}
+			res.status(500).json({ error: "Error al crear el grupo" });
+			console.log(error);
 		}
 	},
 
@@ -57,7 +50,8 @@ const grupoController = {
 			const grupo = await grupoService.actualizarGrupo(seccion);
 			res.status(200).json(grupo);
 		} catch (error) {
-			res.status(500).json({ error: error.message });
+			res.status(500).json({ error: "Error al obtener el grupo" });
+			console.log(error);
 		}
 	},
 
@@ -72,10 +66,7 @@ const grupoController = {
 			const grupo = await grupoService.actualizarGrupo(seccion, datos);
 			return res.status(200).json(grupo);
 		} catch (error) {
-			console.error("Error al actualizar el grupo:", error);
-			return res
-				.status(500)
-				.json({ error: "Error interno del servidor." });
+			res.status(500).json({ error: "Error al actualizar el grupo" });
 		}
 	},
 
@@ -84,15 +75,18 @@ const grupoController = {
 	eliminarGrupo: async (req, res) => {
 		const { seccion } = req.params;
 		try {
-			const grupo = grupoService.obtenerGrupoPorId(seccion);
+			const grupo = await grupoService.obtenerGrupoPorId(seccion);
+
 			if (!grupo) {
 				res.status(404).json({ error: "Grupo no encontrado" });
 			} else {
-				await grupoService.borrarGrupo(seccion);
-				res.status(200).json({ message: "Grupo eliminado con exito" });
+				await grupoService.obtenerGrupoPorId(seccion);
+				res.status(200).json({
+					message: "Grupo eliminado correctamente",
+				});
 			}
 		} catch (error) {
-			res.status(500).json({ error: "Error al eliminar el Grupo" });
+			res.status(500).json({ error: "Error al eliminar el grupo" });
 		}
 	},
 };

@@ -3,7 +3,8 @@ import { Grupo } from "../models/index.js";
 const grupoRepository = {
 	crear: async (grupo) => {
 		try {
-			return await Grupo.create(grupo);
+			const nuevoGrupo = await Grupo.create(grupo);
+			return nuevoGrupo;
 		} catch (error) {
 			throw error;
 		}

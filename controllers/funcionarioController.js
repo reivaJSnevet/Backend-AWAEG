@@ -7,8 +7,9 @@ const funcionarioController = {
 			const funcionarios =
 				await funcionarioService.obtenerTodosFuncionarios();
 			res.status(200).json(funcionarios);
-		} catch (error) {
-			res.status(500).json({ error: error.message });
+		}  catch (error) {
+			res.status(500).json({ error: "Error al obtener los funcionarios" });
+			console.log(error);
 		}
 	},
 
@@ -36,17 +37,9 @@ const funcionarioController = {
 			});
 
 			res.status(201).json(nuevoFuncionario);
-		} catch (error) {
-			if (error.errors) {
-				const erroresValidacion = error.errors.map(
-					(err) => err.message,
-				);
-				res.status(400).json({ errores: erroresValidacion });
-			} else {
-				res.status(500).json({
-					error: "Error al crear el funcionario",
-				});
-			}
+		}catch (error) {
+			res.status(500).json({ error: "Error al crear el funcioario" });
+			console.log(error);
 		}
 	},
 
@@ -58,13 +51,14 @@ const funcionarioController = {
 				await funcionarioService.obtenerFuncionarioPorId(id);
 			res.status(200).json(funcionario);
 		} catch (error) {
-			res.status(500).json({ error: error.message });
+			res.status(500).json({ error: "Error al obtener el funcionario" });
+			console.log(error);
 		}
 	},
 
 	// Actualizar un funcionario por ID
 	updateFuncionarioById: async (req, res) => {
-		try {
+		
 			const { id } = req.params;
 			const {
 				nombre,
@@ -83,30 +77,32 @@ const funcionarioController = {
 				usuarioId,
 			};
 
-			const funcionario = await funcionarioService.actualizarFuncionario(
-				id,
-				datos,
-			);
-			return res.status(200).json(funcionario);
-		} catch (error) {
-			console.error("Error al actualizar el funcionario:", error);
-			return resw
-				.status(500)
-				.json({ error: "Error interno del servidor." });
+			try {
+				const funcioario = await funcionarioService.obtenerFuncionarioPorId(id);
+				if (!funcioario) {
+				res.status(404).json({ error: "Funcionario no encontrado" });
+			 } else {
+			// Actualizar el usuario con los nuevos datos
+			await funcionarioService.actualizarFuncionario(id, datos);
+			res.status(200).json({ mensaje: "Funcionario actualizado correctamente" });
 		}
+	} catch (error) {
+		res.status(500).json({ error: "Error al actualizar el funcionario" });
+	}
 	},
 
 	// Eliminar un rol por ID
 	deleteFuncionarioById: async (req, res) => {
 		const { id } = req.params;
 		try {
-			const funcionario = funcionarioService.obtenerFuncionarioPorId(id);
-			if (!funcionario) {
-				res.status(404).json({ error: "funcionario no encontrado" });
+			const funcioario = await funcionarioService.obtenerFuncionarioPorId(id);
+
+			if (!funcioario) {
+				res.status(404).json({ error: "Funcionario no encontrado" });
 			} else {
 				await funcionarioService.borrarFuncionario(id);
 				res.status(200).json({
-					message: "Funcionario eliminado con exito",
+					message: "Funcionario eliminado correctamente",
 				});
 			}
 		} catch (error) {
