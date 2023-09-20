@@ -72,6 +72,15 @@ const Estudiante = db.define(
 				},
 			},
 		},
+		seccion: {
+			type: DataTypes.STRING,
+			allowNull: false,
+			validate: {
+				notEmpty: {
+					msg: "La sección no puede estar vacía",
+				},
+			},
+		},
 	},
 	{
 		hooks: {
