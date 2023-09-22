@@ -60,5 +60,17 @@ const Grupo = db.define("grupos", {
 		type: DataTypes.BOOLEAN,
 		allowNull: false,
 	},
+	ProfesorGuia: {
+		type: DataTypes.INTEGER,
+		allowNull: false,
+		validate: {
+			notEmpty:{
+				mgs: "El profesor guia no puede estar vacio"
+			},
+			isInt: {
+				msg: "El profesor guia debe de ser un numero entero",
+			},
+		}
+	}
 });
 export default Grupo;
