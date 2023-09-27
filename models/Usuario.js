@@ -57,6 +57,10 @@ const Usuario = db.define(
 
 // Compara la contraseña, devuelve true o false
 Usuario.prototype.verificarPassword = function (contraseña) {
+	if (!contraseña || !this.contraseña) {
+		throw new Error("Both password and hash need to be defined");
+	}
+
 	return bcrypt.compareSync(contraseña, this.contraseña);
 };
 

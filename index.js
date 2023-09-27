@@ -17,6 +17,8 @@ import {
 
 import "./tasks/actualizadorEdades.js";
 import "./tasks/actualizarEdadFuncionario.js";
+import cookieParser from "cookie-parser";
+import authRouter from "./routes/authRoutes.js";
 
 //Creacion de la app
 const app = express();
@@ -34,6 +36,9 @@ app.use(express.urlencoded({ extended: true }));
 
 //habilita lectura de json en URL
 app.use(express.json());
+
+//coockies
+app.use(cookieParser());
 
 //Conexion a la Base de datos
 try {
@@ -61,7 +66,7 @@ app.use("/api/", funcionarioRoutes);
 app.use("/api/", encargadoRoutes);
 app.use("/api/", notasRoutes);
 app.use("/api/", claseRoutes);
-
+app.use("/api/", authRouter);
 //definir puerto y inicializacion del server
 const port = process.env.PORT || 3000;
 
