@@ -48,6 +48,15 @@ const Usuario = db.define(
 					salt,
 				);
 			},
+            beforeBulkCreate: async function (usuarios) {
+                for (const usuario of usuarios) {
+                    const salt = await bcrypt.genSalt(10);
+                    usuario.contraseña = await bcrypt.hash(
+                        usuario.contraseña,
+                        salt,
+                    );
+                }
+            }
 		},
 		scopes: {},
 	},

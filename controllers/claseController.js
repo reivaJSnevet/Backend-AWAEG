@@ -1,19 +1,24 @@
 import claseService from "../services/claseServices.js";
 
 const claseController = {
-	crearClase: async (req, res) => {
-		const { dia, horaInicio, horaSalida, leccion } = req.body;
 
-		if (!dia || !horaInicio || !horaSalida || !leccion) {
+    //dejar por fuera con decoradores
+	crearClase: async (req, res) => {
+		const { dia, horaInicio, horaSalida, leccion, materiaId, funcionarioId} = req.body;
+        console.log({ dia, horaInicio, horaSalida, leccion, materiaId, funcionarioId}, "AQUIIIIIESTAAAAA EL PROBLEMA ES BACKEND");
+
+		if (!dia || !horaInicio || !horaSalida || !leccion || !funcionarioId || !materiaId) {
 			return res.status(400).json({ error: "Faltan datos obligatorios" });
 		}
 
 		try {
 			const nuevaClase = await claseService.crearClase({
 				dia,
-				horaInicio,
-				horaSalida,
-				leccion,
+                horaInicio,
+                horaSalida,
+                leccion,
+                materiaId,
+                funcionarioId,
 			});
 			res.status(201).json(nuevaClase);
 		} catch (error) {
@@ -62,18 +67,21 @@ const claseController = {
 
 	updateClaseById: async (req, res) => {
 		const { id } = req.params;
-		const { dia, horaInicio, horaSalida, leccion } = req.body;
+		const { funcionarioId, materiaId, leccion, horaInicio, horaSalida} = req.body;
 
-		if (!id || !dia || !horaInicio || !horaSalida || !leccion) {
+		if (!id || !dia || !horaInicio || !horaSalida || !leccion || !funcionarioId || !materiaId) {
+            console.log("Faltan datos obligatorios AQUIE ESTA EL PROBLEMA ES BACKEND");
 			return res.status(400).json({ error: "Faltan datos obligatorios" });
 		}
 
 		try {
 			await claseService.actualizarClase(id, {
 				dia,
-				horaInicio,
-				horaSalida,
-				leccion,
+                horaInicio,
+                horaSalida,
+                leccion,
+                materiaId,
+                funcionarioId,
 			});
 			res.json({ message: "Clase actualizada correctamente" });
 		} catch (error) {

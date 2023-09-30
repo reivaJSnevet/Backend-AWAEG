@@ -16,17 +16,19 @@ const authRepository = {
 					},
 				],
 			});
-			if (user === null) throw new Error("Usuario no encontrado");
-	
-			if (!contraseña || !user.contraseña) {
-				throw new Error('Password or hash is undefined');
+			if (!user){
+                throw new Error("Usuario no encontrado");
+            }
+
+            const isPasswordValid = await user.verificarPassword(contraseña);
+
+			if (!isPasswordValid) {
+				throw new Error("Contraseña incorrecta");
 			}
-	
-			const isMatch = await user.verificarPassword(contraseña);
-			if (!isMatch) throw new Error("Contraseña incorrecta");
-			return user;
+            
+            return user;
 		} catch (error) {
-			throw error;
+            throw new Error(`Error en la autenticación: ${error.message}`);
 		}
 	},
 	

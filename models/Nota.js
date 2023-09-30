@@ -23,15 +23,6 @@ const Nota = db.define("notas", {
 			},
 		},
 	},
-	fechaSubida: {
-		type: DataTypes.DATEONLY,
-		allowNull: false,
-		validate: {
-			isDate: {
-				msg: "La fecha no es valida",
-			},
-		},
-	},
 });
 
 export default Nota;

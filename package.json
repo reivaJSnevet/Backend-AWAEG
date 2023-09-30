@@ -7,7 +7,7 @@
   "scripts": {
     "start": "node index.js",
     "server": "nodemon --quiet index.js",
-    "db:generar": "node ./seed/seeder.js -i",
+    "seed": "node ./seed/seeder.js -i",
     "format": "prettier --write \"./**/*.js\""
   },
   "keywords": [],

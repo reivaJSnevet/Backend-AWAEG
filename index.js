@@ -13,6 +13,7 @@ import {
 	funcionarioRoutes,
 	encargadoRoutes,
 	notasRoutes,
+    materiaRoutes,
 } from "./routes/index.js";
 
 import "./tasks/actualizadorEdades.js";
@@ -67,6 +68,8 @@ app.use("/api/", encargadoRoutes);
 app.use("/api/", notasRoutes);
 app.use("/api/", claseRoutes);
 app.use("/api/", authRouter);
+app.use("/api/", materiaRoutes);
+
 //definir puerto y inicializacion del server
 const port = process.env.PORT || 3000;
 

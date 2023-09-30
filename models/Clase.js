@@ -14,8 +14,6 @@ const Clase = db.define("clases", {
 						"miércoles",
 						"jueves",
 						"viernes",
-						"sábado",
-						"domingo",
 					],
 				],
 				msg: "El campo dia debe ser un día válido.",

@@ -1,4 +1,4 @@
-import { Clase } from "../models/index.js";
+import { Clase, Funcionario, Materia } from "../models/index.js";
 
 const claseRepository = {
 	crear: async (clase) => {
@@ -9,13 +9,24 @@ const claseRepository = {
 		}
 	},
 
-	obtenerTodos: async () => {
-		try {
-			return await Clase.findAll();
-		} catch (error) {
-			throw error;
-		}
-	},
+    obtenerTodos: async () => {
+        try {
+            return await Clase.findAll({
+                include: [
+                    {
+                        model: Funcionario,
+                        attributes: ["nombre", "apellido1", "apellido2"],
+                    },
+                    {
+                        model: Materia,
+                        attributes: ["nombre"],
+                    },
+                ],
+            });
+        } catch (error) {
+            throw error;
+        }
+    },
 
 	obtenerPorId: async (id) => {
 		try {

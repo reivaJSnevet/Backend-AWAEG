@@ -4,6 +4,8 @@ const checkRole = (role) => {
     return (req, res, next) => {
         const token = req.cookies ? req.cookies.token : null;
 
+        //arreglo de rutas (traae path y contralador)
+
         if (!token) {
             return res.status(401).json({ error: 'Unauthorized' });
         }
