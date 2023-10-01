@@ -38,6 +38,7 @@ const Usuario = db.define(
 		},
 		correoVerificado: DataTypes.BOOLEAN,
 		token: DataTypes.STRING,
+        activo: DataTypes.BOOLEAN,
 	},
 	{
 		hooks: {

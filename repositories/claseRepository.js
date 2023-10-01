@@ -2,62 +2,57 @@ import { Clase, Funcionario, Materia } from "../models/index.js";
 
 const claseRepository = {
 	crear: async (clase) => {
-		try {
-			return await Clase.create(clase);
-		} catch (error) {
-			throw error;
-		}
+		const nuevaClase = await Clase.create(clase);
+		return nuevaClase;
 	},
 
-    obtenerTodos: async () => {
-        try {
-            return await Clase.findAll({
-                include: [
-                    {
-                        model: Funcionario,
-                        attributes: ["nombre", "apellido1", "apellido2"],
-                    },
-                    {
-                        model: Materia,
-                        attributes: ["nombre"],
-                    },
-                ],
-            });
-        } catch (error) {
-            throw error;
-        }
-    },
+	obtenerTodos: async () => {
+		const clases = await Clase.findAll({
+			include: [
+				{
+					model: Funcionario,
+					attributes: ["nombre", "apellido1", "apellido2"],
+				},
+				{
+					model: Materia,
+					attributes: ["nombre"],
+				},
+			],
+		});
+		return clases;
+	},
 
 	obtenerPorId: async (id) => {
-		try {
-			const clase = await Clase.findByPk(id);
-			return clase;
-		} catch (error) {
-			throw error;
-		}
+		const clase = await Clase.findByPk(id, {
+			include: [
+				{
+					model: Funcionario,
+					attributes: ["nombre", "apellido1", "apellido2"],
+				},
+				{
+					model: Materia,
+					attributes: ["nombre"],
+				},
+			],
+		});
+		return clase;
 	},
 
 	actualizar: async (id, nuevosDatos) => {
-		try {
-			const clase = await Clase.findByPk(id);
-			if (!clase) {
-				throw new Error("Clase no encontrada");
-			}
-			await clase.update(nuevosDatos);
-			return clase;
-		} catch (error) {
-			throw error;
-		}
+		const clase = await Clase.findByPk(id);
+        if (!clase) {
+            return clase;
+        }
+		await clase.update(nuevosDatos);
+		return clase;
 	},
 
 	borrar: async (id) => {
-		try {
-			return await Clase.destroy({
-				where: { id },
-			});
-		} catch (error) {
-			throw error;
-		}
+        const clase = await Clase.findByPk(id);
+        if (!clase) {
+            return clase;
+        }
+		return await clase.destroy();
 	},
 };
 

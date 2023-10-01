@@ -43,8 +43,8 @@ Estudiante.hasMany(Nota);
 Nota.belongsTo(Estudiante);
 
 //Relacion de uno a muchos entre  Grupo y Funcionario
-Funcionario.hasMany(Grupo, { foreignKey: "ProfesorGuia" });
-Grupo.belongsTo(Funcionario, { foreignKey: "ProfesorGuia" });
+Funcionario.hasMany(Grupo/* , { foreignKey: "ProfesorGuia" } */);
+Grupo.belongsTo(Funcionario/* , { foreignKey: "ProfesorGuia" } */);
 
 //Relacion uno a mucho entre horario y clase
 Horario.hasMany(Clase);

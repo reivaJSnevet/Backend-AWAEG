@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import db from "../config/db.js";
+import Grupo from "./Grupo.js";
 
 const Estudiante = db.define(
 	"estudiantes",
@@ -74,18 +75,15 @@ const Estudiante = db.define(
 		},
 		seccion: {
 			type: DataTypes.STRING,
-			allowNull: false,
-			validate: {
-				notEmpty: {
-					msg: "La sección no puede estar vacía",
-				},
-			},
+			allowNull: true,
 		},
 	},
 	{
 		hooks: {
 			beforeCreate: (estudiante) => calcularEdad(estudiante),
 			beforeUpdate: (estudiante) => calcularEdad(estudiante),
+            afterCreate: (estudiante) => actualizarCantidadEstudiantes(estudiante.seccion, 1),
+            beforeDestroy: (estudiante) => actualizarCantidadEstudiantes(estudiante.seccion, -1),
 		},
 	},
 );
@@ -107,5 +105,14 @@ const calcularEdad = (estudiante) => {
 
 	estudiante.setDataValue("edad", edadExacta);
 };
+
+const actualizarCantidadEstudiantes = async (seccion, cantidad) => {
+    if (seccion) {
+      const grupo = await Grupo.findByPk(seccion);
+      if (grupo) {
+        grupo.increment("cantAlumno", { by: cantidad });
+      }
+    }
+  };
 
 export default Estudiante;
