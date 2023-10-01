@@ -1,15 +1,14 @@
-import { Estudiante } from "../models/index.js";
-/* import GenericRepository from "./genericRepository.js"; */
+import { Clase, Estudiante } from "../models/index.js";
+import Nota from "../models/Nota.js";
+import Materia from "../models/Materia.js";
 
-//posible implementacion de genericRepositoty
-/* const estudianteRepo = new GenericRepository(Estudiante) */
 
 const estudianteRepository = {
 	crear: async (estudianteData) => {
 		try {
 			return await Estudiante.create(estudianteData);
 		} catch (error) {
-			throw error; // Propaga el error para que sea manejado en los controladores
+			throw error;
 		}
 	},
 
@@ -51,6 +50,39 @@ const estudianteRepository = {
 			return await Estudiante.destroy({
 				where: { id },
 			});
+		} catch (error) {
+			throw error;
+		}
+	},
+
+	estudianteNotas: async (id) => {
+		try {
+			const estudiante = await Estudiante.findByPk(id, {
+				include: [
+					{
+						model: Nota,
+						attributes: ["id", "calificacion", "periodo"],
+						include: [
+							{
+								model: Clase,
+                                attributes: ["id"],
+                                include: [
+                                    {
+                                        model: Materia,
+                                        attributes: ["nombre"]
+                                    }
+                                ]
+							},
+						],
+					},
+				],
+			});
+
+			if (!estudiante) {
+				throw new Error("Estudiante no encontrado");
+			}
+
+			return estudiante;
 		} catch (error) {
 			throw error;
 		}

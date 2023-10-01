@@ -48,9 +48,11 @@ const estudianteController = {
 
 	getEstudianteById: async (req, res) => {
 		try {
-			const { id } = req.params;
+			const { id} = req.params;
+            const {mostrarNotas} = req.body;
+            
 			const estudiante =
-				await estudianteService.obtenerEstudiantelPorId(id);
+				await estudianteService.obtenerEstudiantelPorId(id, mostrarNotas);
 			res.status(200).json(estudiante);
 		} catch (error) {
 			res.status(500).json({ error: error.message });

@@ -13,35 +13,29 @@ const grupoController = {
 	},
 
 	// Crear un nuevo grupo
-	crearGrupo: async (req, res) => {
-		try {
-			const {
-				seccion,
-				ciclo,
-				grado,
-				aula,
-				cantAlumno,
-				turno,
-				horarioId,
-				ProfesorGuia,
-			} = req.body;
+    crearGrupo: async (req, res) => {
+        try {
+            const {
+                seccion,
+                ciclo,
+                grado,
+                aula,
+                turno,
+            } = req.body;
 
-			const nuevoGrupo = await grupoService.crearGrupo({
-				seccion,
-				ciclo,
-				grado,
-				aula,
-				cantAlumno,
-				turno,
-				horarioId,
-				ProfesorGuia,
-			});
-			res.status(201).json(nuevoGrupo);
-		} catch (error) {
-			res.status(500).json({ error: "Error al crear el grupo" });
-			console.log(error);
-		}
-	},
+            const nuevoGrupo = await grupoService.crearGrupo({
+                seccion,
+                ciclo,
+                grado,
+                aula,
+                turno,
+            });
+            res.status(201).json(nuevoGrupo);
+        } catch (errors) {
+            // Si hay errores, envía la lista de errores al front-end
+            res.status(400).json({ errors: errors });
+        }
+    },
 
 	//encontrar grupo por seccion
 	obtenerGrupo: async (req, res) => {

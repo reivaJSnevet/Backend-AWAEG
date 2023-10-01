@@ -9,8 +9,12 @@ const estudianteService = {
 		return await estudianteRepository.obtenerTodos();
 	},
 
-	obtenerEstudiantelPorId: async (id) => {
-		return await estudianteRepository.obtenerPorId(id);
+	obtenerEstudiantelPorId: async (id, mostrarNotas) => {
+        if (mostrarNotas === true) {
+            return await estudianteRepository.estudianteNotas(id);
+        }else{
+            return await estudianteRepository.obtenerPorId(id);
+        }
 	},
 
 	actualizarEstudiante: async (id, nuevosDatos) => {

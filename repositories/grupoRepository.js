@@ -2,12 +2,8 @@ import { Grupo } from "../models/index.js";
 
 const grupoRepository = {
 	crear: async (grupo) => {
-		try {
 			const nuevoGrupo = await Grupo.create(grupo);
 			return nuevoGrupo;
-		} catch (error) {
-			throw error;
-		}
 	},
 
 	obtenerTodos: async () => {
