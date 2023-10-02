@@ -1,7 +1,12 @@
-import { Clase, Encargado, Estudiante, Grupo, Usuario } from "../models/index.js";
+import {
+	Clase,
+	Encargado,
+	Estudiante,
+	Grupo,
+	Usuario,
+} from "../models/index.js";
 import Nota from "../models/Nota.js";
 import Materia from "../models/Materia.js";
-
 
 const estudianteRepository = {
 	crear: async (estudiante) => {
@@ -18,25 +23,28 @@ const estudianteRepository = {
 				},
 				{
 					model: Grupo,
-					attributes: ["seccion", "aula","ciclo", "turno"]
+					attributes: ["seccion", "aula", "ciclo", "turno"],
 				},
 				{
 					model: Encargado,
-					attributes: ["id", "nombre", "apellido1", "apellido2"]
+					attributes: ["id", "nombre", "apellido1", "apellido2"],
 				},
 				{
 					model: Nota,
 					attributes: ["id", "calificacion", "periodo"],
-					include: [{
-						model: Clase,
-						attributes: ["id"],
-						include: [{
-							model: Materia,
-							attributes: ["nombre"]
-						}]
-					}]
-				}
-				
+					include: [
+						{
+							model: Clase,
+							attributes: ["id"],
+							include: [
+								{
+									model: Materia,
+									attributes: ["nombre"],
+								},
+							],
+						},
+					],
+				},
 			],
 		});
 		return estudiantes;
@@ -51,25 +59,29 @@ const estudianteRepository = {
 				},
 				{
 					model: Grupo,
-					attributes: ["seccion", "aula","ciclo", "turno"]
+					attributes: ["seccion", "aula", "ciclo", "turno"],
 				},
 				{
 					model: Encargado,
-					attributes: ["id", "nombre", "apellido1", "apellido2"]
+					attributes: ["id", "nombre", "apellido1", "apellido2"],
 				},
 				{
 					model: Nota,
 					attributes: ["id", "calificacion", "periodo"],
-					include: [{
-						model: Clase,
-						attributes: ["id"],
-						include: [{
-							model: Materia,
-							attributes: ["nombre"]
-						}]
-					}]
-				}
-			]
+					include: [
+						{
+							model: Clase,
+							attributes: ["id"],
+							include: [
+								{
+									model: Materia,
+									attributes: ["nombre"],
+								},
+							],
+						},
+					],
+				},
+			],
 		});
 		return estudiante;
 	},
@@ -91,38 +103,34 @@ const estudianteRepository = {
 		return await estudiante.destroy();
 	},
 
-	// estudianteNotas: async (id) => {
-	// 	try {
-	// 		const estudiante = await Estudiante.findByPk(id, {
-	// 			include: [
-	// 				{
-	// 					model: Nota,
-	// 					attributes: ["id", "calificacion", "periodo"],
-	// 					include: [
-	// 						{
-	// 							model: Clase,
-    //                             attributes: ["id"],
-    //                             include: [
-    //                                 {
-    //                                     model: Materia,
-    //                                     attributes: ["nombre"]
-    //                                 }
-    //                             ]
-	// 						},
-	// 					],
-	// 				},
-	// 			],
-	// 		});
+	estudianteNotas: async (id) => {
+		const estudiante = await Estudiante.findByPk(id, {
+			include: [
+				{
+					model: Nota,
+					attributes: ["id", "calificacion", "periodo"],
+					include: [
+						{
+							model: Clase,
+							attributes: ["id"],
+							include: [
+								{
+									model: Materia,
+									attributes: ["nombre"],
+								},
+							],
+						},
+					],
+				},
+			],
+		});
 
-	// 		if (!estudiante) {
-	// 			throw new Error("Estudiante no encontrado");
-	// 		}
+		if (!estudiante) {
+			throw new Error("Estudiante no encontrado");
+		}
 
-	// 		return estudiante;
-	// 	} catch (error) {
-	// 		throw error;
-	// 	}
-	// },
+		return estudiante;
+	},
 };
 
 export default estudianteRepository;

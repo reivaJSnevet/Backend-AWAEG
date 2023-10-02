@@ -32,13 +32,21 @@ const estudianteService = {
 		}
 	},
 
-	obtenerEstudiantelPorId: async (id) => {
+	obtenerEstudiantelPorId: async (id, mostrarNotas) => {
         try {
-			const estudiante = await estudianteRepository.obtenerPorId(id);
-			if (!estudiante) {
-				throw new Error("Estudiante no encontrado");
-			}
-			return estudiante;
+            if (mostrarNotas === true) {
+                const estudiante = await estudianteRepository.estudianteNotas(id);
+                if (!estudiante) {
+                    throw new Error("Estudiante no encontrado");
+                }
+                return estudiante;
+            }else{
+                const estudiante = await estudianteRepository.obtenerPorId(id);
+                if (!estudiante) {
+                    throw new Error("Estudiante no encontrado");
+                }
+                return estudiante;
+            }
 		} catch (error) {
 			throw error
 		}

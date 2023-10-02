@@ -1,0 +1,767 @@
+{
+    "_id": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+    "colName": "swaeg",
+    "created": "2023-10-02T22:19:51.546Z",
+    "sortNum": 10000,
+    "folders": [
+        {
+            "_id": "3a3eef75-3c5c-488e-8498-03501fa322c8",
+            "name": "clase",
+            "containerId": "",
+            "created": "2023-10-02T22:19:51.557Z",
+            "sortNum": 10000
+        },
+        {
+            "_id": "4cd959ee-2036-464a-a5d8-3ff68eac0444",
+            "name": "encargado",
+            "containerId": "",
+            "created": "2023-10-02T22:19:51.558Z",
+            "sortNum": 20000
+        },
+        {
+            "_id": "a019480e-0007-4f6f-9bd1-4eb92ce9f67f",
+            "name": "auth",
+            "containerId": "",
+            "created": "2023-10-02T22:19:51.559Z",
+            "sortNum": 30000
+        },
+        {
+            "_id": "53eb864a-5782-4e2a-a8f4-87c1505b1cf9",
+            "name": "materia",
+            "containerId": "",
+            "created": "2023-10-02T22:19:51.560Z",
+            "sortNum": 40000
+        },
+        {
+            "_id": "5d28d1e1-f42f-427e-9c23-bf7e9b85613d",
+            "name": "estudiante",
+            "containerId": "",
+            "created": "2023-10-02T22:19:51.561Z",
+            "sortNum": 50000
+        },
+        {
+            "_id": "565670bf-3d03-4e1b-87a8-ec1007a32604",
+            "name": "grupo",
+            "containerId": "",
+            "created": "2023-10-02T22:19:51.562Z",
+            "sortNum": 60000
+        },
+        {
+            "_id": "d468bf84-589d-47aa-b152-77a1c8173c8a",
+            "name": "funcionario",
+            "containerId": "",
+            "created": "2023-10-02T22:19:51.563Z",
+            "sortNum": 70000
+        },
+        {
+            "_id": "d8a7fad8-1de9-4dec-ab12-a59400ed2628",
+            "name": "nota",
+            "containerId": "",
+            "created": "2023-10-02T22:19:51.564Z",
+            "sortNum": 80000
+        },
+        {
+            "_id": "f3698e0c-942b-4993-8f00-f1060bb02447",
+            "name": "prematricula",
+            "containerId": "",
+            "created": "2023-10-02T22:19:51.565Z",
+            "sortNum": 90000
+        },
+        {
+            "_id": "a9a678f1-73c6-4901-9d6b-0463ff49aaa5",
+            "name": "rol",
+            "containerId": "",
+            "created": "2023-10-02T22:19:51.566Z",
+            "sortNum": 100000
+        },
+        {
+            "_id": "a1d901f2-7ae7-4faf-ab00-31f2916a46e7",
+            "name": "usuario",
+            "containerId": "",
+            "created": "2023-10-02T22:19:51.567Z",
+            "sortNum": 110000
+        }
+    ],
+    "requests": [
+        {
+            "_id": "bde56179-ce06-47d3-9f41-dd55b70cc761",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "3a3eef75-3c5c-488e-8498-03501fa322c8",
+            "name": "AddClase",
+            "url": "clases",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-10-02T22:19:51.557Z",
+            "modified": "2023-10-02T22:19:51.557Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"dia\": \"lunes\",\n  \"horaInicio\": \"15:30\",\n  \"horaSalida\": \"16:10\",\n  \"leccion\": \"II\",\n  \"materiaId\": \"1\",\n  \"funcionarioId\": \"25350856\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "c32b6407-2ab6-46ef-bdff-68c6e91e8a10",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "3a3eef75-3c5c-488e-8498-03501fa322c8",
+            "name": "GetAll",
+            "url": "clases",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-10-02T22:19:51.558Z",
+            "modified": "2023-10-02T22:19:51.558Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "7c9ac22e-1a42-41df-9dc2-b26486a02fb7",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "3a3eef75-3c5c-488e-8498-03501fa322c8",
+            "name": "GetById",
+            "url": "clases/1",
+            "method": "GET",
+            "sortNum": 30000,
+            "created": "2023-10-02T22:19:51.559Z",
+            "modified": "2023-10-02T22:19:51.559Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "17cf15bf-24d6-443c-94fd-7aa266ca5cf3",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "3a3eef75-3c5c-488e-8498-03501fa322c8",
+            "name": "Update",
+            "url": "clases/l",
+            "method": "PUT",
+            "sortNum": 40000,
+            "created": "2023-10-02T22:19:51.560Z",
+            "modified": "2023-10-02T22:19:51.560Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"dia\": \"lunes\",\n  \"horaInicio\": \"15:30\",\n  \"horaSalida\": \"16:10\",\n  \"leccion\": \"II\",\n  \"materiaId\": \"1\",\n  \"funcionarioId\": \"253850856\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "7bf181d5-9a09-4725-a960-32ea6dab60c0",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "3a3eef75-3c5c-488e-8498-03501fa322c8",
+            "name": "Delete",
+            "url": "clases/5",
+            "method": "DELETE",
+            "sortNum": 50000,
+            "created": "2023-10-02T22:19:51.561Z",
+            "modified": "2023-10-02T22:19:51.561Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "214c7cc8-3f78-4619-87df-2ff2f4d7955b",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "4cd959ee-2036-464a-a5d8-3ff68eac0444",
+            "name": "AddEncargado",
+            "url": "encargados",
+            "method": "POST",
+            "sortNum": 70000,
+            "created": "2023-10-02T22:19:51.562Z",
+            "modified": "2023-10-02T22:19:51.562Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"id\": \"818050321\",\n  \"nombre\": \"Demorgan\",\n  \"apellido1\": \"d\",\n  \"apellido2\": \"s\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "20b6bab9-615d-443b-a08c-71274bdc9b48",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "4cd959ee-2036-464a-a5d8-3ff68eac0444",
+            "name": "GetAll",
+            "url": "encargados",
+            "method": "GET",
+            "sortNum": 80000,
+            "created": "2023-10-02T22:19:51.563Z",
+            "modified": "2023-10-02T22:19:51.563Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "3ff95738-4030-41dc-9c82-0cea19937eff",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "4cd959ee-2036-464a-a5d8-3ff68eac0444",
+            "name": "Update",
+            "url": "encargados/818050321",
+            "method": "PUT",
+            "sortNum": 90000,
+            "created": "2023-10-02T22:19:51.565Z",
+            "modified": "2023-10-02T22:19:51.565Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nombre\": \"Demorgan\",\n  \"apellido1\": \"Mahulu\",\n  \"apellido2\": \"lopez\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "720a54ed-427e-4ddd-935c-4bff06d5479f",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "a019480e-0007-4f6f-9bd1-4eb92ce9f67f",
+            "name": "auth",
+            "url": "auth/login",
+            "method": "POST",
+            "sortNum": 100000,
+            "created": "2023-10-02T22:19:51.566Z",
+            "modified": "2023-10-02T22:19:51.566Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"correo\": \"orion\",\n  \"contraseña\": \"password\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "baf1bce3-6269-464f-84bc-e0d7fc85b5d4",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "53eb864a-5782-4e2a-a8f4-87c1505b1cf9",
+            "name": "AddMateria",
+            "url": "materias",
+            "method": "POST",
+            "sortNum": 120000,
+            "created": "2023-10-02T22:19:51.567Z",
+            "modified": "2023-10-02T22:19:51.567Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nombre\": \"Español\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "493ebea3-5a9a-4b82-989b-bafa15b815f2",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "53eb864a-5782-4e2a-a8f4-87c1505b1cf9",
+            "name": "GetAll",
+            "url": "materias",
+            "method": "GET",
+            "sortNum": 130000,
+            "created": "2023-10-02T22:19:51.568Z",
+            "modified": "2023-10-02T22:19:51.568Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "2895d873-98a0-477d-aa28-6a61c42aed8c",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "5d28d1e1-f42f-427e-9c23-bf7e9b85613d",
+            "name": "GetById",
+            "url": "estudiantes/498765432",
+            "method": "GET",
+            "sortNum": 140000,
+            "created": "2023-10-02T22:19:51.569Z",
+            "modified": "2023-10-02T22:19:51.569Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"mostrarNotas\": true\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "64be9966-4112-4a64-8b11-6164a2b5b81f",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "565670bf-3d03-4e1b-87a8-ec1007a32604",
+            "name": "AddGrupo",
+            "url": "grupos",
+            "method": "POST",
+            "sortNum": 37500,
+            "created": "2023-10-02T22:19:51.570Z",
+            "modified": "2023-10-02T22:19:51.570Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"seccion\": \"1-1\",\n  \"ciclo\": \"2019\",\n  \"grado\": \"primero\",\n  \"aula\": \"2\",\n  \"turno\": \"0\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "91dc4804-66a2-4ede-afc2-99e873ac9dcf",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "5d28d1e1-f42f-427e-9c23-bf7e9b85613d",
+            "name": "AddEstudiante",
+            "url": "estudiantes",
+            "method": "POST",
+            "sortNum": 70000,
+            "created": "2023-10-02T22:19:51.571Z",
+            "modified": "2023-10-02T22:19:51.571Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"id\": 253850856,\n  \"nombre\": \"Lupe\",\n  \"apellido1\": \"Mora\",\n  \"apellido2\": \"Fernandez\",\n  \"fechaNacimiento\": \"2001-04-02\",\n  \"sexo\": true,\n  \"direccion\": \"Calle Palenque\",\n  \"seccion\": \"1-1\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "a060701b-57b1-41a3-aceb-42ad3d910405",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "565670bf-3d03-4e1b-87a8-ec1007a32604",
+            "name": "GetAll",
+            "url": "/grupos",
+            "method": "GET",
+            "sortNum": 75000,
+            "created": "2023-10-02T22:19:51.572Z",
+            "modified": "2023-10-02T22:19:51.572Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "d18d6499-564f-4760-829d-09ec1ec4e77e",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "d468bf84-589d-47aa-b152-77a1c8173c8a",
+            "name": "AddFuncionario",
+            "url": "funcionarios",
+            "method": "POST",
+            "sortNum": 10000,
+            "created": "2023-10-02T22:19:51.573Z",
+            "modified": "2023-10-02T22:19:51.573Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"id\": 253850856,\n  \"nombre\": \"Lupe\",\n  \"apellido1\": \"Mora\",\n  \"apellido2\": \"Fernandez\",\n  \"fechaNacimiento\": \"2001-04-02\",\n  \"sexo\": true\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "398b504a-f63d-4301-9f31-37e7f315b147",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "d468bf84-589d-47aa-b152-77a1c8173c8a",
+            "name": "GeAll",
+            "url": "funcionarios",
+            "method": "GET",
+            "sortNum": 20000,
+            "created": "2023-10-02T22:19:51.574Z",
+            "modified": "2023-10-02T22:19:51.574Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "5eeb119e-8f7e-421c-afa6-061908e89859",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "d8a7fad8-1de9-4dec-ab12-a59400ed2628",
+            "name": "AddNota",
+            "url": "notas",
+            "method": "POST",
+            "sortNum": 30000,
+            "created": "2023-10-02T22:19:51.575Z",
+            "modified": "2023-10-02T22:19:51.575Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"calificacion\": 100,\n  \"periodo\": \"2019\",\n  \"fechaSubida\": \"2023-10-01\",\n  \"funcionarioId\": \"111111111\",\n  \"claseId\": 1,\n  \"estudianteId\": 498765432\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "6038f735-9d3c-461f-88e3-29ba1798f460",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "53eb864a-5782-4e2a-a8f4-87c1505b1cf9",
+            "name": "GetById",
+            "url": "materias/7",
+            "method": "GET",
+            "sortNum": 150000,
+            "created": "2023-10-02T22:19:51.576Z",
+            "modified": "2023-10-02T22:19:51.576Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "2ce999fd-e465-452e-85f2-e0837fc43d18",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "53eb864a-5782-4e2a-a8f4-87c1505b1cf9",
+            "name": "Update",
+            "url": "materias/1",
+            "method": "PUT",
+            "sortNum": 160000,
+            "created": "2023-10-02T22:19:51.577Z",
+            "modified": "2023-10-02T22:19:51.577Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nombre\": \"Matematicas\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "42c41140-9436-466a-a0be-8d9fa6dbef48",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "53eb864a-5782-4e2a-a8f4-87c1505b1cf9",
+            "name": "Delete",
+            "url": "materias/7",
+            "method": "DELETE",
+            "sortNum": 170000,
+            "created": "2023-10-02T22:19:51.578Z",
+            "modified": "2023-10-02T22:19:51.578Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "6e189df9-b2c2-41bc-85fb-7e94f773f829",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "d8a7fad8-1de9-4dec-ab12-a59400ed2628",
+            "name": "GetAll",
+            "url": "notas",
+            "method": "GET",
+            "sortNum": 180000,
+            "created": "2023-10-02T22:19:51.579Z",
+            "modified": "2023-10-02T22:19:51.579Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "f9536c95-b2dd-4d02-819a-05b9f7f3eabd",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "d8a7fad8-1de9-4dec-ab12-a59400ed2628",
+            "name": "Update",
+            "url": "notas/1",
+            "method": "PUT",
+            "sortNum": 190000,
+            "created": "2023-10-02T22:19:51.580Z",
+            "modified": "2023-10-02T22:19:51.580Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"calificacion\": 100,\n  \"periodo\": \"2019\",\n  \"fechaSubida\": \"2023-10-01\",\n  \"funcionarioId\": \"111111111\",\n  \"claseId\": 2,\n  \"estudianteId\": 198765432\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "da4927cb-cbe8-4c82-a6d9-8bb38d7f46f3",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "d8a7fad8-1de9-4dec-ab12-a59400ed2628",
+            "name": "GetById",
+            "url": "notas/1",
+            "method": "GET",
+            "sortNum": 185000,
+            "created": "2023-10-02T22:19:51.581Z",
+            "modified": "2023-10-02T22:19:51.581Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "6868d2dc-5c7f-478e-8c66-b6e691a5c4b8",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "d8a7fad8-1de9-4dec-ab12-a59400ed2628",
+            "name": "Delete",
+            "url": "notas/10",
+            "method": "DELETE",
+            "sortNum": 210000,
+            "created": "2023-10-02T22:19:51.582Z",
+            "modified": "2023-10-02T22:19:51.582Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "d0471bef-357b-44d1-9b6a-beae22cec8cc",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "f3698e0c-942b-4993-8f00-f1060bb02447",
+            "name": "AddPrematricula",
+            "url": "prematriculas",
+            "method": "POST",
+            "sortNum": 220000,
+            "created": "2023-10-02T22:19:51.583Z",
+            "modified": "2023-10-02T22:19:51.583Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"grado\": 1,\n  \"estudianteId\": 198765432\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "76139453-d948-41bd-a079-e5e7c2615f0f",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "f3698e0c-942b-4993-8f00-f1060bb02447",
+            "name": "GetAll",
+            "url": "prematriculas",
+            "method": "GET",
+            "sortNum": 230000,
+            "created": "2023-10-02T22:19:51.584Z",
+            "modified": "2023-10-02T22:19:51.584Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "7ad15870-0405-43d7-a871-fb7e6a345e91",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "f3698e0c-942b-4993-8f00-f1060bb02447",
+            "name": "GetById",
+            "url": "prematriculas/260d0370-430a-4ad7-925a-60741cea4f39",
+            "method": "GET",
+            "sortNum": 240000,
+            "created": "2023-10-02T22:19:51.585Z",
+            "modified": "2023-10-02T22:19:51.585Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "8da7fedf-e630-4440-8570-4fa36eb2d3f4",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "f3698e0c-942b-4993-8f00-f1060bb02447",
+            "name": "Update",
+            "url": "prematriculas/260d0370-430a-4ad7-925a-60741cea4f39",
+            "method": "PUT",
+            "sortNum": 250000,
+            "created": "2023-10-02T22:19:51.586Z",
+            "modified": "2023-10-02T22:19:51.586Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{           \n  \"estado\": 1,\n  \"grado\": 2,\n  \"createdAt\": \"2023-10-02T06:28:02.000Z\",\n  \"updatedAt\": \"2023-10-02T06:28:02.000Z\",\n  \"estudianteId\": 498765432\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "9525b104-234d-4b31-b8ae-626b28c4f07c",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "f3698e0c-942b-4993-8f00-f1060bb02447",
+            "name": "Delete",
+            "url": "prematriculas/3fa9a95e-0999-4e6d-bdc4-129ac86a2094",
+            "method": "DELETE",
+            "sortNum": 260000,
+            "created": "2023-10-02T22:19:51.587Z",
+            "modified": "2023-10-02T22:19:51.587Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "93c9b9f0-77b9-4a07-b34f-d720d7f2d449",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "a9a678f1-73c6-4901-9d6b-0463ff49aaa5",
+            "name": "AddRol",
+            "url": "roles",
+            "method": "POST",
+            "sortNum": 270000,
+            "created": "2023-10-02T22:19:51.588Z",
+            "modified": "2023-10-02T22:19:51.588Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nombre\": \"prueba\",\n  \"nivelPrivilegio\": 5,\n  \"descripcion\": \"Este rol es una prueba del metodo http post\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "26173e15-68da-4a1b-8f47-80d3de5db95c",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "a9a678f1-73c6-4901-9d6b-0463ff49aaa5",
+            "name": "GetAll",
+            "url": "roles",
+            "method": "GET",
+            "sortNum": 280000,
+            "created": "2023-10-02T22:19:51.589Z",
+            "modified": "2023-10-02T22:19:51.589Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "dea8554b-228d-4fb0-90d9-1e5736656788",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "a9a678f1-73c6-4901-9d6b-0463ff49aaa5",
+            "name": "GetById",
+            "url": "roles/1",
+            "method": "GET",
+            "sortNum": 290000,
+            "created": "2023-10-02T22:19:51.590Z",
+            "modified": "2023-10-02T22:19:51.590Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "7a4b3637-ba6c-45fe-bd8f-5f80fa570e36",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "a9a678f1-73c6-4901-9d6b-0463ff49aaa5",
+            "name": "Update",
+            "url": "roles/7",
+            "method": "PUT",
+            "sortNum": 300000,
+            "created": "2023-10-02T22:19:51.591Z",
+            "modified": "2023-10-02T22:19:51.591Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nombre\": \"prueba\",\n  \"nivelPrivilegio\": 4,\n  \"descripcion\": \"Este rol es una prueba del metodo http post\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "31ad8f6a-e267-4637-b736-a888ab8f7ee8",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "a9a678f1-73c6-4901-9d6b-0463ff49aaa5",
+            "name": "Delete",
+            "url": "roles/7",
+            "method": "DELETE",
+            "sortNum": 310000,
+            "created": "2023-10-02T22:19:51.592Z",
+            "modified": "2023-10-02T22:19:51.592Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "a4149285-ac77-4dc2-8e98-ded0453c48a9",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "a1d901f2-7ae7-4faf-ab00-31f2916a46e7",
+            "name": "GetAll",
+            "url": "usuarios",
+            "method": "GET",
+            "sortNum": 320000,
+            "created": "2023-10-02T22:19:51.593Z",
+            "modified": "2023-10-02T22:19:51.593Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRGlyZWN0b3IiLCJpYXQiOjE2OTYyMzc5NjgsImV4cCI6MTY5NjMyNDM2OH0.uIydy8c4n8q-LDpxM_TuuNh-imqRlIwkfeEb5mJC4Bg"
+            },
+            "tests": []
+        },
+        {
+            "_id": "ccdf270e-df2d-4f8a-8fd6-84cce2bc7126",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "a1d901f2-7ae7-4faf-ab00-31f2916a46e7",
+            "name": "AddUser",
+            "url": "usuarios",
+            "method": "POST",
+            "sortNum": 160000,
+            "created": "2023-10-02T22:19:51.594Z",
+            "modified": "2023-10-02T22:19:51.594Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nombre\":\"Steven\",\n  \"correo\": \"correo@correo.com\",\n  \"contraseña\": \"password\",\n  \"roleId\": 1\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRGlyZWN0b3IiLCJpYXQiOjE2OTYyMzc5NjgsImV4cCI6MTY5NjMyNDM2OH0.uIydy8c4n8q-LDpxM_TuuNh-imqRlIwkfeEb5mJC4Bg"
+            },
+            "tests": []
+        },
+        {
+            "_id": "d9985666-f97c-4593-ba2e-765f813d5e42",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "a1d901f2-7ae7-4faf-ab00-31f2916a46e7",
+            "name": "GetById",
+            "url": "usuarios/18",
+            "method": "GET",
+            "sortNum": 340000,
+            "created": "2023-10-02T22:19:51.595Z",
+            "modified": "2023-10-02T22:19:51.595Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRGlyZWN0b3IiLCJpYXQiOjE2OTYyMzc5NjgsImV4cCI6MTY5NjMyNDM2OH0.uIydy8c4n8q-LDpxM_TuuNh-imqRlIwkfeEb5mJC4Bg"
+            },
+            "tests": []
+        },
+        {
+            "_id": "6d88efea-793b-4563-a154-3a5ec64fa328",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "a1d901f2-7ae7-4faf-ab00-31f2916a46e7",
+            "name": "Update",
+            "url": "usuarios/12",
+            "method": "PUT",
+            "sortNum": 350000,
+            "created": "2023-10-02T22:19:51.596Z",
+            "modified": "2023-10-02T22:19:51.596Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"nombre\":\"StevenFUNCIONAPUT\",\n  \"correo\": \"correo@correo.com\",\n  \"contraseña\": \"password\",\n  \"roleId\": 5\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRGlyZWN0b3IiLCJpYXQiOjE2OTYyMzc5NjgsImV4cCI6MTY5NjMyNDM2OH0.uIydy8c4n8q-LDpxM_TuuNh-imqRlIwkfeEb5mJC4Bg"
+            },
+            "tests": []
+        },
+        {
+            "_id": "a719532d-9a6e-4c39-8128-198468a99515",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "a1d901f2-7ae7-4faf-ab00-31f2916a46e7",
+            "name": "Delete",
+            "url": "usuarios/17",
+            "method": "DELETE",
+            "sortNum": 360000,
+            "created": "2023-10-02T22:19:51.597Z",
+            "modified": "2023-10-02T22:19:51.597Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRGlyZWN0b3IiLCJpYXQiOjE2OTYyMzc5NjgsImV4cCI6MTY5NjMyNDM2OH0.uIydy8c4n8q-LDpxM_TuuNh-imqRlIwkfeEb5mJC4Bg"
+            },
+            "tests": []
+        }
+    ],
+    "settings": {
+        "options": {
+            "baseUrl": "http://localhost:3000/api/"
+        }
+    }
+}

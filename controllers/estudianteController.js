@@ -54,6 +54,7 @@ const estudianteController = {
 
 	getEstudianteById: async (req, res) => {
 		const { id } = req.params;
+        const {mostrarNotas} = req.body;
 
 		if (!id || isNaN(id)) {
 			return res
@@ -62,7 +63,7 @@ const estudianteController = {
 		}
 
 		try {
-			const estudiante = await estudianteService.obtenerEstudiantelPorId(id);
+			const estudiante = await estudianteService.obtenerEstudiantelPorId(id, mostrarNotas);
 			res.status(200).json(estudiante);
 		} catch (error) {
 			res.status(404).json({ error: error.message });
