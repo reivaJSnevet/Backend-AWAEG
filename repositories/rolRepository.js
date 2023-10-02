@@ -2,46 +2,38 @@ import { Rol } from "../models/index.js";
 
 const rolRepository = {
 	crear: async (rol) => {
-		try {
-			return await Rol.create(rol);
-		} catch (error) {
-			throw error;
-		}
+        const nuevoRol = await Rol.create(rol)
+		return nuevoRol;
 	},
 
 	obtenerTodos: async () => {
-		try {
-			return await Rol.findAll();
-		} catch (error) {
-			throw error;
-		}
+		const roles = await Rol.findAll();
+        return roles;
 	},
 
 	obtenerPorId: async (id) => {
-		try {
-			return await Rol.findByPk(id);
-		} catch (error) {
-			throw error;
-		}
-	},
+        const rol = await Rol.findByPk(id)
+        return rol;
+    },
 
 	actualizar: async (id, nuevosDatos) => {
-		try {
-			const rol = await Rol.findByPk(id);
-			return await rol.update(nuevosDatos);
-		} catch (error) {
-			throw error;
-		}
+        const rol = await Rol.findByPk(id);
+
+        if (!rol) {
+            return rol
+        }
+
+        return await rol.update(nuevosDatos);
 	},
 
 	borrar: async (id) => {
-		try {
-			return await Rol.destroy({
-				where: { id },
-			});
-		} catch (error) {
-			throw error;
-		}
+        const rol = await Rol.findByPk(id);
+
+        if (!rol) {
+            return rol
+        }
+
+        return await rol.destroy();
 	},
 };
 

@@ -1,51 +1,76 @@
-import { Prematricula } from "../models/index.js";
+import { Sequelize } from "sequelize";
+import prematriculaServices from "../services/prematriculaServices.js";
 
 const prematriculaController = {
-	//Ubtener todas las prematriculas
-	getAllPrematriculas: async (req, res) => {
-		try {
-			const prematriculas = await Prematricula.findAll();
-			res.status(200).json(prematriculas);
-		} catch (error) {
-			res.status(500).json({
-				error: "Error al obtener las prematriculas",
-			});
-		}
-	},
+    crearPrematricula: async (req, res) => {
+        try {
+            const {grado, estudianteId} = req.body;
 
-	//Crear una prematricula
-	createPrematricula: async (req, res) => {
-		try {
-			const { id, estado, grado } = req.body;
+            if (!grado || !estudianteId || isNaN(grado) || isNaN(estudianteId) ) {
+                return res.status(400).json({ message: "Faltan datos obligatorios o formato incorrecto" });
+            }
 
-			const nuevaPrematricula = await Prematricula.create({
-				id,
-				estado,
-				grado,
-			});
+            const nuevaPrematricula = await prematriculaServices.crearPrematricula({grado, estudianteId});
+            res.status(201).json(nuevaPrematricula);
+        } catch (errors) {
+            res.status(500).json({error: errors});
+        }
+    },
 
-			res.status(201).json(nuevaPrematricula);
-		} catch (error) {
-			res.status(500).json({ error: "Error al crear la prematricula" });
-			console.log(error);
-		}
-	},
+    obtenerPrematriculas: async (req, res) => {
+        try {
+            const prematriculas = await prematriculaServices.obtenerPrematriculas();
+            res.status(200).json(prematriculas);
+        } catch (errors) {
+            res.status(500).json({error: errors.message});
+        }
+    },
 
-	//Eliminar prematricula
-	// deletePrematriculaById: async (req, res) => {
-	//     const { id } = req.params;
-	//     try {
-	//         const prematricula = await Prematricula.findByPk(id);
-	//     if (!prematricula) {
-	//         res.status(404).json({ error: "Prematricula no encontrado" });
-	//     } else {
-	//         await prematricula.destroy();
-	//         res.status(200).json({ message: "Prematricula eliminada correctamente" });
-	//     }
-	//     } catch (error) {
-	//         res.status(500).json({ error: "Error al eliminar el prematricula" });
-	//     }
-	// },
+    obtenerPrematriculaPorId: async (req, res) => {
+        try {
+            const { id } = req.params;
+
+            if (!id || !Sequelize.Validator.isUUID(id, 4) ){
+                return res.status(400).json({ message: "Faltan datos obligatorios o formato incorrecto" });
+            }
+
+            const prematricula = await prematriculaServices.obtenerPrematriculaPorId(id);
+            res.status(200).json(prematricula);
+        } catch (errors) {
+            res.status(404).json({error: errors.message});
+        }
+    },
+
+    actualizarPrematricula: async (req, res) => {
+        try {
+            const { id } = req.params;
+            const {estado, grado, estudianteId} = req.body;
+
+            if (!id || !Sequelize.Validator.isUUID(id, 4) || !estado || !grado || !estudianteId || typeof estado === "boolean" || isNaN(grado) || isNaN(estudianteId)) {
+                return res.status(400).json({ message: "Faltan datos obligatorios o formato incorrecto" });
+            }
+
+            const prematricula = await prematriculaServices.actualizarPrematricula(id, {estado, grado, estudianteId});
+            res.status(200).json({message: "Clase actualizada correctamente", prematricula});
+        } catch (errors) {
+            res.status(404).json({error: errors.message});
+        }
+    },
+
+    borrarPrematricula: async (req, res) => {
+        try {
+            const { id } = req.params;
+
+            if (!id || !Sequelize.Validator.isUUID(id, 4)) {
+                return res.status(400).json({ message: "Faltan datos obligatorios o formato incorrecto" });
+            }
+
+            await prematriculaServices.borrarPrematricula(id);
+            res.status(200).json({message: "Prematricula borrada correctamente"});
+        } catch (errors) {
+            res.status(404).json({error: errors.message});
+        }
+    },
 };
 
 export default prematriculaController;

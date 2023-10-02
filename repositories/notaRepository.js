@@ -2,54 +2,36 @@ import { Nota } from "../models/index.js";
 
 const notaRepository = {
 	crear: async (nota) => {
-		try {
-			return await Nota.create(nota);
-		} catch (error) {
-			throw error;
-		}
+		const nuevaNota = await Nota.create(nota);
+		return nuevaNota;
 	},
 
 	obtenerTodos: async () => {
-		try {
-			return await Nota.findAll();
-		} catch (error) {
-			throw error;
-		}
+		const notas = await Nota.findAll();
+		return notas;
 	},
 
 	obetenerPorId: async (id) => {
-		try {
-			const nota = await Nota.findByPk(id);
-			if (!nota) {
-				throw new Error("Nota no encontrada");
-			}
-			return nota;
-		} catch (error) {
-			throw error;
-		}
+		const nota = await Nota.findByPk(id);
+		return nota;
 	},
 
 	actualizar: async (id, nuevosDatos) => {
-		try {
-			const nota = await Nota.findByPk(id);
-			if (!nota) {
-				throw new Error("Nota no encontrada");
-			}
-			await nota.update(nuevosDatos);
+		const nota = await Nota.findByPk(id);
+		if (!nota) {
 			return nota;
-		} catch (error) {
-			throw error;
 		}
+		await nota.update(nuevosDatos);
+		return nota;
 	},
 
 	borrar: async (id) => {
-		try {
-			return await Nota.destroy({
-				where: { id },
-			});
-		} catch (error) {
-			throw error;
+		const nota = await Nota.findByPk(id);
+		if (!nota) {
+			return nota;
 		}
+		await nota.destroy();
+		return nota;
 	},
 };
 

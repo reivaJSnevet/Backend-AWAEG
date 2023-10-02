@@ -3,28 +3,69 @@ import { Rol } from "../models/index.js";
 
 const usuarioService = {
 	crearUsuario: async (datos) => {
-		try {
-			const nuevoUsuario = await usuarioRepository.crear(datos);
-			return nuevoUsuario;
-		} catch (error) {
-			console.log(error);
-		}
+        try {
+            const nuevoUsuario = await usuarioRepository.crear(datos);
+            return nuevoUsuario;
+        } catch (error) {
+            const errors = [];
+			if (error.name === "SequelizeValidationError") {
+				error.errors.forEach((e) => {
+					errors.push({
+						Type: "Validation Error",
+						field: e.path,
+						message: e.message,
+					});
+				});
+			} else {
+				errors.push({ field: "general", message: error.message });
+			}
+			throw errors;
+        }
 	},
 
 	obtenerTodosUsuario: async () => {
-		return await usuarioRepository.obtenerTodos();
+		try {
+            const usuarios = await usuarioRepository.obtenerTodos();
+            return usuarios;
+        } catch (error) {
+            throw error;
+        }
 	},
 
 	obtenerUsuarioPorId: async (id) => {
-		return await usuarioRepository.obtenerPorId(id);
+		try{
+            const usuario = await usuarioRepository.obtenerPorId(id);
+            if (!usuario) {
+                throw new Error("Usuario no encontrado");
+            }
+            return usuario;
+        }catch(error){
+            throw error;
+        }
 	},
 
 	actualizarUsuario: async (id, nuevosDatos) => {
-		return await usuarioRepository.actualizar(id, nuevosDatos);
+		try {
+            const usuario = await usuarioRepository.actualizar(id, nuevosDatos);
+            if (!usuario) {
+                throw new Error("Usuario no encontrado");
+            }
+            return usuario;
+        } catch (error) {
+            throw error;
+        }
 	},
 
 	borrarUsuario: async (id) => {
-		return await usuarioRepository.borrar(id);
+		try {
+            const usuario = await usuarioRepository.borrar(id);
+            if (!usuario) {
+                throw new Error("Usuario no encontrado");
+            }
+            return usuario;
+        } catch (error) {
+            throw error;
+        }
 	},
 };
 

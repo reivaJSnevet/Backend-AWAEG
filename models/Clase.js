@@ -1,4 +1,4 @@
-import { DataTypes, Op } from "sequelize";
+import { DataTypes} from "sequelize";
 import db from "../config/db.js";
 
 const Clase = db.define("clases", {

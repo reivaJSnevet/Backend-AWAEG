@@ -62,6 +62,10 @@ Clase.belongsTo(Materia);
 Funcionario.hasMany(Clase);
 Clase.belongsTo(Funcionario);
 
+//Relacion uno a muchos entre prematricula y estudiante
+Estudiante.hasMany(Prematricula);
+Prematricula.belongsTo(Estudiante);
+
 
 export {
 	Rol,

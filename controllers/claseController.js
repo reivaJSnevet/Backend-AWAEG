@@ -13,8 +13,10 @@ const claseController = {
 				funcionarioId,
 			} = req.body;
 
-			if (!funcionarioId || !materiaId) {
-				return res.status(400).json({ error: "Faltan datos obligatorios" });
+			if (!funcionarioId || !materiaId || isNaN(funcionarioId) || isNaN(materiaId)) {
+				return res
+					.status(400)
+					.json({ error: "Faltan datos obligatorios [id], o formato incorrecto" });
 			}
 
 			const nuevaClase = await claseService.crearClase({
@@ -36,7 +38,6 @@ const claseController = {
 			const clases = await claseService.obtenerClases();
 			res.status(200).json(clases);
 		} catch (error) {
-			console.error("Error al obtener las clases:", error);
 			res.status(500).json({
 				error: "Error al obtener las clases",
 				detalle: error.message,
@@ -46,10 +47,10 @@ const claseController = {
 	getClaseById: async (req, res) => {
 		const { id } = req.params;
 
-		if (!id) {
+		if (!id|| isNaN(id) ) {
 			return res
 				.status(400)
-				.json({ error: "Faltan datos obligatorios [id]" });
+				.json({ error: "Faltan datos obligatorios [id], o formato incorrecto" });
 		}
 
 		try {
@@ -65,8 +66,8 @@ const claseController = {
             const { id } = req.params;
 		    const { dia, horaInicio, horaSalida, leccion, materiaId,funcionarioId } = req.body;
 
-		    if (!id || !dia || !horaInicio || !horaSalida || !leccion || !funcionarioId || !materiaId){
-			    return res.status(400).json({ error: "Faltan datos obligatorios" });
+		    if (!id || isNaN(id) || !dia || !horaInicio || !horaSalida || !leccion || !funcionarioId || !materiaId){
+			    return res.status(400).json({ error: "Faltan datos obligatorios [id], o formato incorrecto" });
 		    }
 		
 			await claseService.actualizarClase(id, {

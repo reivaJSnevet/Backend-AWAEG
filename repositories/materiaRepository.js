@@ -2,54 +2,35 @@ import { Materia } from "../models/index.js";
 
 const materiaRepository = {
 	crear: async (materia) => {
-		try {
-			return await Materia.create(materia);
-		} catch (error) {
-			throw error;
-		}
+        const nuevaMateria = await Materia.create(materia);
+		return nuevaMateria;
 	},
 
 	obtenerTodos: async () => {
-		try {
-			return await Materia.findAll();
-		} catch (error) {
-			throw error;
-		}
+        const materias = await Materia.findAll();
+		return materias;
 	},
 
 	obetenerPorId: async (id) => {
-		try {
-			const materia = await Materia.findByPk(id);
-			if (!materia) {
-				throw new Error("Materia no encontrada");
-			}
-			return materia;
-		} catch (error) {
-			throw error;
-		}
+		const materia = await Materia.findByPk(id);
+		return materia;
 	},
 
 	actualizar: async (id, nuevosDatos) => {
-		try {
-			const materia = await Materia.findByPk(id);
-			if (!materia) {
-				throw new Error("Materia no encontrada");
-			}
-			await materia.update(nuevosDatos);
-			return materia;
-		} catch (error) {
-			throw error;
-		}
+        const materia = await Materia.findByPk(id);
+        if(!materia){
+            return materia;
+        } 
+        await materia.update(nuevosDatos);
+        return materia;
 	},
 
 	borrar: async (id) => {
-		try {
-			return await Materia.destroy({
-				where: { id },
-			});
-		} catch (error) {
-			throw error;
-		}
+        const materia = await Materia.findByPk(id);
+        if(!materia){
+            return materia;
+        }
+        return await materia.destroy();
 	},
 };
 

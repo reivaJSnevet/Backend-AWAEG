@@ -74,6 +74,7 @@ const Funcionario = db.define(
 		hooks: {
 			beforeCreate: (funcionario) => CalcularEdad(funcionario),
 			beforeUpdate: (funcionario) => CalcularEdad(funcionario),
+            beforeBulkCreate: (funcionarios) => { funcionarios.forEach(funcionario => CalcularEdad(funcionario))}
 		},
 	},
 );
@@ -92,7 +93,7 @@ const CalcularEdad = (funcionario) => {
 		edadExacta--;
 	}
 
-	funcionario.setDataValue("edad", edadExacta);
+	funcionario.edad = edadExacta;
 };
 
 export default Funcionario;

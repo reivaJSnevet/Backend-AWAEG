@@ -97,8 +97,10 @@ const Estudiante = db.define(
 	{
 		hooks: {
 			beforeCreate: (estudiante) => calcularEdad(estudiante),
+            beforeBulkCreate: (estudiantes) => { estudiantes.forEach(estudiante => calcularEdad(estudiante))},
 			beforeUpdate: (estudiante) => calcularEdad(estudiante),
             afterCreate: (estudiante) => actualizarCantidadEstudiantes(estudiante.seccion, 1),
+            afterBulkCreate: (estudiantes) => { estudiantes.forEach(estudiante => actualizarCantidadEstudiantes(estudiante.seccion, 1))},
             beforeDestroy: (estudiante) => actualizarCantidadEstudiantes(estudiante.seccion, -1),
 		},
 	},

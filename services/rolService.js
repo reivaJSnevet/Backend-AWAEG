@@ -2,48 +2,70 @@ import rolRepository from "../repositories/rolRepository.js";
 
 const rolService = {
 	crearRol: async (rol) => {
-		return await rolRepository.crear(rol);
+		try {
+            const nuevoRol = await rolRepository.crear(rol)
+            return nuevoRol;
+        } catch (error) {
+            const errors = [];
+			if (error.name === "SequelizeValidationError") {
+				error.errors.forEach((e) => {
+					errors.push({
+						Type: "Validation Error",
+						field: e.path,
+						message: e.message,
+					});
+				});
+			} else {
+				errors.push({ field: "general", message: error.message });
+			}
+			throw errors;
+        }
 	},
 
 	obtenerTodosRol: async () => {
-		return await rolRepository.obtenerTodos();
+		try {
+            const roles = await rolRepository.obtenerTodos()
+            return roles;
+        } catch (error) {
+            throw error;
+        }
 	},
 
 	obtenerRolPorId: async (id) => {
-		return await rolRepository.obtenerPorId(id);
+		try {
+            const rol = await rolRepository.obtenerPorId(id)
+            if(!rol){
+                throw new Error("Rol no encontrado")
+            }
+            return rol;
+        } catch (error) {
+            throw error;
+        }
 	},
 
 	actualizarRol: async (id, nuevosDatos) => {
-		return await rolRepository.actualizar(id, nuevosDatos);
+		try {
+            const rol = await rolRepository.actualizar(id, nuevosDatos)
+            if(!rol){
+                throw new Error("Rol no encontrado")
+            }
+            return rol;
+        } catch (error) {
+            throw error;
+        }
 	},
 
 	borrarRol: async (id) => {
-		return await rolRepository.borrar(id);
+		try {
+            const rol = await rolRepository.borrar(id)
+            if(!rol){
+                throw new Error("Rol no encontrado")
+            }
+            return rol;
+        } catch (error) {
+            throw error;
+        }
 	},
 };
 
 export default rolService;
-
-/* class RolService {
-    async crearRol(nombre, nivelPrivilegio, descripcion) {
-        return await rolRepository.crear(nombre, nivelPrivilegio, descripcion);
-    }
-
-    async obtenerTodosRol() {
-        return await rolRepository.obtenerTodos();
-    }
-
-    async obtenerRolPorId(id) {
-        return await rolRepository.obtenerPorId(id);
-    }
-
-    async actualizarRol(id, nombre, nivelPrivilegio, descripcion){
-        return await rolRepository.actualizar(id, nombre, nivelPrivilegio, descripcion)
-    }
-
-    async borrarRol(id) {
-        return await rolRepository.borrar(id);
-    }
-}
-
-export default new RolService(); */
