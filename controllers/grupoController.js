@@ -6,10 +6,14 @@ const grupoController = {
 		try {
 			const grupos = await grupoService.obtenerTodosGrupos();
 			res.status(200).json(grupos);
-		}  catch (error) {
-			res.status(500).json({ error: "Error al obtener los grupos" });
-			console.log(error);
+		} catch (error) {
+			console.error("Error al obtener los grupos:", error);
+			res.status(500).json({
+				error: "Error al obtener los grupos",
+				detalle: error.message,
+			});
 		}
+			
 	},
 
 	// Crear un nuevo grupo
@@ -21,7 +25,13 @@ const grupoController = {
                 grado,
                 aula,
                 turno,
+				horarioId,
+				funcionarioId,
             } = req.body;
+			
+			if (!horarioId || !funcionarioId) {
+				return res.status(400).json({ error: "Faltan datos obligatorios" });
+			}
 
             const nuevoGrupo = await grupoService.crearGrupo({
                 seccion,
@@ -29,24 +39,30 @@ const grupoController = {
                 grado,
                 aula,
                 turno,
+				horarioId,
+				funcionarioId,
             });
             res.status(201).json(nuevoGrupo);
         } catch (errors) {
-            // Si hay errores, envía la lista de errores al front-end
-            res.status(400).json({ errors: errors });
+            res.status(400).json({ error: errors });
         }
     },
 
 	//encontrar grupo por seccion
 	obtenerGrupo: async (req, res) => {
-		try {
-			const { seccion } = req.params;
-			const grupo = await grupoService.actualizarGrupo(seccion);
-			res.status(200).json(grupo);
-		} catch (error) {
-			res.status(500).json({ error: "Error al obtener el grupo" });
-			console.log(error);
+		const { seccion } = req.params;
+
+		if (!seccion) {
+			return res.status(400).json({ error: "El ID del grupo es obligatorio" });
 		}
+
+		try {
+			const grupo = await grupoService.obtenerGrupoPorId(seccion);
+			res.status(200).json(grupo);
+		} catch (error){
+			res.status(500).json({ error: error.message });
+		}
+		
 	},
 
 	//Actualizar un grupo
@@ -54,33 +70,38 @@ const grupoController = {
 	actualizarGrupo: async (req, res) => {
 		try {
 			const { seccion } = req.params;
-			const { ciclo, grado, aula, cantAlumno, turno, horarioId, ProfesorGuia } = req.body;
-			const datos = { ciclo, grado, aula, cantAlumno, turno, horarioId, ProfesorGuia };
-
-			const grupo = await grupoService.actualizarGrupo(seccion, datos);
-			return res.status(200).json(grupo);
+			const { ciclo, grado, aula, turno, horarioId, funcionarioId } = req.body;
+			if (!seccion || !ciclo || !grado || !aula || !turno || !horarioId || !funcionarioId) {
+				return res.status(400).json({ error: "Faltan datos obligatorios" });
+			}
+		await grupoService.actualizarGrupo(seccion, {
+			ciclo,
+			grado,
+			aula,
+			turno,
+			horarioId,
+			funcionarioId,
+		});
+		res.json({ message: "Grupo actualizado correctamente" });
 		} catch (error) {
-			res.status(500).json({ error: "Error al actualizar el grupo" });
+			res.status(404).json({ error: error.message });
 		}
 	},
 
 	//eliminar Grupo
 
 	eliminarGrupo: async (req, res) => {
-		const { seccion } = req.params;
 		try {
-			const grupo = await grupoService.obtenerGrupoPorId(seccion);
+			const { seccion } = req.params;
 
-			if (!grupo) {
-				res.status(404).json({ error: "Grupo no encontrado" });
-			} else {
-				await grupoService.obtenerGrupoPorId(seccion);
-				res.status(200).json({
-					message: "Grupo eliminado correctamente",
-				});
+			if (!seccion) {
+				return res.status(400).json({ error: "El ID del grupo es obligatorio" });
 			}
+
+			await grupoService.borrarGrupo(seccion);
+			res.status(200).json({ message: "Grupo eliminado correctamente" });
 		} catch (error) {
-			res.status(500).json({ error: "Error al eliminar el grupo" });
+			res.status(500).json({ error: error.message });
 		}
 	},
 };

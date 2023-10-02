@@ -7,22 +7,23 @@ const Encargado = db.define("encargados", {
 		allowNull: false,
 		primaryKey: true,
 		validate: {
-			esCedulaValida: (cedula) => {
-				const patron = /^(?:[1-8]|1558)\d{8}$/;
-				if (!patron.test(cedula)) {
-					throw new Error(
-						"El número de cedula no cumple con el formato requerido",
-					);
-				}
+				esCedulaValida: (cedula) => {
+					const patron = /^(?:[1-8]|1558)\d{8}$/;
+					if (!patron.test(cedula)) {
+						throw new Error(
+							"El campo cédula debe tener un formato valido (empezar con un numero entre 1-7). Ej: 503578628.",
+						);
+					}
+				},
 			},
-		},
+		
 	},
 	nombre: {
 		type: DataTypes.STRING,
 		allowNull: false,
 		validate: {
-			notEmpty: {
-				msg: "El nombre no puede estar vacío",
+			isAlpha: {
+				msg: "El nombre solo puede contener letras. Es obligatorio.",
 			},
 		},
 	},
@@ -30,8 +31,8 @@ const Encargado = db.define("encargados", {
 		type: DataTypes.STRING,
 		allowNull: false,
 		validate: {
-			notEmpty: {
-				msg: "El apellido1 no puede estar vacío",
+			isAlpha: {
+				msg: "El apellido1 solo puede contener letras. Es obligatorio.",
 			},
 		},
 	},
@@ -40,8 +41,8 @@ const Encargado = db.define("encargados", {
 		type: DataTypes.STRING,
 		allowNull: false,
 		validate: {
-			notEmpty: {
-				msg: "El apellido2 no puede estar vacío",
+			isAlpha: {
+				msg: "El apellido2 solo puede contener letras. Es obligatorio.",
 			},
 		},
 	},

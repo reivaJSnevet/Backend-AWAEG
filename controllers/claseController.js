@@ -14,9 +14,7 @@ const claseController = {
 			} = req.body;
 
 			if (!funcionarioId || !materiaId) {
-				return res
-					.status(400)
-					.json({ error: "Faltan datos obligatorios" });
+				return res.status(400).json({ error: "Faltan datos obligatorios" });
 			}
 
 			const nuevaClase = await claseService.crearClase({

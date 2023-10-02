@@ -2,54 +2,35 @@ import { Encargado } from "../models/index.js";
 
 const encargadoRepository = {
 	crear: async (encargado) => {
-		try {
-			return await Encargado.create(encargado);
-		} catch (error) {
-			throw error;
-		}
+		const nuevoEncargado = await Encargado.create(encargado);
+		return nuevoEncargado;
 	},
 
 	obtenerTodos: async () => {
-		try {
-			return await Encargado.findAll();
-		} catch (error) {
-			throw error;
-		}
+		const encargados = await Encargado.findAll();
+		return encargados;
 	},
 
 	obtenerPorId: async (id) => {
-		try {
-			const encargado = await Encargado.findByPk(id);
-			if (!encargado) {
-				throw new Error("Encargado no encontrado");
-			}
-			return encargado;
-		} catch (error) {
-			throw error;
-		}
+		const encargado = await Encargado.findByPk(id);
+		return encargado;
 	},
 
 	actualizar: async (id, nuevosDatos) => {
-		try {
-			const encargado = await Encargado.findByPk(id);
-			if (!encargado) {
-				throw new Error("Encargado no encontrado");
-			}
-			await encargado.update(nuevosDatos);
+		const encargado = await Encargado.findByPk(id);
+		if (!encargado) {
 			return encargado;
-		} catch (error) {
-			throw error;
 		}
+		await encargado.update(nuevosDatos);
+		return encargado;
 	},
 
 	borrar: async (id) => {
-		try {
-			return await Encargado.destroy({
-				where: { id },
-			});
-		} catch (error) {
-			throw error;
+		const encargado = await Encargado.findByPk(id);
+		if (!encargado) {
+			return encargado;
 		}
+		return await encargado.destroy();
 	},
 };
 

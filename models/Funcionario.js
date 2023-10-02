@@ -23,8 +23,8 @@ const Funcionario = db.define(
 			type: DataTypes.STRING,
 			allowNull: false,
 			validate: {
-				notEmpty: {
-					msg: "El nombre no puede estar vacío",
+				isAlpha: {
+					msg: "El nombre solo puede contener letras. Es obligatorio.",
 				},
 			},
 		},
@@ -32,18 +32,18 @@ const Funcionario = db.define(
 			type: DataTypes.STRING,
 			allowNull: false,
 			validate: {
-				notEmpty: {
-					msg: "El primer apellido no puede estar vacío",
-				},
+				isAlpha: {
+					msg: "El primer apellido solo puede contener letras. Es obligatorio.",
+				}
 			},
 		},
 		apellido2: {
 			type: DataTypes.STRING,
 			allowNull: false,
 			validate: {
-				notEmpty: {
-					msg: "El segundo apellido no puede estar vacío",
-				},
+				isAlpha: {
+					msg: "El segundo apellido solo puede contener letras. Es obligatorio.",
+				}
 			},
 		},
 		fechaNacimiento: {
@@ -62,6 +62,12 @@ const Funcionario = db.define(
 		sexo: {
 			type: DataTypes.BOOLEAN,
 			allowNull: true,
+			validate: {
+				isIn: {
+					args: [[true, false]],
+					msg: "El campo sexo solo puede ser true o false",
+				},
+			},
 		},
 	},
 	{
