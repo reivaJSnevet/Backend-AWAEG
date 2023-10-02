@@ -1,6 +1,30 @@
+import e from "express";
 import notaService from "../services/notaServices.js";
 
 const notaController = {
+	//Crear Nota
+	crearNota: async (req, res) => {
+		try {
+			const { calificacion, periodo, funcionarioId, claseId, estudianteId } = req.body;
+
+            if(!calificacion || !periodo || !funcionarioId || !claseId || !estudianteId || isNaN(calificacion) || isNaN(funcionarioId) || isNaN(claseId) || isNaN(estudianteId)){
+                return res.status(400).json({error: "Faltan datos obligatorios o tienen formato incorrecto"});
+            }
+
+			const nuevaNota = await notaService.crearNota({
+				calificacion,
+				periodo,
+				funcionarioId,
+				claseId,
+                estudianteId
+			});
+
+			return res.status(201).json(nuevaNota);
+		} catch (error) {
+            res.status(500).json({ error: error });
+        }
+	},
+
 	//Obtener todas las notas
 	obtenerNotas: async (req, res) => {
 		try {
@@ -11,41 +35,19 @@ const notaController = {
 		}
 	},
 
-	//Crear Nota
-	crearNota: async (req, res) => {
-		try {
-			const { calificacion, periodo, fechaSubida, funcionarioId, claseId, estudianteId } =
-				req.body;
-			const nuevaNota = await notaService.crearNota({
-				calificacion,
-				periodo,
-				fechaSubida,
-				funcionarioId,
-				claseId,
-                estudianteId
-			});
-
-			res.status(201).json(nuevaNota);
-		} catch (error) {
-			if (error.errors) {
-				const erroresValidacion = error.errors.map(
-					(err) => err.message,
-				);
-				res.status(400).json({ errores: erroresValidacion });
-			} else {
-				res.status(500).json({ error: "Error al crear la nota" });
-			}
-		}
-	},
-
 	//Obtener nota por Id
 	obtenerNotaPorId: async (req, res) => {
 		try {
 			const { id } = req.params;
+
+            if(!id || isNaN(id)){
+                return res.status(400).json({error: "Faltan datos obligatorios [id], o formato incorrecto" });
+            }
+
 			const nota = await notaService.obtenerNotaPorId(id);
 			res.status(200).json(nota);
 		} catch (error) {
-			res.status(500).json({ error: error.message });
+			res.status(404).json({ error: error.message });
 		}
 	},
 
@@ -53,35 +55,35 @@ const notaController = {
 	actualizarNota: async (req, res) => {
 		try {
 			const { id } = req.params;
-			const { calificacion, periodo, fechaSubida, funcionarioId, claseId } =
-				req.body;
-			const datos = { calificacion, periodo, fechaSubida, funcionarioId,claseId };
+            const { calificacion, periodo, funcionarioId, claseId, estudianteId } = req.body;
 
-			const nota = await notaService.actualizarNota(id, datos);
-			return res.status(200).json(nota);
+            if(isNaN(id) || !periodo || isNaN(calificacion) || isNaN(funcionarioId) || isNaN(claseId) || isNaN(estudianteId)){
+                return res.status(400).json({error: "Faltan datos obligatorios o tienen formato incorrecto"});
+            }
+
+			await notaService.actualizarNota(id, { calificacion, periodo, funcionarioId, claseId, estudianteId });
+			return res.status(200).json({ message: "Nota actualizada correctamente" });
 		} catch (error) {
-			console.error("Error al actualizar nota:", error);
 			return res
-				.status(500)
-				.json({ error: "Error interno del servidor." });
+				.status(404)
+				.json({ error: error.message });
 		}
 	},
 
 	//Eliminar Nota
 	eliminarNota: async (req, res) => {
-		const { id } = req.params;
 		try {
-			const nota = notaService.obtenerNotaPorId(id);
-			if (!nota) {
-				res.status(404).json({ error: "Nota no encontrada" });
-			} else {
-				await notaService.borrarNota(id);
-				res.status(200).json({
-					message: "Nota eliminada correctamente",
-				});
-			}
+            const { id } = req.params;
+            
+            if(!id || isNaN(id)){
+                return res.status(400).json({error: "Faltan datos obligatorios [id], o formato incorrecto" });
+            }
+
+            await notaService.borrarNota(id);
+            return res.status(200).json({ message: "Nota eliminada correctamente" });
+
 		} catch (error) {
-			res.status(500).json({ error: "Error al eliminar la nota" });
+			res.status(404).json({ error: error.message }); 
 		}
 	},
 };

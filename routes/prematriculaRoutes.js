@@ -4,14 +4,29 @@ import prematriculaController from "../controllers/prematriculaController.js";
 const prematriculaRouter = express.Router();
 
 //Rutas para prematriculas
-prematriculaRouter.get(
-	"/prematriculas",
-	prematriculaController.getAllPrematriculas,
-);
 prematriculaRouter.post(
 	"/prematriculas",
-	prematriculaController.createPrematricula,
+	prematriculaController.crearPrematricula,
 );
-// prematriculaRouter.delete('/prematricula', prematriculaController.deletePrematriculaById);
+
+prematriculaRouter.get(
+    "/prematriculas",
+    prematriculaController.obtenerPrematriculas,
+);
+
+prematriculaRouter.get(
+    "/prematriculas/:id",
+    prematriculaController.obtenerPrematriculaPorId,
+);
+
+prematriculaRouter.put(
+    "/prematriculas/:id",
+    prematriculaController.actualizarPrematricula,
+);
+
+prematriculaRouter.delete(
+    "/prematriculas/:id",
+    prematriculaController.borrarPrematricula,
+);
 
 export default prematriculaRouter;

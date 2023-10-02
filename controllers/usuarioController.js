@@ -1,19 +1,22 @@
+import e from "express";
 import usuarioService from "../services/usuarioService.js";
 
 const usuarioController = {
 	// Crear un nuevo usuario
-	createUsuario: async (req, res) => {
-		try {
-			const { nombre, correo, contraseña, roleId } = req.body;
-			const datos = { nombre, correo, contraseña, roleId };
+    createUsuario: async (req, res) => {
+        try {
+            const { nombre, correo, contraseña, roleId } = req.body;
 
-			const nuevoUsuario = await usuarioService.crearUsuario(datos);
-			res.status(201).json(nuevoUsuario);
-		} catch (error) {
-			res.status(500).json({ error: "Error al crear el usuario" });
-			console.log(error);
-		}
-	},
+            if (!nombre || !correo || !contraseña || isNaN(roleId)) {
+                return res.status(400).json({ error: "Faltan datos" });
+            }
+
+            const nuevoUsuario = await usuarioService.crearUsuario({ nombre, correo, contraseña, roleId });
+            res.status(201).json(nuevoUsuario);
+        } catch (error) {
+            res.status(400).json({ error: error.message });
+        }
+    },
 
 	// Obtener todos los usuarios
 	getAllUsuarios: async (req, res) => {
@@ -21,66 +24,53 @@ const usuarioController = {
 			const usuarios = await usuarioService.obtenerTodosUsuario();
 			res.status(200).json(usuarios);
 		} catch (error) {
-			res.status(500).json({ error: "Error al obtener los usuarios" });
-			console.log(error);
+			res.status(500).json({ error: error.message });
 		}
 	},
 
 	// Obtener un usuario por ID
 	getUsuarioById: async (req, res) => {
-		const { id } = req.params;
-
-		try {
-			const usuario = await usuarioService.obtenerUsuarioPorId(id);
-
-			if (!usuario) {
-				res.status(404).json({ error: "Usuario no encontrado" });
-			} else {
-				res.status(200).json(usuario);
-			}
-		} catch (error) {
-			res.status(500).json({ error: "Error al obtener el usuario" });
-			console.log(error);
-		}
+        try {
+            const { id } = req.params;
+            if(isNaN(id)){
+                return res.status(400).json({ error: "Faltan datos o formato incorrecto" });
+            }
+            const usuario = await usuarioService.obtenerUsuarioPorId(id);
+            res.status(200).json(usuario);
+        } catch (error) {
+            res.status(404).json({ error: error.message });
+        }
 	},
 
 	// Actualizar un usuario por ID
 	updateUsuarioById: async (req, res) => {
-		const { id } = req.params;
-        const { nombre, correo, contraseña, roleId} = req.body;
-        const datos = {nombre, correo, contraseña, roleId}; // Los nuevos datos del usuario que se van a actualizar
-
         try {
-            const usuario = await usuarioService.obtenerUsuarioPorId(id);
-            if (!usuario) {
-            res.status(404).json({ error: "Usuario no encontrado" });
-         } else {
-        // Actualizar el usuario con los nuevos datos
-        await usuarioService.actualizarUsuario(id, datos);
-        res.status(200).json({ mensaje: "Usuario actualizado correctamente" });
-    }
-} catch (error) {
-    res.status(500).json({ error: "Error al actualizar el usuario" });
-}
+            const {id} = req.params;
+            const { nombre, correo, contraseña, roleId } = req.body;
+
+            if (!id || !nombre || !correo || !contraseña || isNaN(roleId)) {
+                return res.status(400).json({ error: "Faltan datos" });
+            }
+
+            const usuario = await usuarioService.actualizarUsuario(id, { nombre, correo, contraseña, roleId });
+            res.status(200).json(usuario);
+        } catch (error) {
+            res.status(404).json({ error: error.message });
+        }
 	},
 
 	// Eliminar un usuario por ID
 	deleteUsuarioById: async (req, res) => {
-		const { id } = req.params;
-		try {
-			const usuario = await usuarioService.obtenerUsuarioPorId(id);
-
-			if (!usuario) {
-				res.status(404).json({ error: "Usuario no encontrado" });
-			} else {
-				await usuarioService.borrarUsuario(id);
-				res.status(200).json({
-					message: "Usuario eliminado correctamente",
-				});
-			}
-		} catch (error) {
-			res.status(500).json({ error: "Error al eliminar el usuario" });
-		}
+        try {
+            const {id} = req.params;
+            if(isNaN(id)){
+                return res.status(400).json({ error: "Faltan datos o formato incorrecto" });
+            }
+            const usuario = await usuarioService.borrarUsuario(id);
+            res.status(200).json(usuario);
+        } catch (error) {
+            res.status(404).json({ error: error.message });
+        }
 	},
 };
 
