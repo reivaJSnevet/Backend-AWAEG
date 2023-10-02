@@ -16,6 +16,10 @@ const estudianteController = {
 				seccion
 			} = req.body;
 
+			if(!usuarioId || !encargadoId || !seccion){
+				return res.status(400).json({ error: "Faltan datos obligatorios" });
+			}
+
 			const nuevoEstudiante = await estudianteService.crearEstudiante({
 				id,
 				nombre,
@@ -30,85 +34,82 @@ const estudianteController = {
 			});
 
 			res.status(201).json(nuevoEstudiante);
-		} catch (error) {
-			res.status(500).json({ error: "Error al crear el estudiante" });
-			console.log(error);
+		} catch (errors) {
+			res.status(400).json({ error: errors });
 		}
 	},
 
 	getAllEstudiantes: async (req, res) => {
 		try {
-			const estudiantes =
-				await estudianteService.obtenerTodosEstudiante();
+			const estudiantes = await estudianteService.obtenerTodosEstudiante();
 			res.status(200).json(estudiantes);
 		} catch (error) {
-			res.status(500).json({ error: error.message });
+			console.error("Error al obtener los estudiantes:", error);
+			res.status(500).json({
+				error: "Error al obtener los estudiantes",
+				detalle: error.message,
+			});
 		}
 	},
 
 	getEstudianteById: async (req, res) => {
+		const { id } = req.params;
+
+		if (!id || isNaN(id)) {
+			return res
+				.status(400)
+				.json({ error: "Faltan datos obligatorios [id]" });
+		}
+
 		try {
-			const { id} = req.params;
-            const {mostrarNotas} = req.body;
-            
-			const estudiante =
-				await estudianteService.obtenerEstudiantelPorId(id, mostrarNotas);
+			const estudiante = await estudianteService.obtenerEstudiantelPorId(id);
 			res.status(200).json(estudiante);
 		} catch (error) {
-			res.status(500).json({ error: error.message });
+			res.status(404).json({ error: error.message });
 		}
 	},
 
 	updateEstudianteById: async (req, res) => {
 		try {
 			const { id } = req.params;
-			const {
-				nombre,
-				apellido1,
-				apellido2,
-				fechaNacimiento,
-				sexo,
-				direccion,
-			} = req.body;
-			const datos = {
-				nombre,
-				apellido1,
-				apellido2,
-				fechaNacimiento,
-				sexo,
-				direccion,
-			};
+			const { nombre, apellido1, apellido2, fechaNacimiento, sexo, direccion, usuarioId, encargadoId, seccion} = req.body;
 
-			const estudiante = await estudianteService.actualizarEstudiante(
-				id,
-				datos,
-			);
-			return res.status(200).json(estudiante);
+			if (!id || isNaN(id) || !nombre || !apellido1 || !apellido2 || !fechaNacimiento || !sexo || !direccion || !usuarioId || !encargadoId || !seccion) {
+				return res.status(400).json({error: "Faltan datos obligatorios",});
+			}
+		await estudianteService.actualizarEstudiante(id, {
+			nombre,
+			apellido1,
+			apellido2,
+			fechaNacimiento,
+			sexo,
+			direccion,
+			usuarioId,
+			encargadoId,
+			seccion
+		});
+		res.status(200).json({ message: "Estudiante actualizado correctamente" });
 		} catch (error) {
-			console.error("Error al actualizar estudiante:", error);
-			return res
-				.status(500)
-				.json({ error: "Error interno del servidor." });
+			res.status(404).json({ error: error.message });
 		}
 	},
 
 	// Eliminar un rol por ID
 	deleteEstudianteById: async (req, res) => {
-		const { id } = req.params;
 		try {
-			const estudiante = await estudianteService.obtenerEstudiantelPorId(id);
+			const { id } = req.params;
 
-			if (!estudiante) {
-				res.status(404).json({ error: "Estudiante no encontrado" });
-			} else {
-				await estudianteService.borrarEstudiante(id);
-				res.status(200).json({
-					message: "Estudiante eliminado correctamente",
-				});
+			if (!id || isNaN(id)) {
+				return res
+					.status(400)
+					.json({ error: "Faltan datos obligatorios [id]" });
 			}
+
+			await estudianteService.borrarEstudiante(id);
+			res.status(200).json({ message: "Estudiante eliminado correctamente" });
 		} catch (error) {
-			res.status(500).json({ error: "Error al eliminar el estudiante" });
-		}
+			res.status(404).json({ error: error.message });
+		}	
 	},
 };
 

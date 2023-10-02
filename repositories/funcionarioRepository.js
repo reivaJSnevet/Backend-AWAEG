@@ -1,55 +1,59 @@
-import { Funcionario } from "../models/index.js";
+import { Funcionario, Usuario, Rol } from "../models/index.js";
 
 const funcionarioRepository = {
 	crear: async (funcionario) => {
-		try {
-			return await Funcionario.create(funcionario);
-		} catch (error) {
-			throw error;
-		}
+		const nuevoFuncionario = await Funcionario.create(funcionario);
+		return nuevoFuncionario;
 	},
 
 	obtenerTodos: async () => {
-		try {
-			return await Funcionario.findAll();
-		} catch (error) {
-			throw error;
-		}
+		const funcionarios = await Funcionario.findAll({
+			include: [
+				{
+					model: Usuario,
+					attributes: ["nombre", "correo"],
+					include: [{
+						model: Rol,
+						attributes: ["nombre"]
+					}]
+				}
+			],
+		});
+	return funcionarios;
 	},
 
 	obtenerPorId: async (id) => {
-		try {
-			const funcionario = await Funcionario.findByPk(id);
-			if (!funcionario) {
-				throw new Error("Funcionario no encontrado");
-			}
-			return funcionario;
-		} catch (error) {
-			throw error;
-		}
+		const funcionario = await Funcionario.findByPk(id, {
+			include: [
+				{
+					model: Usuario,
+					attributes: ["nombre", "correo"],
+					include: [{
+						model: Rol,
+						attributes: ["nombre"]
+					}]
+				},
+
+			]
+		});
+		return funcionario;
 	},
 
 	actualizar: async (id, nuevosDatos) => {
-		try {
-			const funcionario = await Funcionario.findByPk(id);
-			if (!funcionario) {
-				throw new Error("Funcionario no encontrado");
-			}
-			await funcionario.update(nuevosDatos);
+		const funcionario = await Funcionario.findByPk(id);
+		if (!funcionario) {
 			return funcionario;
-		} catch (error) {
-			throw error;
 		}
+		await funcionario.update(nuevosDatos);
+		return funcionario;
 	},
 
 	borrar: async (id) => {
-		try {
-			return await Funcionario.destroy({
-				where: { id },
-			});
-		} catch (error) {
-			throw error;
+		const funcionario = await Funcionario.findByPk(id);
+		if (!funcionario) {
+			return funcionario;
 		}
+		return await funcionario.destroy();
 	},
 };
 

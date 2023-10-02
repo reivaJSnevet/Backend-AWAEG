@@ -24,8 +24,8 @@ const Estudiante = db.define(
 			type: DataTypes.STRING,
 			allowNull: false,
 			validate: {
-				notEmpty: {
-					msg: "El nombre no puede estar vacío",
+				isAlpha: {
+					msg: "El nombre solo puede contener letras. Es obligatorio.",
 				},
 			},
 		},
@@ -33,8 +33,8 @@ const Estudiante = db.define(
 			type: DataTypes.STRING,
 			allowNull: false,
 			validate: {
-				notEmpty: {
-					msg: "El primer apellido no puede estar vacío",
+				isAlpha: {
+					msg: "El primer apellido solo puede contener letras. Es obligatorio.",
 				},
 			},
 		},
@@ -42,8 +42,8 @@ const Estudiante = db.define(
 			type: DataTypes.STRING,
 			allowNull: false,
 			validate: {
-				notEmpty: {
-					msg: "El segundo apellido no puede estar vacío",
+				isAlpha: {
+					msg: "El segundo apellido solo puede contener letras. Es obligatorio.",
 				},
 			},
 		},
@@ -63,19 +63,35 @@ const Estudiante = db.define(
 		sexo: {
 			type: DataTypes.BOOLEAN,
 			allowNull: true,
+			validate: {
+				isIn: {
+					args: [[true, false]],
+					msg: "El campo sexo solo puede ser true o false",
+				},
+			},
 		},
 		direccion: {
 			type: DataTypes.STRING,
 			allowNull: false,
 			validate: {
 				notEmpty: {
-					msg: "La dirección no puede estar vacía",
+					msg: "La direccion no puede estar vacia. Es obligatoria.",
 				},
 			},
 		},
 		seccion: {
 			type: DataTypes.STRING,
 			allowNull: true,
+			validate: {
+				esSeccionValida: (value) => {
+					const patron = /^[1-6]-\d+$/;
+					if (!patron.test(value)) {
+						throw new Error(
+							'La seccion debe tener el formato "m-n", donde m es igual a un numero entre 1 y 6',
+						);
+					}
+				},
+			},
 		},
 	},
 	{

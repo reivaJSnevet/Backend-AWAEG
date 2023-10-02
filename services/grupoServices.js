@@ -3,36 +3,69 @@ import grupoRepository from "../repositories/grupoRepository.js";
 const grupoService = {
     crearGrupo: async (grupo) => {
         try {
-            const nuevoGrupo = await grupoRepository.crear(grupo);
-            return nuevoGrupo;
-        } catch (error) {
-            // Estructura el error y devuelve una lista de errores
-            const errors = [];
-            if (error.name === "SequelizeValidationError") {
-                error.errors.forEach((e) => {
-                    errors.push({ field: e.path, message: e.message });
-                });
-            } else {
-                errors.push({ field: "general", message: error.message });
-            }
-            throw errors; // Lanza la lista de errores
-        }
+			const nuevoGrupo = await grupoRepository.crear(grupo);
+			return nuevoGrupo;
+		} catch (error) {
+			const errors = [];
+			if (error.name === "SequelizeValidationError") {
+				error.errors.forEach((e) => {
+					errors.push({
+						Type: "Validation Error",
+						field: e.path,
+						message: e.message,
+					});
+				});
+			} else {
+				errors.push({ field: "general", message: error.message });
+			}
+			throw errors;
+		}
     },
 
 	obtenerTodosGrupos: async () => {
-		return await grupoRepository.obtenerTodos();
+		try {
+            const grupos = await grupoRepository.obtenerTodos();
+            return grupos;
+        } catch (errors) {
+            throw errors;
+        }
+		
 	},
 
 	obtenerGrupoPorId: async (seccion) => {
-		return await grupoRepository.obetenerPorId(seccion);
+		try {
+            const grupo = await grupoRepository.obtenerPorId(seccion);
+            if (!grupo) {
+                throw new Error("Grupo no encontrado");
+            }
+            return grupo;
+        } catch (error) {
+            throw error
+        }
 	},
 
 	actualizarGrupo: async (seccion, nuevosDatos) => {
-		return await grupoRepository.actualizar(seccion, nuevosDatos);
+		try {
+            const grupo = await grupoRepository.actualizar(seccion, nuevosDatos);
+            if (!grupo) {
+                throw new Error("Grupo no encontrado");
+            }
+            return grupo;
+        } catch (error) {
+            throw error
+        }
 	},
 
 	borrarGrupo: async (seccion) => {
-		return await grupoRepository.borrar(seccion);
+		try {
+            const grupo = await grupoRepository.borrar(seccion);
+            if (!grupo) {
+                throw new Error("Grupo no encontrado");
+            }
+            return grupo;
+        } catch (error) {
+            throw error
+        }
 	},
 };
 

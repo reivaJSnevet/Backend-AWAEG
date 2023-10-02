@@ -22,7 +22,7 @@ const Grupo = db.define("grupos", {
 		allowNull: false,
 		validate: {
 			notEmpty: {
-				msg: "El ciclo no puede estar vacio",
+				msg: "El ciclo no puede estar vacio.",
 			},
 		},
 	},
@@ -52,6 +52,12 @@ const Grupo = db.define("grupos", {
 	turno: {
 		type: DataTypes.BOOLEAN,
 		allowNull: false,
+		validate: {
+			isIn: {
+				args: [[true, false]],
+				msg: "El turno solo puede ser mañana o tarde."
+			}
+		}
 	},
 });
 

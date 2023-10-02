@@ -4,14 +4,14 @@ const funcionarioController = {
 	//obtener all funcionarios
 	getAllFuncionarios: async (req, res) => {
 		try {
-			const funcionarios =
-				await funcionarioService.obtenerTodosFuncionarios();
+			const funcionarios = await funcionarioService.obtenerTodosFuncionarios();
 			res.status(200).json(funcionarios);
 		} catch (error) {
+			console.error("Error al obtener los funcionarios:", error);
 			res.status(500).json({
 				error: "Error al obtener los funcionarios",
+				detalle: error.message,
 			});
-			console.log(error);
 		}
 	},
 
@@ -28,6 +28,10 @@ const funcionarioController = {
 				usuarioId,
 			} = req.body;
 
+			if (!usuarioId) {
+				return res.status(400).json({ error: "Faltan datos obligatorios" });
+			}
+
 			const nuevoFuncionario = await funcionarioService.crearFuncionario({
 				id,
 				nombre,
@@ -39,83 +43,69 @@ const funcionarioController = {
 			});
 
 			res.status(201).json(nuevoFuncionario);
-		} catch (error) {
-			res.status(500).json(error);
-			console.log(error);
+		} catch (errors) {
+			res.status(400).json({ error: errors });
 		}
 	},
 
 	//Funcionario by id
 	getFuncionarioById: async (req, res) => {
+		const { id } = req.params;
+
+		if (!id || isNaN(id)) {
+			return res
+				.status(400)
+				.json({ error: "El ID del funcionario es obligatorio" });
+		}
+
 		try {
-			const { id } = req.params;
-			const funcionario =
-				await funcionarioService.obtenerFuncionarioPorId(id);
+			const funcionario = await funcionarioService.obtenerFuncionarioPorId(id);
 			res.status(200).json(funcionario);
 		} catch (error) {
-			res.status(500).json({ error: "Error al obtener el funcionario" });
-			console.log(error);
+			res.status(500).json({ error: error.message });
 		}
 	},
 
 	// Actualizar un funcionario por ID
 	updateFuncionarioById: async (req, res) => {
-		const { id } = req.params;
-		const {
-			nombre,
-			apellido1,
-			apellido2,
-			fechaNacimiento,
-			sexo,
-			usuarioId,
-		} = req.body;
-		const datos = {
-			nombre,
-			apellido1,
-			apellido2,
-			fechaNacimiento,
-			sexo,
-			usuarioId,
-		};
-
 		try {
-			const funcioario =
-				await funcionarioService.obtenerFuncionarioPorId(id);
-			if (!funcioario) {
-				res.status(404).json({ error: "Funcionario no encontrado" });
-			} else {
-				// Actualizar el usuario con los nuevos datos
-				await funcionarioService.actualizarFuncionario(id, datos);
-				res.status(200).json({
-					mensaje: "Funcionario actualizado correctamente",
-				});
+			const { id } = req.params;
+			const { nombre, apellido1, apellido2, fechaNacimiento, sexo, usuarioId } = req.body;
+
+			if (!id || isNaN(id) || !nombre || !apellido1 || !apellido2 || !fechaNacimiento || !sexo || !usuarioId) {
+				return res.status(400).json({error: "Faltan datos obligatorios",});
 			}
-		} catch (error) {
-			res.status(500).json({
-				error: "Error al actualizar el funcionario",
-			});
+		await funcionarioService.actualizarFuncionario(id, {
+			nombre,
+			apellido1,
+			apellido2,
+			fechaNacimiento,
+			sexo,
+			usuarioId,
+		});
+		res.status(200).json({ message: "Funcionario actualizado correctamente" });
+		} catch {
+			res.status(500).json({ error: error.message });
 		}
 	},
 
 	// Eliminar un rol por ID
 	deleteFuncionarioById: async (req, res) => {
-		const { id } = req.params;
 		try {
-			const funcioario =
-				await funcionarioService.obtenerFuncionarioPorId(id);
+			const { id } = req.params;
 
-			if (!funcioario) {
-				res.status(404).json({ error: "Funcionario no encontrado" });
-			} else {
-				await funcionarioService.borrarFuncionario(id);
-				res.status(200).json({
-					message: "Funcionario eliminado correctamente",
-				});
+			if (!id || isNaN(id)) {
+				return res
+					.status(400)
+					.json({ error: "Faltan datos obligatorios [id]" });
 			}
+
+			await funcionarioService.borrarFuncionario(id);
+			res.status(200).json({ message: "Funcionario eliminado correctamente" });
 		} catch (error) {
-			res.status(500).json({ error: "Error al eliminar el funcionario" });
-		}
-	},
+			res.status(500).json({ error: error.message });
+		}	
+	}
 };
 
 export default funcionarioController;

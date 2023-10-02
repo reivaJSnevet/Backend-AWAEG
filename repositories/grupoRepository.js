@@ -1,4 +1,4 @@
-import { Grupo } from "../models/index.js";
+import { Clase, Grupo, Materia, Horario } from "../models/index.js";
 
 const grupoRepository = {
 	crear: async (grupo) => {
@@ -7,46 +7,58 @@ const grupoRepository = {
 	},
 
 	obtenerTodos: async () => {
-		try {
-			return await Grupo.findAll();
-		} catch (error) {
-			throw error;
-		}
+		const grupos = await Grupo.findAll({
+			include: [
+				{
+					model: Horario,
+					include: [{
+						model: Clase,
+						attributes: ["dia", "horaInicio", "horaSalida", "leccion"],
+						include: [{
+							model: Materia,
+							attributes: ["nombre"]
+						}]
+					}]
+				}
+			]
+		});
+	return grupos;
 	},
 
 	obetenerPorId: async (seccion) => {
-		try {
-			const grupo = await Grupo.findByPk(seccion);
-			if (!grupo) {
-				throw new Error("Grupo no encontrado");
-			}
-			return grupo;
-		} catch (error) {
-			throw error;
-		}
+		const grupo = await Grupo.findByPk(seccion, {
+			include: [
+				{
+					model: Horario,
+					include: [{
+						model: Clase,
+						attributes: ["dia", "horaInicio", "horaSalida", "leccion"],
+						include: [{
+							model: Materia,
+							attributes: ["nombre"]
+						}]
+					}]
+				}
+			]
+		});
+	return grupo;
 	},
 
 	actualizar: async (seccion, nuevosDatos) => {
-		try {
-			const grupo = await Grupo.findByPk(seccion);
-			if (!grupo) {
-				throw new Error("Grupo no encontrado");
-			}
-			await grupo.update(nuevosDatos);
+		const grupo = await Grupo.findByPk(seccion);
+		if (!grupo) {
 			return grupo;
-		} catch (error) {
-			throw error;
 		}
+		await grupo.update(nuevosDatos);
+		return grupo;
 	},
 
 	borrar: async (seccion) => {
-		try {
-			return await Grupo.destroy({
-				where: { seccion },
-			});
-		} catch (error) {
-			throw error;
+		const grupo = await Grupo.findByPk(seccion);
+		if (!grupo) {
+			return grupo;
 		}
+		return await grupo.destroy();
 	},
 };
 
