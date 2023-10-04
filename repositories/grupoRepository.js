@@ -25,14 +25,15 @@ const grupoRepository = {
 	return grupos;
 	},
 
-	obetenerPorId: async (seccion) => {
+	obtenerPorId: async (seccion) => {
 		const grupo = await Grupo.findByPk(seccion, {
+            attributes: ["seccion", "ciclo", "grado","aula", "turno"],
 			include: [
 				{
 					model: Horario,
 					include: [{
 						model: Clase,
-						attributes: ["dia", "horaInicio", "horaSalida", "leccion"],
+						attributes: ["id", "dia", "horaInicio", "horaSalida", "leccion"],
 						include: [{
 							model: Materia,
 							attributes: ["nombre"]

@@ -112,6 +112,23 @@ const estudianteController = {
 			res.status(404).json({ error: error.message });
 		}	
 	},
+
+    estudianteByUsuarioId: async (req, res) => {
+        try {
+            const { id } = req.params;
+
+            if (isNaN(id)) {
+                return res
+                    .status(400)
+                    .json({ error: "Faltan datos obligatorios [id] o formato equivocado" });
+            }
+
+            const estudiante = await estudianteService.estudianteByUsuarioId(id);
+            res.status(200).json(estudiante);
+        } catch (error) {
+            res.status(404).json({ error: error.message });
+        }
+    },
 };
 
 export default estudianteController;

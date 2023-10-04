@@ -75,6 +75,18 @@ const estudianteService = {
 			throw error
 		}
 	},
+
+    estudianteByUsuarioId: async (id) => {
+        try {
+            const estudiante = await estudianteRepository.estudianteByUsuarioId(id);
+            if (!estudiante) {
+                throw new Error("Estudiante no encontrado");
+            }
+            return estudiante;
+        } catch (error) {
+            throw error
+        }
+    }
 };
 
 export default estudianteService;

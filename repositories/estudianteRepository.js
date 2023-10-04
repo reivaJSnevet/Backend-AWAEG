@@ -3,6 +3,7 @@ import {
 	Encargado,
 	Estudiante,
 	Grupo,
+	Horario,
 	Usuario,
 } from "../models/index.js";
 import Nota from "../models/Nota.js";
@@ -129,6 +130,31 @@ const estudianteRepository = {
 			throw new Error("Estudiante no encontrado");
 		}
 
+		return estudiante;
+	},
+
+	estudianteByUsuarioId: async (id) => {
+		const estudiante = await Estudiante.findOne({
+			where: {
+				usuarioId: id,
+			},
+            attributes: [ "id", "nombre", "apellido1", "apellido2", "fechaNacimiento", "edad", "sexo", "direccion"],
+			include: [
+				{
+					model: Usuario,
+					attributes: ["nombre", "correo"],
+				},
+				{
+					model: Grupo,
+					attributes: ["seccion", "aula", "ciclo", "turno"],
+
+				},
+				{
+					model: Encargado,
+					attributes: ["id", "nombre", "apellido1", "apellido2"],
+				},
+			],
+		});
 		return estudiante;
 	},
 };

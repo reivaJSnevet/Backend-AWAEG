@@ -8,7 +8,7 @@ const authRepository = {
 				where: {
 					correo,
 				},
-				attributes: ["nombre", "correo", "contraseña"],
+				attributes: ["id","nombre", "correo", "contraseña"],
 				include: [
 					{
 						model: Rol,
