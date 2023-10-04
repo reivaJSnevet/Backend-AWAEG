@@ -1,4 +1,4 @@
-import { Nota } from "../models/index.js";
+import { Nota, Clase, Materia} from "../models/index.js";
 
 const notaRepository = {
 	crear: async (nota) => {
@@ -12,7 +12,24 @@ const notaRepository = {
 	},
 
 	obetenerPorId: async (id) => {
-		const nota = await Nota.findByPk(id);
+		const nota = await Nota.findAll({
+            where: {
+                estudianteId: id,
+            },
+            attributes: ["id", "calificacion", "periodo", "createdAt", "updatedAt", "funcionarioId", ],
+            include: [
+                {
+                    model: Clase,
+                    attributes: ["id"],
+                    include: [
+                        {
+                            model: Materia,
+                            attributes: ["nombre"],
+                        },
+                    ],
+                },
+            ],
+        });
 		return nota;
 	},
 

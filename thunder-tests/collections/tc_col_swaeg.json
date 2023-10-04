@@ -80,6 +80,13 @@
             "containerId": "",
             "created": "2023-10-02T22:19:51.567Z",
             "sortNum": 110000
+        },
+        {
+            "_id": "66f54c5e-9a25-4f84-9480-c1d63d533a06",
+            "name": "horario",
+            "containerId": "",
+            "created": "2023-10-03T22:10:01.746Z",
+            "sortNum": 130000
         }
     ],
     "requests": [
@@ -475,11 +482,11 @@
             "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
             "containerId": "d8a7fad8-1de9-4dec-ab12-a59400ed2628",
             "name": "GetById",
-            "url": "notas/1",
+            "url": "notas/198765432",
             "method": "GET",
             "sortNum": 185000,
             "created": "2023-10-02T22:19:51.581Z",
-            "modified": "2023-10-02T22:19:51.581Z",
+            "modified": "2023-10-03T07:25:12.162Z",
             "headers": [],
             "params": [],
             "tests": []
@@ -685,7 +692,7 @@
             "method": "POST",
             "sortNum": 160000,
             "created": "2023-10-02T22:19:51.594Z",
-            "modified": "2023-10-02T22:19:51.594Z",
+            "modified": "2023-10-03T00:40:38.554Z",
             "headers": [],
             "params": [],
             "body": {
@@ -695,7 +702,7 @@
             },
             "auth": {
                 "type": "bearer",
-                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRGlyZWN0b3IiLCJpYXQiOjE2OTYyMzc5NjgsImV4cCI6MTY5NjMyNDM2OH0.uIydy8c4n8q-LDpxM_TuuNh-imqRlIwkfeEb5mJC4Bg"
+                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiU2VjcmV0YXJpYSIsImlhdCI6MTY5NjI5MzYwOSwiZXhwIjoxNjk2MzgwMDA5fQ.bwEWLeWLBQR4j5iMDeTl36lVcG89K_A7oFb-K-lpebc"
             },
             "tests": []
         },
@@ -756,6 +763,48 @@
                 "type": "bearer",
                 "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRGlyZWN0b3IiLCJpYXQiOjE2OTYyMzc5NjgsImV4cCI6MTY5NjMyNDM2OH0.uIydy8c4n8q-LDpxM_TuuNh-imqRlIwkfeEb5mJC4Bg"
             },
+            "tests": []
+        },
+        {
+            "_id": "5d579ee4-7adb-4ca6-b0b0-90ccfe3483be",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "5d28d1e1-f42f-427e-9c23-bf7e9b85613d",
+            "name": "GetByUsuarioId",
+            "url": "estudiantes/usuario/8",
+            "method": "GET",
+            "sortNum": 370000,
+            "created": "2023-10-03T02:25:18.561Z",
+            "modified": "2023-10-03T04:22:25.017Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "52bd027c-1d71-44e7-98ba-74fef569f791",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "565670bf-3d03-4e1b-87a8-ec1007a32604",
+            "name": "GetById",
+            "url": "grupos/1-1",
+            "method": "GET",
+            "sortNum": 380000,
+            "created": "2023-10-03T22:05:26.157Z",
+            "modified": "2023-10-03T22:05:45.111Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "3dd7e693-ae23-4bda-9de7-2dc3369eba96",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "66f54c5e-9a25-4f84-9480-c1d63d533a06",
+            "name": "GetAll",
+            "url": "horarios",
+            "method": "GET",
+            "sortNum": 390000,
+            "created": "2023-10-03T22:10:14.888Z",
+            "modified": "2023-10-03T22:10:49.386Z",
+            "headers": [],
+            "params": [],
             "tests": []
         }
     ],
