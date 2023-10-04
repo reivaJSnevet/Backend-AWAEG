@@ -34,6 +34,7 @@ const corsOptions = {
   optionsSuccessStatus: 200,
 };
 
+app.use(cors(corsOptions));
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
 // Subida de archivos
@@ -75,6 +76,26 @@ const multerUpload = multer({
 
 // Endpoint para obtener un archivo
 app.use('/api/archivo', express.static(join(CURRENT_DIR, 'archivo')));
+
+app.get('/api/archivo/:nombreArchivo', (req, res) => {
+    const { nombreArchivo } = req.params;
+    const rutaArchivo = join(CURRENT_DIR, 'archivo', nombreArchivo);
+  
+    // Verifica si el archivo existe antes de enviarlo como descarga
+    fs.access(rutaArchivo, fs.constants.F_OK, (err) => {
+      if (err) {
+        return res.status(404).json({ message: "El archivo no existe" });
+      }
+  
+      // Envía el archivo como respuesta
+      res.download(rutaArchivo, (err) => {
+        if (err) {
+          // Maneja errores durante la descarga
+          res.status(500).json({ message: "Error al descargar el archivo" });
+        }
+      });
+    });
+  });
 
 // Endpoint para obtener todos los archivos
 app.get('/api/archivos', (req, res) => {
@@ -127,8 +148,6 @@ app.delete('/api/archivo/:nombreArchivo', (req, res) => {
   });
 
 ///////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
-
-app.use(cors(corsOptions));
 
 // habilitar lectura de datos en la solicitud URL
 app.use(express.urlencoded({ extended: true }));
