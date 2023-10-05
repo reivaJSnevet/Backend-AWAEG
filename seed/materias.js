@@ -1,20 +1,34 @@
 const materias = [
     {
+        //1
+        "nombre": 'Ciencias',
+    },
+    {
+        //2
+        "nombre": 'Español',
+    },
+    {
+        //3
         "nombre": 'Matematicas',
     },
     {
-        "nombre": 'Fisica',
+        //4
+        "nombre": 'Estudios Sociales',
     },
     {
-        "nombre": 'Quimica',
+        //5
+        "nombre": 'Educación Fisica',
     },
     {
-        "nombre": 'Historia',
+        //6
+        "nombre": 'Educación Musical',
     },
     {
-        "nombre": 'Lenguaje',
+        //7
+        "nombre": 'Educación Religiosa',
     },
     {
+        //8
         "nombre": 'Ingles',
     }
 
