@@ -15,29 +15,109 @@ const grupos = [
         "grado":"primero",
         "aula":"B",
         "cantAlumno":"0",
-        "turno":"true",
+        "turno":"false",
         "HorarioId":"2",
-        "ProfesorGuia":"712345677"
+        "ProfesorGuia":"712345678"
     },
     {
-        "seccion":"1-3",
+        "seccion":"2-1",
         "ciclo":"2021",
-        "grado":"primero",
+        "grado":"segundo",
         "aula":"C",
         "cantAlumno":"0",
         "turno":"true",
         "HorarioId":"3",
+        "ProfesorGuia":"712345677"
+    },
+    {
+        "seccion":"2-2",
+        "ciclo":"2021",
+        "grado":"segundo",
+        "aula":"D",
+        "cantAlumno":"0",
+        "turno":"false",
+        "HorarioId":"4",
+        "ProfesorGuia":"712345677"
+    },
+    {
+        "seccion":"3-1",
+        "ciclo":"2021",
+        "grado":"tercero",
+        "aula":"A",
+        "cantAlumno":"0",
+        "turno":"true",
+        "HorarioId":"5",
         "ProfesorGuia":"712345676"
     },
     {
-        "seccion":"1-4",
+        "seccion":"3-2",
         "ciclo":"2021",
-        "grado":"primero",
-        "aula":"D",
+        "grado":"tercero",
+        "aula":"B",
+        "cantAlumno":"0",
+        "turno":"false",
+        "HorarioId":"6",
+        "ProfesorGuia":"712345676"
+    },
+    {
+        "seccion":"4-1",
+        "ciclo":"2021",
+        "grado":"cuarto",
+        "aula":"C",
         "cantAlumno":"0",
         "turno":"true",
-        "HorarioId":"4",
+        "HorarioId":"7",
         "ProfesorGuia":"712345675"
+    },
+    {
+        "seccion":"4-2",
+        "ciclo":"2021",
+        "grado":"cuarto",
+        "aula":"D",
+        "cantAlumno":"0",
+        "turno":"false",
+        "HorarioId":"8",
+        "ProfesorGuia":"712345675"
+    },
+    {
+        "seccion":"5-1",
+        "ciclo":"2021",
+        "grado":"quinto",
+        "aula":"A",
+        "cantAlumno":"0",
+        "turno":"true",
+        "HorarioId":"9",
+        "ProfesorGuia":"712345674"
+    },
+    {
+        "seccion":"5-2",
+        "ciclo":"2021",
+        "grado":"quinto",
+        "aula":"B",
+        "cantAlumno":"0",
+        "turno":"false",
+        "HorarioId":"10",
+        "ProfesorGuia":"712345674"
+    },
+    {
+        "seccion":"6-1",
+        "ciclo":"2021",
+        "grado":"sexto",
+        "aula":"C",
+        "cantAlumno":"0",
+        "turno":"true",
+        "HorarioId":"11",
+        "ProfesorGuia":"712345673"
+    },
+    {
+        "seccion":"6-2",
+        "ciclo":"2021",
+        "grado":"sexto",
+        "aula":"D",
+        "cantAlumno":"0",
+        "turno":"false",
+        "HorarioId":"12",
+        "ProfesorGuia":"712345673"
     }
     
 ]
