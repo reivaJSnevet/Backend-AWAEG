@@ -87,6 +87,13 @@
             "containerId": "",
             "created": "2023-10-03T22:10:01.746Z",
             "sortNum": 130000
+        },
+        {
+            "_id": "a4d0179d-ee7b-4fde-8703-da548934d003",
+            "name": "insumo",
+            "containerId": "",
+            "created": "2023-10-06T04:53:37.979Z",
+            "sortNum": 150000
         }
     ],
     "requests": [
@@ -806,6 +813,18 @@
             "headers": [],
             "params": [],
             "tests": []
+        },
+        {
+            "_id": "9495dc5f-460d-422a-b778-d16388846ff3",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "a4d0179d-ee7b-4fde-8703-da548934d003",
+            "name": "getAll",
+            "url": "",
+            "method": "GET",
+            "sortNum": 400000,
+            "created": "2023-10-06T04:53:48.224Z",
+            "modified": "2023-10-06T04:53:48.224Z",
+            "headers": []
         }
     ],
     "settings": {
