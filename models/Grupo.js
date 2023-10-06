@@ -61,4 +61,21 @@ const Grupo = db.define("grupos", {
 	},
 });
 
+
+Grupo.beforeCreate(async (grupo) => {
+	const { aula, turno } = grupo;
+	
+
+	const grupoExistente = await Grupo.findOne({
+	  where: {
+		aula,
+		turno,
+	  },
+	});
+  
+	if (grupoExistente) {
+	  throw new Error("Ya existe un grupo que esta utilizando el mismo aula y en el mismo turno.");
+	}
+  });
+
 export default Grupo;
