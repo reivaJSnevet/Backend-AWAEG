@@ -42,6 +42,7 @@ const Clase = db.define("clases", {
 	},
 	leccion: {
 		type: DataTypes.CHAR,
+		allowNull: false,
 		validate: {
 			isRomanNumeral(value) {
 				const romanNumeralPattern = /^(I|II|III|IV|V|VI|VII|VIII)$/;
