@@ -1,5 +1,7 @@
 import { DataTypes } from "sequelize";
 import db from "../config/db.js";
+import Estudiante from "./Estudiante.js";
+import Clase from "./Clase.js"
 import {crear} from "../hooks/CrearSolicitud.js";
 
 const Nota = db.define("notas", {
@@ -30,6 +32,24 @@ const Nota = db.define("notas", {
             await crear(nota)
         }
     }
+});
+
+Nota.beforeCreate(async (nota) => {
+	const { estudianteID, materia, calificacion, periodo} = nota;
+
+	const notaExistente = await Nota.findOne({
+		where: {
+			estudianteID,
+			materia,
+			calificacion,
+			periodo
+		}
+	});
+
+	if (notaExistente) {
+		throw new Error("Un estudiante no puede tener 2 notas en una misma materia, en un mismo periodo")
+	}
+
 });
 
 export default Nota;
