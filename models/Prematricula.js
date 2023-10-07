@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import db from "../config/db.js";
+import {crear} from "../hooks/CrearSolicitud.js";
 
 const Prematricula = db.define(
 	"prematriculas",
@@ -28,7 +29,13 @@ const Prematricula = db.define(
                 }
             },
 		},
-	},
+	},{
+        hooks:{
+            beforeCreate:  async (prematricula) => {
+                await crear(prematricula)
+            }
+        }
+    }
 );
 
 export default Prematricula;

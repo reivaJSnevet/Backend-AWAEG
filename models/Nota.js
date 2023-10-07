@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import db from "../config/db.js";
+import {crear} from "../hooks/CrearSolicitud.js";
 
 const Nota = db.define("notas", {
 	calificacion: {
@@ -23,6 +24,12 @@ const Nota = db.define("notas", {
 			},
 		},
 	},
+},{
+    hooks:{
+        beforeCreate:  async (nota) => {
+            await crear(nota)
+        }
+    }
 });
 
 export default Nota;

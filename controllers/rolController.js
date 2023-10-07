@@ -1,4 +1,3 @@
-import e from "express";
 import rolService from "../services/rolService.js";
 
 const rolController = {

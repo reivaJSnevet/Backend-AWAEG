@@ -13,6 +13,7 @@ const prematriculaController = {
             const nuevaPrematricula = await prematriculaServices.crearPrematricula({grado, estudianteId});
             res.status(201).json(nuevaPrematricula);
         } catch (errors) {
+            console.log(errors);
             res.status(500).json({error: errors});
         }
     },

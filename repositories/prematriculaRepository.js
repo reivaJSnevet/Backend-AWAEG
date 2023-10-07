@@ -1,26 +1,31 @@
-import { Prematricula } from "../models/index.js";
+import { Prematricula, Estudiante } from "../models/index.js";
 
 const prematriculaRepository = {
     crear: async (prematricula) => {
-        try{
         const nuevaPrematricula = await Prematricula.create(prematricula);
         return nuevaPrematricula;
-        }
-        catch(error){
-            throw error;
-        }
     },
 
     obtenerTodos: async () => {
         const prematriculas = await Prematricula.findAll({
-            include: ["estudiante"],
+            include: [
+                {
+                    model: Estudiante,
+                    attributes: ["nombre", "apellido1", "apellido2",],
+                },
+            ]
         });
         return prematriculas;
     },
 
     obtenerPorId: async (id) => {
         const prematricula = await Prematricula.findByPk(id, {
-            include: ["estudiante"],
+            include: [
+                {
+                    model: Estudiante,
+                    attributes: ["nombre", "apellido1", "apellido2",],
+                },
+            ]
         });
         return prematricula;
     },
@@ -39,8 +44,7 @@ const prematriculaRepository = {
         if (!prematricula) {
             return prematricula;
         }
-        await prematricula.destroy();
-        return prematricula;
+        return await prematricula.destroy();
     },
 };
 
