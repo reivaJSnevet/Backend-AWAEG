@@ -9,6 +9,8 @@ import Funcionario from "./Funcionario.js";
 import Nota from "./Nota.js";
 import Clase from "./Clase.js";
 import Materia from "./Materia.js";
+import Solicitud from "./Solicitud.js";
+import Archivo from "./Archivo.js";
 
 //Relación de uno a muchos entre Rol y Usuario
 Rol.hasMany(Usuario);
@@ -66,6 +68,27 @@ Clase.belongsTo(Funcionario);
 Estudiante.hasMany(Prematricula);
 Prematricula.belongsTo(Estudiante);
 
+//Relacion uno a uno entre solicitud y nota
+Solicitud.hasOne(Nota);
+Nota.belongsTo(Solicitud);
+
+//Relacion uno a uno entre solicitud y Prematricula
+Solicitud.hasOne(Prematricula);
+Prematricula.belongsTo(Solicitud);
+
+//Relacion uno a uno entre solicitud y archivo
+Solicitud.hasOne(Archivo);
+Archivo.belongsTo(Solicitud);
+
+//Relacion uno a uno entre solicitud y cita
+/* Solicitud.hasOne(Cita);
+Cita.belongsTo(Solicitud); */
+
+//Relacion uno a uno entre solicitud y prestamo
+/* Solicitud.hasOne(Prestamo);
+Prestamo.belongsTo(Solicitud); */
+
+
 
 export {
 	Rol,
@@ -79,4 +102,6 @@ export {
 	Nota,
 	Clase,
     Materia,
+    Solicitud,
+    Archivo,
 };

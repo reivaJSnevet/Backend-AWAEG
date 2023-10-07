@@ -94,6 +94,13 @@
             "containerId": "",
             "created": "2023-10-06T04:53:37.979Z",
             "sortNum": 150000
+        },
+        {
+            "_id": "b9b9cf75-245d-4cc2-a20c-f2273c51c253",
+            "name": "solicitud",
+            "containerId": "",
+            "created": "2023-10-06T06:52:28.103Z",
+            "sortNum": 140000
         }
     ],
     "requests": [
@@ -550,11 +557,11 @@
             "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
             "containerId": "f3698e0c-942b-4993-8f00-f1060bb02447",
             "name": "GetById",
-            "url": "prematriculas/260d0370-430a-4ad7-925a-60741cea4f39",
+            "url": "prematriculas/104553dc-be53-4ae3-8776-1200c380a317",
             "method": "GET",
             "sortNum": 240000,
             "created": "2023-10-02T22:19:51.585Z",
-            "modified": "2023-10-02T22:19:51.585Z",
+            "modified": "2023-10-06T04:11:46.290Z",
             "headers": [],
             "params": [],
             "tests": []
@@ -825,6 +832,20 @@
             "created": "2023-10-06T04:53:48.224Z",
             "modified": "2023-10-06T04:53:48.224Z",
             "headers": []
+        },
+        {
+            "_id": "8d9e0615-2a8a-416c-ba48-7d0fad1cd660",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "b9b9cf75-245d-4cc2-a20c-f2273c51c253",
+            "name": "GetAll",
+            "url": "solicitudes",
+            "method": "GET",
+            "sortNum": 400000,
+            "created": "2023-10-06T06:52:43.739Z",
+            "modified": "2023-10-06T06:52:54.457Z",
+            "headers": [],
+            "params": [],
+            "tests": []
         }
     ],
     "settings": {
