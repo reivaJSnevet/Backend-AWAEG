@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import db from "../config/db.js";
+import Clase from "./Clase.js" 
 
 const Grupo = db.define("grupos", {
 	seccion: {
@@ -63,18 +64,19 @@ const Grupo = db.define("grupos", {
 
 
 Grupo.beforeCreate(async (grupo) => {
-	const { aula, turno } = grupo;
+	const { dia,aula, turno } = grupo;
 	
 
 	const grupoExistente = await Grupo.findOne({
 	  where: {
+		dia,
 		aula,
 		turno,
 	  },
 	});
   
 	if (grupoExistente) {
-	  throw new Error("Ya existe un grupo que esta utilizando el mismo aula y en el mismo turno.");
+	  throw new Error("Ya existe un grupo que esta utilizando el mismo aula y el mismo turno en el mismo día.");
 	}
   });
 
