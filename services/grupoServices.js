@@ -1,8 +1,8 @@
 import grupoRepository from "../repositories/grupoRepository.js";
 
 const grupoService = {
-    crearGrupo: async (grupo) => {
-        try {
+	crearGrupo: async (grupo) => {
+		try {
 			const nuevoGrupo = await grupoRepository.crear(grupo);
 			return nuevoGrupo;
 		} catch (error) {
@@ -20,52 +20,72 @@ const grupoService = {
 			}
 			throw errors;
 		}
-    },
+	},
 
 	obtenerTodosGrupos: async () => {
 		try {
-            const grupos = await grupoRepository.obtenerTodos();
-            return grupos;
-        } catch (errors) {
-            throw errors;
-        }
-		
+			const grupos = await grupoRepository.obtenerTodos();
+			return grupos;
+		} catch (errors) {
+			throw errors;
+		}
 	},
 
 	obtenerGrupoPorId: async (seccion) => {
 		try {
-            const grupo = await grupoRepository.obtenerPorId(seccion);
-            if (!grupo) {
-                throw new Error("Grupo no encontrado");
-            }
-            return grupo;
-        } catch (error) {
-            throw error
-        }
+			const grupo = await grupoRepository.obtenerPorId(seccion);
+			const clasesPorDia = {
+				lunes: [],
+				martes: [],
+				miercoles: [],
+				jueves: [],
+				viernes: [],
+			};
+
+			if (grupo.horario && grupo.horario.clases) {
+				grupo.horario.clases.forEach((clase) => {
+					const dia = clase.dia.toLowerCase(); // Convertir el día a minúsculas
+					clasesPorDia[dia].push({
+						id: clase.id,
+						horaInicio: clase.horaInicio,
+						horaSalida: clase.horaSalida,
+						leccion: clase.leccion,
+						materia: clase.materia.nombre,
+					});
+				});
+			}
+
+			return clasesPorDia;
+		} catch (error) {
+			throw error;
+		}
 	},
 
 	actualizarGrupo: async (seccion, nuevosDatos) => {
 		try {
-            const grupo = await grupoRepository.actualizar(seccion, nuevosDatos);
-            if (!grupo) {
-                throw new Error("Grupo no encontrado");
-            }
-            return grupo;
-        } catch (error) {
-            throw error
-        }
+			const grupo = await grupoRepository.actualizar(
+				seccion,
+				nuevosDatos,
+			);
+			if (!grupo) {
+				throw new Error("Grupo no encontrado");
+			}
+			return grupo;
+		} catch (error) {
+			throw error;
+		}
 	},
 
 	borrarGrupo: async (seccion) => {
 		try {
-            const grupo = await grupoRepository.borrar(seccion);
-            if (!grupo) {
-                throw new Error("Grupo no encontrado");
-            }
-            return grupo;
-        } catch (error) {
-            throw error
-        }
+			const grupo = await grupoRepository.borrar(seccion);
+			if (!grupo) {
+				throw new Error("Grupo no encontrado");
+			}
+			return grupo;
+		} catch (error) {
+			throw error;
+		}
 	},
 };
 
