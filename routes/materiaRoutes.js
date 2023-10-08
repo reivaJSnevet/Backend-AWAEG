@@ -1,13 +1,34 @@
 import express from "express";
 import materiaController from "../controllers/materiaController.js";
+import checkRole from "../middlewares/roleMiddleware.js";
 
 const materiaRouter = express();
 
 //Rutas de Nota
-materiaRouter.get("/materias", materiaController.obtenerMaterias);
-materiaRouter.post("/materias", materiaController.crearMateria);
-materiaRouter.get("/materias/:id", materiaController.obtenerMateriaPorId);
-materiaRouter.put("/materias/:id", materiaController.actualizarMateria);
-materiaRouter.delete("/materias/:id", materiaController.eliminarMateria);
+materiaRouter.get(
+	"/materias",
+	checkRole(["Director"]),
+	materiaController.obtenerMaterias,
+);
+materiaRouter.post(
+	"/materias",
+	checkRole(["Director"]),
+	materiaController.crearMateria,
+);
+materiaRouter.get(
+	"/materias/:id",
+	checkRole(["Director"]),
+	materiaController.obtenerMateriaPorId,
+);
+materiaRouter.put(
+	"/materias/:id",
+	checkRole(["Director"]),
+	materiaController.actualizarMateria,
+);
+materiaRouter.delete(
+	"/materias/:id",
+	checkRole(["Director"]),
+	materiaController.eliminarMateria,
+);
 
 export default materiaRouter;

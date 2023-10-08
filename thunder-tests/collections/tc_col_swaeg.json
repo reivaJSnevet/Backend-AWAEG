@@ -113,13 +113,17 @@
             "method": "POST",
             "sortNum": 10000,
             "created": "2023-10-02T22:19:51.557Z",
-            "modified": "2023-10-02T22:19:51.557Z",
+            "modified": "2023-10-08T22:22:57.068Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"dia\": \"lunes\",\n  \"horaInicio\": \"15:30\",\n  \"horaSalida\": \"16:10\",\n  \"leccion\": \"II\",\n  \"materiaId\": \"1\",\n  \"funcionarioId\": \"25350856\"\n}",
+                "raw": "{\n  \"dia\": \"lunes\",\n  \"horaInicio\": \"15:30\",\n  \"horaSalida\": \"16:10\",\n  \"leccion\": \"II\",\n  \"materiaId\": \"1\",\n  \"funcionarioId\": \"712345674\"\n}",
                 "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRXN0dWRpYW50ZSIsImlhdCI6MTY5NjgwMzc1OSwiZXhwIjoxNjk2ODkwMTU5fQ.n7jNCVwvRiKBRn7ozmXq2BvIjED_0qr5wdljyoh_WwM"
             },
             "tests": []
         },
@@ -132,9 +136,13 @@
             "method": "GET",
             "sortNum": 20000,
             "created": "2023-10-02T22:19:51.558Z",
-            "modified": "2023-10-02T22:19:51.558Z",
+            "modified": "2023-10-08T22:16:21.966Z",
             "headers": [],
             "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRXN0dWRpYW50ZSIsImlhdCI6MTY5NjgwMzM2OSwiZXhwIjoxNjk2ODg5NzY5fQ.02PQgbrNSIXmKHn_Nfeefm4Z5FE-yUiRvNHmLKCuxFc"
+            },
             "tests": []
         },
         {
@@ -146,9 +154,13 @@
             "method": "GET",
             "sortNum": 30000,
             "created": "2023-10-02T22:19:51.559Z",
-            "modified": "2023-10-02T22:19:51.559Z",
+            "modified": "2023-10-08T22:26:12.693Z",
             "headers": [],
             "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRXN0dWRpYW50ZSIsImlhdCI6MTY5NjgwMzc1OSwiZXhwIjoxNjk2ODkwMTU5fQ.n7jNCVwvRiKBRn7ozmXq2BvIjED_0qr5wdljyoh_WwM"
+            },
             "tests": []
         },
         {
@@ -160,13 +172,17 @@
             "method": "PUT",
             "sortNum": 40000,
             "created": "2023-10-02T22:19:51.560Z",
-            "modified": "2023-10-02T22:19:51.560Z",
+            "modified": "2023-10-08T22:25:14.633Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
                 "raw": "{\n  \"dia\": \"lunes\",\n  \"horaInicio\": \"15:30\",\n  \"horaSalida\": \"16:10\",\n  \"leccion\": \"II\",\n  \"materiaId\": \"1\",\n  \"funcionarioId\": \"253850856\"\n}",
                 "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRXN0dWRpYW50ZSIsImlhdCI6MTY5NjgwMzc1OSwiZXhwIjoxNjk2ODkwMTU5fQ.n7jNCVwvRiKBRn7ozmXq2BvIjED_0qr5wdljyoh_WwM"
             },
             "tests": []
         },
@@ -179,9 +195,13 @@
             "method": "DELETE",
             "sortNum": 50000,
             "created": "2023-10-02T22:19:51.561Z",
-            "modified": "2023-10-02T22:19:51.561Z",
+            "modified": "2023-10-08T22:25:47.370Z",
             "headers": [],
             "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRXN0dWRpYW50ZSIsImlhdCI6MTY5NjgwMzc1OSwiZXhwIjoxNjk2ODkwMTU5fQ.n7jNCVwvRiKBRn7ozmXq2BvIjED_0qr5wdljyoh_WwM"
+            },
             "tests": []
         },
         {
@@ -784,13 +804,17 @@
             "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
             "containerId": "5d28d1e1-f42f-427e-9c23-bf7e9b85613d",
             "name": "GetByUsuarioId",
-            "url": "estudiantes/usuario/8",
+            "url": "estudiantes/usuario/10",
             "method": "GET",
             "sortNum": 370000,
             "created": "2023-10-03T02:25:18.561Z",
-            "modified": "2023-10-03T04:22:25.017Z",
+            "modified": "2023-10-08T21:52:19.784Z",
             "headers": [],
             "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRGlyZWN0b3IiLCJpYXQiOjE2OTY3OTg2MjUsImV4cCI6MTY5Njg4NTAyNX0.vvlylLfrBPXEvu4dgL5Vj-5yd2433HUElNhO7Cn-Kx4"
+            },
             "tests": []
         },
         {
