@@ -54,12 +54,12 @@ const prestamosController = {
         const { id } = req.params;
         const { fechPrestamo, fechDevolucion, estado, averias, funcionarioId } = req.body;
 
-        if (!id || isNaN(id)) {
+        if (!id || isNaN(id) || !fechPrestamo || !estado || !averias || !funcionarioId || isNaN(funcionarioId)) {
             return res.status(400).json({ error: "Faltan datos obligatorios [id], o formato incorrecto" });
         }
 
         
-            const prestamo = await prestamosServices.actualizar(id, {
+            await prestamosServices.actualizar(id, {
                 fechPrestamo,
                 fechDevolucion,
                 estado,

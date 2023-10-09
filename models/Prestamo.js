@@ -1,6 +1,9 @@
 import { DataTypes } from "sequelize";
 import db from "../config/db.js";
 import Funcionario from "./Funcionario.js";
+import {crear} from "../hooks/CrearSolicitud.js";
+import InsumoEst from "./InsumoEst.js";
+import InsumoInst from "./InsumoInst.js";
 
 const Prestamo = db.define("prestamos", {
     fechPrestamo:{
@@ -45,9 +48,22 @@ const Prestamo = db.define("prestamos", {
 
 
 
-})
+},{
+    hooks:{
+        beforeCreate:  async (prestamo) => {
+            await crear(prestamo)
+        }
+    }
+}
+);
 //Relacion
 Funcionario.hasMany(Prestamo);
 Prestamo.belongsTo(Funcionario);
+
+InsumoEst.hasMany(Prestamo, {foreignKey: 'solicitante'});
+Prestamo.belongsTo(InsumoEst, {foreignKey: 'solicitante'});
+
+InsumoInst.hasMany(Prestamo, {foreignKey: 'solicitante'});
+Prestamo.belongsTo(InsumoInst, {foreignKey: 'solicitante'});
 
 export default Prestamo;

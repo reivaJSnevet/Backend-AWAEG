@@ -11,3 +11,7 @@ export { default as claseRoutes } from "./claseRoutes.js";
 export { default as materiaRoutes } from "./materiaRoutes.js";
 export { default as solicitudRoutes } from "./solicitudRoutes.js";
 export { default as prestamoRoutes } from "./prestamoRoutes.js";
+export { default as reporteDañosRoutes } from "./reporteDañosRoutes.js";
+export { default as cateInsumoRoutes } from "./cateInsumoRoutes.js";
+export { default as insumoEstRoutes } from "./insumoEstRoutes.js";
+export { default as insumoInstRoutes } from "./insumoInstRoutes.js";
