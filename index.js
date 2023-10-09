@@ -19,6 +19,7 @@ import {
   notasRoutes,
   materiaRoutes,
   solicitudRoutes,
+  prestamoRoutes,
 } from "./routes/index.js";
 
 import "./tasks/actualizadorEdades.js";
@@ -192,6 +193,7 @@ app.use("/api/", claseRoutes);
 app.use("/api/", authRouter);
 app.use("/api/", materiaRoutes);
 app.use("/api/", solicitudRoutes);
+app.use("/api/", prestamoRoutes);
 
 // definir puerto y inicializacion del server
 const port = process.env.PORT || 3000;

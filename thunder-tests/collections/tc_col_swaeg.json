@@ -101,6 +101,13 @@
             "containerId": "",
             "created": "2023-10-06T06:52:28.103Z",
             "sortNum": 140000
+        },
+        {
+            "_id": "b1172f1b-fe30-4d20-a151-24aabf2636ff",
+            "name": "prestamo",
+            "containerId": "",
+            "created": "2023-10-08T23:21:44.455Z",
+            "sortNum": 160000
         }
     ],
     "requests": [
@@ -869,6 +876,106 @@
             "modified": "2023-10-06T06:52:54.457Z",
             "headers": [],
             "params": [],
+            "tests": []
+        },
+        {
+            "_id": "781896c6-ec5b-4ea9-904e-c5578262ef8b",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "b1172f1b-fe30-4d20-a151-24aabf2636ff",
+            "name": "GetPrestamos",
+            "url": "prestamos",
+            "method": "GET",
+            "sortNum": 410000,
+            "created": "2023-10-08T23:22:04.087Z",
+            "modified": "2023-10-08T23:37:22.610Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRGlyZWN0b3IiLCJpYXQiOjE2OTY4MDgyMDcsImV4cCI6MTY5Njg5NDYwN30.HosCCxcT7kOZdfrRIq4W59uTSGbMWgjb23uGnxdY1z4"
+            },
+            "tests": []
+        },
+        {
+            "_id": "37c0d8cf-bc9e-4fdf-ae8e-c456b9e6aaee",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "b1172f1b-fe30-4d20-a151-24aabf2636ff",
+            "name": "postPrestamo",
+            "url": "prestamos",
+            "method": "POST",
+            "sortNum": 430000,
+            "created": "2023-10-08T23:43:59.852Z",
+            "modified": "2023-10-09T00:06:58.447Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"fechPrestamo\":\"2021-10-04\",\n  \"estado\":\"false\",\n  \"averias\":\"true\",\n  \"funcionarioId\":\"712345443\"\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRGlyZWN0b3IiLCJpYXQiOjE2OTY4MDg4ODEsImV4cCI6MTY5Njg5NTI4MX0.aCU__Z0HAKNrdMU2xKc7GDXrtmZ_o0dNSMgB6P2UsKE"
+            },
+            "tests": []
+        },
+        {
+            "_id": "1e93ebd5-db98-4bf3-93ff-1b5d0ccdbef8",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "b1172f1b-fe30-4d20-a151-24aabf2636ff",
+            "name": "GetById",
+            "url": "prestamos/5",
+            "method": "GET",
+            "sortNum": 440000,
+            "created": "2023-10-09T00:00:04.679Z",
+            "modified": "2023-10-09T00:24:06.448Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRGlyZWN0b3IiLCJpYXQiOjE2OTY4MDk2NzcsImV4cCI6MTY5Njg5NjA3N30.aCEfmCfmz7C9OTtcSTR70HSRNF08V2q6MVpbBhtGBws"
+            },
+            "tests": []
+        },
+        {
+            "_id": "3198da56-fb99-461f-a9aa-e01d89ae16cd",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "b1172f1b-fe30-4d20-a151-24aabf2636ff",
+            "name": "Put",
+            "url": "prestamos/5",
+            "method": "PUT",
+            "sortNum": 450000,
+            "created": "2023-10-09T00:02:48.101Z",
+            "modified": "2023-10-09T00:24:01.079Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"fechPrestamo\":\"2021-10-04\",\n  \"fechDevolucion\":\"2023-10-10\",\n  \"estado\":\"false\",\n  \"averias\":\"true\",\n  \"funcionarioId\":\"712345443\"\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRGlyZWN0b3IiLCJpYXQiOjE2OTY4MDk4NDUsImV4cCI6MTY5Njg5NjI0NX0.Sq6h3kNQBsSS_k3eQFTMAsKYIEr86H9XWN9MRtZUT1U"
+            },
+            "tests": []
+        },
+        {
+            "_id": "9d25f6c7-f4f2-4a13-937e-e5be1e2bbfef",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "b1172f1b-fe30-4d20-a151-24aabf2636ff",
+            "name": "Delete",
+            "url": "prestamos/1",
+            "method": "DELETE",
+            "sortNum": 460000,
+            "created": "2023-10-09T00:05:32.644Z",
+            "modified": "2023-10-09T00:05:57.466Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRGlyZWN0b3IiLCJpYXQiOjE2OTY4MDk4NDUsImV4cCI6MTY5Njg5NjI0NX0.Sq6h3kNQBsSS_k3eQFTMAsKYIEr86H9XWN9MRtZUT1U"
+            },
             "tests": []
         }
     ],
