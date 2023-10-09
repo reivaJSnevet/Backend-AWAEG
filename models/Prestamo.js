@@ -27,7 +27,7 @@ const Prestamo = db.define("prestamos", {
         validate: {
             isIn:{
                 args:[[true, false]],
-                msg: "El campo estado solo puede ser true o false"
+                msg: "El campo estado solo puede ser Libre o Ocupado"
             }
         }
     },
