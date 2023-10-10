@@ -863,7 +863,7 @@
             "method": "POST",
             "sortNum": 410000,
             "created": "2023-10-10T04:01:52.016Z",
-            "modified": "2023-10-10T04:58:30.773Z",
+            "modified": "2023-10-10T22:49:36.478Z",
             "headers": [],
             "params": [],
             "body": {
@@ -873,9 +873,13 @@
                 "files": [
                     {
                         "name": "archivo",
-                        "value": "..\\..\\..\\..\\Downloads\\Elizabeth..pptx"
+                        "value": "..\\..\\..\\..\\Downloads\\EzZSihBX0AARALK.jpg"
                     }
                 ]
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRGlyZWN0b3IiLCJpYXQiOjE2OTY5NzgxNjAsImV4cCI6MTY5NzA2NDU2MH0.qzHwxIj2erdKkDP7FwAtFroYl0h1h38gR-Ce2SVsvNs"
             },
             "tests": []
         },
@@ -884,13 +888,17 @@
             "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
             "containerId": "283f86a9-86d2-4967-8464-d1b7877a047c",
             "name": "GetByName",
-            "url": "/archivo/Elizabeth.-1696913910736.pptx",
+            "url": "/archivo/Elizabeth.-1696914687937.pptx",
             "method": "GET",
             "sortNum": 420000,
             "created": "2023-10-10T04:46:47.766Z",
-            "modified": "2023-10-10T05:10:00.594Z",
+            "modified": "2023-10-10T22:49:46.113Z",
             "headers": [],
             "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRGlyZWN0b3IiLCJpYXQiOjE2OTY5NzgxNjAsImV4cCI6MTY5NzA2NDU2MH0.qzHwxIj2erdKkDP7FwAtFroYl0h1h38gR-Ce2SVsvNs"
+            },
             "tests": []
         },
         {
@@ -902,9 +910,13 @@
             "method": "GET",
             "sortNum": 430000,
             "created": "2023-10-10T05:01:45.646Z",
-            "modified": "2023-10-10T05:05:42.112Z",
+            "modified": "2023-10-10T22:49:52.148Z",
             "headers": [],
             "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRGlyZWN0b3IiLCJpYXQiOjE2OTY5NzgxNjAsImV4cCI6MTY5NzA2NDU2MH0.qzHwxIj2erdKkDP7FwAtFroYl0h1h38gR-Ce2SVsvNs"
+            },
             "tests": []
         },
         {
@@ -912,13 +924,17 @@
             "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
             "containerId": "283f86a9-86d2-4967-8464-d1b7877a047c",
             "name": "Delete",
-            "url": "/archivo/Elizabeth.-1696914686258.pptx",
+            "url": "/archivo/Elizabeth.-1696913910736.pptx",
             "method": "DELETE",
             "sortNum": 440000,
             "created": "2023-10-10T05:07:19.436Z",
-            "modified": "2023-10-10T05:11:41.437Z",
+            "modified": "2023-10-10T22:50:29.476Z",
             "headers": [],
             "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRGlyZWN0b3IiLCJpYXQiOjE2OTY5NzgxNjAsImV4cCI6MTY5NzA2NDU2MH0.qzHwxIj2erdKkDP7FwAtFroYl0h1h38gR-Ce2SVsvNs"
+            },
             "tests": []
         }
     ],
