@@ -1,30 +1,65 @@
+import usuarioRepository from "../repositories/usuarioRepository.js";
 import authService from "../services/authServices.js";
 import jwt from "jsonwebtoken";
 
 const authController = {
 	// Login de usuario
 	login: async (req, res) => {
-		const { correo, contraseña } = req.body;
-
 		try {
-			const usuario = await authService.login(correo, contraseña);
+			const { nombre, contraseña } = req.body;
 
-			const token = jwt.sign(
+			if (!nombre || !contraseña) {
+				res.status(400).json({
+					error: "Usuario o contraseña son requeridos",
+				});
+				return;
+			}
+
+			const usuarioExiste = await authService.obtenerUsuario(nombre);
+			if (!usuarioExiste) {
+				res.status(404).json({ error: "Usuario no registrado" });
+				return;
+			}
+
+			const usuario = await authService.login(nombre, contraseña);
+
+			const accessToken = jwt.sign(
 				{
-					id: usuario.id,
-					rol: usuario.role.nombre,
+					nombre: usuario.nombre,
+					rol: usuario.role.nombre, 
 				},
 				process.env.JWT_SECRET,
 				{
-					expiresIn: 86400, // 24 hours
+					expiresIn: "30s", // 30 segundos
 				},
 			);
 
-			res.cookie("token", token, { httpOnly: true, secure: true });
-			res.status(200).json({ usuario, token });
+            const refreshToken = jwt.sign(
+				{
+					nombre: usuario.nombre,
+					rol: usuario.role.nombre, 
+				},
+				process.env.JWT_REFRESH_SECRET,
+				{
+					expiresIn: "1d", // 1 dia
+				},
+			);
+
+            //debo settear los datos en el usuario actual en la base de datos - arreglado creo...
+            /* const usuarioActual = ({usuarioExiste, refreshToken}); */  //deben agregarce a la base de datos para que no sé aún, minuto 4h 27m 
+
+            await usuarioRepository.actualizar(usuarioExiste.id, {refreshToken});
+
+			res.cookie("jwt", refreshToken, { httpOnly: true, sameSite: "none", secure: true, maxAge: 24 * 60 * 60 * 1000});
+			res.status(202).json({accessToken});
+
 		} catch (error) {
-			res.status(500).json({ error: "Error al iniciar sesión" });
-			console.log(error);
+			if (error.message === "Contraseña incorrecta") {
+				res.status(401).json({ error: error.message });
+				return;
+			} else {
+				res.status(500).json({ error: "Error al iniciar sesión", errorMessage: error.message });
+			}
 		}
 	},
 

@@ -8,6 +8,7 @@ const Usuario = db.define(
 		nombre: {
 			type: DataTypes.STRING,
 			allowNull: false,
+            unique: true,
 			validate: {
 				notEmpty: {
 					msg: "El nombre no puede estar vacío",
@@ -38,6 +39,7 @@ const Usuario = db.define(
 		},
 		correoVerificado: DataTypes.BOOLEAN,
 		token: DataTypes.STRING,
+        refreshToken: DataTypes.STRING,
         activo: DataTypes.BOOLEAN,
 	},
 	{
