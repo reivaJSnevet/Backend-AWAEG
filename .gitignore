@@ -2,10 +2,8 @@
 /node_modules
 npm-debug.log
 yarn-error.log
-.png
-.jpg
-.pdf
-.docx
+archivo/**
+!.gitkeep
 
 #recordatorios del Dyllan
 Memory.txt
