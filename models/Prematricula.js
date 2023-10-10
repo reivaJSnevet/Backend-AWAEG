@@ -29,12 +29,21 @@ const Prematricula = db.define(
                 }
             },
 		},
+            fecha: {
+                type: DataTypes.DATE,
+                allowNull: false,
+                defaultValue: DataTypes.NOW,
+            },
 	},{
         hooks:{
             beforeCreate:  async (prematricula) => {
                 await crear(prematricula)
             }
         }
+    },
+    {
+        timeStamps: false,
+        
     }
 );
 

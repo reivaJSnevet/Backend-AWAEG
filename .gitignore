@@ -3,17 +3,18 @@
 /node_modules
 npm-debug.log
 yarn-error.log
-.png
-.jpg
-.pdf
-.docx
+
+//archivos de usuario
+*.png
+*.jpg
+*.pdf
+*.docx
 
 #recordatorios del Dyllan
 Memory.txt
 
 # Archivos de configuración
 .env
-
 
 # Archivos generados por IDEs
 .vscode/

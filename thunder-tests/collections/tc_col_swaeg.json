@@ -94,6 +94,13 @@
             "containerId": "",
             "created": "2023-10-06T06:52:28.103Z",
             "sortNum": 140000
+        },
+        {
+            "_id": "897b1e65-faf3-4acd-81eb-6af110f489ee",
+            "name": "cita",
+            "containerId": "",
+            "created": "2023-10-08T23:41:43.873Z",
+            "sortNum": 150000
         }
     ],
     "requests": [
@@ -394,12 +401,12 @@
             "method": "POST",
             "sortNum": 30000,
             "created": "2023-10-02T22:19:51.575Z",
-            "modified": "2023-10-02T22:19:51.575Z",
+            "modified": "2023-10-08T22:14:55.310Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"calificacion\": 100,\n  \"periodo\": \"2019\",\n  \"fechaSubida\": \"2023-10-01\",\n  \"funcionarioId\": \"111111111\",\n  \"claseId\": 1,\n  \"estudianteId\": 498765432\n}",
+                "raw": "{\n  \"calificacion\": 100,\n  \"periodo\": \"tercero\",\n  \"fechaSubida\": \"2023-10-01\",\n  \"funcionarioId\": \"111111111\",\n  \"claseId\": 1,\n  \"estudianteId\": 498765432\n}",
                 "form": []
             },
             "tests": []
@@ -824,6 +831,43 @@
             "sortNum": 400000,
             "created": "2023-10-06T06:52:43.739Z",
             "modified": "2023-10-06T06:52:54.457Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "c430760a-c957-4724-a593-b516d659c228",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "897b1e65-faf3-4acd-81eb-6af110f489ee",
+            "name": "addCita",
+            "url": "citas",
+            "method": "POST",
+            "sortNum": 410000,
+            "created": "2023-10-08T23:42:10.002Z",
+            "modified": "2023-10-09T01:27:42.345Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n \"dia\": \"2023-10-11 13:30:00\",\n \"asunto\": \"Bajo rendimiento del estudiante\",\n \"duracion\": 2,\n \"ubicacion\": \"Aulta #3\",\n \"funcionarioId\": 712345443\n}",
+                "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiU2VjcmV0YXJpYSIsImlhdCI6MTY5NjgxNDg0MywiZXhwIjoxNjk2OTAxMjQzfQ.4sCMmPT3MKZwj2Td-3vdG6DW_aFZjB3TC6Bp6WjeKKA"
+            },
+            "tests": []
+        },
+        {
+            "_id": "e23f06e8-9133-4532-8e40-66e864f0ae5e",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "897b1e65-faf3-4acd-81eb-6af110f489ee",
+            "name": "GetAll",
+            "url": "citas",
+            "method": "GET",
+            "sortNum": 430000,
+            "created": "2023-10-09T00:49:53.915Z",
+            "modified": "2023-10-09T00:49:58.927Z",
             "headers": [],
             "params": [],
             "tests": []
