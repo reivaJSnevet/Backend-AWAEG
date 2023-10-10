@@ -89,6 +89,13 @@
             "sortNum": 130000
         },
         {
+            "_id": "a4d0179d-ee7b-4fde-8703-da548934d003",
+            "name": "insumo",
+            "containerId": "",
+            "created": "2023-10-06T04:53:37.979Z",
+            "sortNum": 150000
+        },
+        {
             "_id": "b9b9cf75-245d-4cc2-a20c-f2273c51c253",
             "name": "solicitud",
             "containerId": "",
@@ -820,6 +827,18 @@
             "headers": [],
             "params": [],
             "tests": []
+        },
+        {
+            "_id": "9495dc5f-460d-422a-b778-d16388846ff3",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "a4d0179d-ee7b-4fde-8703-da548934d003",
+            "name": "getAll",
+            "url": "",
+            "method": "GET",
+            "sortNum": 400000,
+            "created": "2023-10-06T04:53:48.224Z",
+            "modified": "2023-10-06T04:53:48.224Z",
+            "headers": []
         },
         {
             "_id": "8d9e0615-2a8a-416c-ba48-7d0fad1cd660",
