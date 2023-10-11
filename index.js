@@ -19,11 +19,13 @@ import {
   notasRoutes,
   materiaRoutes,
   solicitudRoutes,
+  solicitudes
+  citaRoutes
   prestamoRoutes,
- reporteDañosRoutes,
- cateInsumoRoutes,
- insumoEstRoutes,
- insumoInstRoutes,
+  reporteDañosRoutes,
+  cateInsumoRoutes,
+  insumoEstRoutes,
+  insumoInstRoutes,
 } from "./routes/index.js";
 
 import "./tasks/actualizadorEdades.js";
@@ -197,6 +199,7 @@ app.use("/api/", claseRoutes);
 app.use("/api/", authRouter);
 app.use("/api/", materiaRoutes);
 app.use("/api/", solicitudRoutes);
+app.use("/api/", citaRoutes);
 app.use("/api/", prestamoRoutes);
 app.use("/api/", reporteDañosRoutes);
 app.use("/api/", cateInsumoRoutes);
