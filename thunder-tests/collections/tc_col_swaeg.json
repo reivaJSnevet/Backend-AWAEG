@@ -953,7 +953,7 @@
             "method": "GET",
             "sortNum": 420000,
             "created": "2023-10-10T08:46:45.163Z",
-            "modified": "2023-10-10T08:46:54.904Z",
+            "modified": "2023-10-10T08:46:54.904Z"
         },
         {
             "_id": "abe3c49e-713e-49c2-bf1f-9a6b70bf71ef",
@@ -981,6 +981,7 @@
             "auth": {
                 "type": "bearer",
                 "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRGlyZWN0b3IiLCJpYXQiOjE2OTY5NzgxNjAsImV4cCI6MTY5NzA2NDU2MH0.qzHwxIj2erdKkDP7FwAtFroYl0h1h38gR-Ce2SVsvNs"
+            }
         },
         {
             "_id": "c430760a-c957-4724-a593-b516d659c228",
@@ -991,7 +992,7 @@
             "method": "POST",
             "sortNum": 410000,
             "created": "2023-10-08T23:42:10.002Z",
-            "modified": "2023-10-09T01:27:42.345Z",
+            "modified": "2023-10-09T01:27:42.345Z"
         },
         {
             "_id": "781896c6-ec5b-4ea9-904e-c5578262ef8b",
@@ -1026,6 +1027,7 @@
             "auth": {
                 "type": "bearer",
                 "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRGlyZWN0b3IiLCJpYXQiOjE2OTY5NzgxNjAsImV4cCI6MTY5NzA2NDU2MH0.qzHwxIj2erdKkDP7FwAtFroYl0h1h38gR-Ce2SVsvNs"
+            }
         },
         {
             "_id": "37c0d8cf-bc9e-4fdf-ae8e-c456b9e6aaee",
@@ -1065,6 +1067,7 @@
             "auth": {
                 "type": "bearer",
                 "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRGlyZWN0b3IiLCJpYXQiOjE2OTY5NzgxNjAsImV4cCI6MTY5NzA2NDU2MH0.qzHwxIj2erdKkDP7FwAtFroYl0h1h38gR-Ce2SVsvNs"
+            }
         },
         {
             "_id": "e23f06e8-9133-4532-8e40-66e864f0ae5e",
@@ -1075,7 +1078,7 @@
             "method": "GET",
             "sortNum": 430000,
             "created": "2023-10-09T00:49:53.915Z",
-            "modified": "2023-10-09T00:49:58.927Z",
+            "modified": "2023-10-09T00:49:58.927Z"
         },
         {
             "_id": "1e93ebd5-db98-4bf3-93ff-1b5d0ccdbef8",
@@ -1127,7 +1130,7 @@
             "method": "DELETE",
             "sortNum": 440000,
             "created": "2023-10-10T05:07:19.436Z",
-            "modified": "2023-10-10T22:50:29.476Z",
+            "modified": "2023-10-10T22:50:29.476Z"
         },
         {
             "_id": "9d25f6c7-f4f2-4a13-937e-e5be1e2bbfef",
