@@ -15,17 +15,16 @@ import {
 	notasRoutes,
 	materiaRoutes,
 	solicitudRoutes,
-  authRoutes,
-  refreshRoutes,
-  logoutRoutes,
-  solicitudes
-  citaRoutes
-  prestamoRoutes,
-  reporteDañosRoutes,
-  cateInsumoRoutes,
-  insumoEstRoutes,
-  insumoInstRoutes,
-
+	authRoutes,
+	refreshRoutes,
+	logoutRoutes,
+	citaRoutes,
+	prestamoRoutes,
+	reporteDañosRoutes,
+	cateInsumoRoutes,
+	insumoEstRoutes,
+	insumoInstRoutes,
+    archivoRoutes    
 } from "./routes/index.js";
 
 import "./tasks/actualizadorEdades.js";
@@ -39,7 +38,7 @@ import verificarJWT from "./middlewares/verificarJWT.js";
 const app = express();
 
 //Credenciales de acceso antes de CORS para cookies
-app.use(credentials)
+app.use(credentials);
 
 // habilitar CORS
 app.use(cors(corsOptions));
@@ -99,22 +98,22 @@ app.use("/api/", reporteDañosRoutes);
 app.use("/api/", cateInsumoRoutes);
 app.use("/api/", insumoEstRoutes);
 app.use("/api/", insumoInstRoutes);
-
+app.use("/api/", archivoRoutes);
 
 app.all("*", (req, res) => {
-    res.status(404).json({
-        status: "fail",
-        message: `No se encontro la ruta ${req.originalUrl}`,
-    });
+	res.status(404).json({
+		status: "fail",
+		message: `No se encontro la ruta ${req.originalUrl}`,
+	});
 });
 
 // definir puerto y inicializacion del server
 const port = process.env.PORT || 3000;
 
-app.use(function (err, req, res, next){
-    console.error(err.stack);
-    res.status(500).send(err.message)   
-})
+app.use(function (err, req, res, next) {
+	console.error(err.stack);
+	res.status(500).send(err.message);
+});
 
 app.listen(port, () => {
 	console.log(`El server esta corriendo en el Puerto:${port}`);

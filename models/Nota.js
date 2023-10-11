@@ -1,9 +1,6 @@
 import { DataTypes } from "sequelize";
 import db from "../config/db.js";
 import { crear } from "../hooks/CrearSolicitud.js";
-import Estudiante from "./Estudiante.js";
-import Clase from "./Clase.js"
-import {crear} from "../hooks/CrearSolicitud.js";
 
 const Nota = db.define(
 	"notas",
