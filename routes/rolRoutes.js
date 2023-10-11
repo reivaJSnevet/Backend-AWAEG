@@ -1,13 +1,22 @@
 import express from "express";
 import rolController from "../controllers/rolController.js";
+import checkRole from "../middlewares/roleMiddleware.js";
 
 const rolRouter = express.Router();
 
 //Rutas para Rol
-rolRouter.post("/roles", rolController.crearRol);
-rolRouter.get("/roles", rolController.getAllRoles);
-rolRouter.get("/roles/:id", rolController.getRolById);
-rolRouter.put("/roles/:id", rolController.updateRolById);
-rolRouter.delete("/roles/:id", rolController.deleteRolById);
+rolRouter.post("/roles", checkRole(["Director"]), rolController.crearRol);
+rolRouter.get("/roles", checkRole(["Director"]), rolController.getAllRoles);
+rolRouter.get("/roles/:id", checkRole(["Director"]), rolController.getRolById);
+rolRouter.put(
+	"/roles/:id",
+	checkRole(["Director"]),
+	rolController.updateRolById,
+);
+rolRouter.delete(
+	"/roles/:id",
+	checkRole(["Director"]),
+	rolController.deleteRolById,
+);
 
 export default rolRouter;
