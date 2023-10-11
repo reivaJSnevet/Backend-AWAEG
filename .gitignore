@@ -3,6 +3,9 @@
 npm-debug.log
 yarn-error.log
 
+archivo/**
+!.gitkeep
+
 //archivos de usuario
 *.png
 *.jpg
