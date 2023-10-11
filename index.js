@@ -15,7 +15,13 @@ import {
   notasRoutes,
   materiaRoutes,
   solicitudRoutes,
-  archivoRouter,
+  solicitudes
+  citaRoutes
+  prestamoRoutes,
+  reporteDañosRoutes,
+  cateInsumoRoutes,
+  insumoEstRoutes,
+  insumoInstRoutes,
 } from "./routes/index.js";
 
 import "./tasks/actualizadorEdades.js";
@@ -78,7 +84,12 @@ app.use("/api/", claseRoutes);
 app.use("/api/", authRouter);
 app.use("/api/", materiaRoutes);
 app.use("/api/", solicitudRoutes);
-app.use("/api/", archivoRouter);
+app.use("/api/", citaRoutes);
+app.use("/api/", prestamoRoutes);
+app.use("/api/", reporteDañosRoutes);
+app.use("/api/", cateInsumoRoutes);
+app.use("/api/", insumoEstRoutes);
+app.use("/api/", insumoInstRoutes);
 
 // definir puerto y inicializacion del server
 const port = process.env.PORT || 3000;
