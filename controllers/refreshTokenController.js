@@ -35,9 +35,9 @@ const refreshTokenController = {
 				const accessToken = jwt.sign(
 					{ nombre: decoded.nombre, rol: usuarioExiste.role.nombre },
 					process.env.JWT_SECRET,
-					{ expiresIn: "30s" },
+					{ expiresIn: "120s" },
 				);
-				res.json({ accessToken });
+				res.json({ rol:usuarioExiste.role.nombre ,accessToken });
 			},
 		);
         }catch (error) {

@@ -56,8 +56,8 @@ const authController = {
             usuarioExiste.refreshToken = refreshToken;
             await usuarioExiste.save();
 
-			res.cookie("jwt", refreshToken, { httpOnly: true, /* secure: true, */sameSite: "None",  maxAge: 24 * 60 * 60 * 1000});
-			res.status(202).json({accessToken});
+			res.cookie("jwt", refreshToken, { httpOnly: true, secure: true, sameSite: "None",  maxAge: 24 * 60 * 60 * 1000});
+			res.status(202).json({rol:usuarioExiste.role.nombre ,accessToken});
 
 		} catch (error) {
 			res.status(500).json({ error: "Error al iniciar sesión", errorMessage: error.message });

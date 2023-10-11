@@ -13,7 +13,7 @@ const logoutController = {
 
 		const usuarioExiste = await authService.obtenerUsPorReToken(refreshToken);
 		if (!usuarioExiste) {
-            res.clearCookie("jwt", { httpOnly: true, sameSite: "None"/* , secure: true */});
+            res.clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: true});
             return res.status(204).json({ msg: "No content" });
 		}
 
@@ -22,7 +22,7 @@ const logoutController = {
         usuarioExiste.refreshToken = null;
         const result = await usuarioExiste.save();
 
-        res.clearCookie("jwt", { httpOnly: true, sameSite: "None"/* , secure: true */});
+        res.clearCookie("jwt", { httpOnly: true, sameSite: "None", secure: true});
         res.status(204).json({ msg: "Logout exitoso" });
 
 	},
