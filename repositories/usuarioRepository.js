@@ -2,6 +2,16 @@ import { Rol, Usuario } from "../models/index.js";
 
 const usuarioRepository = {
 	crear: async (usuario) => {
+        const duplicado = await Usuario.findOne({
+            where: {
+                nombre: usuario.nombre,
+            }
+        });
+
+        if (duplicado) {
+            return new Error("El usuario ya existe");
+        }
+
 		const nuevoUsuario = await Usuario.create(usuario);
 		return nuevoUsuario;
 	},

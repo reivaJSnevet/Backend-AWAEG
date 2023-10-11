@@ -1,4 +1,3 @@
-import usuarioRepository from "../repositories/usuarioRepository.js";
 import authService from "../services/authServices.js";
 import jwt from "jsonwebtoken";
 
@@ -16,50 +15,52 @@ const authController = {
 			}
 
 			const usuarioExiste = await authService.obtenerUsuario(nombre);
+
 			if (!usuarioExiste) {
 				res.status(404).json({ error: "Usuario no registrado" });
 				return;
 			}
 
-			const usuario = await authService.login(nombre, contraseña);
+			/* const usuario = await authService.login(nombre, contraseña); */
+
+            const validPassword = usuarioExiste.verificarPassword(contraseña);
+
+            if (!validPassword) {
+                return res.status(401).json({error: "Contraseña incorrecta"});
+            }
 
 			const accessToken = jwt.sign(
 				{
-					nombre: usuario.nombre,
-					rol: usuario.role.nombre, 
+					nombre: usuarioExiste.nombre,
+					rol: usuarioExiste.role.nombre,
 				},
 				process.env.JWT_SECRET,
 				{
-					expiresIn: "30s", // 30 segundos
+					expiresIn: "120s", // 30 segundos
 				},
 			);
 
             const refreshToken = jwt.sign(
 				{
-					nombre: usuario.nombre,
-					rol: usuario.role.nombre, 
+					nombre: usuarioExiste.nombre,
+                    rol: usuarioExiste.role.nombre,
 				},
 				process.env.JWT_REFRESH_SECRET,
 				{
 					expiresIn: "1d", // 1 dia
 				},
 			);
+            
+            //Si hay errores por aqui, minuto 4h 27m 30s del video de node 7h
 
-            //debo settear los datos en el usuario actual en la base de datos - arreglado creo...
-            /* const usuarioActual = ({usuarioExiste, refreshToken}); */  //deben agregarce a la base de datos para que no sé aún, minuto 4h 27m 
+            usuarioExiste.refreshToken = refreshToken;
+            await usuarioExiste.save();
 
-            await usuarioRepository.actualizar(usuarioExiste.id, {refreshToken});
-
-			res.cookie("jwt", refreshToken, { httpOnly: true, sameSite: "none", secure: true, maxAge: 24 * 60 * 60 * 1000});
+			res.cookie("jwt", refreshToken, { httpOnly: true, /* secure: true, */sameSite: "None",  maxAge: 24 * 60 * 60 * 1000});
 			res.status(202).json({accessToken});
 
 		} catch (error) {
-			if (error.message === "Contraseña incorrecta") {
-				res.status(401).json({ error: error.message });
-				return;
-			} else {
-				res.status(500).json({ error: "Error al iniciar sesión", errorMessage: error.message });
-			}
+			res.status(500).json({ error: "Error al iniciar sesión", errorMessage: error.message });
 		}
 	},
 

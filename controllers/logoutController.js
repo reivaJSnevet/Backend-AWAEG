@@ -1,4 +1,3 @@
-import usuarioRepository from "../repositories/usuarioRepository.js";
 import authService from "../services/authServices.js";
 
 const logoutController = {
@@ -14,16 +13,16 @@ const logoutController = {
 
 		const usuarioExiste = await authService.obtenerUsPorReToken(refreshToken);
 		if (!usuarioExiste) {
-
-            res.clearCookie("jwt", { httpOnly: true, sameSite: "none", secure: true});
-            return res.status(403).json({ error: "Forbidden" });
+            res.clearCookie("jwt", { httpOnly: true, sameSite: "None"/* , secure: true */});
+            return res.status(204).json({ msg: "No content" });
 		}
 
 		//minuto 4h 56m 21s del video de node 7h
+        /* await usuarioRepository.actualizar(usuarioExiste.id, {refreshToken: null}); */
+        usuarioExiste.refreshToken = null;
+        const result = await usuarioExiste.save();
 
-        await usuarioRepository.actualizar(usuarioExiste.id, {refreshToken: null});
-
-        res.clearCookie("jwt", { httpOnly: true, sameSite: "none", secure: true});
+        res.clearCookie("jwt", { httpOnly: true, sameSite: "None"/* , secure: true */});
         res.status(204).json({ msg: "Logout exitoso" });
 
 	},

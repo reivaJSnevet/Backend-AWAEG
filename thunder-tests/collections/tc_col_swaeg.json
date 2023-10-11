@@ -245,7 +245,7 @@
             "method": "POST",
             "sortNum": 100000,
             "created": "2023-10-02T22:19:51.566Z",
-            "modified": "2023-10-10T04:46:39.479Z",
+            "modified": "2023-10-10T22:12:26.242Z",
             "headers": [],
             "params": [],
             "body": {
@@ -335,13 +335,23 @@
             "method": "POST",
             "sortNum": 70000,
             "created": "2023-10-02T22:19:51.571Z",
-            "modified": "2023-10-02T22:19:51.571Z",
-            "headers": [],
+            "modified": "2023-10-10T20:49:21.536Z",
+            "headers": [
+                {
+                    "name": "Cookie",
+                    "value": "jwt = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub21icmUiOiJKdWFuIiwicm9sIjoiU2VjcmV0YXJpYSIsImlhdCI6MTY5Njk3MDU5MSwiZXhwIjoxNjk3MDU2OTkxfQ.UcLjlom4Zi5U2lzIj8ozIy490zgQYy675RAH8Og1QPc",
+                    "isDisabled": true
+                }
+            ],
             "params": [],
             "body": {
                 "type": "json",
                 "raw": "{\n  \"id\": 253850856,\n  \"nombre\": \"Lupe\",\n  \"apellido1\": \"Mora\",\n  \"apellido2\": \"Fernandez\",\n  \"fechaNacimiento\": \"2001-04-02\",\n  \"sexo\": true,\n  \"direccion\": \"Calle Palenque\",\n  \"seccion\": \"1-1\"\n}",
                 "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub21icmUiOiJMdWlzIiwicm9sIjoiRGlyZWN0b3IiLCJpYXQiOjE2OTY5NzA5MTUsImV4cCI6MTY5NzA1NzMxNX0.0MKUwrSHLHVWaoLVg-TrviMzi_eT4OqDY8tbOrcWUAg"
             },
             "tests": []
         },
@@ -856,7 +866,7 @@
             "method": "GET",
             "sortNum": 410000,
             "created": "2023-10-10T08:27:34.477Z",
-            "modified": "2023-10-10T08:27:51.932Z",
+            "modified": "2023-10-11T00:39:42.459Z",
             "headers": [],
             "params": [],
             "tests": []

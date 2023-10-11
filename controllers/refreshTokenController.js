@@ -3,6 +3,7 @@ import authService from "../services/authServices.js";
 
 const refreshTokenController = {
 	handleRefreshToken: async (req, res) => {
+        try {
 		//si falla o da datos vacios ocupa en async
 		const cookies = req.cookies;
 
@@ -12,11 +13,14 @@ const refreshTokenController = {
 			});
 			return;
 		}
+
 		const refreshToken = cookies.jwt;
 
 		const usuarioExiste = await authService.obtenerUsPorReToken(refreshToken);
+
+		/* console.log(usuarioExiste); */
 		if (!usuarioExiste) {
-			res.status(403).json({ error: "Forbidden" });
+			res.status(403).json({ error: "Forbidden no user" });
 			return;
 		}
 
@@ -28,14 +32,17 @@ const refreshTokenController = {
 					return res.status(403).json({ error: "Forbidden" });
 				}
 
-                const accessToken = jwt.sign(
-                    { "nombre": decoded.nombre, "rol": decoded.rol },
-                    process.env.JWT_SECRET,
-                    { expiresIn: "30s" }
-                );
-                res.json({ accessToken });
+				const accessToken = jwt.sign(
+					{ nombre: decoded.nombre, rol: usuarioExiste.role.nombre },
+					process.env.JWT_SECRET,
+					{ expiresIn: "30s" },
+				);
+				res.json({ accessToken });
 			},
 		);
+        }catch (error) {
+            console.log(error);
+        }
 	},
 };
 

@@ -4,7 +4,7 @@ dotenv.config();
 
 const token = jwt.sign(
 	{
-		id: 1,
+		nombre: "Juan",
 		rol:"Secretaria",
 	},
 	process.env.JWT_SECRET,

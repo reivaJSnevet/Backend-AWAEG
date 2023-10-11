@@ -29,6 +29,7 @@ import "./tasks/actualizarEdadFuncionario.js";
 import cookieParser from "cookie-parser";
 import corsOptions from "./config/corsOptions.js";
 import credentials from "./middlewares/credentials.js";
+import verificarJWT from "./middlewares/verificarJWT.js";
 
 // Creacion de la app
 const app = express();
@@ -196,6 +197,11 @@ async function conectarDB() {
 conectarDB();
 
 // Rutas
+app.use("/api/", authRoutes);
+app.use("/api/", refreshRoutes);
+app.use("/api/", logoutRoutes);
+
+app.use(verificarJWT);
 app.use("/api/", estudianteRoutes);
 app.use("/api/", grupoRoutes);
 app.use("/api/", horarioRoutes);
@@ -206,11 +212,9 @@ app.use("/api/", funcionarioRoutes);
 app.use("/api/", encargadoRoutes);
 app.use("/api/", notasRoutes);
 app.use("/api/", claseRoutes);
-app.use("/api/", authRoutes);
 app.use("/api/", materiaRoutes);
 app.use("/api/", solicitudRoutes);
-app.use("/api/", refreshRoutes);
-app.use("/api/", logoutRoutes);
+
 
 app.all("*", (req, res) => {
     res.status(404).json({
