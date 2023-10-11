@@ -1,12 +1,39 @@
-import authRepository from '../repositories/authRepository.js';
+import authRepository from "../repositories/authRepository.js";
 
 const authService = {
+	obtenerUsuario: async (nombre) => {
+		try {
+			const usuario = await authRepository.obtener(nombre);
+			return usuario;
+		} catch (error) {
+			throw error;
+		}
+	},
+
+    obtenerUsPorReToken: async (refreshToken) => {
+		try {
+			const usuario = await authRepository.obtenerPorReToken(refreshToken);
+			return usuario;
+		} catch (error) {
+			throw error;
+		}
+	},
+
+    obtenerUsuarios: async (nombre) => {
+		try {
+			const usuario = await authRepository.obtenerTodos(nombre);
+			return usuario;
+		} catch (error) {
+			throw error;
+		}
+	},
+
 	login: async (correo, contraseña) => {
 		try {
 			const usuario = await authRepository.login(correo, contraseña);
 			return usuario;
 		} catch (error) {
-			console.log(error);
+			throw error;
 		}
 	},
 

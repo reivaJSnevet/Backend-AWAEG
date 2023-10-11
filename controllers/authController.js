@@ -4,27 +4,63 @@ import jwt from "jsonwebtoken";
 const authController = {
 	// Login de usuario
 	login: async (req, res) => {
-		const { correo, contraseña } = req.body;
-
 		try {
-			const usuario = await authService.login(correo, contraseña);
+			const { nombre, contraseña } = req.body;
 
-			const token = jwt.sign(
+			if (!nombre || !contraseña) {
+				res.status(400).json({
+					error: "Usuario o contraseña son requeridos",
+				});
+				return;
+			}
+
+			const usuarioExiste = await authService.obtenerUsuario(nombre);
+
+			if (!usuarioExiste) {
+				res.status(404).json({ error: "Usuario no registrado" });
+				return;
+			}
+
+			/* const usuario = await authService.login(nombre, contraseña); */
+
+            const validPassword = usuarioExiste.verificarPassword(contraseña);
+
+            if (!validPassword) {
+                return res.status(401).json({error: "Contraseña incorrecta"});
+            }
+
+			const accessToken = jwt.sign(
 				{
-					id: usuario.id,
-					rol: usuario.role.nombre,
+					nombre: usuarioExiste.nombre,
+					rol: usuarioExiste.role.nombre,
 				},
 				process.env.JWT_SECRET,
 				{
-					expiresIn: 86400, // 24 hours
+					expiresIn: "120s", // 30 segundos
 				},
 			);
 
-			res.cookie("token", token, { httpOnly: true, secure: true });
-			res.status(200).json({ usuario, token });
+            const refreshToken = jwt.sign(
+				{
+					nombre: usuarioExiste.nombre,
+                    rol: usuarioExiste.role.nombre,
+				},
+				process.env.JWT_REFRESH_SECRET,
+				{
+					expiresIn: "1d", // 1 dia
+				},
+			);
+            
+            //Si hay errores por aqui, minuto 4h 27m 30s del video de node 7h
+
+            usuarioExiste.refreshToken = refreshToken;
+            await usuarioExiste.save();
+
+			res.cookie("jwt", refreshToken, { httpOnly: true, /* secure: true, */sameSite: "None",  maxAge: 24 * 60 * 60 * 1000});
+			res.status(202).json({accessToken});
+
 		} catch (error) {
-			res.status(500).json({ error: "Error al iniciar sesión" });
-			console.log(error);
+			res.status(500).json({ error: "Error al iniciar sesión", errorMessage: error.message });
 		}
 	},
 

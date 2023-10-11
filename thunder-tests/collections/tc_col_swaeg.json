@@ -23,7 +23,7 @@
             "name": "auth",
             "containerId": "",
             "created": "2023-10-02T22:19:51.559Z",
-            "sortNum": 30000
+            "sortNum": 5000
         },
         {
             "_id": "53eb864a-5782-4e2a-a8f4-87c1505b1cf9",
@@ -314,12 +314,12 @@
             "method": "POST",
             "sortNum": 100000,
             "created": "2023-10-02T22:19:51.566Z",
-            "modified": "2023-10-02T22:19:51.566Z",
+            "modified": "2023-10-10T22:12:26.242Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"correo\": \"orion\",\n  \"contraseña\": \"password\"\n}",
+                "raw": "{\n  \"nombre\": \"Luis\",\n  \"contraseña\": \"password\"\n}",
                 "form": []
             },
             "tests": []
@@ -404,13 +404,23 @@
             "method": "POST",
             "sortNum": 70000,
             "created": "2023-10-02T22:19:51.571Z",
-            "modified": "2023-10-02T22:19:51.571Z",
-            "headers": [],
+            "modified": "2023-10-10T20:49:21.536Z",
+            "headers": [
+                {
+                    "name": "Cookie",
+                    "value": "jwt = eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub21icmUiOiJKdWFuIiwicm9sIjoiU2VjcmV0YXJpYSIsImlhdCI6MTY5Njk3MDU5MSwiZXhwIjoxNjk3MDU2OTkxfQ.UcLjlom4Zi5U2lzIj8ozIy490zgQYy675RAH8Og1QPc",
+                    "isDisabled": true
+                }
+            ],
             "params": [],
             "body": {
                 "type": "json",
                 "raw": "{\n  \"id\": 253850856,\n  \"nombre\": \"Lupe\",\n  \"apellido1\": \"Mora\",\n  \"apellido2\": \"Fernandez\",\n  \"fechaNacimiento\": \"2001-04-02\",\n  \"sexo\": true,\n  \"direccion\": \"Calle Palenque\",\n  \"seccion\": \"1-1\"\n}",
                 "form": []
+            },
+            "auth": {
+                "type": "bearer",
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub21icmUiOiJMdWlzIiwicm9sIjoiRGlyZWN0b3IiLCJpYXQiOjE2OTY5NzA5MTUsImV4cCI6MTY5NzA1NzMxNX0.0MKUwrSHLHVWaoLVg-TrviMzi_eT4OqDY8tbOrcWUAg"
             },
             "tests": []
         },
@@ -798,12 +808,12 @@
             "method": "GET",
             "sortNum": 340000,
             "created": "2023-10-02T22:19:51.595Z",
-            "modified": "2023-10-02T22:19:51.595Z",
+            "modified": "2023-10-10T09:40:38.964Z",
             "headers": [],
             "params": [],
             "auth": {
                 "type": "bearer",
-                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRGlyZWN0b3IiLCJpYXQiOjE2OTYyMzc5NjgsImV4cCI6MTY5NjMyNDM2OH0.uIydy8c4n8q-LDpxM_TuuNh-imqRlIwkfeEb5mJC4Bg"
+                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub21icmUiOiJMdWlzIiwicm9sIjoiRGlyZWN0b3IiLCJpYXQiOjE2OTY5Mjc2NzksImV4cCI6MTY5NzAxNDA3OX0.dyOVowYwHxcVpdfcQz7JakimTffg8bCgbfeXYv4li_c"
             },
             "tests": []
         },
@@ -919,6 +929,31 @@
             "headers": [],
             "params": [],
             "tests": []
+        },
+        {
+            "_id": "a3ac93c2-b273-44ab-86b3-7cb7985f4370",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "a019480e-0007-4f6f-9bd1-4eb92ce9f67f",
+            "name": "refresh",
+            "url": "refresh",
+            "method": "GET",
+            "sortNum": 410000,
+            "created": "2023-10-10T08:27:34.477Z",
+            "modified": "2023-10-11T00:39:42.459Z",
+            "headers": [],
+            "params": [],
+            "tests": []
+        },
+        {
+            "_id": "9848d514-a687-479f-992f-fdc1ec5e1b1f",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "a019480e-0007-4f6f-9bd1-4eb92ce9f67f",
+            "name": "logout",
+            "url": "logout",
+            "method": "GET",
+            "sortNum": 420000,
+            "created": "2023-10-10T08:46:45.163Z",
+            "modified": "2023-10-10T08:46:54.904Z",
         },
         {
             "_id": "abe3c49e-713e-49c2-bf1f-9a6b70bf71ef",

@@ -1,14 +1,65 @@
+import { Sequelize } from "sequelize";
 import { Rol, Usuario } from "../models/index.js";
 
 const authRepository = {
 	//login
-	login: async (correo, contraseña) => {
+	obtener: async (nombre) => {
+		const user = await Usuario.findOne({
+			where: {
+				nombre,
+			},
+			attributes: ["id", "nombre", "correo", "contraseña", "refreshToken"],
+			include: [
+				{
+					model: Rol,
+					attributes: ["nombre"],
+				},
+			],
+		});
+		return user;
+	},
+
+    obtenerPorReToken: async (refreshToken) => {
+		const user = await Usuario.findOne({
+			where: {
+				refreshToken,
+			},
+			attributes: ["id", "nombre", "correo", "contraseña"],
+			include: [
+				{
+					model: Rol,
+					attributes: ["nombre"],
+				},
+			],
+		});
+		return user;
+	},
+
+    obtenerTodos: async (nombre) => {
+		const users = await Usuario.findAll({
+			where: {
+				nombre:{
+                    [Sequelize.Op.not]: nombre
+                }
+			},
+/* 			attributes: ["id", "nombre", "correo", "contraseña"],
+			include: [
+				{
+					model: Rol,
+					attributes: ["nombre"],
+				},
+			], */
+		});
+		return user;
+	},
+
+	login: async (nombre, contraseña) => {
 		try {
 			const user = await Usuario.findOne({
 				where: {
-					correo,
+					nombre,
 				},
-				attributes: ["id","nombre", "correo", "contraseña"],
+				attributes: ["id", "nombre", "correo", "contraseña"],
 				include: [
 					{
 						model: Rol,
@@ -16,22 +67,22 @@ const authRepository = {
 					},
 				],
 			});
-			if (!user){
-                throw new Error("Usuario no encontrado");
-            }
 
-            const isPasswordValid = await user.verificarPassword(contraseña);
+			if (!user) {
+				return user;
+			}
+
+			const isPasswordValid = await user.verificarPassword(contraseña);
 
 			if (!isPasswordValid) {
 				throw new Error("Contraseña incorrecta");
 			}
-            
-            return user;
+
+			return user;
 		} catch (error) {
-            throw new Error(`Error en la autenticación: ${error.message}`);
+			throw new Error(`Error en la autenticación: ${error.message}`);
 		}
 	},
-	
 
 	//register
 	register: async (usuario) => {
