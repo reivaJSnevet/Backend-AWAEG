@@ -1,4 +1,6 @@
 import authService from "../services/authServices.js";
+import estudianteRepository from "../repositories/estudianteRepository.js";
+import funcionarioRepository from "../repositories/funcionarioRepository.js";
 import jwt from "jsonwebtoken";
 
 const authController = {
@@ -29,6 +31,15 @@ const authController = {
                 return res.status(401).json({error: "Contraseña incorrecta"});
             }
 
+            let personaId = 0;
+            if(usuarioExiste.role.nombre === "Estudiante"){
+                personaId = await estudianteRepository.estudianteByUsuarioId(usuarioExiste.id);
+            }else{
+                personaId = await funcionarioRepository.funcionarioByUsuarioId(usuarioExiste.id);
+            }
+
+            console.log(personaId);
+
 			const accessToken = jwt.sign(
 				{
 					nombre: usuarioExiste.nombre,
@@ -36,7 +47,7 @@ const authController = {
 				},
 				process.env.JWT_SECRET,
 				{
-					expiresIn: "120s", // 30 segundos
+					expiresIn: "10s", // 30 segundos
 				},
 			);
 
@@ -47,7 +58,7 @@ const authController = {
 				},
 				process.env.JWT_REFRESH_SECRET,
 				{
-					expiresIn: "1d", // 1 dia
+					expiresIn: "1d", // 1 hora
 				},
 			);
             
@@ -57,7 +68,7 @@ const authController = {
             await usuarioExiste.save();
 
 			res.cookie("jwt", refreshToken, { httpOnly: true, secure: true, sameSite: "None",  maxAge: 24 * 60 * 60 * 1000});
-			res.status(202).json({rol:usuarioExiste.role.nombre ,accessToken});
+			res.status(202).json({rol:usuarioExiste.role.nombre ,accessToken, personaId: personaId.id});
 
 		} catch (error) {
 			res.status(500).json({ error: "Error al iniciar sesión", errorMessage: error.message });

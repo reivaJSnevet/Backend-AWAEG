@@ -138,7 +138,7 @@ const estudianteRepository = {
 			where: {
 				usuarioId: id,
 			},
-            attributes: [ "id", "nombre", "apellido1", "apellido2", "fechaNacimiento", "edad", "sexo", "direccion"],
+            attributes: [ "id"/* , "nombre", "apellido1", "apellido2", "fechaNacimiento", "edad", "sexo", "direccion"],
 			include: [
 				{
 					model: Usuario,
@@ -153,10 +153,39 @@ const estudianteRepository = {
 					model: Encargado,
 					attributes: ["id", "nombre", "apellido1", "apellido2"],
 				},
-			],
+			 */],
 		});
 		return estudiante;
 	},
+
+    estudianteHorario: async (id) => {
+        const estudiante = await Estudiante.findByPk(id, {
+            include: [
+                {
+                    model: Grupo,
+                    attributes: ["seccion", "aula", "ciclo", "turno"],
+                    include: [
+                        {
+                            model: Horario,
+                            include: [
+                                {
+                                    model: Clase,
+                                    attributes: ["dia", "horaInicio", "horaSalida", "leccion"],
+                                    include: [
+                                        {
+                                            model: Materia,
+                                            attributes: ["nombre"]
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    ]
+                }
+            ]
+        });
+       return estudiante.Horario; 
+    }
 };
 
 export default estudianteRepository;

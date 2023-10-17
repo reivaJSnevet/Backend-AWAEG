@@ -54,7 +54,6 @@ const estudianteController = {
 
 	getEstudianteById: async (req, res) => {
 		const { id } = req.params;
-        const {mostrarNotas} = req.body;
 
 		if (!id || isNaN(id)) {
 			return res
@@ -63,7 +62,7 @@ const estudianteController = {
 		}
 
 		try {
-			const estudiante = await estudianteService.obtenerEstudiantelPorId(id, mostrarNotas);
+			const estudiante = await estudianteService.obtenerEstudiantelPorId(id);
 			res.status(200).json(estudiante);
 		} catch (error) {
 			res.status(404).json({ error: error.message });
@@ -129,6 +128,24 @@ const estudianteController = {
             res.status(404).json({ error: error.message });
         }
     },
+
+    estudianteHorario: async (req, res) => {
+        try {
+            const { id } = req.params;
+
+            if (isNaN(id)) {
+                return res
+                    .status(400)
+                    .json({ error: "Faltan datos obligatorios [id] o formato equivocado" });
+            }
+
+            const horario = await estudianteService.estudianteHorario(id);
+            res.status(200).json(horario);
+
+        } catch (error) {
+            res.status(404).json({ error: error.message });
+        }
+    }
 };
 
 export default estudianteController;

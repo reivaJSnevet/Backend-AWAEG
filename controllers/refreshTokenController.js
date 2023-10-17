@@ -1,5 +1,7 @@
 import jwt from "jsonwebtoken";
 import authService from "../services/authServices.js";
+import estudianteRepository from "../repositories/estudianteRepository.js";
+import funcionarioRepository from "../repositories/funcionarioRepository.js";
 
 const refreshTokenController = {
 	handleRefreshToken: async (req, res) => {
@@ -24,6 +26,13 @@ const refreshTokenController = {
 			return;
 		}
 
+        let personaId = 0;
+        if(usuarioExiste.role.nombre === "Estudiante"){
+            personaId = await estudianteRepository.estudianteByUsuarioId(usuarioExiste.id);
+        }else{
+            personaId = await funcionarioRepository.funcionarioByUsuarioId(usuarioExiste.id);
+        }
+
 		jwt.verify(
 			refreshToken,
 			process.env.JWT_REFRESH_SECRET,
@@ -35,9 +44,9 @@ const refreshTokenController = {
 				const accessToken = jwt.sign(
 					{ nombre: decoded.nombre, rol: usuarioExiste.role.nombre },
 					process.env.JWT_SECRET,
-					{ expiresIn: "120s" },
+					{ expiresIn: "10s" },
 				);
-				res.json({ rol:usuarioExiste.role.nombre ,accessToken });
+				res.json({ rol:usuarioExiste.role.nombre ,accessToken, personaId: personaId.id });
 			},
 		);
         }catch (error) {

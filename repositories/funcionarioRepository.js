@@ -55,6 +55,17 @@ const funcionarioRepository = {
 		}
 		return await funcionario.destroy();
 	},
+
+    funcionarioByUsuarioId: async (id) => {
+		const funcionario = await Funcionario.findOne({
+			where: {
+				usuarioId: id,
+			},
+            attributes: [ "id"/* , "nombre", "apellido1", "apellido2" */]
+		});
+
+        return funcionario;
+    }
 };
 
 export default funcionarioRepository;
