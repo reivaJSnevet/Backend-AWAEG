@@ -47,7 +47,7 @@ const authController = {
 				},
 				process.env.JWT_SECRET,
 				{
-					expiresIn: "10s", // 30 segundos
+					expiresIn: "10m", // 30 segundos
 				},
 			);
 

@@ -69,6 +69,17 @@ const citaService = {
             throw error
         }
     },
+
+    citasLibres: async () => {
+		try {
+			const citas = await citaRepository.citasLibres();
+			return citas;
+		} catch (errors) {
+			errors.push({ field: "general", message: error.message });
+            throw errors;
+		}
+		
+	},
 };
 
 export default citaService;

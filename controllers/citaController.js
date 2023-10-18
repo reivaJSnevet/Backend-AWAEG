@@ -6,6 +6,8 @@ const citaController = {
 		try {
 			const { dia, asunto, duracion, ubicacion, funcionarioId } = req.body;
 
+            console.log(req.body);
+
 			if (!dia || !asunto || !duracion || !ubicacion || isNaN(funcionarioId)) {
 				return res
 					.status(400)
@@ -89,6 +91,17 @@ const citaController = {
         }
     },
 
+    citasLibres: async (req, res) => {
+        try {
+            const citas = await citaService.citasLibres();
+            res.status(200).json(citas);
+        } catch (error) {
+            res.status(500).json({
+                error: "Error al obtener las citas",
+                detalle: error.message,
+            });
+        }
+    },
     
 
 }

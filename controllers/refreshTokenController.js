@@ -44,7 +44,7 @@ const refreshTokenController = {
 				const accessToken = jwt.sign(
 					{ nombre: decoded.nombre, rol: usuarioExiste.role.nombre },
 					process.env.JWT_SECRET,
-					{ expiresIn: "10s" },
+					{ expiresIn: "10m" },
 				);
 				res.json({ rol:usuarioExiste.role.nombre ,accessToken, personaId: personaId.id });
 			},

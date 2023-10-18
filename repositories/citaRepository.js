@@ -28,6 +28,10 @@ const citaRepository = {
         }
         return await cita.destroy();
     },
+    citasLibres: async () => {
+        const citas = await Cita.findAll({where: {estudianteId: null}});
+        return citas;
+    }
 };
 
 export default citaRepository;

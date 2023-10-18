@@ -1,33 +1,34 @@
 import express from "express";
 import funcionarioController from "../controllers/funcionarioController.js";
-import checkRole from "../middlewares/roleMiddleware.js";
+import verifyRole from "../middlewares/verifyRole.js";
+import ROLES_LIST from "../config/roles_list.js";
 
 const funcionarioRouter = express.Router();
 
 //Rutas de Funcionario
 funcionarioRouter.get(
 	"/funcionarios",
-	checkRole(['Director', 'Secretaria']),
+	verifyRole(ROLES_LIST.Director, ROLES_LIST.Estudiante),
 	funcionarioController.getAllFuncionarios,
 );
 funcionarioRouter.post(
 	"/funcionarios",
-	checkRole(['Director']),
+	verifyRole(ROLES_LIST.Director, ROLES_LIST.Estudiante),
 	funcionarioController.createFuncionario,
 );
 funcionarioRouter.get(
 	"/funcionarios/:id",
-	checkRole(['Director','Secretaria']),
+	verifyRole(ROLES_LIST.Director, ROLES_LIST.Estudiante),
 	funcionarioController.getFuncionarioById,
 );
 funcionarioRouter.put(
 	"/funcionarios/:id",
-	checkRole(['Director']),
+	verifyRole(ROLES_LIST.Director, ROLES_LIST.Estudiante),
 	funcionarioController.updateFuncionarioById,
 );
 funcionarioRouter.delete(
 	"/funcionarios/:id",
-	checkRole(['Director']),
+	verifyRole(ROLES_LIST.Director, ROLES_LIST.Estudiante),
 	funcionarioController.deleteFuncionarioById,
 );
 
