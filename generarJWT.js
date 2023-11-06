@@ -13,4 +13,4 @@ const token = jwt.sign(
 	},
 );
 
-console.log("Este es el TOOKEEN: ",token);
+console.log("Este es el TOOKEEN: Bearer",token);

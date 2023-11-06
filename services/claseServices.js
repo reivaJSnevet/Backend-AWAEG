@@ -68,6 +68,24 @@ const claseService = {
             throw error
         }
 	},
+
+    estudiantesPorClase: async (id) => {
+        try {
+            const estudiantes = await claseRepository.estudiantesPorClase(id);
+            return estudiantes;
+        } catch (error) {
+            throw error
+        }
+    },
+
+    obtenerFuncionarioMateria: async (id) => {
+        try {
+            const funcionario = await claseRepository.obtenerFuncionarioMateria(id);
+            return funcionario;
+        } catch (error) {
+            throw error
+        }
+    }
 };
 
 export default claseService;

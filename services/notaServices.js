@@ -65,6 +65,15 @@ const notaService = {
             throw error;
         }
 	},
+
+    obtenerClases: async (id) => {
+        try {
+            const clases = await notaRepository.obtenerClases(id);
+            return clases;
+        } catch (error) {
+            throw error;
+        }
+    }
 };
 
 export default notaService;

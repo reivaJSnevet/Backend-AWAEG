@@ -64,12 +64,11 @@ const Grupo = db.define("grupos", {
 
 
 Grupo.beforeCreate(async (grupo) => {
-	const { dia,aula, turno } = grupo;
+	const { aula, turno } = grupo;
 	
 
 	const grupoExistente = await Grupo.findOne({
 	  where: {
-		dia,
 		aula,
 		turno,
 	  },

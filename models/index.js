@@ -54,8 +54,8 @@ Horario.hasMany(Clase);
 Clase.belongsTo(Horario);
 
 //Relacion uno a mucho entre clase y nota
-Clase.hasMany(Nota);
-Nota.belongsTo(Clase);
+/* Clase.hasMany(Nota); */  Materia.hasMany(Nota);
+/* Nota.belongsTo(Clase); */Nota.belongsTo(Materia);
 
 //Relacion uno a mucho entre materia y clase
 Materia.hasMany(Clase);
@@ -92,6 +92,10 @@ Cita.belongsTo(Estudiante);
 //Relacion uno a uno entre solicitud y cita
 Solicitud.hasOne(Cita);
 Cita.belongsTo(Solicitud);
+
+//Relacion uno a uno entre Funcionario y archivo
+Funcionario.hasMany(Archivo);
+Archivo.belongsTo(Funcionario);
 
 //Relacion uno a uno entre solicitud y prestamo
 /* Solicitud.hasOne(Prestamo);

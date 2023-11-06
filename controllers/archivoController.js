@@ -3,6 +3,7 @@ import { fileURLToPath } from "url";
 import fs from "fs";
 import multer from "multer";
 import { extname } from "path";
+import archivoService from "../services/archivoServices.js";
 
 const CURRENT_DIR = dirname(fileURLToPath(import.meta.url));
 const ARCHIVO_DIR = join(CURRENT_DIR, "../archivo");
@@ -45,11 +46,17 @@ const multerUpload = multer({
 });
 
 export const subirArchivo = (req, res) => {
+
   multerUpload.single("archivo")(req, res, (err) => {
     if (err) {
       return res.status(400).json({ message: err.message });
     }
-    console.log(req.file);
+    console.log(req.file, req.body);
+
+    const { mimetype, filename } = req.file;
+
+    archivoService.subirArchivo({nombre: filename, tipo: mimetype , estado: true, funcionarioId: req.body.funcionarioId});  
+
     res.status(200).json({ message: "Archivo subido correctamente" });
   });
 };

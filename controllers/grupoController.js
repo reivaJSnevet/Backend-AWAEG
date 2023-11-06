@@ -29,7 +29,8 @@ const grupoController = {
 				funcionarioId,
             } = req.body;
 			
-			if (!horarioId || !funcionarioId) {
+			if (!funcionarioId) {
+                console.log(req.body);
 				return res.status(400).json({ error: "Faltan datos obligatorios" });
 			}
 
@@ -71,7 +72,7 @@ const grupoController = {
 		try {
 			const { seccion } = req.params;
 			const { ciclo, grado, aula, turno, horarioId, funcionarioId } = req.body;
-			if (!seccion || !ciclo || !grado || !aula || !turno || !horarioId || !funcionarioId) {
+			if (!seccion || !ciclo || !grado || !aula || !turno || !funcionarioId) {
 				return res.status(400).json({ error: "Faltan datos obligatorios" });
 			}
 		await grupoService.actualizarGrupo(seccion, {
@@ -104,6 +105,19 @@ const grupoController = {
 			res.status(500).json({ error: error.message });
 		}
 	},
+
+    obtenerGruposConClasesPorFuncionario: async (req, res) => {
+        try {
+            const { funcionarioId } = req.params;
+            if (!funcionarioId) {
+                return res.status(400).json({ error: "El ID del funcionario es obligatorio" });
+            }
+            const grupos = await grupoService.obtenerGruposConClasesPorFuncionario(funcionarioId);
+            res.status(200).json(grupos);
+        } catch (error) {
+            res.status(500).json({ error: error.message });
+        }
+    }
 };
 
 export default grupoController;

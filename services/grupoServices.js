@@ -54,8 +54,8 @@ const grupoService = {
 					});
 				});
 			}
+			return [clasesPorDia, grupo];
 
-			return clasesPorDia;
 		} catch (error) {
 			throw error;
 		}
@@ -87,6 +87,15 @@ const grupoService = {
 			throw error;
 		}
 	},
+
+    obtenerGruposConClasesPorFuncionario: async (funcionarioId) => {
+        try {
+            const grupos = await grupoRepository.obtenerGruposConClasesPorFuncionario(funcionarioId);
+            return grupos;
+        } catch (error) {
+            throw error;
+        }
+    },
 };
 
 export default grupoService;

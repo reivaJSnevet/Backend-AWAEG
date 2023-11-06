@@ -24,4 +24,6 @@ grupoRouter.delete(
 	grupoController.eliminarGrupo,
 );
 
+grupoRouter.get("/grupos/funcionario/:funcionarioId", verifyRole(ROLES_LIST.Director, ROLES_LIST.Secretaria), grupoController.obtenerGruposConClasesPorFuncionario);
+
 export default grupoRouter;
