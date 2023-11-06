@@ -6,7 +6,7 @@ const grupos = [
         "aula":"A",
         "cantAlumno":"0",
         "turno":"true",
-        "HorarioId":"1",
+        "horarioId":"1",
         "ProfesorGuia":"712345678"
     },
     {
@@ -16,7 +16,7 @@ const grupos = [
         "aula":"A",
         "cantAlumno":"0",
         "turno":"false",
-        "HorarioId":"2",
+        "horarioId":"2",
         "ProfesorGuia":"712345678"
     },
     {
@@ -26,7 +26,7 @@ const grupos = [
         "aula":"B",
         "cantAlumno":"0",
         "turno":"true",
-        "HorarioId":"3",
+        "horarioId":"3",
         "ProfesorGuia":"712345677"
     },
     {
@@ -36,7 +36,7 @@ const grupos = [
         "aula":"B",
         "cantAlumno":"0",
         "turno":"false",
-        "HorarioId":"4",
+        "horarioId":"4",
         "ProfesorGuia":"712345677"
     },
     {
@@ -46,7 +46,7 @@ const grupos = [
         "aula":"C",
         "cantAlumno":"0",
         "turno":"true",
-        "HorarioId":"5",
+        "horarioId":"5",
         "ProfesorGuia":"712345676"
     },
     {
@@ -56,7 +56,7 @@ const grupos = [
         "aula":"C",
         "cantAlumno":"0",
         "turno":"false",
-        "HorarioId":"6",
+        "horarioId":"6",
         "ProfesorGuia":"712345676"
     },
     {
@@ -66,7 +66,7 @@ const grupos = [
         "aula":"D",
         "cantAlumno":"0",
         "turno":"true",
-        "HorarioId":"7",
+        "horarioId":"7",
         "ProfesorGuia":"712345675"
     },
     {
@@ -76,7 +76,7 @@ const grupos = [
         "aula":"D",
         "cantAlumno":"0",
         "turno":"false",
-        "HorarioId":"8",
+        "horarioId":"8",
         "ProfesorGuia":"712345675"
     },
     {
@@ -86,7 +86,7 @@ const grupos = [
         "aula":"E",
         "cantAlumno":"0",
         "turno":"true",
-        "HorarioId":"9",
+        "horarioId":"9",
         "ProfesorGuia":"712345674"
     },
     {
@@ -96,7 +96,7 @@ const grupos = [
         "aula":"E",
         "cantAlumno":"0",
         "turno":"false",
-        "HorarioId":"10",
+        "horarioId":"10",
         "ProfesorGuia":"712345674"
     },
     {
@@ -106,7 +106,7 @@ const grupos = [
         "aula":"F",
         "cantAlumno":"0",
         "turno":"true",
-        "HorarioId":"11",
+        "horarioId":"11",
         "ProfesorGuia":"712345673"
     },
     {
@@ -116,7 +116,7 @@ const grupos = [
         "aula":"F",
         "cantAlumno":"0",
         "turno":"false",
-        "HorarioId":"12",
+        "horarioId":"12",
         "ProfesorGuia":"712345673"
     }
     
