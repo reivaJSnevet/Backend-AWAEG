@@ -2,8 +2,12 @@ import { Nota, Clase, Materia} from "../models/index.js";
 
 const notaRepository = {
 	crear: async (nota) => {
-		const nuevaNota = await Nota.create(nota);
+        try{
+		const nuevaNota = await Nota.bulkCreate(nota);
 		return nuevaNota;
+        }catch(error){
+            console.log(error);
+        }
 	},
 
 	obtenerTodos: async () => {
@@ -19,14 +23,7 @@ const notaRepository = {
             attributes: ["id", "calificacion", "periodo", "createdAt", "updatedAt", "funcionarioId", ],
             include: [
                 {
-                    model: Clase,
-                    attributes: ["id"],
-                    include: [
-                        {
-                            model: Materia,
-                            attributes: ["nombre"],
-                        },
-                    ],
+                    model: Materia
                 },
             ],
         });
@@ -50,6 +47,22 @@ const notaRepository = {
 		await nota.destroy();
 		return nota;
 	},
+
+    obtenerClases: async (id) => {
+        const clases = await Clase.findAll({
+            where: {
+                funcionarioId: id,
+            },
+            include:[
+                {
+                    model: Materia,
+                    attributes: ["nombre"],
+                },
+            ]
+            
+        });
+        return clases;
+    }
 };
 
 export default notaRepository;

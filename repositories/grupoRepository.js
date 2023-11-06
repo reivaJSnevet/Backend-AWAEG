@@ -1,48 +1,95 @@
-import { Clase, Grupo, Materia, Horario } from "../models/index.js";
+import {
+	Clase,
+	Grupo,
+	Materia,
+	Horario,
+	Estudiante,
+	Funcionario,
+} from "../models/index.js";
+import db from "../config/db.js";
+import sequelize from "sequelize";
 
 const grupoRepository = {
 	crear: async (grupo) => {
-			const nuevoGrupo = await Grupo.create(grupo);
-			return nuevoGrupo;
+		const nuevoGrupo = await Grupo.create(grupo);
+		return nuevoGrupo;
 	},
 
 	obtenerTodos: async () => {
-		const grupos = await Grupo.findAll({
+		try {
+			const grupos = await Grupo.findAll({
+				include: [Estudiante, Funcionario],
+			});
+
+			grupos.forEach((grupo) => {
+				console.log("Grupo:", grupo.nombre);
+				console.log("Estudiantes del grupo:", grupo.Estudiantes);
+			});
+			return grupos;
+		} catch (error) {
+			console.error("Error al obtener grupos con estudiantes:", error);
+			throw error;
+		}
+
+		/* const grupos = await Grupo.findAll({
 			include: [
 				{
 					model: Horario,
-					include: [{
-						model: Clase,
-						attributes: ["dia", "horaInicio", "horaSalida", "leccion"],
-						include: [{
-							model: Materia,
-							attributes: ["nombre"]
-						}]
-					}]
-				}
-			]
-		});
-	return grupos;
+					include: [
+						{
+							model: Clase,
+							attributes: [
+								"dia",
+								"horaInicio",
+								"horaSalida",
+								"leccion",
+							],
+							include: [
+								{
+									model: Materia,
+									attributes: ["nombre"],
+								},
+							],
+						},
+					],
+				},
+			],
+		}); */
 	},
 
 	obtenerPorId: async (seccion) => {
 		const grupo = await Grupo.findByPk(seccion, {
-            attributes: ["seccion", "ciclo", "grado","aula", "turno"],
 			include: [
 				{
+					model: Estudiante,
+				},
+				{
+					model: Funcionario,
+				},
+				{
 					model: Horario,
-					include: [{
-						model: Clase,
-						attributes: ["id", "dia", "horaInicio", "horaSalida", "leccion"],
-						include: [{
-							model: Materia,
-							attributes: ["nombre"]
-						}]
-					}]
-				}
-			]
+					include: [
+						{
+							model: Clase,
+							attributes: [
+								"id",
+								"dia",
+								"horaInicio",
+								"horaSalida",
+								"leccion",
+							],
+							include: [
+								{
+									model: Materia,
+									attributes: ["nombre"],
+								},
+							],
+						},
+					],
+				},
+			],
 		});
-	return grupo;
+		return grupo;
 	},
 
 	actualizar: async (seccion, nuevosDatos) => {
@@ -60,6 +107,17 @@ const grupoRepository = {
 			return grupo;
 		}
 		return await grupo.destroy();
+	},
+
+	obtenerGruposConClasesPorFuncionario: async (funcionarioId) => {
+		const result = await db.query(
+			"CALL ObtenerGruposConClasesPorFuncionario(:funcionarioId)",
+			{
+				replacements: { funcionarioId: funcionarioId },
+				type: sequelize.QueryTypes.RAW,
+			},
+		);
+		return result;
 	},
 };
 

@@ -35,15 +35,8 @@ const estudianteRepository = {
 					attributes: ["id", "calificacion", "periodo"],
 					include: [
 						{
-							model: Clase,
-							attributes: ["id"],
-							include: [
-								{
-									model: Materia,
-									attributes: ["nombre"],
-								},
-							],
-						},
+                            model: Materia,
+                        },
 					],
 				},
 			],
@@ -71,15 +64,8 @@ const estudianteRepository = {
 					attributes: ["id", "calificacion", "periodo"],
 					include: [
 						{
-							model: Clase,
-							attributes: ["id"],
-							include: [
-								{
-									model: Materia,
-									attributes: ["nombre"],
-								},
-							],
-						},
+                            model: Materia,
+                        },
 					],
 				},
 			],
@@ -105,7 +91,7 @@ const estudianteRepository = {
 	},
 
 	estudianteNotas: async (id) => {
-		const estudiante = await Estudiante.findByPk(id, {
+		const estudiante = await Estudiante.findByPk(id, /* {
 			include: [
 				{
 					model: Nota,
@@ -124,7 +110,7 @@ const estudianteRepository = {
 					],
 				},
 			],
-		});
+		} */);
 
 		if (!estudiante) {
 			throw new Error("Estudiante no encontrado");

@@ -185,12 +185,12 @@
             "method": "GET",
             "sortNum": 20000,
             "created": "2023-10-02T22:19:51.558Z",
-            "modified": "2023-10-08T22:16:21.966Z",
+            "modified": "2023-10-25T01:52:43.802Z",
             "headers": [],
             "params": [],
             "auth": {
                 "type": "bearer",
-                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRXN0dWRpYW50ZSIsImlhdCI6MTY5NjgwMzM2OSwiZXhwIjoxNjk2ODg5NzY5fQ.02PQgbrNSIXmKHn_Nfeefm4Z5FE-yUiRvNHmLKCuxFc"
+                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRGlyZWN0b3IiLCJpYXQiOjE2OTgxOTg1NTIsImV4cCI6MTY5ODI4NDk1Mn0.AlnJGWIHri0NDHxV8VsRvzyvH_Etj8SmGhF91t3X7FQ"
             },
             "tests": []
         },
@@ -433,9 +433,13 @@
             "method": "GET",
             "sortNum": 75000,
             "created": "2023-10-02T22:19:51.572Z",
-            "modified": "2023-10-02T22:19:51.572Z",
+            "modified": "2023-10-30T00:18:02.722Z",
             "headers": [],
             "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRGlyZWN0b3IiLCJpYXQiOjE2OTg2MjQ5NzYsImV4cCI6MTY5ODcxMTM3Nn0.ukCDKTS4UY-UP42_f3rJkG_S8nSuDsTO1w2g2bvviZk"
+            },
             "tests": []
         },
         {
@@ -546,9 +550,13 @@
             "method": "GET",
             "sortNum": 180000,
             "created": "2023-10-02T22:19:51.579Z",
-            "modified": "2023-10-02T22:19:51.579Z",
+            "modified": "2023-10-29T06:23:16.775Z",
             "headers": [],
             "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRGlyZWN0b3IiLCJpYXQiOjE2OTg1NjA1OTAsImV4cCI6MTY5ODY0Njk5MH0.rOUjUrxjHzsQ9PWDZ_gJlu0ym2b3TFZxAL_roX6fF10"
+            },
             "tests": []
         },
         {
@@ -579,9 +587,13 @@
             "method": "GET",
             "sortNum": 185000,
             "created": "2023-10-02T22:19:51.581Z",
-            "modified": "2023-10-03T07:25:12.162Z",
+            "modified": "2023-10-30T06:28:14.856Z",
             "headers": [],
             "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRGlyZWN0b3IiLCJpYXQiOjE2OTg2NDcyODIsImV4cCI6MTY5ODczMzY4Mn0.g7KzhXQ2GYhZm7aOl4f25Xvd-IZ5juXxWoFZNyuG9QY"
+            },
             "tests": []
         },
         {
@@ -885,9 +897,13 @@
             "method": "GET",
             "sortNum": 380000,
             "created": "2023-10-03T22:05:26.157Z",
-            "modified": "2023-10-03T22:05:45.111Z",
+            "modified": "2023-10-30T00:16:25.635Z",
             "headers": [],
             "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRGlyZWN0b3IiLCJpYXQiOjE2OTg2MjQ5NzYsImV4cCI6MTY5ODcxMTM3Nn0.ukCDKTS4UY-UP42_f3rJkG_S8nSuDsTO1w2g2bvviZk"
+            },
             "tests": []
         },
         {
@@ -925,9 +941,13 @@
             "method": "GET",
             "sortNum": 400000,
             "created": "2023-10-06T06:52:43.739Z",
-            "modified": "2023-10-06T06:52:54.457Z",
+            "modified": "2023-11-04T02:20:58.156Z",
             "headers": [],
             "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRGlyZWN0b3IiLCJpYXQiOjE2OTkwNjQ0NTIsImV4cCI6MTY5OTE1MDg1Mn0.ok1WU3df_hdAqdo1Baq9jrDTn_IAHPkwnDaeGPRQm1E"
+            },
             "tests": []
         },
         {
@@ -1401,23 +1421,17 @@
             "method": "POST",
             "sortNum": 410000,
             "created": "2023-10-10T04:01:52.016Z",
-            "modified": "2023-10-18T05:49:14.078Z",
+            "modified": "2023-10-27T02:25:41.390Z",
             "headers": [],
             "params": [],
             "body": {
-                "type": "formdata",
-                "raw": "",
-                "form": [],
-                "files": [
-                    {
-                        "name": "archivo",
-                        "value": "..\\..\\..\\..\\..\\Downloads\\ExposicionesBD.pdf"
-                    }
-                ]
+                "type": "json",
+                "raw": "{\n  \"funcionarioId\": \"111111111\"\n}",
+                "form": []
             },
             "auth": {
                 "type": "bearer",
-                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRGlyZWN0b3IiLCJpYXQiOjE2OTc2MDgxNDIsImV4cCI6MTY5NzY5NDU0Mn0.Q-5BIubxOif-w3xgS9B2920umTvP1zXyV4aIcuyZLTs"
+                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRGlyZWN0b3IiLCJpYXQiOjE2OTgzNzI2MTQsImV4cCI6MTY5ODQ1OTAxNH0.V2HTM_Je8xMXpbh9vhPcu1xfsAM6TNbDHmJLvy9tFbw"
             },
             "tests": []
         },
@@ -1507,6 +1521,60 @@
             "auth": {
                 "type": "bearer",
                 "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRGlyZWN0b3IiLCJpYXQiOjE2OTc2MDgxNDIsImV4cCI6MTY5NzY5NDU0Mn0.Q-5BIubxOif-w3xgS9B2920umTvP1zXyV4aIcuyZLTs"
+            },
+            "tests": []
+        },
+        {
+            "_id": "a6564266-6bd4-4620-a27b-86613137ea95",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "3a3eef75-3c5c-488e-8498-03501fa322c8",
+            "name": "claseEstudaintesPorFuncionario",
+            "url": "clases/estudiantes/712345678",
+            "method": "GET",
+            "sortNum": 680000,
+            "created": "2023-10-24T22:47:56.412Z",
+            "modified": "2023-10-25T01:53:32.345Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub21icmUiOiJMdWlzIiwicm9sIjoiRGlyZWN0b3IiLCJpYXQiOjE2OTgxOTg3ODAsImV4cCI6MTY5ODE5OTM4MH0.uJSXG_zcuVZ-zISggwEolw95kUUz2y9D-6rvdjVB17o"
+            },
+            "tests": []
+        },
+        {
+            "_id": "60ee1e00-688f-4669-96ab-090749b2e371",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "565670bf-3d03-4e1b-87a8-ec1007a32604",
+            "name": "obtenerGruposConClasesPorFuncionario",
+            "url": "grupos/funcionario/712345678",
+            "method": "GET",
+            "sortNum": 690000,
+            "created": "2023-10-29T08:53:02.442Z",
+            "modified": "2023-10-29T20:22:21.402Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRGlyZWN0b3IiLCJpYXQiOjE2OTg1Njk2NDEsImV4cCI6MTY5ODY1NjA0MX0.HkcOvmZwUJbtFAIQiJV-0WUIqS2Vj52_sVwYAAxVT-I"
+            },
+            "tests": []
+        },
+        {
+            "_id": "17ff1fcd-4ca8-4e19-b20b-00fab6d246d0",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "3a3eef75-3c5c-488e-8498-03501fa322c8",
+            "name": "FuncionarioMateria",
+            "url": "clases/funcionarios/712345676",
+            "method": "GET",
+            "sortNum": 700000,
+            "created": "2023-10-29T21:49:07.834Z",
+            "modified": "2023-10-29T21:58:39.038Z",
+            "headers": [],
+            "params": [],
+            "auth": {
+                "type": "bearer",
+                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRGlyZWN0b3IiLCJpYXQiOjE2OTg1Njk2NDEsImV4cCI6MTY5ODY1NjA0MX0.HkcOvmZwUJbtFAIQiJV-0WUIqS2Vj52_sVwYAAxVT-I"
             },
             "tests": []
         }

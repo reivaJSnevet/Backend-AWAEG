@@ -1,4 +1,4 @@
-import archivoRepository from "../repositories/archivo.Repository.js";
+import archivoRepository from "../repositories/archivoRepository.js";
 
 const archivoService = {
 
@@ -44,6 +44,20 @@ const archivoService = {
         } catch (error) {
             throw error
         }
+    },
+
+    obtenerArchivosPorIdTodos: async (id) => {
+      try {
+        const archivos = await archivoRepository.obtenerPorIdTodos(id);
+        if (!archivos) {
+          throw new Error("Archivos no encontrados");
+        }
+        return archivos;
+        
+      } catch (error) {
+        throw error;
+      }
+        
     },
 
 

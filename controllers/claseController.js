@@ -99,6 +99,38 @@ const claseController = {
 			res.status(404).json({ error: error.message});
 		}
 	},
+
+
+    estudaintesPorClase: async (req, res) => {
+        try {
+            const { id } = req.params;
+
+            if (!id || isNaN(id) ){
+                return res.status(400).json({ error: "Faltan datos obligatorios [id], o formato incorrecto" });
+            }
+
+            const estudiantes = await claseService.estudiantesPorClase(id);
+            res.status(200).json(estudiantes);
+        } catch (error) {
+            res.status(404).json({ error: error.message});
+        }
+    },
+
+
+	funcionarioMateria: async (req, res) => {
+		try{
+			const { id } = req.params;
+
+			if (!id || isNaN(id) ){
+				return res.status(400).json({ error: "Faltan datos obligatorios [id], o formato incorrecto" });
+			}
+
+			const materias = await claseService.obtenerFuncionarioMateria(id);
+			res.status(200).json(materias);
+		} catch {
+			res.status(404).json({ error: error.message});
+		}
+	}
 };
 
 export default claseController;

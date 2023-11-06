@@ -10,7 +10,7 @@ const citaRepository = {
         return citas;
     },
     obtenerPorId: async (id) => {
-        const cita = await Cita.findAll({where: id});
+        const cita = await Cita.findAll({where: {estudianteId: id}});
         return cita;
     },
     actualizar: async (id, datos) => {

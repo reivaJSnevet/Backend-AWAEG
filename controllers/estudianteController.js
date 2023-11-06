@@ -11,12 +11,14 @@ const estudianteController = {
 				fechaNacimiento,
 				sexo,
 				direccion,
-				usuarioId,
-				encargadoId,
-				seccion
+				/* usuarioId, */
+				seccion,
+                encargadoId
 			} = req.body;
 
-			if(!usuarioId || !encargadoId || !seccion){
+            console.log(req.body);
+
+			if(/* !usuarioId || */ !encargadoId || !seccion){
 				return res.status(400).json({ error: "Faltan datos obligatorios" });
 			}
 
@@ -28,7 +30,7 @@ const estudianteController = {
 				fechaNacimiento,
 				sexo,
 				direccion,
-				usuarioId,
+				/* usuarioId, */
 				encargadoId,
 				seccion
 			});
@@ -72,9 +74,9 @@ const estudianteController = {
 	updateEstudianteById: async (req, res) => {
 		try {
 			const { id } = req.params;
-			const { nombre, apellido1, apellido2, fechaNacimiento, sexo, direccion, usuarioId, encargadoId, seccion} = req.body;
+			const { nombre, apellido1, apellido2, fechaNacimiento, sexo, direccion, encargadoId, seccion} = req.body;
 
-			if (!id || isNaN(id) || !nombre || !apellido1 || !apellido2 || !fechaNacimiento || !sexo || !direccion || !usuarioId || !encargadoId || !seccion) {
+			if (!id || isNaN(id) || !nombre || !apellido1 || !apellido2 || !fechaNacimiento || !sexo || !direccion ||!encargadoId || !seccion) {
 				return res.status(400).json({error: "Faltan datos obligatorios",});
 			}
 		await estudianteService.actualizarEstudiante(id, {
@@ -84,7 +86,6 @@ const estudianteController = {
 			fechaNacimiento,
 			sexo,
 			direccion,
-			usuarioId,
 			encargadoId,
 			seccion
 		});

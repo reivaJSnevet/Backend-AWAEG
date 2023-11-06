@@ -1,33 +1,44 @@
 import express from "express";
 import claseController from "../controllers/claseController.js";
-import checkRole from "../middlewares/roleMiddleware.js";
+import verifyRole from "../middlewares/verifyRole.js";
+import ROLES_LIST from "../config/roles_list.js";
 
 const claseRouter = express.Router();
 
 claseRouter.get(
 	"/clases",
-	checkRole(["Director", "Maestra", "Secretaria"]),
+	verifyRole(ROLES_LIST.Director, ROLES_LIST.Estudiante),
 	claseController.getAllClase,
 );
 claseRouter.post(
 	"/clases",
-	checkRole(["Director"]),
+	verifyRole(ROLES_LIST.Director, ROLES_LIST.Estudiante),
 	claseController.crearClase,
 );
 claseRouter.get(
 	"/clases/:id",
-	checkRole(["Director", "Maestra", "Secretaria", "Estudiante"]),
+	verifyRole(ROLES_LIST.Director, ROLES_LIST.Estudiante),
 	claseController.getClaseById,
 );
 claseRouter.put(
 	"/clases/:id",
-	checkRole(["Director", "Secretaria"]),
-	claseController.updateClaseById,
+    verifyRole(ROLES_LIST.Director, ROLES_LIST.Estudiante),	
+    claseController.updateClaseById,
 );
 claseRouter.delete(
 	"/clases/:id",
-	checkRole(["Director"]),
-	claseController.deleteClaseById,
+    verifyRole(ROLES_LIST.Director, ROLES_LIST.Estudiante),
+    claseController.deleteClaseById,
+);
+claseRouter.get(
+	"/clases/estudiantes/:id",
+    verifyRole(ROLES_LIST.Director, ROLES_LIST.Estudiante),
+    claseController.estudaintesPorClase,
+);
+claseRouter.get(
+    "/clases/funcionarios/:id",
+    verifyRole(ROLES_LIST.Director, ROLES_LIST.Estudiante),
+    claseController.funcionarioMateria,
 );
 
 export default claseRouter;

@@ -25,12 +25,7 @@ const funcionarioController = {
 				apellido2,
 				fechaNacimiento,
 				sexo,
-				usuarioId,
 			} = req.body;
-
-			if (!usuarioId) {
-				return res.status(400).json({ error: "Faltan datos obligatorios" });
-			}
 
 			const nuevoFuncionario = await funcionarioService.crearFuncionario({
 				id,
@@ -39,12 +34,11 @@ const funcionarioController = {
 				apellido2,
 				fechaNacimiento,
 				sexo,
-				usuarioId,
 			});
 
 			res.status(201).json(nuevoFuncionario);
 		} catch (errors) {
-			res.status(400).json({ error: errors });
+			res.status(400).json({ error: errors.message });
 		}
 	},
 
@@ -72,9 +66,6 @@ const funcionarioController = {
 			const { id } = req.params;
 			const { nombre, apellido1, apellido2, fechaNacimiento, sexo, usuarioId } = req.body;
 
-			if (!id || isNaN(id) || !nombre || !apellido1 || !apellido2 || !fechaNacimiento || !sexo || !usuarioId) {
-				return res.status(400).json({error: "Faltan datos obligatorios",});
-			}
 		await funcionarioService.actualizarFuncionario(id, {
 			nombre,
 			apellido1,
