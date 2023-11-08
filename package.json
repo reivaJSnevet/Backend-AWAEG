@@ -5,7 +5,7 @@
   "main": "index.js",
   "type": "module",
   "scripts": {
-    "start": "node index.js && npm run seed ",
+    "start": "node index.js",
     "server": "nodemon --quiet index.js",
     "seed": "node ./seed/seeder.js -i",
     "format": "prettier --write \"./**/*.js\"",

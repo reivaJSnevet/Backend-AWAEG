@@ -78,13 +78,15 @@ conectarDB();
 app.use("/api/", authRoutes);
 app.use("/api/", refreshRoutes);
 app.use("/api/", logoutRoutes);
+app.use("/api/", rolRoutes);
+app.use("/api/", usuarioRoutes);
 
 app.use(verificarJWT);
 app.use("/api/", estudianteRoutes);
 app.use("/api/", grupoRoutes);
 app.use("/api/", horarioRoutes);
-app.use("/api/", rolRoutes);
-app.use("/api/", usuarioRoutes);
+
+
 app.use("/api/", prematriculaRoutes);
 app.use("/api/", funcionarioRoutes);
 app.use("/api/", encargadoRoutes);
