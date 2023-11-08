@@ -5,7 +5,7 @@ dotenv.config();
 const token = jwt.sign(
 	{
 		id: 1,
-		rol:"Director",
+		rol:"Admin",
 	},
 	process.env.JWT_SECRET,
 	{
