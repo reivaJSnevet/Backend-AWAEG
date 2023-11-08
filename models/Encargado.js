@@ -22,7 +22,7 @@ const Encargado = db.define("encargados", {
 		type: DataTypes.STRING,
 		allowNull: false,
 		validate: {
-			isAlpha: {
+			notEmpty: {
 				msg: "El nombre solo puede contener letras. Es obligatorio.",
 			},
 		},
@@ -31,7 +31,7 @@ const Encargado = db.define("encargados", {
 		type: DataTypes.STRING,
 		allowNull: false,
 		validate: {
-			isAlpha: {
+			notEmpty: {
 				msg: "El apellido1 solo puede contener letras. Es obligatorio.",
 			},
 		},
@@ -41,7 +41,7 @@ const Encargado = db.define("encargados", {
 		type: DataTypes.STRING,
 		allowNull: false,
 		validate: {
-			isAlpha: {
+			notEmpty: {
 				msg: "El apellido2 solo puede contener letras. Es obligatorio.",
 			},
 		},

@@ -16,7 +16,7 @@ const encargadoService = {
 					});
 				});
 			} else {
-				errors.push({ field: "general", message: error.message });
+				errors.push({ field: "general", message: error });
 			}
 			throw errors;
 		}
