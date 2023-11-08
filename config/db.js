@@ -1,30 +1,22 @@
 import { Sequelize } from "sequelize";
-import dotenv from "dotenv";
 
-//definir ruta del archivo .env
-dotenv.config({ path: ".env" });
+// String de conexión a la base de datos
+const connectionString = "Server=MYSQL5045.site4now.net;Database=db_aa134c_awaegdb;Uid=aa134c_awaegdb;Pwd=wwsw22u0";
 
-//Configuracion de la DB y conexion
-const db = new Sequelize(
-	process.env.BD_NOMBRE,
-	process.env.BD_USER,
-	process.env.BD_PASS ?? " ",
-	{
-		host: process.env.BD_HOST,
-		port: 3306,
-		dialect: "mysql",
-        timezone: "-06:00",
-        logging: false,
-		define: {
-			timestamps: true,
-		},
-		pool: {
-			max: 5, //conexiones activas a mantener
-			min: 0, // las minimas
-			acquire: 3000, //tiempo antes de maracar error de conexion 3000= 30s
-			idle: 10000, //tiempo antes de cerrar las conexiones si no hay movimiento 1000= 10s
-		},
-	},
-);
+// Configuración de la DB y conexión
+const db = new Sequelize(connectionString, {
+  dialect: "mysql",
+  timezone: "-06:00",
+  logging: false,
+  define: {
+    timestamps: true,
+  },
+  pool: {
+    max: 5, // Conexiones activas a mantener
+    min: 0, // Mínimas conexiones
+    acquire: 3000, // Tiempo antes de marcar error de conexión (3000 = 30s)
+    idle: 10000, // Tiempo antes de cerrar las conexiones si no hay movimiento (10000 = 10s)
+  },
+});
 
 export default db;
