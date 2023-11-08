@@ -23,7 +23,7 @@ const Funcionario = db.define(
 			type: DataTypes.STRING,
 			allowNull: false,
 			validate: {
-				isAlpha: {
+				notEmpty: {
 					msg: "El nombre solo puede contener letras. Es obligatorio.",
 				},
 			},
@@ -32,7 +32,7 @@ const Funcionario = db.define(
 			type: DataTypes.STRING,
 			allowNull: false,
 			validate: {
-				isAlpha: {
+				notEmpty: {
 					msg: "El primer apellido solo puede contener letras. Es obligatorio.",
 				}
 			},
@@ -41,7 +41,7 @@ const Funcionario = db.define(
 			type: DataTypes.STRING,
 			allowNull: false,
 			validate: {
-				isAlpha: {
+				notEmpty: {
 					msg: "El segundo apellido solo puede contener letras. Es obligatorio.",
 				}
 			},
