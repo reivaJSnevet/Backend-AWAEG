@@ -1,6 +1,5 @@
 import { DataTypes } from "sequelize";
 import db from "../config/db.js";
-import {crear} from "../hooks/CrearSolicitud.js";
 
 const Archivo = db.define("archivos", {
 	nombre: {
