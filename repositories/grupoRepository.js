@@ -21,10 +21,6 @@ const grupoRepository = {
 				include: [Estudiante, Funcionario],
 			});
 
-			grupos.forEach((grupo) => {
-				console.log("Grupo:", grupo.nombre);
-				console.log("Estudiantes del grupo:", grupo.Estudiantes);
-			});
 			return grupos;
 		} catch (error) {
 			console.error("Error al obtener grupos con estudiantes:", error);

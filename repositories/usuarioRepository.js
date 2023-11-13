@@ -1,7 +1,7 @@
-import { Rol, Usuario } from "../models/index.js";
+import { Rol, Usuario, Estudiante, Funcionario } from "../models/index.js";
 
 const usuarioRepository = {
-	crear: async (usuario) => {
+	crear: async (usuario, id) => {
         const duplicado = await Usuario.findOne({
             where: {
                 nombre: usuario.nombre,
@@ -13,6 +13,20 @@ const usuarioRepository = {
         }
 
 		const nuevoUsuario = await Usuario.create(usuario);
+
+        if(id){
+            const funcionario = await Funcionario.findByPk(id);
+
+            if(funcionario){
+                funcionario.usuarioId = nuevoUsuario.id;
+                funcionario.save();
+            }else{
+                const estudiante = await Estudiante.findByPk(id);
+                estudiante.usuarioId = nuevoUsuario.id;
+                estudiante.save();
+            }
+        }
+
 		return nuevoUsuario;
 	},
 

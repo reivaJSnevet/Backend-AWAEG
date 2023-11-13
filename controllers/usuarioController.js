@@ -1,17 +1,18 @@
-import e from "express";
 import usuarioService from "../services/usuarioService.js";
 
 const usuarioController = {
 	// Crear un nuevo usuario
     createUsuario: async (req, res) => {
         try {
-            const { nombre, correo, contraseña, roleId } = req.body;
+            const { nombre, correo, contraseña, roleId , id} = req.body;
 
-            if (!nombre || !correo || !contraseña || isNaN(roleId)) {
+            console.log(req.body);
+
+            if (!nombre || !correo || !contraseña || !roleId) {
                 return res.status(400).json({ error: "Faltan datos" });
             }
 
-            const nuevoUsuario = await usuarioService.crearUsuario({ nombre, correo, contraseña, roleId });
+            const nuevoUsuario = await usuarioService.crearUsuario({ nombre, correo, contraseña, roleId }, id);
             res.status(201).json(nuevoUsuario);
         } catch (error) {
             res.status(400).json({ error: error.message });
