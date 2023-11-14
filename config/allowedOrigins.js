@@ -3,6 +3,7 @@ const allowedOrigins = [
     "http://localhost:5173",
    "https://localhost:7077",
    "https://frontend-awaeg.vercel.app",
+   
 ];
 
 export default allowedOrigins;
