@@ -1,5 +1,11 @@
 import { Sequelize } from "sequelize";
 import dotenv from "dotenv";
+import fs from "fs";
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
 
 //definir ruta del archivo .env
 dotenv.config({ path: ".env" });
@@ -24,6 +30,11 @@ const db = new Sequelize(
 			acquire: 3000, //tiempo antes de maracar error de conexion 3000= 30s
 			idle: 10000, //tiempo antes de cerrar las conexiones si no hay movimiento 1000= 10s
 		},
+        dialectOptions: {
+            ssl:{
+                ca: fs.readFileSync(__dirname + '\\DigiCertGlobalRootCA.crt.pem')
+            }
+        },
 	},
 );
 

@@ -6,8 +6,6 @@ const usuarioController = {
         try {
             const { nombre, correo, contraseña, roleId , id} = req.body;
 
-            console.log(req.body);
-
             if (!nombre || !correo || !contraseña || !roleId) {
                 return res.status(400).json({ error: "Faltan datos" });
             }
