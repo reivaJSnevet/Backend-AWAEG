@@ -32,7 +32,7 @@ const db = new Sequelize(
 		},
         dialectOptions: {
             ssl:{
-                ca: fs.readFileSync(__dirname + '\\DigiCertGlobalRootCA.crt.pem')
+                ca: fs.readFileSync(__dirname + '/DigiCertGlobalRootCA.crt.pem')
             }
         },
 	},
