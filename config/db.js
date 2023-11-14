@@ -7,8 +7,8 @@ import { dirname } from 'path';
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
-//definir ruta del archivo .env
-dotenv.config({ path: ".env" });
+// String de conexión a la base de datos
+//const connectionString = "host=MYSQL5045.site4now.net;database=db_aa134c_awaegdb;user=aa134c_awaegdb;password=wwsw22u0";
 
 //Configuracion de la DB y conexion
 const db = new Sequelize(

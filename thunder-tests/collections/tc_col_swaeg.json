@@ -699,12 +699,12 @@
             "method": "POST",
             "sortNum": 270000,
             "created": "2023-10-02T22:19:51.588Z",
-            "modified": "2023-10-02T22:19:51.588Z",
+            "modified": "2023-11-08T17:48:09.402Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"nombre\": \"prueba\",\n  \"nivelPrivilegio\": 5,\n  \"descripcion\": \"Este rol es una prueba del metodo http post\"\n}",
+                "raw": "{\n  \"nombre\": \"Admin\",\n  \"nivelPrivilegio\": 5,\n  \"descripcion\": \"Este rol es una prueba del metodo http post\"\n}",
                 "form": []
             },
             "tests": []
@@ -779,12 +779,12 @@
             "method": "GET",
             "sortNum": 320000,
             "created": "2023-10-02T22:19:51.593Z",
-            "modified": "2023-10-02T22:19:51.593Z",
+            "modified": "2023-11-08T17:57:24.624Z",
             "headers": [],
             "params": [],
             "auth": {
                 "type": "bearer",
-                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRGlyZWN0b3IiLCJpYXQiOjE2OTYyMzc5NjgsImV4cCI6MTY5NjMyNDM2OH0.uIydy8c4n8q-LDpxM_TuuNh-imqRlIwkfeEb5mJC4Bg"
+                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiQWRtaW4iLCJpYXQiOjE2OTk0NjYyMjUsImV4cCI6MTY5OTU1MjYyNX0.mGPGuP7klAn6mevwA_6EtLeHIAGOEnIKx1c0qLYT3BU"
             },
             "tests": []
         },
