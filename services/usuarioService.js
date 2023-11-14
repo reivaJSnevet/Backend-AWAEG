@@ -2,9 +2,9 @@ import usuarioRepository from "../repositories/usuarioRepository.js";
 import { Rol } from "../models/index.js";
 
 const usuarioService = {
-	crearUsuario: async (datos) => {
+	crearUsuario: async (datos, id) => {
         try {
-            const nuevoUsuario = await usuarioRepository.crear(datos);
+            const nuevoUsuario = await usuarioRepository.crear(datos, id);
             return nuevoUsuario;
         } catch (error) {
             const errors = [];

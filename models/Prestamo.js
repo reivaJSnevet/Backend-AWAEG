@@ -3,6 +3,7 @@ import db from "../config/db.js";
 import Funcionario from "./Funcionario.js";
 import InsumoEst from "./InsumoEst.js";
 import InsumoInst from "./InsumoInst.js";
+import { crear } from "../hooks/crearSolicitud.js";
 
 const Prestamo = db.define("prestamos", {
     fechPrestamo:{

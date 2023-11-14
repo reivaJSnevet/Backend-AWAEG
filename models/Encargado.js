@@ -46,6 +46,31 @@ const Encargado = db.define("encargados", {
 			},
 		},
 	},
-});
+},
+    {
+        hooks: {
+            beforeValidate: (instance) => {
+                // Asegúrate de que el campo 'nombre' no tenga espacios en blanco alrededor
+                if (instance.nombre) {
+                  instance.nombre = instance.nombre.trim();
+                }
+
+                if (instance.apellido1) {
+                    instance.apellido1 = instance.apellido1.trim();
+                }
+
+                if (instance.apellido2) {
+                    instance.apellido2 = instance.apellido2.trim();
+                }
+
+                // Asegúrate de que el campo 'correo' no tenga espacios en blanco alrededor
+                if (instance.correo) {
+                  instance.correo = instance.correo.trim();
+                }
+              }
+          
+        }
+    }
+);
 
 export default Encargado;
