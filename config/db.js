@@ -27,7 +27,7 @@ const db = new Sequelize(
 		pool: {
 			max: 5, //conexiones activas a mantener
 			min: 0, // las minimas
-			acquire: 3000, //tiempo antes de maracar error de conexion 3000= 30s
+			acquire: 12000, //tiempo antes de maracar error de conexion 3000= 30s
 			idle: 10000, //tiempo antes de cerrar las conexiones si no hay movimiento 1000= 10s
 		},
         dialectOptions: {
