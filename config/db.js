@@ -3,9 +3,10 @@ import dotenv from "dotenv";
 import fs from "fs";
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+import path from "path";
 
-const __filename = fileURLToPath(import.meta.url);
-const __dirname = dirname(__filename);
+/* const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename); */
 
 //definir ruta del archivo .env
 dotenv.config({ path: ".env" });
@@ -35,8 +36,9 @@ const db = new Sequelize(
 		},
         dialectOptions: {
             ssl:{
-                rejectUnauthorized: false,
-                ca: fs.readFileSync(__dirname + '/DigiCertGlobalRootCA.crt.pem')
+                /* rejectUnauthorized: false, */
+                /* ca: fs.readFileSync(__dirname + '\\DigiCertGlobalRootCA.crt.pem') */
+                ca: fs.readFileSync(path.join(path.resolve(), 'DigiCertGlobalRootCA.crt.pem'))
             }
         },
 	},
