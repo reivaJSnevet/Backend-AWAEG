@@ -24,7 +24,7 @@ import {
 	cateInsumoRoutes,
 	insumoEstRoutes,
 	insumoInstRoutes,
-    archivoRoutes    
+	archivoRoutes,
 } from "./routes/index.js";
 
 import "./tasks/actualizadorEdades.js";
@@ -56,7 +56,7 @@ app.use(cookieParser());
 async function conectarDB() {
 	try {
 		await db.authenticate();
-		console.log("Conexion Correcta a la Base de datos");
+		console.log("Autenticación en la Base de datos exitosa");
 
 		try {
 			await db.sync({ force: false });
@@ -69,6 +69,7 @@ async function conectarDB() {
 		}
 	} catch (error) {
 		console.log("Error en la conexión a la Base de datos:", error);
+		console.log("Error AQUI: ", error.message);
 	}
 }
 
@@ -78,7 +79,6 @@ conectarDB();
 app.use("/api/", authRoutes);
 app.use("/api/", refreshRoutes);
 app.use("/api/", logoutRoutes);
-
 
 app.use(verificarJWT);
 app.use("/api/", estudianteRoutes);
@@ -117,5 +117,5 @@ app.use(function (err, req, res, next) {
 });
 
 app.listen(port, () => {
-	console.log(`El server esta corriendo en el Puerto:${port}`);
+	console.log(`Inicio del Servidor. El server esta corriendo en el Puerto:${port}`);
 });
