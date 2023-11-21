@@ -54,26 +54,37 @@ app.use(cookieParser());
 
 // Conexion a la Base de datos
 async function conectarDB() {
-	try {
-		await db.authenticate();
-		console.log("Autenticación en la Base de datos exitosa");
-
-		try {
-			await db.sync({ force: false });
-			console.log("Sincronización en la Base de datos exitosa");
-		} catch (error) {
-			console.log(
-				"Error en la sincronización de la Base de datos:",
-				error,
-			);
-		}
-	} catch (error) {
-		console.log("Error en la conexión a la Base de datos:", error);
-		console.log("Error AQUI: ", error.message);
-	}
-}
-
-conectarDB();
+    let intentos = 3; // Número máximo de reintentos
+    while (intentos > 0) {
+      try {
+        await db.authenticate();
+        console.log("Autenticación en la Base de datos exitosa");
+  
+        try {
+          await db.sync({ force: false });
+          console.log("Sincronización en la Base de datos exitosa");
+          break; // Salir del bucle si la conexión y sincronización son exitosas
+        } catch (errorSync) {
+          console.log(
+            "Error en la sincronización de la Base de datos:",
+            errorSync
+          );
+        }
+      } catch (errorAuth) {
+        console.log("Error en la conexión a la Base de datos:", errorAuth);
+        console.log(`Intentos restantes: ${intentos}`);
+        intentos--;
+        await new Promise(resolve => setTimeout(resolve, 5000)); // Esperar 5 segundos antes de intentar nuevamente
+      }
+    }
+  
+    if (intentos === 0) {
+      console.log("No se pudo establecer la conexión después de varios intentos.");
+    }
+  }
+  
+  // Llamar a la función
+  conectarDB();
 
 // Rutas
 app.use("/api/", authRoutes);
