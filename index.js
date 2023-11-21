@@ -124,13 +124,13 @@ app.listen(port, () => {
 
 
 
-const os = require('os');
-const dns = require('dns');
+import os from 'os';
+import { lookup } from 'dns';
 
 // Función para obtener la dirección IP de la interfaz de red
 function getIPAddress() {
   return new Promise((resolve, reject) => {
-    dns.lookup(os.hostname(), (err, address) => {
+    lookup(os.hostname(), (err, address) => {
       if (err) {
         reject(err);
       } else {
