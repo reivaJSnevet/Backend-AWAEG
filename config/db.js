@@ -21,7 +21,7 @@ const db = new Sequelize(
 	process.env.BD_PASS ?? " ",
 	{
 		host: process.env.BD_HOST,
-		port: 3306,
+		port: process.env.BD_PORT,
 		dialect: "mysql",
         timezone: "-06:00",
         logging: false,
@@ -34,13 +34,13 @@ const db = new Sequelize(
 			acquire: 12000, //tiempo antes de maracar error de conexion 3000= 30s
 			idle: 10000, //tiempo antes de cerrar las conexiones si no hay movimiento 1000= 10s
 		},
-/*         dialectOptions: {
+        dialectOptions: {
             ssl:{
-                //rejectUnauthorized: false,
+                rejectUnauthorized: false,
                 //ca: fs.readFileSync(__dirname + '\\DigiCertGlobalRootCA.crt.pem')
                 ca: fs.readFileSync(path.join(path.resolve(), 'DigiCertGlobalRootCA.crt.pem'))
             }
-        }, */
+        },
 	},
 );
 
