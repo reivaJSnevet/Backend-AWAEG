@@ -119,3 +119,36 @@ app.use(function (err, req, res, next) {
 app.listen(port, () => {
 	console.log(`Inicio del Servidor. El server esta corriendo en el Puerto:${port}`);
 });
+
+
+
+
+
+const os = require('os');
+const dns = require('dns');
+
+// Función para obtener la dirección IP de la interfaz de red
+function getIPAddress() {
+  return new Promise((resolve, reject) => {
+    dns.lookup(os.hostname(), (err, address) => {
+      if (err) {
+        reject(err);
+      } else {
+        resolve(address);
+      }
+    });
+  });
+}
+
+// Función principal con async/await
+async function main() {
+  try {
+    const ip = await getIPAddress();
+    console.log(`Mi dirección IP es: ${ip}`);
+  } catch (error) {
+    console.error('Error al obtener la dirección IP:', error);
+  }
+}
+
+// Llama a la función principal
+main();
