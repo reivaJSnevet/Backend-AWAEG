@@ -34,13 +34,13 @@ const db = new Sequelize(
 			acquire: 12000, //tiempo antes de maracar error de conexion 3000= 30s
 			idle: 10000, //tiempo antes de cerrar las conexiones si no hay movimiento 1000= 10s
 		},
-        dialectOptions: {
+/*         dialectOptions: {
             ssl:{
-                /* rejectUnauthorized: false, */
-                /* ca: fs.readFileSync(__dirname + '\\DigiCertGlobalRootCA.crt.pem') */
+                //rejectUnauthorized: false,
+                //ca: fs.readFileSync(__dirname + '\\DigiCertGlobalRootCA.crt.pem')
                 ca: fs.readFileSync(path.join(path.resolve(), 'DigiCertGlobalRootCA.crt.pem'))
             }
-        },
+        }, */
 	},
 );
 
