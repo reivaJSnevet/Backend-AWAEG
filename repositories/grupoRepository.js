@@ -113,6 +113,10 @@ const grupoRepository = {
 				type: sequelize.QueryTypes.RAW,
 			},
 		);
+
+        const data = result[0];
+        console.log(data);
+
 		return result;
 	},
 };
