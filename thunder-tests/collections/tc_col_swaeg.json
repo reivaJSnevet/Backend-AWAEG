@@ -792,12 +792,12 @@
             "method": "POST",
             "sortNum": 160000,
             "created": "2023-10-02T22:19:51.594Z",
-            "modified": "2024-01-04T22:20:50.406Z",
+            "modified": "2024-01-13T06:57:40.097Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"userName\": \"PatriciaPG\",\n  \"email\": \"javierastdiaz@gmail.com\",\n  \"password\": \"password\",\n  \"roleId\": 3\n}",
+                "raw": "{\n  \"userName\": \"PatriciaPG\",\n  \"email\": \"javierastdiaz@gmail.com\",\n  \"password\": \"password\"\n}",
                 "form": []
             },
             "auth": {
