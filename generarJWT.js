@@ -5,11 +5,11 @@ dotenv.config();
 const token = jwt.sign(
 	{
 		id: 1,
-		rol:"Admin",
+		rol:"Director",
 	},
 	process.env.JWT_SECRET,
 	{
-		expiresIn: 86400, // 24 hours
+		expiresIn: 604800, // 1 semana 
 	},
 );
 

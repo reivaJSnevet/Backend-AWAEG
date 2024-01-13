@@ -8,13 +8,13 @@ import path from "path";
 /* const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename); */
 
-//definir ruta del archivo .env
+// Load environment variables
 dotenv.config({ path: ".env" });
 
-// String de conexión a la base de datos
+// connection string for  smartAsp.net
 //const connectionString = "host=MYSQL5045.site4now.net;database=db_aa134c_awaegdb;user=aa134c_awaegdb;password=wwsw22u0";
 
-//Configuracion de la DB y conexion
+//Db configuration
 const db = new Sequelize(
 	process.env.BD_NOMBRE,
 	process.env.BD_USER,
@@ -26,21 +26,21 @@ const db = new Sequelize(
         timezone: "-06:00",
         logging: false,
 		define: {
-			timestamps: true,
+			timestamps: false,
 		},
 		pool: {
-			max: 5, //conexiones activas a mantener
-			min: 0, // las minimas
-			acquire: 300000, //tiempo antes de maracar error de conexion 3000= 30s
-			idle: 300000, //tiempo antes de cerrar las conexiones si no hay movimiento 1000= 10s
+			max: 5, // max allowed connections
+			min: 0, // min allowed connections
+			acquire: 300000, // maximum time, in milliseconds, that pool will try to get connection before throwing error
+			idle: 300000, // maximum time, in milliseconds, that a connection can be idle before being released
 		},
-        dialectOptions: {
+/*         dialectOptions: { // For SSL connection
             ssl:{
                 rejectUnauthorized: false,
                 //ca: fs.readFileSync(__dirname + '\\DigiCertGlobalRootCA.crt.pem')
                 ca: fs.readFileSync(path.join(path.resolve(), 'DigiCertGlobalRootCA.crt.pem'))
             }
-        },
+        }, */
 	},
 );
 

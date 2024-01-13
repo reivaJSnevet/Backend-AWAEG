@@ -1,15 +1,14 @@
-const verifyRole = (...allowedRoles) => {
-    return (req, res, next) => {
-        if (!req?.rol) return res.status(401).json({ error: "Unauthorized" });
+const verifyRole = (minLevel) => {
+	return (req, res, next) => {
+		if (!req?.role)
+			return res.status(401).json({ message: "Unauthorized 1" });
 
-        const rolesArray = [...allowedRoles]
+		if (req.role.privilegeLevel > minLevel) {
+			return res.status(401).json({ message: "Unauthorized 2" });
+		}
 
-        const result = rolesArray.includes(req.rol);
-
-        if (!result) return res.status(401).json({ error: "Unauthorized" });
-
-        next();
-    }
-}
+		next();
+	};
+};
 
 export default verifyRole;
