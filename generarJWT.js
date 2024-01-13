@@ -9,7 +9,7 @@ const token = jwt.sign(
 	},
 	process.env.JWT_SECRET,
 	{
-		expiresIn: 86400, // 24 hours
+		expiresIn: 604800, // 1 semana 
 	},
 );
 

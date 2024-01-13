@@ -1,130 +1,89 @@
-import authService from "../services/authServices.js";
-import estudianteRepository from "../repositories/estudianteRepository.js";
-import funcionarioRepository from "../repositories/funcionarioRepository.js";
-import jwt from "jsonwebtoken";
+import authService from "../services/authService.js";
 
 const authController = {
-	// Login de usuario
 	login: async (req, res) => {
 		try {
-			const { nombre, contraseña } = req.body;
+			const { userName, password } = req.body;
+			if (!userName || !password) {
+				return res
+					.status(400)
+					.json({ message: "Empty username or password" });
+			}
 
-			if (!nombre || !contraseña) {
-				res.status(400).json({
-					error: "Usuario o contraseña son requeridos",
+			const { accessToken, refreshToken } = await authService.login(
+				userName,
+				password,
+			);
+
+			res.cookie("refreshToken", refreshToken, {
+				httpOnly: true,
+				secure: true,
+				sameSite: "none",
+				maxAge: 1000 * 60 * 60 * 24 * 1, //1 day
+			});
+
+			return res.status(200).json(accessToken);
+		} catch (error) {
+			if (error.name === "InvalidUsername") {
+				return res.status(401).json({ error:error.name, message: error.message });
+			} else if (error.name === "InvalidPassword") {
+				return res.status(401).json({ error: error.name, message: error.message });
+			} else {
+				return res.status(500).json({ error: error.name, message: error.message });
+			}
+		}
+	},
+	logout: async (req, res) => {
+		try {
+			const { refreshToken } = req.cookies || {};
+
+			if (!refreshToken) {
+				return res
+					.status(401)
+					.json({ message: "No refresh token provided" });
+			}
+
+			await authService.logout(refreshToken);
+
+			res.clearCookie("refreshToken", {
+				httpOnly: true,
+				secure: true,
+				sameSite: "none",
+			});
+			res.status(200).json({ message: "Logout successful" });
+		} catch (error) {
+			if (error.name === "InvalidRefreshToken") {
+				res.clearCookie("refreshToken", {
+					httpOnly: true,
+					secure: true,
+					sameSite: "none",
 				});
-				return;
+				return res.status(401).json({ error: error.name, message: error.message });
+			} else {
+				return res.status(500).json({ error: error.name, message: error.message });
+			}
+		}
+	},
+	handleRefreshToken: async (req, res) => {
+		try {
+			const { refreshToken } = req.cookies || {};
+
+			if (!refreshToken) {
+				return res
+					.status(401)
+					.json({ message: "No refresh token provided" });
 			}
 
-			const usuarioExiste = await authService.obtenerUsuario(nombre);
+			const { accessToken } = await authService.handleRefreshToken(refreshToken);
 
-			if (!usuarioExiste) {
-				res.status(404).json({ error: "Usuario no registrado" });
-				return;
+			return res.status(200).json({ accessToken });
+		} catch (error) {
+
+			if (error.name === "InvalidRefreshToken") {
+				return res.status(401).json({ error: error.name, message: error.message });
+			} else {
+				return res.status(500).json({ error: error.name, message: error.message });
 			}
-
-			/* const usuario = await authService.login(nombre, contraseña); */
-
-            const validPassword = usuarioExiste.verificarPassword(contraseña);
-
-            if (!validPassword) {
-                return res.status(401).json({error: "Contraseña incorrecta"});
-            }
-
-            let personaId = 0;
-            if(usuarioExiste.role.nombre === "Estudiante"){
-                personaId = await estudianteRepository.estudianteByUsuarioId(usuarioExiste.id);
-            }else{
-                personaId = await funcionarioRepository.funcionarioByUsuarioId(usuarioExiste.id);
-            }
-
-            console.log(personaId);
-
-			const accessToken = jwt.sign(
-				{
-					nombre: usuarioExiste.nombre,
-					rol: usuarioExiste.role.nombre,
-				},
-				process.env.JWT_SECRET,
-				{
-					expiresIn: "10m", // 30 segundos
-				},
-			);
-
-            const refreshToken = jwt.sign(
-				{
-					nombre: usuarioExiste.nombre,
-                    rol: usuarioExiste.role.nombre,
-				},
-				process.env.JWT_REFRESH_SECRET,
-				{
-					expiresIn: "1d", // 1 hora
-				},
-			);
-            
-            //Si hay errores por aqui, minuto 4h 27m 30s del video de node 7h
-
-            usuarioExiste.refreshToken = refreshToken;
-            await usuarioExiste.save();
-
-			res.cookie("jwt", refreshToken, { httpOnly: true, secure: true, sameSite: "None",  maxAge: 24 * 60 * 60 * 1000});
-			res.status(202).json({rol:usuarioExiste.role.nombre ,accessToken, personaId: personaId.id});
-
-		} catch (error) {
-			res.status(500).json({ error: "Error al iniciar sesión", errorMessage: error.message });
-		}
-	},
-
-	register: async (req, res) => {
-		const { nombre, correo, contraseña, roleId } = req.body;
-		const datos = { nombre, correo, contraseña, roleId };
-
-		try {
-			const nuevoUsuario = await authService.register(datos);
-			res.status(201).json(nuevoUsuario);
-		} catch (error) {
-			res.status(500).json({ error: "Error al crear el usuario" });
-			console.log(error);
-		}
-	},
-
-	// verify email
-	verifyEmail: async (req, res) => {
-		const { token } = req.params;
-
-		try {
-			const usuario = await authService.verifyEmail(token);
-			res.status(200).json(usuario);
-		} catch (error) {
-			res.status(500).json({ error: "Error al verificar el usuario" });
-			console.log(error);
-		}
-	},
-
-	// forgot password
-	forgotPassword: async (req, res) => {
-		const { correo } = req.body;
-
-		try {
-			const usuario = await authService.forgotPassword(correo);
-			res.status(200).json(usuario);
-		} catch (error) {
-			res.status(500).json({ error: "Error al enviar el correo" });
-			console.log(error);
-		}
-	},
-
-	// reset password
-	resetPassword: async (req, res) => {
-		const { token } = req.params;
-		const { contraseña } = req.body;
-
-		try {
-			const usuario = await authService.resetPassword(token, contraseña);
-			res.status(200).json(usuario);
-		} catch (error) {
-			res.status(500).json({ error: "Error al cambiar la contraseña" });
-			console.log(error);
 		}
 	},
 };

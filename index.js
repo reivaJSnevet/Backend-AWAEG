@@ -1,165 +1,148 @@
+/**
+ * @fileOverview This file contains the main server code for the backend application.
+ * It initializes the Express server, establishes a connection to the database,
+ * sets up middleware, defines routes, and starts the server.
+ * @module index.js
+ */
+
 import express from "express";
 import cors from "cors";
 import db from "./config/db.js";
 
+
+// Import routes
 import {
-	claseRoutes,
-	estudianteRoutes,
-	grupoRoutes,
-	horarioRoutes,
-	rolRoutes,
-	usuarioRoutes,
-	prematriculaRoutes,
-	funcionarioRoutes,
-	encargadoRoutes,
-	notasRoutes,
-	materiaRoutes,
-	solicitudRoutes,
-	authRoutes,
-	refreshRoutes,
-	logoutRoutes,
-	citaRoutes,
-	prestamoRoutes,
-	reporteDañosRoutes,
-	cateInsumoRoutes,
-	insumoEstRoutes,
-	insumoInstRoutes,
-	archivoRoutes,
+	roleRoute,
+	userRoute,
+	functionaryRoute,
+	subjectRoute,
+	preRegistrationRoute,
+	fileRoute,
+	applicationRoute,
+	appointmentRoute,
+	studentRoute,
+	caregiverRoute,
+	groupRoute,
+	classRoute,
+	gradeRoute,
+	timetableRoute,
+	authRoute,
 } from "./routes/index.js";
-
-import "./tasks/actualizadorEdades.js";
-import "./tasks/actualizarEdadFuncionario.js";
 import cookieParser from "cookie-parser";
-import corsOptions from "./config/corsOptions.js";
 import credentials from "./middlewares/credentials.js";
-import verificarJWT from "./middlewares/verificarJWT.js";
+import corsOptions from "./config/corsOptions.js";
+import verifyJWT from "./middlewares/verifyJWT.js";
+import sequelize from "./config/db.js";
+import { applyGlobalTrimHook } from "./hooks/globalTrimHook.js";
+// Import Node cron tasks
+import "./tasks/updateAge.js";
+import bcrypt from "bcrypt";
 
-// Creacion de la app
+// Express init
 const app = express();
 
-//Credenciales de acceso antes de CORS para cookies
+// Credentials Cors middleware
 app.use(credentials);
 
-// habilitar CORS
+// Cors middleware
 app.use(cors(corsOptions));
 
-// habilitar lectura de datos complejos en la solicitud URL, como matrices y Obj.anidados
+// Enable reading form data
 app.use(express.urlencoded({ extended: true }));
 
-// habilita lectura de json en URL
+// Enable reading JSON in URL
 app.use(express.json());
 
-// coockies
+// Cookies
 app.use(cookieParser());
 
-// Conexion a la Base de datos
-async function conectarDB() {
-    let intentos = 3; // Número máximo de reintentos
-    while (intentos > 0) {
-      try {
-        await db.authenticate();
-        console.log("Autenticación en la Base de datos exitosa");
-  
-        try {
-          await db.sync({ force: false });
-          console.log("Sincronización en la Base de datos exitosa");
-          break; // Salir del bucle si la conexión y sincronización son exitosas
-        } catch (errorSync) {
-          console.log(
-            "Error en la sincronización de la Base de datos:",
-            errorSync
-          );
-        }
-      } catch (errorAuth) {
-        console.log("Error en la conexión a la Base de datos:", errorAuth);
-        console.log(`Intentos restantes: ${intentos}`);
-        intentos--;
-        await new Promise(resolve => setTimeout(resolve, 5000)); // Esperar 5 segundos antes de intentar nuevamente
-      }
-    }
-  
-    if (intentos === 0) {
-      console.log("No se pudo establecer la conexión después de varios intentos.");
-    }
-  }
-  
-  // Llamar a la función
-  conectarDB();
+/**
+ * Establishes a connection to the database and synchronizes the models.
+ * Retries the connection up to 3 times with a 5-second delay between each attempt.
+ * @async
+ * @function DbConnection
+ */
+async function DbConnection() {
+	let attempts = 3; // Maximum number of retries
+	while (attempts > 0) {
+		try {
+			await db.authenticate();
+			console.log("Database authentication successful");
 
-// Rutas
-app.use("/api/", authRoutes);
-app.use("/api/", refreshRoutes);
-app.use("/api/", logoutRoutes);
+			try {
+				await db.sync({ force: false });
+				console.log("Database synchronization successful");
+				break;
+			} catch (errorSync) {
+				console.log("Error in database synchronization:", errorSync);
+			}
+		} catch (errorAuth) {
+			console.log("Error in database connection:", errorAuth);
+			console.log(`Remaining attempts: ${attempts}`);
+			attempts--;
+			await new Promise((resolve) => setTimeout(resolve, 5000)); // Wait for 5 seconds before retrying
+		}
+	}
 
-app.use(verificarJWT);
-app.use("/api/", estudianteRoutes);
-app.use("/api/", grupoRoutes);
-app.use("/api/", horarioRoutes);
-app.use("/api/", rolRoutes);
-app.use("/api/", usuarioRoutes);
-app.use("/api/", prematriculaRoutes);
-app.use("/api/", funcionarioRoutes);
-app.use("/api/", encargadoRoutes);
-app.use("/api/", notasRoutes);
-app.use("/api/", claseRoutes);
-app.use("/api/", materiaRoutes);
-app.use("/api/", solicitudRoutes);
-app.use("/api/", citaRoutes);
-app.use("/api/", prestamoRoutes);
-app.use("/api/", reporteDañosRoutes);
-app.use("/api/", cateInsumoRoutes);
-app.use("/api/", insumoEstRoutes);
-app.use("/api/", insumoInstRoutes);
-app.use("/api/", archivoRoutes);
+	if (attempts === 0) {
+		console.log("Failed to establish connection after multiple attempts.");
+	}
+}
 
+applyGlobalTrimHook(sequelize);
+
+// Call the function to connect to the database
+await DbConnection();
+
+// Set up public routes
+app.use("/api/", authRoute);
+// Set up JWT verification middleware
+app.use(verifyJWT);
+// Set up private routes
+app.use("/api/", roleRoute);
+app.use("/api/", userRoute);
+app.use("/api/", functionaryRoute);
+app.use("/api/", subjectRoute);
+app.use("/api/", preRegistrationRoute);
+app.use("/api/", fileRoute);
+app.use("/api/", applicationRoute);
+app.use("/api/", appointmentRoute);
+app.use("/api/", studentRoute);
+app.use("/api/", caregiverRoute);
+app.use("/api/", groupRoute);
+app.use("/api/", classRoute);
+app.use("/api/", gradeRoute);
+app.use("/api/", timetableRoute);
+
+// Handle 404 errors
 app.all("*", (req, res) => {
 	res.status(404).json({
 		status: "fail",
-		message: `No se encontro la ruta ${req.originalUrl}`,
+		message: `Route not found: ${req.originalUrl}`,
 	});
 });
 
-// definir puerto y inicializacion del server
+// Error handling middleware
+app.use((err, req, res, next) => {
+	res.status(err.status || 500);
+	res.json({
+		error: {
+			type: err.name,
+			message: err.message,
+		},
+	});
+});
+
+// Define port and start the server
 const port = process.env.PORT || 3000;
 
-app.use(function (err, req, res, next) {
-	console.error(err.stack);
-	res.status(500).send(err.message);
-});
+/* const hashPassword = async () => {
+	const salt = await bcrypt.genSalt(10);
+	const password = await bcrypt.hash("password", salt);
+    return password;
+};
+console.log("Hashed password: ", await hashPassword()); */
 
 app.listen(port, () => {
-	console.log(`Inicio del Servidor. El server esta corriendo en el Puerto:${port}`);
+	console.log(`Server started. The server is running on Port: ${port}`);
 });
-
-
-
-
-
-import os from 'os';
-import { lookup } from 'dns';
-
-// Función para obtener la dirección IP de la interfaz de red
-function getIPAddress() {
-  return new Promise((resolve, reject) => {
-    lookup(os.hostname(), (err, address) => {
-      if (err) {
-        reject(err);
-      } else {
-        resolve(address);
-      }
-    });
-  });
-}
-
-// Función principal con async/await
-async function main() {
-  try {
-    const ip = await getIPAddress();
-    console.log(`Mi dirección IP es: ${ip}`);
-  } catch (error) {
-    console.error('Error al obtener la dirección IP:', error);
-  }
-}
-
-// Llama a la función principal
-main();
