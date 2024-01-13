@@ -3,7 +3,7 @@
 npm-debug.log
 yarn-error.log
 
-archivo/**
+uploads/**
 !.gitkeep
 
 //archivos de usuario
@@ -36,4 +36,5 @@ Thumbs.db
 /dist
 /build
 
-# Dependiendo de tu entorno y configuración, es posible que desees excluir otros archivos específicos.
+#jwt
+generarJWT.js
