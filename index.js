@@ -5,37 +5,45 @@
  * @module index.js
  */
 
+// Import Node.js libraries
 import express from "express";
 import cors from "cors";
-import db from "./config/db.js";
-
-// Import routes
-import {
-	roleRoute,
-	userRoute,
-	functionaryRoute,
-	subjectRoute,
-	preRegistrationRoute,
-	fileRoute,
-	applicationRoute,
-	appointmentRoute,
-	studentRoute,
-	caregiverRoute,
-	groupRoute,
-	classRoute,
-	gradeRoute,
-	timetableRoute,
-	authRoute,
-} from "./routes/index.js";
 import cookieParser from "cookie-parser";
-import credentials from "./middlewares/credentials.js";
+import helmet from "helmet";
+
+// Import Configs
+import db from "./config/db.js";
 import corsOptions from "./config/corsOptions.js";
-import verifyJWT from "./middlewares/verifyJWT.js";
 import sequelize from "./config/db.js";
+
+// Import Middlewares
+import credentials from "./middlewares/credentials.js";
+import verifyJWT from "./middlewares/verifyJWT.js";
+
+// Import Routes
+import {
+  roleRoute,
+  userRoute,
+  functionaryRoute,
+  subjectRoute,
+  preRegistrationRoute,
+  fileRoute,
+  applicationRoute,
+  appointmentRoute,
+  studentRoute,
+  caregiverRoute,
+  groupRoute,
+  classRoute,
+  gradeRoute,
+  timetableRoute,
+  authRoute,
+} from "./routes/index.js";
+
+// Import Hooks
 import { applyGlobalTrimHook } from "./hooks/globalTrimHook.js";
-// Import Node cron tasks
+
+// Import Node-Cron tasks
 import "./tasks/updateAge.js";
-import bcrypt from "bcrypt";
 
 // Express init
 const app = express();
@@ -54,6 +62,9 @@ app.use(express.json());
 
 // Cookies
 app.use(cookieParser());
+
+// Helmet
+app.use(helmet());
 
 /**
  * Establishes a connection to the database and synchronizes the models.
@@ -142,14 +153,6 @@ app.use((err, req, res, next) => {
 
 // Define port and start the server
 const port = process.env.PORT || 3000;
-
-/* const hashPassword = async () => {
-	const salt = await bcrypt.genSalt(10);
-	const password = await bcrypt.hash("password", salt);
-    return password;
-};
-console.log("Hashed password: ", await hashPassword()); */
-
 app.listen(port, () => {
 	console.log(
 		"\x1b[32m%s\x1b[0m",
