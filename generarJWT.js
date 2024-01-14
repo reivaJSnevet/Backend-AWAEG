@@ -2,15 +2,14 @@ import jwt from "jsonwebtoken";
 import dotenv from "dotenv";
 dotenv.config();
 
+const user = {
+	id: 1,
+	rol: "Director",
+};
+
 const token = jwt.sign(
-	{
-		id: 1,
-		rol:"Director",
-	},
-	process.env.JWT_SECRET,
-	{
-		expiresIn: 604800, // 1 semana 
-	},
+	user,
+	process.env.JWT_SECRET
 );
 
-console.log("Este es el TOOKEEN: Bearer",token);
+console.log("Este es el TOKEN: Bearer", token);
