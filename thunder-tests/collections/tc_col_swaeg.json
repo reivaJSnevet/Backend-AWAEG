@@ -37,7 +37,7 @@
             "name": "Student",
             "containerId": "",
             "created": "2023-10-02T22:19:51.561Z",
-            "sortNum": 4990.2
+            "sortNum": 4062.5
         },
         {
             "_id": "565670bf-3d03-4e1b-87a8-ec1007a32604",
@@ -686,17 +686,13 @@
             "method": "POST",
             "sortNum": 270000,
             "created": "2023-10-02T22:19:51.588Z",
-            "modified": "2024-01-10T08:32:55.985Z",
+            "modified": "2024-01-14T02:39:21.214Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
                 "raw": "{\n  \"roleName\": \"estudiante\",\n  \"privilegeLevel\": \"5\",\n  \"description\": \"  Este un rol para estudiantes            \"\n}",
                 "form": []
-            },
-            "auth": {
-                "type": "bearer",
-                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6Ikx1aXMiLCJyb2xlIjoiRGlyZWN0b3IiLCJpYXQiOjE3MDQ4NzU1NTAsImV4cCI6MTcwNDk2MTk1MH0.62J6HTb5DLpFsYcA8RwbyTktY0RwaaDj7jn6TfWNoeg"
             },
             "tests": []
         },
@@ -709,13 +705,9 @@
             "method": "GET",
             "sortNum": 280000,
             "created": "2023-10-02T22:19:51.589Z",
-            "modified": "2024-01-11T08:57:43.009Z",
+            "modified": "2024-01-14T02:39:27.423Z",
             "headers": [],
             "params": [],
-            "auth": {
-                "type": "bearer",
-                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6Ikx1aXMiLCJyb2xlIjp7InJvbGVuYW1lIjoiRGlyZWN0b3IiLCJwcml2aWxlZ2VMZXZlbCI6MX0sImlhdCI6MTcwNDkzNjk3MCwiZXhwIjoxNzA1MDIzMzcwfQ.1zKJp1AWG1sYiOXOlF25DEr21J8wY9A3Oq1lm6LgfQk"
-            },
             "tests": []
         },
         {
@@ -774,13 +766,9 @@
             "method": "GET",
             "sortNum": 320000,
             "created": "2023-10-02T22:19:51.593Z",
-            "modified": "2023-12-21T07:31:24.418Z",
+            "modified": "2024-01-14T02:39:59.554Z",
             "headers": [],
             "params": [],
-            "auth": {
-                "type": "bearer",
-                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiQWRtaW4iLCJpYXQiOjE2OTk0NjYyMjUsImV4cCI6MTY5OTU1MjYyNX0.mGPGuP7klAn6mevwA_6EtLeHIAGOEnIKx1c0qLYT3BU"
-            },
             "tests": []
         },
         {
@@ -922,13 +910,9 @@
             "method": "GET",
             "sortNum": 400000,
             "created": "2023-10-06T06:52:43.739Z",
-            "modified": "2024-01-11T09:02:08.671Z",
+            "modified": "2024-01-14T02:34:28.072Z",
             "headers": [],
             "params": [],
-            "auth": {
-                "type": "bearer",
-                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6Ikx1aXMiLCJyb2xlIjp7InJvbGVuYW1lIjoiRGlyZWN0b3IiLCJwcml2aWxlZ2VMZXZlbCI6MX0sImlhdCI6MTcwNDkzNjk3MCwiZXhwIjoxNzA1MDIzMzcwfQ.1zKJp1AWG1sYiOXOlF25DEr21J8wY9A3Oq1lm6LgfQk"
-            },
             "tests": []
         },
         {
@@ -1405,7 +1389,7 @@
             "method": "POST",
             "sortNum": 410000,
             "created": "2023-10-10T04:01:52.016Z",
-            "modified": "2024-01-07T22:23:32.862Z",
+            "modified": "2024-01-14T02:42:04.577Z",
             "headers": [],
             "params": [],
             "body": {
@@ -1414,7 +1398,7 @@
                 "form": [
                     {
                         "name": "functionaryId",
-                        "value": "118050544"
+                        "value": "712345443"
                     },
                     {
                         "name": "section",
@@ -1427,10 +1411,6 @@
                         "value": "..\\..\\..\\..\\..\\Downloads\\code.png"
                     }
                 ]
-            },
-            "auth": {
-                "type": "bearer",
-                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRGlyZWN0b3IiLCJpYXQiOjE2OTgzNzI2MTQsImV4cCI6MTY5ODQ1OTAxNH0.V2HTM_Je8xMXpbh9vhPcu1xfsAM6TNbDHmJLvy9tFbw"
             },
             "tests": []
         },
@@ -1543,16 +1523,16 @@
             "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
             "containerId": "d468bf84-589d-47aa-b152-77a1c8173c8a",
             "name": "Update",
-            "url": "functionaries/118050543",
+            "url": "functionaries/712345678",
             "method": "PUT",
             "sortNum": 720000,
             "created": "2023-12-22T23:36:31.870Z",
-            "modified": "2024-01-04T22:06:42.724Z",
+            "modified": "2024-01-14T06:29:59.573Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"userName\": \"Japipif\"\n}",
+                "raw": "{\n  \"birthDate\": \"1996-07-23\"\n}",
                 "form": []
             },
             "tests": []
@@ -1707,16 +1687,16 @@
             "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
             "containerId": "5d28d1e1-f42f-427e-9c23-bf7e9b85613d",
             "name": "Update",
-            "url": "students/118050543",
+            "url": "students/101010101",
             "method": "PUT",
             "sortNum": 810000,
             "created": "2023-12-29T21:23:58.736Z",
-            "modified": "2024-01-04T22:21:25.694Z",
+            "modified": "2024-01-14T03:10:51.028Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"userName\": \"PatriciaPG\"\n}\n",
+                "raw": "{\n  \"birthDate\": \"2013-06-24\"\n}\n",
                 "form": []
             },
             "tests": []
@@ -1859,6 +1839,10 @@
         }
     ],
     "settings": {
+        "auth": {
+            "type": "bearer",
+            "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6Ikx1aXMiLCJyb2xlIjp7InJvbGVuYW1lIjoiRGlyZWN0b3IiLCJwcml2aWxlZ2VMZXZlbCI6MX0sImlhdCI6MTcwNTE5OTg2OX0.7KHU1T0LOAhzYhjDCZ3zfbnAJ-0ZF7TfWK5extJqlzg"
+        },
         "options": {
             "baseUrl": "http://localhost:3000/api/"
         }

@@ -165,10 +165,12 @@ const Functionary = db.define(
 			},
 		},
 		hooks: {
-			beforeCreate: calculateAge,
-
-			afterUpdate: calculateAge,
-
+			beforeCreate: (functionary) => {
+                calculateAge(functionary);
+            },
+			beforeUpdate: (functionary) => {
+                calculateAge(functionary);
+            },
 			beforeBulkCreate: (functionaries) => {
 				functionaries.forEach((functionary) => {
 					calculateAge(functionary);

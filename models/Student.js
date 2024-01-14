@@ -159,9 +159,6 @@ const Student = db.define(
 			beforeCreate: (student) => {
 				calculateAge(student);
 			},
-			beforeUpdate: (student) => {
-				calculateAge(student);
-			},
 			beforeBulkCreate: (students) => {
 				students.forEach((student) => {
 					calculateAge(student);
@@ -176,6 +173,9 @@ const Student = db.define(
 					});
 				}
 			},
+            beforeUpdate: async (student) => {
+                calculateAge(student);
+            },
 			afterDestroy: async (student) => {
 				const group = await student.getGroup();
 

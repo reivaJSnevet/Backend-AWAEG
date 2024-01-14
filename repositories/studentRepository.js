@@ -66,6 +66,7 @@ const studentRepository = {
 		try {
 			const studentUpdated = await Student.update(updatedFields, {
 				where: { studentId },
+				individualHooks: true,
 			});
 			return studentUpdated[0];
 		} catch (error) {

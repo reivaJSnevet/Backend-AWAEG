@@ -1,4 +1,4 @@
-import { Functionary, User, Subject, Group} from "../models/index.js";
+import { Functionary, User, Subject, Group } from "../models/index.js";
 
 const functionaryRepository = {
 	create: async (functionary) => {
@@ -16,14 +16,14 @@ const functionaryRepository = {
 				include: [
 					{
 						model: User,
-                        attributes: ["userName", "email"],
+						attributes: ["userName", "email"],
 					},
 					{
 						model: Subject,
 					},
-                    {
-                        model: Group,
-                    }
+					{
+						model: Group,
+					},
 				],
 			});
 			return functionaries;
@@ -46,7 +46,7 @@ const functionaryRepository = {
 			});
 			return functionary;
 		} catch (error) {
-            console.log("EL ERROR ESTÁ AQUÍ EN FUNCTIONARY REPOSITORY");
+			console.log("EL ERROR ESTÁ AQUÍ EN FUNCTIONARY REPOSITORY");
 			throw error;
 		}
 	},
@@ -55,6 +55,7 @@ const functionaryRepository = {
 		try {
 			const functionaryUpdated = await Functionary.update(updatedFields, {
 				where: { functionaryId },
+				individualHooks: true,
 			});
 			return functionaryUpdated[0];
 		} catch (error) {
