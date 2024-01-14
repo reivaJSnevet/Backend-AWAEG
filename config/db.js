@@ -11,9 +11,6 @@ const __dirname = dirname(__filename); */
 // Load environment variables
 dotenv.config({ path: ".env" });
 
-// connection string for  smartAsp.net
-//const connectionString = "host=MYSQL5045.site4now.net;database=db_aa134c_awaegdb;user=aa134c_awaegdb;password=wwsw22u0";
-
 //Db configuration
 const db = new Sequelize(
 	process.env.BD_NOMBRE,
@@ -24,7 +21,7 @@ const db = new Sequelize(
 		port: process.env.BD_PORT,
 		dialect: "mysql",
         timezone: "-06:00",
-        logging: false,
+        logging: true,
 		define: {
 			timestamps: false,
 		},

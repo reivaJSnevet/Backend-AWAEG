@@ -9,7 +9,6 @@ import express from "express";
 import cors from "cors";
 import db from "./config/db.js";
 
-
 // Import routes
 import {
 	roleRoute,
@@ -67,25 +66,33 @@ async function DbConnection() {
 	while (attempts > 0) {
 		try {
 			await db.authenticate();
-			console.log("Database authentication successful");
+			console.log(
+				"\x1b[36m%s\x1b[0m",
+				"Database authentication successful",
+			);
 
 			try {
 				await db.sync({ force: false });
-				console.log("Database synchronization successful");
+				console.log(
+					"\x1b[36m%s\x1b[0m",
+					"Database synchronization successful",
+				);
 				break;
 			} catch (errorSync) {
-				console.log("Error in database synchronization:", errorSync);
+				console.log("\x1b[31m%s\x1b[0m","Error in database synchronization:");
+                console.log(errorSync);
 			}
 		} catch (errorAuth) {
-			console.log("Error in database connection:", errorAuth);
-			console.log(`Remaining attempts: ${attempts}`);
+			console.log("\x1b[31m%s\x1b[0m", "Error in database connection:");
+            console.log(errorAuth);
+			console.log("\x1b[33m%s\x1b[0m", `Remaining attempts: ${attempts}`);
 			attempts--;
 			await new Promise((resolve) => setTimeout(resolve, 5000)); // Wait for 5 seconds before retrying
 		}
 	}
 
 	if (attempts === 0) {
-		console.log("Failed to establish connection after multiple attempts.");
+		console.log("\x1b[31m%s\x1b[0m", "Failed to establish connection after multiple attempts.");
 	}
 }
 
@@ -144,5 +151,8 @@ const port = process.env.PORT || 3000;
 console.log("Hashed password: ", await hashPassword()); */
 
 app.listen(port, () => {
-	console.log(`Server started. The server is running on Port: ${port}`);
+	console.log(
+		"\x1b[32m%s\x1b[0m",
+		`Server started. The server is running on Port: ${port}`,
+	);
 });
