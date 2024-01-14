@@ -1,5 +1,6 @@
 import { DataTypes, Op } from "sequelize";
 import db from "../config/db.js";
+import Group from "./Group.js";
 import calculateAge from "../hooks/calculateAgeHook.js";
 
 const Student = db.define(
@@ -116,9 +117,9 @@ const Student = db.define(
 					msg: "Gender must be M or F, M for Male and F for Female.",
 				},
 			},
-			set(value) {
+			/* set(value) {
 				this.setDataValue("gender", value.toUpperCase());
-			},
+			}, */
 		},
 		address: {
 			type: DataTypes.STRING,
@@ -183,6 +184,28 @@ const Student = db.define(
 						studentCount: group.studentCount - 1,
 					});
 				}
+			},
+			afterBulkCreate: async (students) => {
+				const studentsBySection = {};
+				students.forEach((student) => {
+					const section = student.section;
+					if (!studentsBySection[section]) {
+						studentsBySection[section] = 1;
+					} else {
+						studentsBySection[section]++;
+					}
+				});
+
+				const groupUpdates = [];
+				for (const section in studentsBySection) {
+					const studentCount = studentsBySection[section];
+
+					groupUpdates.push(
+						Group.update({ studentCount }, { where: { section } }),
+					);
+				}
+
+				await Promise.all(groupUpdates);
 			},
 		},
 	},

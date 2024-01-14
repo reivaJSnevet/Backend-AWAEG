@@ -23,7 +23,7 @@
             "name": "auth",
             "containerId": "",
             "created": "2023-10-02T22:19:51.559Z",
-            "sortNum": 5000
+            "sortNum": 1250
         },
         {
             "_id": "53eb864a-5782-4e2a-a8f4-87c1505b1cf9",
@@ -391,7 +391,7 @@
             "method": "POST",
             "sortNum": 70000,
             "created": "2023-10-02T22:19:51.571Z",
-            "modified": "2023-12-28T20:41:25.355Z",
+            "modified": "2024-01-13T23:49:03.706Z",
             "headers": [
                 {
                     "name": "Cookie",
@@ -402,12 +402,12 @@
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"studentId\": \"118050543\",\n  \"name\": \"Ian\",\n  \"middleName\": \"Dionicio\",\n  \"lastName\": \"Park\",\n  \"lastName2\": \"Rawnkert\",\n  \"birthDate\": \"2015-06-14\",\n  \"age\": \"\",\n  \"gender\": \"M\",\n  \"address\": \"Barrio chorotega, de la entrada principal 250mts sur,  30mtrs este, casa de color amarillo\"\n}",
+                "raw": "{\n  \"studentId\": \"118050543\",\n  \"name\": \"Ian\",\n  \"middleName\": \"Dionicio\",\n  \"lastName\": \"Park\",\n  \"lastName2\": \"Rawnkert\",\n  \"birthDate\": \"2015-06-14\",\n  \"age\": \"\",\n  \"gender\": \"M\",\n  \"address\": \"Barrio chorotega, de la entrada principal 250mts sur,  30mtrs este, casa de color amarillo\",\n  \"section\": \"1-1\"\n}",
                 "form": []
             },
             "auth": {
                 "type": "bearer",
-                "bearer": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJub21icmUiOiJMdWlzIiwicm9sIjoiRGlyZWN0b3IiLCJpYXQiOjE2OTY5NzA5MTUsImV4cCI6MTY5NzA1NzMxNX0.0MKUwrSHLHVWaoLVg-TrviMzi_eT4OqDY8tbOrcWUAg"
+                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6Ikx1aXMiLCJyb2xlIjp7InJvbGVuYW1lIjoiZGlyZWN0b3IiLCJwcml2aWxlZ2VMZXZlbCI6MX0sImlhdCI6MTcwNTE4OTcwOSwiZXhwIjoxNzA1Mjc2MTA5fQ.-T6nA6ZMmtMmiKodYI2ATqRIG7_ZLhBGRpzbqjE3rqI"
             },
             "tests": []
         },
@@ -792,17 +792,17 @@
             "method": "POST",
             "sortNum": 160000,
             "created": "2023-10-02T22:19:51.594Z",
-            "modified": "2024-01-13T06:57:40.097Z",
+            "modified": "2024-01-13T08:19:10.834Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"userName\": \"PatriciaPG\",\n  \"email\": \"javierastdiaz@gmail.com\",\n  \"password\": \"password\"\n}",
+                "raw": "{\n  \"userName\": \"japipif\",\n  \"email\": \"javierastdiaz@gmail.com\",\n  \"password\": \"password\",\n  \"roleId\": 8\n}",
                 "form": []
             },
             "auth": {
                 "type": "bearer",
-                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiU2VjcmV0YXJpYSIsImlhdCI6MTY5NjI5MzYwOSwiZXhwIjoxNjk2MzgwMDA5fQ.bwEWLeWLBQR4j5iMDeTl36lVcG89K_A7oFb-K-lpebc"
+                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6Ikx1aXMiLCJyb2xlIjp7InJvbGVuYW1lIjoiZGlyZWN0b3IiLCJwcml2aWxlZ2VMZXZlbCI6MX0sImlhdCI6MTcwNTEzMzg4MCwiZXhwIjoxNzA1MjIwMjgwfQ.oMCGEr3YhRESXSVJGPrWAOc-xol1Hfnbxw537ZxGPHM"
             },
             "tests": []
         },
@@ -1513,8 +1513,14 @@
             "method": "GET",
             "sortNum": 420000,
             "created": "2023-10-10T08:46:45.163Z",
-            "modified": "2024-01-11T08:09:35.146Z",
-            "headers": [],
+            "modified": "2024-01-13T08:23:26.182Z",
+            "headers": [
+                {
+                    "name": "Cookie",
+                    "value": "refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6Ikx1aXMiLCJyb2xlIjp7InJvbGVuYW1lIjoiZGlyZWN0b3IiLCJwcml2aWxlZ2VMZXZlbCI6MX0sImlhdCI6MTcwNTEzNDE2NCwiZXhwIjoxNzA1MjIwNTY0fQ.pWEG8suKk4ya6B56rldr3bPBOw4VbiS2ARFNLHK6mZ4",
+                    "isDisabled": true
+                }
+            ],
             "params": [],
             "tests": []
         },

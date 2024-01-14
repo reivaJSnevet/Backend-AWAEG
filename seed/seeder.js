@@ -1,22 +1,28 @@
 import db from "../config/db.js";
-import { Role, User } from "../models/index.js";
-import { roles, users } from "./index.js";
+import { Role, User, Student, Caregiver, Group, Functionary } from "../models/index.js";
+import { roles, users, students, caregivers, groups, functionaries } from "./index.js";
 
 const importarDatos = async () => {
-	const transaction = await db.transaction();
+	/* const transaction = await db.transaction(); */
 
 	try {
 		await db.authenticate();
 		await db.sync({ force: true });
 
-		await Role.bulkCreate(roles, { transaction });
-		await User.bulkCreate(users, { transaction });
+		await Role.bulkCreate(roles/* , { transaction } */);
+		await User.bulkCreate(users/* , { transaction } */);
+
+        await Functionary.bulkCreate(functionaries/* , { transaction } */);
+        await Group.bulkCreate(groups/* , { transaction } */);
+        
+        await Caregiver.bulkCreate(caregivers/* , { transaction } */);
+        await Student.bulkCreate(students/* , { transaction } */);
 
 		console.log(
 			"A skilled seeder orchestrated a symphony of data growth, it planted the seeds of innovation, nurturing a flourishing garden of progress from a barren database.",
 		);
 
-        await transaction.commit();
+       /*  await transaction.commit(); */
 		process.exit(0);
 	} catch (error) {
 		console.log(
@@ -25,7 +31,7 @@ const importarDatos = async () => {
 			error,
 		);
 
-		await transaction.rollback();
+		/* await transaction.rollback(); */
 		process.exit(1);
 	}
 };
