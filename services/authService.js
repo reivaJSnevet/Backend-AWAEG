@@ -93,9 +93,10 @@ const authService = {
 	handleRefreshToken: async (refreshToken) => {
 		try {
 			const user = await authRepository.getByRefreshToken(refreshToken);
+
 			if (!user) {
 				const invalidRefreshToken = new Error(
-					"Invalid refresh token, user please login again",
+					"Invalid refresh token, user not found",
 				);
 				invalidRefreshToken.name = "InvalidRefreshToken";
 				throw invalidRefreshToken;
@@ -109,7 +110,7 @@ const authService = {
 						throw err;
 					} else if (decoded.userName !== user.userName) {
 						const invalidRefreshToken = new Error(
-							"Invalid refresh token, user please login again",
+							"Invalid refresh token, this token is not signed",
 						);
 						invalidRefreshToken.name = "InvalidRefreshToken";
 						throw invalidRefreshToken;
