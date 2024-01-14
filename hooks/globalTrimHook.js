@@ -1,5 +1,10 @@
-// globalTrimHook.js
-
+/**
+ * Applies a global trim hook to a Sequelize instance.
+ * This hook trims all string values before saving the instance.
+ *
+ * @param {Sequelize} sequelize - The Sequelize instance.
+ * @returns {void}
+ */
 const applyGlobalTrimHook = (sequelize) => {
 	sequelize.addHook("beforeSave", (instance) => {
 		// iterate over all the attributes of the model
