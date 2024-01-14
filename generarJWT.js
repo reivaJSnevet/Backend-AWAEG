@@ -3,8 +3,11 @@ import dotenv from "dotenv";
 dotenv.config();
 
 const user = {
-	id: 1,
-	rol: "Director",
+    userName: "Luis",
+    role: {
+        rolename:"Director",
+        privilegeLevel: 1,
+    },
 };
 
 const token = jwt.sign(
