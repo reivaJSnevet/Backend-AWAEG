@@ -156,7 +156,7 @@ const Student = db.define(
 			},
 		},
 		hooks: {
-			beforeCreate: (student) => {
+			beforeValidate: (student) => {
 				calculateAge(student);
 			},
 			beforeBulkCreate: (students) => {

@@ -165,7 +165,7 @@ const Functionary = db.define(
 			},
 		},
 		hooks: {
-			beforeCreate: (functionary) => {
+			beforeValidate: (functionary) => {
                 calculateAge(functionary);
             },
 			beforeUpdate: (functionary) => {

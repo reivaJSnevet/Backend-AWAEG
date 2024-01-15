@@ -103,7 +103,7 @@ const User = db.define(
 		},
 		hooks: {
 			beforeCreate: async (user) => await hashPassword(user),
-            /* beforeUpdate: async (user) => await hashPassword(user), */
+            beforeUpdate: async (user) => await hashPassword(user),
 			beforeBulkCreate: async (users) => await hashPasswordBulk(users),
 		},
 	},

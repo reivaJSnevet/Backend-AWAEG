@@ -32,6 +32,7 @@ const userRepository = {
 		try {
 			const userUpdated = await User.update(updatedFields, {
 				where: { userName: userName },
+                individualHooks: true,
 			});
 			return userUpdated[0];
 		} catch (error) {

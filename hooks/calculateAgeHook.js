@@ -1,5 +1,5 @@
 /**
- * Calculates the age of a person based on their birth date.
+ * Calculates the age of a person based on their birth date and updates the person object with the calculated age.
  * @param {Object} person - The person object containing the birth date.
  * @param {string} person.birthDate - The birth date of the person in string format (YYYY-MM-DD).
  * @returns {void}
