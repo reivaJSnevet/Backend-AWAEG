@@ -391,7 +391,7 @@
             "method": "POST",
             "sortNum": 70000,
             "created": "2023-10-02T22:19:51.571Z",
-            "modified": "2024-01-13T23:49:03.706Z",
+            "modified": "2024-01-15T07:22:12.296Z",
             "headers": [
                 {
                     "name": "Cookie",
@@ -402,12 +402,8 @@
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"studentId\": \"118050543\",\n  \"name\": \"Ian\",\n  \"middleName\": \"Dionicio\",\n  \"lastName\": \"Park\",\n  \"lastName2\": \"Rawnkert\",\n  \"birthDate\": \"2015-06-14\",\n  \"age\": \"\",\n  \"gender\": \"M\",\n  \"address\": \"Barrio chorotega, de la entrada principal 250mts sur,  30mtrs este, casa de color amarillo\",\n  \"section\": \"1-1\"\n}",
+                "raw": "{\n  \"studentId\": \"118050542\",\n  \"name\": \"Tirion\",\n  \"middleName\": \"Povlasky\",\n  \"lastName\": \"Draktlin\",\n  \"lastName2\": \"Monsseratte\",\n  \"birthDate\": \"2015-06-14\",\n  \"gender\": \"M\",\n  \"address\": \"Barrio chorotega, de la entrada principal 250mts sur,  30mtrs este, casa de color amarillo\",\n  \"caregiverId\": \"818050321\"\n}",
                 "form": []
-            },
-            "auth": {
-                "type": "bearer",
-                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6Ikx1aXMiLCJyb2xlIjp7InJvbGVuYW1lIjoiZGlyZWN0b3IiLCJwcml2aWxlZ2VMZXZlbCI6MX0sImlhdCI6MTcwNTE4OTcwOSwiZXhwIjoxNzA1Mjc2MTA5fQ.-T6nA6ZMmtMmiKodYI2ATqRIG7_ZLhBGRpzbqjE3rqI"
             },
             "tests": []
         },
@@ -686,12 +682,12 @@
             "method": "POST",
             "sortNum": 270000,
             "created": "2023-10-02T22:19:51.588Z",
-            "modified": "2024-01-14T02:39:21.214Z",
+            "modified": "2024-01-15T03:24:43.983Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"roleName\": \"estudiante\",\n  \"privilegeLevel\": \"5\",\n  \"description\": \"  Este un rol para estudiantes            \"\n}",
+                "raw": "{\n  \"roleName\": \"schema3\",\n  \"privilegeLevel\": \"5\",\n  \"description\": \"a\",\n  \"User\": [\n    {\n      \"s\":1\n    }]\n}",
                 "form": []
             },
             "tests": []
@@ -729,11 +725,11 @@
             "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
             "containerId": "a9a678f1-73c6-4901-9d6b-0463ff49aaa5",
             "name": "Update",
-            "url": "roles/1",
+            "url": "roles/10",
             "method": "PUT",
             "sortNum": 300000,
             "created": "2023-10-02T22:19:51.591Z",
-            "modified": "2024-01-03T20:04:39.914Z",
+            "modified": "2024-01-15T03:25:38.151Z",
             "headers": [],
             "params": [],
             "body": {
@@ -780,17 +776,13 @@
             "method": "POST",
             "sortNum": 160000,
             "created": "2023-10-02T22:19:51.594Z",
-            "modified": "2024-01-13T08:19:10.834Z",
+            "modified": "2024-01-14T21:20:40.589Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"userName\": \"japipif\",\n  \"email\": \"javierastdiaz@gmail.com\",\n  \"password\": \"password\",\n  \"roleId\": 8\n}",
+                "raw": "{\n  \"userName\": \"TonyHowks\",\n  \"email\": \"thk@gmail.com\",\n  \"password\": \"\",\n  \"roleId\": 8,\n  \"hack\": \"an Vulnerability\"\n}",
                 "form": []
-            },
-            "auth": {
-                "type": "bearer",
-                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6Ikx1aXMiLCJyb2xlIjp7InJvbGVuYW1lIjoiZGlyZWN0b3IiLCJwcml2aWxlZ2VMZXZlbCI6MX0sImlhdCI6MTcwNTEzMzg4MCwiZXhwIjoxNzA1MjIwMjgwfQ.oMCGEr3YhRESXSVJGPrWAOc-xol1Hfnbxw537ZxGPHM"
             },
             "tests": []
         },
@@ -821,17 +813,13 @@
             "method": "PUT",
             "sortNum": 350000,
             "created": "2023-10-02T22:19:51.596Z",
-            "modified": "2023-12-22T02:13:20.199Z",
+            "modified": "2024-01-14T21:59:28.046Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"email\": \"javierastdiaz2@gmail.com\",\n  \"password\": \"password\"\n}",
+                "raw": "{\n  \"email\": \"Jpipif@Hotmail.com\",\n  \"password\": \"password\"\n}",
                 "form": []
-            },
-            "auth": {
-                "type": "bearer",
-                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRGlyZWN0b3IiLCJpYXQiOjE2OTYyMzc5NjgsImV4cCI6MTY5NjMyNDM2OH0.uIydy8c4n8q-LDpxM_TuuNh-imqRlIwkfeEb5mJC4Bg"
             },
             "tests": []
         },
