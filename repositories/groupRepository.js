@@ -32,6 +32,7 @@ const groupRepository = {
         try {
             const groupUpdated = await Group.update(updatedFields, {
                 where: { section },
+                individualHooks: true,
             });
             return groupUpdated[0];
         } catch (error) {

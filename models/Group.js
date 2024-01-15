@@ -11,7 +11,7 @@ const Group = db.define(
 			unique: true,
 			validate: {
 				isSection(value) {
-					const pattern = /^[1-6]-\d+$/;
+					const pattern = /^[1-6]-[A-Za-z0-9]+$/;
 					if (!pattern.test(value)) {
 						throw new Error(
 							'section must be a string with the format "a-b" where a is a number between 1 and 6',
@@ -88,9 +88,9 @@ const Group = db.define(
 			allowNull: false,
 			defaultValue: 0,
 			validate: {
-                isNumeric: {
-                    msg: "The student count must be a number",
-                },
+				isNumeric: {
+					msg: "The student count must be a number",
+				},
 				min: {
 					args: [0],
 					msg: "The student count can't be less than 0",
@@ -114,12 +114,18 @@ const Group = db.define(
 	{
 		timestamps: true,
 		paranoid: true,
-        defaultScope: {
-            attributes: { exclude: ["createdAt", "updatedAt", "deletedAt"] },
-        },
+		defaultScope: {
+			attributes: { exclude: ["createdAt", "updatedAt", "deletedAt"] },
+		},
 		hooks: {
+			beforeValidate: (group) => {
+				setCycle(group);
+			},
 			beforeCreate: async (group) => {
 				await avoidGroupConflict(group);
+			},
+			beforeUpdate: async (group) => {
+				setCycle(group);
 			},
 		},
 	},
@@ -128,20 +134,35 @@ const Group = db.define(
 //Hooks
 
 const avoidGroupConflict = async (group) => {
-    const { classRoom, shift } = group;
+	const { classRoom, shift } = group;
 
-    const groups = await Group.findOne({
-        where: { classRoom, shift },
-    });
+	const groups = await Group.findOne({
+		where: { classRoom, shift },
+	});
 
-    if (groups) {
-        const conflict = new Error(
-            "There is already a group with that classroom and shift",
-        );
-        conflict.name = "GroupConflict";
-        throw conflict;
-    }
+	if (groups) {
+		const conflict = new Error(
+			"There is already a group with that classroom and shift",
+		);
+		conflict.name = "GroupConflict";
+		throw conflict;
+	}
 };
 
+const setCycle = (group) => {
+	const { grade } = group;
+
+	if (grade === "materno" || grade === "transición") {
+		group.cycle = "prescolar";
+	} else if (
+		grade === "primero" ||
+		grade === "segundo" ||
+		grade === "tercero"
+	) {
+		group.cycle = "I";
+	} else if (grade === "cuarto" || grade === "quinto" || grade === "sexto") {
+		group.cycle = "II";
+	}
+};
 
 export default Group;

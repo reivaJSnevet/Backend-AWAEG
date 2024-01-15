@@ -173,9 +173,9 @@ const Student = db.define(
 					});
 				}
 			},
-            beforeUpdate: async (student) => {
-                calculateAge(student);
-            },
+			beforeUpdate: async (student) => {
+				calculateAge(student);
+			},
 			afterDestroy: async (student) => {
 				const group = await student.getGroup();
 

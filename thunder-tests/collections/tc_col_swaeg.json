@@ -269,12 +269,12 @@
             "method": "POST",
             "sortNum": 70000,
             "created": "2023-10-02T22:19:51.562Z",
-            "modified": "2024-01-04T22:18:04.236Z",
+            "modified": "2024-01-15T20:58:03.207Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"caregiverId\": \"818050321\",\n  \"name\": \"Demorgan\",\n  \"middleName\": \"Fransoi\",\n  \"lastName\": \"Petricov\",\n  \"lastName2\": \"Coper\",\n  \"phoneNumber\": \"89650345\",\n  \"gender\": \"m\",\n  \"relationTo\": \"Padre\"\n}",
+                "raw": "{\n  \"caregiverId\": \"818050322\",\n  \"name\": \"Demorgan\",\n  \"middleName\": \"Fransoi\",\n  \"lastName\": \"Petricov\",\n  \"lastName2\": \"Coper\",\n  \"phoneNumber\": \"89650345\",\n  \"gender\": \"M\",\n  \"relationTo\": \"Padre\"\n}",
                 "form": []
             },
             "tests": []
@@ -372,12 +372,12 @@
             "method": "POST",
             "sortNum": 37500,
             "created": "2023-10-02T22:19:51.570Z",
-            "modified": "2024-01-07T22:22:48.192Z",
+            "modified": "2024-01-15T22:10:12.684Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"section\": \"1-2\",\n  \"cycle\": \"I\",\n  \"grade\": \"primero\",\n  \"classRoom\": \"2\",\n  \"shift\": \"matutino\",\n  \"functionaryId\": \"118050544\"\n}",
+                "raw": "{\n  \"section\": \"1-2A\",\n  \"grade\": \"primero\",\n  \"classRoom\": \"2a\",\n  \"shift\": \"matutino\"\n}",
                 "form": []
             },
             "tests": []
@@ -1736,16 +1736,16 @@
             "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
             "containerId": "565670bf-3d03-4e1b-87a8-ec1007a32604",
             "name": "Update",
-            "url": "groups/1-1",
+            "url": "groups/1-2A",
             "method": "PUT",
             "sortNum": 850000,
             "created": "2023-12-30T02:17:51.764Z",
-            "modified": "2023-12-30T02:18:34.821Z",
+            "modified": "2024-01-15T22:16:39.341Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"classRoom\": \"Biblioteca\",\n  \"shift\": \"vespertino\"\n}",
+                "raw": "{\n  \"grade\": \"sexto\"\n}",
                 "form": []
             },
             "tests": []
