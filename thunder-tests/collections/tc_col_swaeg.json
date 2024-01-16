@@ -898,17 +898,13 @@
             "method": "POST",
             "sortNum": 410000,
             "created": "2023-10-08T23:42:10.002Z",
-            "modified": "2024-01-04T21:18:09.502Z",
+            "modified": "2024-01-16T20:45:06.670Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"date\": \"2024-03-11\",\n  \"hour\": \"12:16\",\n  \"duration\": \"15\",\n  \"location\": \"biblioteca, aula de pintura\",\n  \"functionaryId\": \"118050542\"\n}",
+                "raw": "{\n  \"date\": \"2024-01-18\",\n  \"hour\": \"12:00\",\n  \"duration\": \"60\",\n  \"location\": \"biblioteca, aula de pintura\",\n  \"functionaryId\": \"712345443\"\n}",
                 "form": []
-            },
-            "auth": {
-                "type": "bearer",
-                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRGlyZWN0b3IiLCJpYXQiOjE2OTc2MDgxNDIsImV4cCI6MTY5NzY5NDU0Mn0.Q-5BIubxOif-w3xgS9B2920umTvP1zXyV4aIcuyZLTs"
             },
             "tests": []
         },
