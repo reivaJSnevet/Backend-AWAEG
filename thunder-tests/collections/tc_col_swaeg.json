@@ -1465,11 +1465,11 @@
             "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
             "containerId": "d468bf84-589d-47aa-b152-77a1c8173c8a",
             "name": "GetBy",
-            "url": "functionaries/118050541",
+            "url": "functionaries/712345443",
             "method": "GET",
             "sortNum": 710000,
             "created": "2023-12-22T23:35:24.746Z",
-            "modified": "2023-12-23T23:37:44.936Z",
+            "modified": "2024-01-16T07:39:16.612Z",
             "headers": [],
             "params": [],
             "tests": []
@@ -1512,16 +1512,16 @@
             "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
             "containerId": "a29da33b-9bcf-4432-b5ce-fda96bdda329",
             "name": "AddFunctionarySubject",
-            "url": "functionaries/118050543/subjects",
+            "url": "functionaries/712345443/subjects",
             "method": "POST",
             "sortNum": 10000,
             "created": "2023-12-23T21:11:14.873Z",
-            "modified": "2024-01-04T22:05:53.587Z",
+            "modified": "2024-01-16T07:44:31.452Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n \"subjectId\": [1,5,6]\n}",
+                "raw": "{\n \"subjectId\": [1,2,4]\n}",
                 "form": []
             },
             "tests": []
@@ -1531,16 +1531,16 @@
             "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
             "containerId": "a29da33b-9bcf-4432-b5ce-fda96bdda329",
             "name": "DeleteFunctionarySubject",
-            "url": "functionaries/118050541/subjects",
+            "url": "functionaries/712345443/subjects",
             "method": "DELETE",
             "sortNum": 750000,
             "created": "2023-12-23T22:41:18.686Z",
-            "modified": "2023-12-23T23:50:04.044Z",
+            "modified": "2024-01-16T07:40:37.548Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n \"subjectId\": 1\n}",
+                "raw": "{\n \"subjectId\": [2, 4]\n}",
                 "form": []
             },
             "tests": []
