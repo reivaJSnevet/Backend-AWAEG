@@ -86,7 +86,7 @@
             "name": "Timetable",
             "containerId": "",
             "created": "2023-10-03T22:10:01.746Z",
-            "sortNum": 220000
+            "sortNum": 4998.5
         },
         {
             "_id": "a4d0179d-ee7b-4fde-8703-da548934d003",
@@ -169,17 +169,13 @@
             "method": "POST",
             "sortNum": 10000,
             "created": "2023-10-02T22:19:51.557Z",
-            "modified": "2024-01-13T03:06:13.209Z",
+            "modified": "2024-01-16T07:02:11.898Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"shift\": \"matutino\",\n  \"subjectId\": 1,\n  \"Timetables\": [\n    {\n      \"day\": \"lunes\",\n      \"startTime\": \"08:00\",\n      \"endTime\": \"08:40\",\n      \"lesson\": \"I\"\n    },\n    {\n      \"day\": \"viernes\",\n      \"startTime\": \"11:00\",\n      \"endTime\": \"11:40\",\n      \"lesson\": \"V\"\n    }\n  ]\n}",
+                "raw": "{\n  \"shift\": \"matutino\",\n  \"subjectId\": 1,\n  \"section\": \"1-2\",\n  \"functionaryId\": \"712345678\",\n  \"Timetables\": [\n    {\n      \"day\": \"miércoles\",\n      \"startTime\": \"08:00\",\n      \"endTime\": \"08:40\",\n      \"lesson\": \"I\"\n    },\n    {\n      \"day\": \"lunes\",\n      \"startTime\": \"08:40\",\n      \"endTime\": \"09:20\",\n      \"lesson\": \"II\"\n    }\n  ]\n}",
                 "form": []
-            },
-            "auth": {
-                "type": "bearer",
-                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6Ikx1aXMiLCJyb2xlIjp7InJvbGVuYW1lIjoiRGlyZWN0b3IiLCJwcml2aWxlZ2VMZXZlbCI6MX0sImlhdCI6MTcwNTExNTEzOSwiZXhwIjoxNzA1MjAxNTM5fQ.FQXV4g-rWBfUGUYfDCoO4JQyW4xc6ommrEhzmdBZN_0"
             },
             "tests": []
         },
@@ -192,13 +188,9 @@
             "method": "GET",
             "sortNum": 20000,
             "created": "2023-10-02T22:19:51.558Z",
-            "modified": "2023-12-30T00:58:06.137Z",
+            "modified": "2024-01-16T03:58:26.320Z",
             "headers": [],
             "params": [],
-            "auth": {
-                "type": "bearer",
-                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRGlyZWN0b3IiLCJpYXQiOjE2OTgxOTg1NTIsImV4cCI6MTY5ODI4NDk1Mn0.AlnJGWIHri0NDHxV8VsRvzyvH_Etj8SmGhF91t3X7FQ"
-            },
             "tests": []
         },
         {
@@ -206,17 +198,13 @@
             "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
             "containerId": "3a3eef75-3c5c-488e-8498-03501fa322c8",
             "name": "GetById",
-            "url": "classes/1",
+            "url": "classes/2",
             "method": "GET",
             "sortNum": 30000,
             "created": "2023-10-02T22:19:51.559Z",
-            "modified": "2023-12-30T01:04:20.533Z",
+            "modified": "2024-01-16T04:14:03.021Z",
             "headers": [],
             "params": [],
-            "auth": {
-                "type": "bearer",
-                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRXN0dWRpYW50ZSIsImlhdCI6MTY5NjgwMzc1OSwiZXhwIjoxNjk2ODkwMTU5fQ.n7jNCVwvRiKBRn7ozmXq2BvIjED_0qr5wdljyoh_WwM"
-            },
             "tests": []
         },
         {
@@ -224,21 +212,17 @@
             "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
             "containerId": "3a3eef75-3c5c-488e-8498-03501fa322c8",
             "name": "Update",
-            "url": "classes/1",
+            "url": "classes/5",
             "method": "PUT",
             "sortNum": 40000,
             "created": "2023-10-02T22:19:51.560Z",
-            "modified": "2023-12-30T01:06:38.178Z",
+            "modified": "2024-01-16T04:55:01.051Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n\"lesson\": \"II\",\n\"shift\": \"vespertino\"\n}",
+                "raw": "{\n  \"section\": \"1-1\"\n}",
                 "form": []
-            },
-            "auth": {
-                "type": "bearer",
-                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRXN0dWRpYW50ZSIsImlhdCI6MTY5NjgwMzc1OSwiZXhwIjoxNjk2ODkwMTU5fQ.n7jNCVwvRiKBRn7ozmXq2BvIjED_0qr5wdljyoh_WwM"
             },
             "tests": []
         },
@@ -247,17 +231,13 @@
             "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
             "containerId": "3a3eef75-3c5c-488e-8498-03501fa322c8",
             "name": "Delete",
-            "url": "classes/1",
+            "url": "classes/3",
             "method": "DELETE",
             "sortNum": 50000,
             "created": "2023-10-02T22:19:51.561Z",
-            "modified": "2023-12-30T01:11:43.525Z",
+            "modified": "2024-01-16T04:29:59.581Z",
             "headers": [],
             "params": [],
-            "auth": {
-                "type": "bearer",
-                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRXN0dWRpYW50ZSIsImlhdCI6MTY5NjgwMzc1OSwiZXhwIjoxNjk2ODkwMTU5fQ.n7jNCVwvRiKBRn7ozmXq2BvIjED_0qr5wdljyoh_WwM"
-            },
             "tests": []
         },
         {
@@ -321,17 +301,13 @@
             "method": "POST",
             "sortNum": 120000,
             "created": "2023-10-02T22:19:51.567Z",
-            "modified": "2024-01-13T03:05:53.639Z",
+            "modified": "2024-01-16T04:51:23.190Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"subjectName\": \"Matematicas\"\n}",
+                "raw": "{\n  \"subjectName\": \"Español\"\n}",
                 "form": []
-            },
-            "auth": {
-                "type": "bearer",
-                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6Ikx1aXMiLCJyb2xlIjp7InJvbGVuYW1lIjoiRGlyZWN0b3IiLCJwcml2aWxlZ2VMZXZlbCI6MX0sImlhdCI6MTcwNTExNTEzOSwiZXhwIjoxNzA1MjAxNTM5fQ.FQXV4g-rWBfUGUYfDCoO4JQyW4xc6ommrEhzmdBZN_0"
             },
             "tests": []
         },
@@ -416,13 +392,9 @@
             "method": "GET",
             "sortNum": 75000,
             "created": "2023-10-02T22:19:51.572Z",
-            "modified": "2023-12-30T02:17:05.546Z",
+            "modified": "2024-01-16T04:55:29.310Z",
             "headers": [],
             "params": [],
-            "auth": {
-                "type": "bearer",
-                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRGlyZWN0b3IiLCJpYXQiOjE2OTg2MjQ5NzYsImV4cCI6MTY5ODcxMTM3Nn0.ukCDKTS4UY-UP42_f3rJkG_S8nSuDsTO1w2g2bvviZk"
-            },
             "tests": []
         },
         {
@@ -868,13 +840,9 @@
             "method": "GET",
             "sortNum": 390000,
             "created": "2023-10-03T22:10:14.888Z",
-            "modified": "2024-01-13T05:47:11.871Z",
+            "modified": "2024-01-16T04:16:01.867Z",
             "headers": [],
             "params": [],
-            "auth": {
-                "type": "bearer",
-                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6Ikx1aXMiLCJyb2xlIjp7InJvbGVuYW1lIjoiRGlyZWN0b3IiLCJwcml2aWxlZ2VMZXZlbCI6MX0sImlhdCI6MTcwNTExNTEzOSwiZXhwIjoxNzA1MjAxNTM5fQ.FQXV4g-rWBfUGUYfDCoO4JQyW4xc6ommrEhzmdBZN_0"
-            },
             "tests": []
         },
         {

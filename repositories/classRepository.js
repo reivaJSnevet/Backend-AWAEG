@@ -5,6 +5,8 @@ const classRepository = {
 	create: async (classData, timetablesData = []) => {
         const t = await db.transaction();
 		try {
+
+            console.log("\x1b[36m%s\x1b[0m", classData);
             
 			const createdClass = await Class.create(classData, {
 				transaction: t,
@@ -19,8 +21,6 @@ const classRepository = {
 			);
 
 			await t.commit();
-
-			console.log("Successful operation");
 			return createdClass;
 		} catch (error) {
 			await t.rollback();
@@ -62,6 +62,7 @@ const classRepository = {
 		try {
 			const updatedClass = await Class.update(classData, {
 				where: { classId },
+                individualHooks: true,
 			});
 			return updatedClass[0];
 		} catch (error) {
@@ -75,26 +76,6 @@ const classRepository = {
 				where: { classId },
 			});
 			return deletedClass;
-		} catch (error) {
-			throw error;
-		}
-	},
-
-	addDay: async (classId, daysId) => {
-		try {
-			const foundClass = await Class.findByPk(classId);
-			await foundClass.addDays(daysId);
-			return foundClass;
-		} catch (error) {
-			throw error;
-		}
-	},
-
-	deleteDay: async (classId, daysId) => {
-		try {
-			const foundClass = await Class.findByPk(classId);
-			await foundClass.removeDays(daysId);
-			return foundClass;
 		} catch (error) {
 			throw error;
 		}

@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import db from "../config/db.js";
+import Class from "./Class.js";
 
 const Timetable = db.define(
 	"Timetable",
@@ -97,6 +98,9 @@ const Timetable = db.define(
 				async (timetable) => {
 					await avoidOverlappingClasses(timetable);
 				},
+                async (timetable) => {
+                    await validateDuration(timetable);
+                },
 			],
 		},
 	},
@@ -105,16 +109,6 @@ const Timetable = db.define(
 //Hooks
 const avoidOverlappingClasses = async (timetable) => {
 	const { day, startTime, endTime } = timetable;
-
-	console.log(
-		"day: ",
-		typeof startTime,
-		"startTime: ",
-		typeof startTime,
-		"endTime: ",
-		typeof endTime,
-	);
-	console.log("day: ", day, "startTime: ", startTime, "endTime: ", endTime);
 
 	const overlappingTimetable = await Timetable.findOne({
 		where: {

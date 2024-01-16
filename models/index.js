@@ -85,8 +85,8 @@ Grade.belongsTo(Functionary, { foreignKey: "functionaryId" });
 Group.hasMany(Class, { foreignKey: "section" });
 Class.belongsTo(Group, { foreignKey: "section" });
 
-Class.hasMany(Timetable, { foreignKey: "classId" });
-Timetable.belongsTo(Class, { foreignKey: "classId" });
+Class.hasMany(Timetable, { foreignKey: "classId", onDelete: "CASCADE" });
+Timetable.belongsTo(Class, { foreignKey: "classId", onDelete: "CASCADE" });
 
 Subject.hasMany(Class, { foreignKey: {name: "subjectId", allowNull: false} });
 Class.belongsTo(Subject, { foreignKey: "subjectId" });

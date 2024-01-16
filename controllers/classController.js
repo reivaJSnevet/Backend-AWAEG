@@ -123,69 +123,6 @@ const classController = {
 			});
 		}
 	},
-
-	addDay: async (req, res) => {
-		try {
-			if (!req.params.id || !req.body.daysId) {
-				return res.status(400).json({
-					error: "Missing class ID or day ID",
-					message: "You must specify a class ID and day ID to add it",
-				});
-			}
-
-			const classDay = await classService.addDay(
-				req.params.id,
-				req.body.daysId,
-			);
-
-			if (classDay) {
-				return res.status(200).json(classDay);
-			} else {
-				return res.status(404).json({
-					error: `Class or day not found`,
-					message: `No class found with ID '${req.params.id}' or day with ID '${req.body.daysId}'`,
-				});
-			}
-		} catch (error) {
-			console.error(error);
-			res.status(500).json({
-				error: "Error adding day",
-				message: error.message,
-			});
-		}
-	},
-
-	deleteDay: async (req, res) => {
-		try {
-			if (!req.params.id || !req.body.daysId) {
-				return res.status(400).json({
-					error: "Missing class ID or day ID",
-					message:
-						"You must specify a class ID and day ID to delete it",
-				});
-			}
-
-			const classDay = await classService.deleteDay(
-				req.params.id,
-				req.body.daysId,
-			);
-
-			if (classDay) {
-				return res.status(200).json(classDay);
-			} else {
-				return res.status(404).json({
-					error: `Class or day not found`,
-					message: `No class found with ID '${req.params.id}' or day with ID '${req.body.daysId}'`,
-				});
-			}
-		} catch (error) {
-			console.error(error);
-			res.status(500).json({
-				error: "Error deleting day",
-				message: error.message,
-			});
-		}
-	},
 };
 
 export default classController;

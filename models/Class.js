@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import db from "../config/db.js";
+import Group from "./Group.js";
 
 const Class = db.define(
 	"Class",
@@ -32,11 +33,31 @@ const Class = db.define(
 		defaultScope: {
 			attributes: { exclude: ["createdAt", "updatedAt"] },
 		},
-        hooks: {
-            //avoid overlapping classes
-
-        }
+		hooks: {
+			beforeCreate: async (classInstance) => {
+				await matchShift(classInstance);
+			},
+			beforeUpdate: async (classInstance) => {
+				await matchShift(classInstance);
+			},
+		},
 	},
 );
 
 export default Class;
+
+//Hooks
+
+const matchShift = async (classInstance) => {
+	try {
+		const group = await Group.findByPk(classInstance.section);
+
+		if (group.shift !== classInstance.shift) {
+			throw new Error(
+				"The shift of the group and the class must be the same",
+			);
+		}
+	} catch (error) {
+		throw error;
+	}
+};

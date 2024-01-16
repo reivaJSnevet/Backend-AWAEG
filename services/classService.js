@@ -3,10 +3,37 @@ import classRepository from "../repositories/classRepository.js";
 const classService = {
 	createClass: async (classData) => {
 		try {
+			const { Timetables } = classData;
 
-            const {Timetables, shift, subjectId} = classData;
+			const noon = new Date();
+			noon.setHours(13);
 
-			const newClass = await classRepository.create({shift, subjectId},Timetables);
+			if (Timetables) {
+				Timetables.forEach((timetable) => {
+					const startTime = new Date();
+					startTime.setHours(timetable.startTime.split(":")[0]);
+
+					const isMatutino = classData.shift === "matutino";
+					const isVespertino = classData.shift === "vespertino";
+
+					if (
+						(isMatutino && startTime >= noon) ||
+						(isVespertino && startTime < noon)
+					) {
+						const errorMessage = isMatutino
+							? "The timetable must be in the morning"
+							: "The timetable must be in the afternoon";
+
+						throw new Error(errorMessage);
+					}
+				});
+			}
+
+			const newClass = await classRepository.create(
+				classData,
+				Timetables,
+			);
+
 			return newClass;
 		} catch (error) {
 			const errors = [];
@@ -78,38 +105,6 @@ const classService = {
 			throw error;
 		}
 	},
-
-	addDay: async (classId, daysId) => {
-		try {
-			const foundClass = await classRepository.findById(classId);
-
-			if (!foundClass || !daysId) {
-				return null;
-			} else if (await foundClass.hasDay(daysId)) {
-				return { message: "Class already has this day" };
-			}
-
-			return await classRepository.addDay(classId, daysId);
-		} catch (error) {
-			throw error;
-		}
-	},
-
-    deleteDay: async (classId, daysId) => {
-        try {
-            const foundClass = await classRepository.findById(classId);
-
-            if (!foundClass || !daysId) {
-                return null;
-            } else if (!await foundClass.hasDay(daysId)) {
-                return null
-            }
-
-            return await classRepository.deleteDay(classId, daysId);
-        } catch (error) {
-            throw error;
-        }
-    }
 };
 
 export default classService;
