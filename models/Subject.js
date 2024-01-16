@@ -19,7 +19,7 @@ const Subject = db.define("Subject", {
 				msg: "The name must be between 3 and 50 characters long",
 			},
 			is: {
-				args: /^[a-zA-Z0-9_ áéíóúÁÉÍÓÚüÜñÑ]+$/i,
+				args: /^[a-zA-Z0-9_ .áéíóúÁÉÍÓÚüÜñÑ]+$/i,
 				msg: "The name can only contain letters, numbers, spaces, and underscores",
 			},
 			notEmpty: {
