@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize";
 import db from "../config/db.js";
-import {createApplication} from "../hooks/createApplicationHook.js";
+import { createApplication } from "../hooks/createApplicationHook.js";
 
 const PreRegistration = db.define(
 	"PreRegistration",
@@ -41,8 +41,8 @@ const PreRegistration = db.define(
 				},
 			},
 			set(value) {
-                this.setDataValue("grade", value.toLowerCase());
-            }
+				this.setDataValue("grade", value.toLowerCase());
+			},
 		},
 		cycle: {
 			type: DataTypes.ENUM("prescolar", "I", "II"),
@@ -52,17 +52,6 @@ const PreRegistration = db.define(
 					args: [["prescolar", "I", "II"]],
 					msg: "The cycle must be prescolar, I or II",
 				},
-			},
-			set() {
-				const grade = this.getDataValue("grade").toLowerCase();
-
-                if(grade === "materno" || grade === "transición"){
-                    this.setDataValue("cycle", "prescolar");
-                }else if(grade === "primero" || grade === "segundo" || grade === "tercero"){
-                    this.setDataValue("cycle", "I");
-                }else if(grade === "cuarto" || grade === "quinto" || grade === "sexto"){
-                    this.setDataValue("cycle", "II");
-                }
 			},
 		},
 		status: {
@@ -83,13 +72,37 @@ const PreRegistration = db.define(
 	{
 		timestamps: true,
 		paranoid: true,
-        defaultScope: {
-            attributes: { exclude: ["createdAt", "updatedAt", "deletedAt"] },
-        },
-        hooks: {
-            beforeCreate: createApplication,
-        },
+		defaultScope: {
+			attributes: { exclude: ["createdAt", "updatedAt", "deletedAt"] },
+		},
+		hooks: {
+			beforeCreate: createApplication,
+			beforeValidate: (preRegistration) => {
+				setCycle(preRegistration);
+			},
+		},
 	},
 );
+
+const setCycle = (preRegistration) => {
+	const { grade } = preRegistration;
+
+	const gradeToCycleMap = {
+		materno: "prescolar",
+		transición: "prescolar",
+		primero: "I",
+		segundo: "I",
+		tercero: "I",
+		cuarto: "II",
+		quinto: "II",
+		sexto: "II",
+	};
+
+	if (grade in gradeToCycleMap) {
+		group.cycle = gradeToCycleMap[grade];
+	} else {
+		throw new Error(`Grado no reconocido: ${grade}`);
+	}
+};
 
 export default PreRegistration;
