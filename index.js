@@ -22,21 +22,26 @@ import verifyJWT from "./middlewares/verifyJWT.js";
 
 // Import Routes
 import {
-  roleRoute,
-  userRoute,
-  functionaryRoute,
-  subjectRoute,
-  preRegistrationRoute,
-  fileRoute,
-  applicationRoute,
-  appointmentRoute,
-  studentRoute,
-  caregiverRoute,
-  groupRoute,
-  classRoute,
-  gradeRoute,
-  timetableRoute,
-  authRoute,
+	roleRoute,
+	userRoute,
+	functionaryRoute,
+	subjectRoute,
+	preRegistrationRoute,
+	fileRoute,
+	applicationRoute,
+	appointmentRoute,
+	studentRoute,
+	caregiverRoute,
+	groupRoute,
+	classRoute,
+	gradeRoute,
+	timetableRoute,
+	authRoute,
+	loanRoute,
+	flawRoute,
+	studentSupplieRoute,
+	categorySupplieRoute,
+	institutionalSupplieRoute,
 } from "./routes/index.js";
 
 // Import Hooks
@@ -90,12 +95,15 @@ async function DbConnection() {
 				);
 				break;
 			} catch (errorSync) {
-				console.log("\x1b[31m%s\x1b[0m","Error in database synchronization:");
-                console.log(errorSync);
+				console.log(
+					"\x1b[31m%s\x1b[0m",
+					"Error in database synchronization:",
+				);
+				console.log(errorSync);
 			}
 		} catch (errorAuth) {
 			console.log("\x1b[31m%s\x1b[0m", "Error in database connection:");
-            console.log(errorAuth);
+			console.log(errorAuth);
 			console.log("\x1b[33m%s\x1b[0m", `Remaining attempts: ${attempts}`);
 			attempts--;
 			await new Promise((resolve) => setTimeout(resolve, 5000)); // Wait for 5 seconds before retrying
@@ -103,7 +111,10 @@ async function DbConnection() {
 	}
 
 	if (attempts === 0) {
-		console.log("\x1b[31m%s\x1b[0m", "Failed to establish connection after multiple attempts.");
+		console.log(
+			"\x1b[31m%s\x1b[0m",
+			"Failed to establish connection after multiple attempts.",
+		);
 	}
 }
 
@@ -131,6 +142,11 @@ app.use("/api/", groupRoute);
 app.use("/api/", classRoute);
 app.use("/api/", gradeRoute);
 app.use("/api/", timetableRoute);
+app.use("/api/", loanRoute);
+app.use("/api/", flawRoute);
+app.use("/api/", studentSupplieRoute);
+app.use("/api/", categorySupplieRoute);
+app.use("/api/", institutionalSupplieRoute);
 
 // Handle 404 errors
 app.all("*", (req, res) => {
