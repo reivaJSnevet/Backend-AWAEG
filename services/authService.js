@@ -11,11 +11,17 @@ const authService = {
 	login: async (username, password) => {
 		try {
 			const user = await authRepository.getByUserName(username);
-			if (!user || !user.verifyEmail) {
-				const invalidUsername = new Error("Invalid username or email not verified yet");
+			if (!user) {
+				const invalidUsername = new Error("Invalid username");
 				invalidUsername.name = "InvalidUsername";
 				throw invalidUsername;
 			}
+
+            if(!user.verifyEmail) {
+                const invalidEmail = new Error("Please verify your email");
+                invalidEmail.name = "InvalidEmail";
+                throw invalidEmail;
+            }
 
 			const isMatch = await user.verifyPassword(password);
 			if (!isMatch) {
@@ -65,22 +71,6 @@ const authService = {
 				invalidRefreshToken.name = "InvalidRefreshToken";
 				throw invalidRefreshToken;
 			}
-
-			/* jwt.verify(
-				refreshToken,
-				process.env.JWT_REFRESH_SECRET,
-				(err, decoded) => {
-					if (err) {
-						throw err;
-					} else if (decoded.userName !== user.userName) {
-						const invalidRefreshToken = new Error(
-							"Invalid refresh token, this token is not signed",
-						);
-						invalidRefreshToken.name = "InvalidRefreshToken";
-						throw invalidRefreshToken;
-					}
-				},
-			); */
 
             const decoded = await verifySignature(refreshToken, process.env.JWT_REFRESH_SECRET);
 

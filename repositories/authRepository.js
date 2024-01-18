@@ -4,7 +4,7 @@ const authRepository = {
 	getByUserName: async (username) => {
 		try {
 			const user = await User.findByPk(username, {
-				attributes: ["userName", "email", "password", "refreshToken"],
+				attributes: ["userName", "email", "password", "refreshToken", "verifyEmail"],
 				include: [
 					{ model: Role },
 					{ model: Student },
