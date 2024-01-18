@@ -748,12 +748,12 @@
             "method": "POST",
             "sortNum": 160000,
             "created": "2023-10-02T22:19:51.594Z",
-            "modified": "2024-01-14T21:20:40.589Z",
+            "modified": "2024-01-17T23:52:26.569Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"userName\": \"TonyHowks\",\n  \"email\": \"thk@gmail.com\",\n  \"password\": \"\",\n  \"roleId\": 8,\n  \"hack\": \"an Vulnerability\"\n}",
+                "raw": "{\n  \"userName\": \"TonyHowks\",\n  \"email\": \"thk@gmail.com\",\n  \"password\": \"password\",\n  \"roleId\": 8\n}",
                 "form": []
             },
             "tests": []
@@ -1420,17 +1420,16 @@
             "_id": "a3ac93c2-b273-44ab-86b3-7cb7985f4370",
             "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
             "containerId": "a019480e-0007-4f6f-9bd1-4eb92ce9f67f",
-            "name": "refresh",
+            "name": "Refresh JWT",
             "url": "auth/refresh-token",
             "method": "GET",
             "sortNum": 410000,
             "created": "2023-10-10T08:27:34.477Z",
-            "modified": "2024-01-11T08:21:00.133Z",
+            "modified": "2024-01-18T02:30:38.427Z",
             "headers": [
                 {
                     "name": "Cookie",
-                    "value": "refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6Ikx1aXMiLCJyb2xlIjp7InJvbGVuYW1lIjoiRGlyZWN0b3IiLCJwcml2aWxlZ2VMZXZlbCI6MX0sImlhdCI6MTcwNDk2MTIwOCwiZXhwIjoxNzA1MDQ3NjA4fQ.iNJGokKotyA65M00pLqdxAVVV-NNDwqe5mCw1B6JDOY",
-                    "isDisabled": true
+                    "value": "refreshToken=eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6Ikx1aXMiLCJyb2xlIjp7InJvbGVuYW1lIjoiZGlyZWN0b3IiLCJwcml2aWxlZ2VMZXZlbCI6MX0sImlhdCI6MTcwNTU0NDg4NSwiZXhwIjoxNzA1NjMxMjg1fQ.US1j90KpYrxK78zPG1rJGp_kioR3TECwF2_N6dbydy0"
                 }
             ],
             "params": [],
@@ -1440,7 +1439,7 @@
             "_id": "9848d514-a687-479f-992f-fdc1ec5e1b1f",
             "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
             "containerId": "a019480e-0007-4f6f-9bd1-4eb92ce9f67f",
-            "name": "logout",
+            "name": "Logout",
             "url": "auth/logout",
             "method": "GET",
             "sortNum": 420000,
@@ -1787,6 +1786,20 @@
                 "type": "bearer",
                 "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VyTmFtZSI6Ikx1aXMiLCJyb2xlIjp7InJvbGVuYW1lIjoiRGlyZWN0b3IiLCJwcml2aWxlZ2VMZXZlbCI6MX0sImlhdCI6MTcwNTExNTEzOSwiZXhwIjoxNzA1MjAxNTM5fQ.FQXV4g-rWBfUGUYfDCoO4JQyW4xc6ommrEhzmdBZN_0"
             },
+            "tests": []
+        },
+        {
+            "_id": "84e00bf3-d312-4f1a-9e64-25684df6659f",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "a019480e-0007-4f6f-9bd1-4eb92ce9f67f",
+            "name": "VerifyEmail",
+            "url": "auth/email-confirmation/21bw8joctdv1hkd6he32",
+            "method": "GET",
+            "sortNum": 900000,
+            "created": "2024-01-17T23:58:40.194Z",
+            "modified": "2024-01-18T02:32:08.348Z",
+            "headers": [],
+            "params": [],
             "tests": []
         }
     ],

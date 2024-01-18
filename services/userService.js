@@ -1,15 +1,18 @@
 import userRepository from "../repositories/userRepository.js";
+import { generateEmailToken } from "../helpers/tokens/emailVerify.js";
 
 const userService = {
 	createUser: async (user) => {
 		try {
-			const newUser = await userRepository.create(user);
+			const userToken = { ...user, token: generateEmailToken() };
+			const newUser = await userRepository.create(userToken);
 
-            const userNoPassword = {
+			const userNoPassword = {
 				...newUser.get(),
+				token: undefined,
 				password: undefined,
 			};
-	
+
 			return userNoPassword;
 		} catch (error) {
 			const errors = [];
@@ -30,12 +33,12 @@ const userService = {
 					});
 				});
 			} else if (error.name === "SequelizeForeignKeyConstraintError") {
-                errors.push({
-                    type: "ForeignKeyConstraintError",
-                    message: error.message,
-                    fields: error.fields,
-                });
-            }else {
+				errors.push({
+					type: "ForeignKeyConstraintError",
+					message: error.message,
+					fields: error.fields,
+				});
+			} else {
 				throw error;
 			}
 			throw errors;

@@ -86,6 +86,23 @@ const authController = {
 			}
 		}
 	},
+    confirmEmail: async (req, res) => {
+        try {
+            const { token } = req.params;
+
+            if (!token) {
+                return res.status(401).json({ message: "No token provided" });
+            }
+            await authService.confirmEmail(token);
+            return res.status(200).json({ message: "Email confirmed" });
+        } catch (error) {
+            if (error.name === "InvalidToken") {
+                return res.status(401).json({ error: error.name, message: error.message });
+            } else {
+                return res.status(500).json({ error: error.name, message: error.message });
+            }
+        }
+    },
 };
 
 export default authController;

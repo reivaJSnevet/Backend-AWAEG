@@ -1,5 +1,5 @@
 import authRepository from "../repositories/authRepository.js";
-import jwt from "jsonwebtoken";
+import { generateAccessToken, generateRefreshToken, verifySignature } from "../helpers/tokens/jwt.js";
 
 const authService = {
 	login: async (username, password) => {
@@ -18,8 +18,8 @@ const authService = {
 				throw invalidPassword;
 			}
 
-			const accessToken = authService.generateAccessToken(user);
-			const refreshToken = authService.generateRefreshToken(user);
+			const accessToken = generateAccessToken(user);
+			const refreshToken = generateRefreshToken(user);
 
 			user.refreshToken = refreshToken;
 			await user.save();
@@ -48,48 +48,6 @@ const authService = {
 		}
 	},
 
-	generateAccessToken: (user) => {
-		try {
-			const accessToken = jwt.sign(
-				{
-					userName: user.userName,
-					role: {
-						rolename: user.Role.roleName,
-						privilegeLevel: user.Role.privilegeLevel,
-					},
-				},
-				process.env.JWT_SECRET,
-				{
-					expiresIn: "1d",
-				},
-			);
-			return accessToken;
-		} catch (error) {
-			throw error;
-		}
-	},
-
-	generateRefreshToken: (user) => {
-		try {
-			const refreshToken = jwt.sign(
-				{
-					userName: user.userName,
-					role: {
-						rolename: user.Role.roleName,
-						privilegeLevel: user.Role.privilegeLevel,
-					},
-				},
-				process.env.JWT_REFRESH_SECRET,
-				{
-					expiresIn: "1d",
-				},
-			);
-			return refreshToken;
-		} catch (error) {
-			throw error;
-		}
-	},
-    
 	handleRefreshToken: async (refreshToken) => {
 		try {
 			const user = await authRepository.getByRefreshToken(refreshToken);
@@ -102,7 +60,7 @@ const authService = {
 				throw invalidRefreshToken;
 			}
 
-			jwt.verify(
+			/* jwt.verify(
 				refreshToken,
 				process.env.JWT_REFRESH_SECRET,
 				(err, decoded) => {
@@ -116,10 +74,38 @@ const authService = {
 						throw invalidRefreshToken;
 					}
 				},
-			);
+			); */
 
-			const accessToken = authService.generateAccessToken(user);
+            const decoded = await verifySignature(refreshToken, process.env.JWT_REFRESH_SECRET);
+
+            if(!decoded) {
+                const invalidRefreshToken = new Error(
+                    "Invalid refresh token, this token is not signed",
+                );
+                invalidRefreshToken.name = "InvalidRefreshToken";
+                throw invalidRefreshToken;
+            }
+
+			const accessToken = generateAccessToken(user);
 			return { accessToken };
+		} catch (error) {
+			throw error;
+		}
+	},
+
+	confirmEmail: async (token) => {
+		try {
+			const user = await authRepository.getByToken(token);
+
+			if (!user) {
+				const invalidTokenError = new Error("Invalid token");
+				invalidToken.name = "InvalidToken";
+				throw invalidTokenError;
+			}
+
+			user.verifyEmail = true;
+			user.token = null;
+			return await user.save();
 		} catch (error) {
 			throw error;
 		}
