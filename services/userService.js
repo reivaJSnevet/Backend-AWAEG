@@ -1,11 +1,14 @@
 import userRepository from "../repositories/userRepository.js";
-import { generateEmailToken } from "../helpers/tokens/emailVerify.js";
+import sendVerificationEmail from "../helpers/emails/verificationEmail.js";
+import { generateEmailToken } from "../helpers/tokens/emailVerifyToken.js";
 
 const userService = {
 	createUser: async (user) => {
 		try {
 			const userToken = { ...user, token: generateEmailToken() };
 			const newUser = await userRepository.create(userToken);
+
+            await sendVerificationEmail(newUser.email, newUser.token);
 
 			const userNoPassword = {
 				...newUser.get(),

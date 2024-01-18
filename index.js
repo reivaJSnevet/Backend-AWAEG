@@ -15,6 +15,7 @@ import helmet from "helmet";
 import db from "./config/db.js";
 import corsOptions from "./config/corsOptions.js";
 import sequelize from "./config/db.js";
+import transporter from "./config/nodemailer.js";
 
 // Import Middlewares
 import credentials from "./middlewares/credentials.js";
@@ -122,6 +123,21 @@ applyGlobalTrimHook(sequelize);
 
 // Call the function to connect to the database
 await DbConnection();
+
+//verify mail connection
+try {
+    await transporter.verify();
+    console.log(
+        "\x1b[36m%s\x1b[0m",
+        "Email server connection successful",
+    );
+} catch (error) {
+    console.log(
+        "\x1b[31m%s\x1b[0m",
+        "Error in email server connection:",
+    );
+    console.log(error);
+}
 
 // Set up public routes
 app.use("/api/", authRoute);

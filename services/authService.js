@@ -1,12 +1,18 @@
+import { dirname, join } from "path";
+import { fileURLToPath } from "url";
+import path from "path";
 import authRepository from "../repositories/authRepository.js";
 import { generateAccessToken, generateRefreshToken, verifySignature } from "../helpers/tokens/jwt.js";
+
+const __CURRENT_DIR = dirname(fileURLToPath(import.meta.url));
+const __FILE_DIR = join(__CURRENT_DIR, "../");
 
 const authService = {
 	login: async (username, password) => {
 		try {
 			const user = await authRepository.getByUserName(username);
-			if (!user) {
-				const invalidUsername = new Error("Invalid username");
+			if (!user || !user.verifyEmail) {
+				const invalidUsername = new Error("Invalid username or email not verified yet");
 				invalidUsername.name = "InvalidUsername";
 				throw invalidUsername;
 			}
@@ -99,13 +105,18 @@ const authService = {
 
 			if (!user) {
 				const invalidTokenError = new Error("Invalid token");
-				invalidToken.name = "InvalidToken";
+				invalidTokenError.name = "InvalidToken";
 				throw invalidTokenError;
 			}
 
 			user.verifyEmail = true;
 			user.token = null;
-			return await user.save();
+
+            await user.save();
+
+            const confirmEmailView = path.join(__FILE_DIR, 'views', 'emailVerification.html');
+			return confirmEmailView
+
 		} catch (error) {
 			throw error;
 		}

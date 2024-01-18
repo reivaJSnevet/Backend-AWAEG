@@ -93,8 +93,8 @@ const authController = {
             if (!token) {
                 return res.status(401).json({ message: "No token provided" });
             }
-            await authService.confirmEmail(token);
-            return res.status(200).json({ message: "Email confirmed" });
+            const confirmEmailView = await authService.confirmEmail(token);
+            return res.status(200).sendFile(confirmEmailView);
         } catch (error) {
             if (error.name === "InvalidToken") {
                 return res.status(401).json({ error: error.name, message: error.message });
