@@ -103,6 +103,43 @@ const authController = {
             }
         }
     },
+    forgotPassword: async (req, res) => {
+        try {
+            const { email } = req.body;
+            if (!email) {
+                return res.status(400).json({ message: "Empty email" });
+            }
+            await authService.forgotPassword(email);
+            return res.status(200).json({ message: "Email sent" });
+        } catch (error) {
+            if (error.name === "InvalidEmail") {
+                return res.status(401).json({ error: error.name, message: error.message });
+            } else {
+                return res.status(500).json({ error: error.name, message: error.message });
+            }
+        }
+    },
+
+    resetPassword: async (req, res) => {
+        try {
+            const { token } = req.params;
+            const { password } = req.body;
+            if (!token) {
+                return res.status(400).json({ message: "Empty token" });
+            }
+            if (!password) {
+                return res.status(400).json({ message: "Empty password" });
+            }
+            await authService.resetPassword(token, password);
+            return res.status(200).json({ message: "Password changed" });
+        } catch (error) {
+            if (error.name === "InvalidToken") {
+                return res.status(401).json({ error: error.name, message: error.message });
+            } else {
+                return res.status(500).json({ error: error.name, message: error.message });
+            }
+        }
+    },
 };
 
 export default authController;

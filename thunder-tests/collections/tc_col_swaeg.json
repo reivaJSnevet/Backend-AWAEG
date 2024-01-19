@@ -748,12 +748,12 @@
             "method": "POST",
             "sortNum": 160000,
             "created": "2023-10-02T22:19:51.594Z",
-            "modified": "2024-01-18T20:54:55.619Z",
+            "modified": "2024-01-19T07:23:37.816Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"userName\": \"AAA\",\n  \"email\": \"javier.diaz.marin@est.una.ac.cr\",\n  \"password\": \"password\",\n  \"roleId\": 5\n}",
+                "raw": "{\n  \"userName\": \"AAA\",\n  \"email\": \"qgm62455@nezid.com\",\n  \"password\": \"password\",\n  \"roleId\": 5\n}",
                 "form": []
             },
             "tests": []
@@ -1800,6 +1800,44 @@
             "modified": "2024-01-18T02:32:08.348Z",
             "headers": [],
             "params": [],
+            "tests": []
+        },
+        {
+            "_id": "f56ed6bd-be94-4f2a-91d4-11c81c37a410",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "a019480e-0007-4f6f-9bd1-4eb92ce9f67f",
+            "name": "ForgotPassword",
+            "url": "auth/forgot-password",
+            "method": "POST",
+            "sortNum": 910000,
+            "created": "2024-01-19T07:00:58.733Z",
+            "modified": "2024-01-19T07:25:05.493Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"email\": \"qgm62455@nezid.com\"\n}",
+                "form": []
+            },
+            "tests": []
+        },
+        {
+            "_id": "006952e7-e199-4f98-b30a-8656b41c9d0c",
+            "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
+            "containerId": "a019480e-0007-4f6f-9bd1-4eb92ce9f67f",
+            "name": "ResetPassword",
+            "url": "auth/reset-password/tmuke10w00g1hkg9np3p",
+            "method": "POST",
+            "sortNum": 920000,
+            "created": "2024-01-19T07:27:48.880Z",
+            "modified": "2024-01-19T07:28:08.698Z",
+            "headers": [],
+            "params": [],
+            "body": {
+                "type": "json",
+                "raw": "{\n  \"password\": \"Steven2Bv\"\n}",
+                "form": []
+            },
             "tests": []
         }
     ],

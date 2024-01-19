@@ -8,5 +8,17 @@ const loginSchema = Joi.object({
     'object.unknown': 'Invalid key {{#label}}: {{#childkey}}',
   });
 
+const forgotPasswordSchema = Joi.object({
+    email: Joi.string().email().required(),
+}).options({ allowUnknown: false }).messages({
+    'object.unknown': 'Invalid key {{#label}}: {{#childkey}}',
+  });
 
-export { loginSchema };
+const resetPasswordSchema = Joi.object({
+    password: Joi.string().min(8).max(255).required(),
+}).options({ allowUnknown: false }).messages({
+    'object.unknown': 'Invalid key {{#label}}: {{#childkey}}',
+  });
+
+
+export { loginSchema, forgotPasswordSchema, resetPasswordSchema };

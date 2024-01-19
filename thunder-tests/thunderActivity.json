@@ -1,1 +1,21 @@
-[]
+[
+    {
+        "_id": "82563283-4fd8-4c78-9dae-df8e8af04e29",
+        "colId": "history",
+        "containerId": "",
+        "name": "http://localhost:3000/api/auth/reset-password/tmuke10w00g1hkg9np3p",
+        "url": "http://localhost:3000/api/auth/reset-password/tmuke10w00g1hkg9np3p",
+        "method": "GET",
+        "sortNum": 0,
+        "created": "2024-01-19T07:26:00.141Z",
+        "modified": "2024-01-19T07:26:00.141Z",
+        "headers": [],
+        "params": [],
+        "body": {
+            "type": "json",
+            "raw": "{\n  \"password\": \"Steven2Bv\"\n}",
+            "form": []
+        },
+        "tests": []
+    }
+]
