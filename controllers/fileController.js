@@ -76,6 +76,11 @@ const FileController = {
 
 	deleteFile: async (req, res) => {
 		try {
+
+            if (!req.params.id) {
+                return res.status(400).json({ message: "File id is required" });
+            }
+
 			const file = await FileService.deleteFile(req.params.id);
 
 			if (file) {
