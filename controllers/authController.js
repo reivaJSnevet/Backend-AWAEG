@@ -10,7 +10,7 @@ const authController = {
 					.json({ message: "Empty username or password" });
 			}
 
-			const { accessToken, refreshToken } = await authService.login(
+			const { accessToken, refreshToken, user } = await authService.login(
 				userName,
 				password,
 			);
@@ -21,8 +21,8 @@ const authController = {
 				sameSite: "none",
 				maxAge: 1000 * 60 * 60 * 24 * 1, //1 day
 			});
-
-			return res.status(200).json(accessToken);
+			console.log(user)
+			return res.status(200).json({accessToken, role: user.Role.roleName, id: user.Functionary.functionaryId});
 		} catch (error) {
 			if (error.name === "InvalidUsername") {
 				return res.status(401).json({ error:error.name, message: error.message });
