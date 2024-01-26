@@ -39,7 +39,7 @@ const authService = {
 			user.refreshToken = refreshToken;
 			await user.save();
 
-			return { accessToken, refreshToken };
+			return { accessToken, refreshToken, user};
 		} catch (error) {
 			throw error;
 		}
