@@ -13,6 +13,7 @@ const authController = {
 			const { accessToken, refreshToken, user } = await authService.login(
 				userName,
 				password,
+                user
 			);
 
 			res.cookie("refreshToken", refreshToken, {
@@ -21,8 +22,8 @@ const authController = {
 				sameSite: "none",
 				maxAge: 1000 * 60 * 60 * 24 * 1, //1 day
 			});
-			console.log(user)
-			return res.status(200).json({accessToken, role: user.Role.roleName, id: user.Functionary.functionaryId});
+
+			return res.status(200).json({accessToken, role: user.Role.roleName, id: user.Fuctionary.fuctionaryId});
 		} catch (error) {
 			if (error.name === "InvalidUsername") {
 				return res.status(401).json({ error:error.name, message: error.message });
