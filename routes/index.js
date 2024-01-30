@@ -15,6 +15,3 @@ export {default as timetableRoute} from './timetableRoute.js';
 export {default as authRoute} from './authRoute.js';
 export { default as loanRoute } from './loanRoute.js';
 export { default as flawRoute } from './flawRoute.js';
-export { default as studentSupplieRoute } from './studentSupplieRoute.js';
-export { default as categorySupplieRoute } from './categorySupplieRoute.js';
-export { default as institutionalSupplieRoute } from './institutionalSupplieRoute.js';

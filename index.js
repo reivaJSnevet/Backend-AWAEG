@@ -5,6 +5,10 @@
  * @module index.js
  */
 
+import {LoanSupplies} from "./models/index.js";
+
+const a = LoanSupplies.build();
+
 // Import Node.js libraries
 import express from "express";
 import cors from "cors";
@@ -40,9 +44,6 @@ import {
 	authRoute,
 	loanRoute,
 	flawRoute,
-	studentSupplieRoute,
-	categorySupplieRoute,
-	institutionalSupplieRoute,
 } from "./routes/index.js";
 
 // Import Hooks
@@ -61,7 +62,7 @@ app.use(credentials);
 app.use(cors(corsOptions));
 
 // Enable reading form data
-app.use(express.urlencoded({ extended: true }));
+app.use(express.urlencoded({ extended: false }));
 
 // Enable reading JSON in URL
 app.use(express.json());
@@ -89,7 +90,7 @@ async function DbConnection() {
 			);
 
 			try {
-				await db.sync({ force: false });
+				await db.sync({ force: true });
 				console.log(
 					"\x1b[36m%s\x1b[0m",
 					"Database synchronization successful",
@@ -160,9 +161,6 @@ app.use("/api/", gradeRoute);
 app.use("/api/", timetableRoute);
 app.use("/api/", loanRoute);
 app.use("/api/", flawRoute);
-app.use("/api/", studentSupplieRoute);
-app.use("/api/", categorySupplieRoute);
-app.use("/api/", institutionalSupplieRoute);
 
 // Handle 404 errors
 app.all("*", (req, res) => {
