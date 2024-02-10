@@ -92,7 +92,14 @@ const authService = {
 			}
 
 			const accessToken = generateAccessToken(user);
-			return { accessToken };
+			return {
+				accessToken,
+				user: {
+					userName: user.userName,
+					personId: user.Person.id,
+					Role: user.Role.roleName,
+				},
+			};
 		} catch (error) {
 			throw error;
 		}

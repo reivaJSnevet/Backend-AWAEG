@@ -34,7 +34,7 @@ const authController = {
 					.json({ message: "No refresh token provided" });
 			}
 
-			await authService.logout(refreshToken);
+			await authService.logout(jwt);
 
 			res.clearCookie("jwt", {
 				httpOnly: true,
@@ -48,47 +48,15 @@ const authController = {
 	},
 	handleRefreshToken: async (req, res, next) => {
 		try {
-            console.log("\x1b[31m%s\x1b[0m", req)
-			const cookies = req.cookies || {};
-
-			if (!cookies?.jwt) {
+            const { jwt } = req.cookies || {};
+			if (!jwt) {
 				return res
 					.status(401)
 					.json({ message: "No refresh token provided" });
 			}
 
-			const jwt = cookies.jwt;
-			const user = await authRepository.getByRefreshToken(jwt);
-
-			if (!user) {
-				return res
-					.status(403)
-					.json({ message: "Invalid refresh token" });
-			}
-
-			const decoded = await verifySignature(
-				jwt,
-				process.env.JWT_REFRESH_SECRET,
-			);
-
-			if (!decoded) {
-				return res
-					.status(403)
-					.json({ message: "Invalid refresh token" });
-			}
-            
-			const accessToken = generateAccessToken(user);
-
-			return res
-				.status(200)
-				.json({
-					accessToken,
-					user: {
-						userName: user.userName,
-						personId: user.Person.id,
-						Role: user.Role.roleName,
-					},
-				});
+            const {accessToken, user} = await authService.handleRefreshToken(jwt)
+            res.status(200).json({ accessToken, user });
 		} catch (error) {
 			next(error);
 		}
