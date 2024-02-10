@@ -1,6 +1,4 @@
 import authService from "../services/authService.js";
-import authRepository from "../repositories/authRepository.js";
-import { generateAccessToken, verifySignature } from "../helpers/tokens/jwt.js";
 
 const authController = {
 	login: async (req, res, next) => {
