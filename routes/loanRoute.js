@@ -1,14 +1,12 @@
-import express from 'express';
+import { Router } from 'express';
 import LoanController from '../controllers/loanController.js';
-import validateModel from '../middlewares/validateModel.js';
-import {Loan} from '../models/index.js';
 
-const loanRouter = express.Router();
+const loanRouter = Router();
 
-loanRouter.post('/loans', validateModel(Loan) ,LoanController.postLoan);
+loanRouter.post('/loans', LoanController.postLoan);
 loanRouter.get('/loans', LoanController.getAllLoans);
 loanRouter.get('/loans/:id', LoanController.getLoanById);
-loanRouter.put('/loans/:id',validateModel(Loan), LoanController.putLoan);
+loanRouter.put('/loans/:id', LoanController.putLoan);
 loanRouter.delete('/loans/:id', LoanController.deleteLoan);
 
 export default loanRouter;

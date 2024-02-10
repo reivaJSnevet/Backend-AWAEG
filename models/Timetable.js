@@ -1,6 +1,6 @@
 import { DataTypes } from "sequelize";
 import db from "../config/db.js";
-import Class from "./Class.js";
+import { ValidationError } from "../errors/index.js";
 
 const Timetable = db.define(
 	"Timetable",
@@ -16,13 +16,13 @@ const Timetable = db.define(
 			allowNull: false,
 			validate: {
 				notEmpty: {
-					msg: "The day can't be empty",
+					msg: "El día no puede estar vacío",
 				},
 				isIn: {
 					args: [
 						["lunes", "martes", "miércoles", "jueves", "viernes"],
 					],
-					msg: "The day must be a weekday",
+					msg: "El día debe ser un día de la semana válido (lunes, martes, miércoles, jueves, viernes)",
 				},
 				set(value) {
 					this.setDataValue("day", value.toLowerCase());
@@ -43,11 +43,11 @@ const Timetable = db.define(
 			allowNull: false,
 			validate: {
 				notEmpty: {
-					msg: "The lesson can't be empty",
+					msg: "La lección no puede estar vacía",
 				},
 				isIn: {
 					args: [["I", "II", "III", "IV", "V", "VI", "VII", "VIII"]],
-					msg: "The lesson must be a valid roman number between I and VIII",
+					msg: "La lección debe ser una lección válida (I, II, III, IV, V, VI, VII, VIII)",
 				},
 			},
 			set(value) {
@@ -59,11 +59,11 @@ const Timetable = db.define(
 			allowNull: false,
 			validate: {
 				notEmpty: {
-					msg: "The start time can't be empty",
+					msg: "La hora de inicio no puede estar vacía",
 				},
 				isTime(value) {
 					if (!value.match(/^(?:2[0-3]|[01][0-9]):[0-5][0-9]$/)) {
-						throw new Error("The start time must be a valid time");
+                        throw new Error("La hora de inicio debe ser una hora válida");
 					}
 				},
 			},
@@ -73,12 +73,12 @@ const Timetable = db.define(
 			allowNull: false,
 			validate: {
 				notEmpty: {
-					msg: "The end time can't be empty",
+					msg: "La hora de finalización no puede estar vacía",
 				},
 				isTime(value) {
 					if (!value.match(/^(?:2[0-3]|[01][0-9]):[0-5][0-9]$/)) {
-						throw new Error("The end time must be a valid time");
-					}
+                        throw new Error("La hora de finalización debe ser una hora válida");
+                    }
 				},
 			},
 		},
@@ -122,11 +122,9 @@ const avoidOverlappingClasses = async (timetable) => {
 		},
 	});
 	if (overlappingTimetable) {
-		const OverlappingError = new Error(
-			"The timetable overlaps with another timetable",
-		);
-		OverlappingError.name = "OverlappingError";
-		throw OverlappingError;
+		throw new ValidationError(
+            "La clase se superpone con otra clase existente",
+        );
 	}
 };
 
@@ -139,11 +137,9 @@ const validateDuration = async (timetable) => {
 	const durationInMinutes = (endDate - startDate) / (1000 * 60);
 
 	if (durationInMinutes > 40) {
-		const DurationError = new Error(
-			"The duration of the class can't be more than 40 minutes",
-		);
-		DurationError.name = "DurationError";
-		throw DurationError;
+		throw new ValidationError(
+            "La duración de la clase no puede ser mayor a 40 minutos",
+        );
 	}
 };
 

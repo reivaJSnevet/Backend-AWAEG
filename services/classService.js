@@ -1,4 +1,5 @@
 import classRepository from "../repositories/classRepository.js";
+import { NotFoundError, ValidationError } from "../errors/index.js";
 
 const classService = {
 	createClass: async (classData) => {
@@ -24,7 +25,7 @@ const classService = {
 							? "The timetable must be in the morning"
 							: "The timetable must be in the afternoon";
 
-						throw new Error(errorMessage);
+						throw new ValidationError(errorMessage);
 					}
 				});
 			}
@@ -36,20 +37,7 @@ const classService = {
 
 			return newClass;
 		} catch (error) {
-			const errors = [];
-
-			if (error.name === "SequelizeConstraintError") {
-				error.errors.map((error) => {
-					errors.push(error.message);
-				});
-			} else if (error.name === "SequelizeValidationError") {
-				error.errors.map((error) => {
-					errors.push(error.message);
-				});
-			} else {
-				throw error;
-			}
-			throw new Error(errors);
+			throw error;
 		}
 	},
 
@@ -64,8 +52,12 @@ const classService = {
 
 	getClassById: async (classId) => {
 		try {
-			const foundClass = await classRepository.findById(classId);
-			return foundClass;
+			const classData = await classRepository.findById(classId);
+            if (!classData) {
+                throw new NotFoundError("Class", classId);
+            }
+
+			return classData;
 		} catch (error) {
 			throw error;
 		}
@@ -73,33 +65,27 @@ const classService = {
 
 	updateClass: async (classId, classData) => {
 		try {
-			const updatedClass = await classRepository.update(
+			const classData = await classRepository.update(
 				classId,
 				classData,
 			);
-			return updatedClass;
+            if (!classData) {
+                throw new NotFoundError("Class", classId);
+            }
+
+			return classData;
 		} catch (error) {
-			const errors = [];
-
-			if (error.name === "SequelizeConstraintError") {
-				error.errors.map((error) => {
-					errors.push(error.message);
-				});
-			} else if (error.name === "SequelizeValidationError") {
-				error.errors.map((error) => {
-					errors.push(error.message);
-				});
-			} else {
-				throw error;
-			}
-
-			throw errors;
-		}
+            throw error;
+        }
 	},
 
 	deleteClass: async (classId) => {
 		try {
 			const deletedClass = await classRepository.delete(classId);
+            if (!deletedClass) {
+                throw new NotFoundError("Class", classId);
+            }
+
 			return deletedClass;
 		} catch (error) {
 			throw error;

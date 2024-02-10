@@ -32,8 +32,10 @@ const roleRepository = {
 		try {
 			const roleUpdated = await Role.update(updatedFields, {
 				where: { roleId },
+				individualHooks: true,
 			});
-			return roleUpdated[0];
+
+			return roleUpdated[1][0];
 		} catch (error) {
 			throw error;
 		}
@@ -47,14 +49,14 @@ const roleRepository = {
 			throw error;
 		}
 	},
-    getAllWhere: async (where) => {
-        try {
-            const role = await Role.findAll({ where });
-            return role;
-        } catch (error) {
-            throw error;
-        }
-    }
+	getAllWhere: async (where) => {
+		try {
+			const role = await Role.findAll({ where });
+			return role;
+		} catch (error) {
+			throw error;
+		}
+	},
 };
 
 export default roleRepository;

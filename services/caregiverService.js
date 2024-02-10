@@ -1,32 +1,18 @@
 import caregiverRepository from "../repositories/caregiverRepository.js";
+import personRepository from "../repositories/personRepository.js";
+import { NotFoundError, ValidationError } from "../errors/index.js";
 
 const caregiverService = {
 	createCaregiver: async (caregiver) => {
 		try {
+			if (!caregiver.Caregiver) {
+				throw new ValidationError("Caregiver object is required");
+			}
+
 			const newCaregiver = await caregiverRepository.create(caregiver);
 			return newCaregiver;
 		} catch (error) {
-			const errors = [];
-			if (error.name === "SequelizeUniqueConstraintError") {
-				error.errors.forEach((e) => {
-					errors.push({
-                        type: "UniqueConstraintError",
-                        message: e.message,
-                        field: e.path,
-                    });
-				});
-			} else if (error.name === "SequelizeValidationError") {
-				error.errors.forEach((e) => {
-					errors.push({
-                        type: "ValidationError",
-                        message: e.message,
-                        field: e.path,
-                    });
-				});
-			} else {
-				throw error;
-			}
-            throw errors;
+			throw error;
 		}
 	},
 
@@ -42,6 +28,10 @@ const caregiverService = {
 	getCaregiverById: async (caregiverId) => {
 		try {
 			const caregiver = await caregiverRepository.getById(caregiverId);
+			if (!caregiver) {
+				throw new NotFoundError("Caregiver", caregiverId);
+			}
+
 			return caregiver;
 		} catch (error) {
 			throw error;
@@ -50,33 +40,27 @@ const caregiverService = {
 
 	updateCaregiver: async (caregiverId, updatedFields) => {
 		try {
-			const caregiverUpdated = await caregiverRepository.update(
+			const person = await personRepository.update(
 				caregiverId,
 				updatedFields,
 			);
-			return caregiverUpdated;
-		} catch (error) {
-			const errors = [];
-			if (error.name === "SequelizeUniqueConstraintError") {
-				error.errors.forEach((e) => {
-					errors.push({
-						type: "UniqueConstraintError",
-						message: e.message,
-						field: e.path,
-					});
-				});
-			} else if (error.name === "SequelizeValidationError") {
-				error.errors.forEach((e) => {
-					errors.push({
-						type: "ValidationError",
-						message: e.message,
-						field: e.path,
-					});
-				});
-			} else {
-				throw error;
+			const caregiver = await caregiverRepository.update(
+				caregiverId,
+				updatedFields,
+			);
+
+			if (!person && !caregiver) {
+				throw new NotFoundError("Caregiver", caregiverId);
 			}
-            throw errors;
+
+            const personJSON = {
+                ...person.toJSON(),
+                Caregiver: caregiver,
+            };
+    
+            return personJSON;
+		} catch (error) {
+			throw error;
 		}
 	},
 
@@ -84,6 +68,11 @@ const caregiverService = {
 		try {
 			const caregiverDeleted =
 				await caregiverRepository.delete(caregiverId);
+
+			if (!caregiverDeleted) {
+				throw new NotFoundError("Caregiver", caregiverId);
+			}
+
 			return caregiverDeleted;
 		} catch (error) {
 			throw error;

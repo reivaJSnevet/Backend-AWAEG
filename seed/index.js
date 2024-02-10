@@ -1,6 +1,0 @@
-export {default as roles} from "./roles.js"
-export {default as users} from "./users.js"
-export {default as students} from "./students.js"
-export {default as caregivers} from "./caregivers.js"
-export {default as groups} from "./groups.js"
-export {default as functionaries} from "./functionaries.js"

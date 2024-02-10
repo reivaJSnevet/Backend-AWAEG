@@ -32,8 +32,9 @@ const loanRepository = {
         try {
             const loanUpdated = await Loan.update(updatedFields, {
                 where: { loanId },
+                individualHooks: true,
             });
-            return loanUpdated;
+            return loanUpdated[1][0];
         } catch (error) {
             throw error;
         }

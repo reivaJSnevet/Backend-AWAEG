@@ -12,7 +12,7 @@ const userRepository = {
 
 	getAll: async () => {
 		try {
-			const users = await User.findAll({include: Role});
+			const users = await User.findAll({ include: Role });
 			return users;
 		} catch (error) {
 			throw error;
@@ -21,7 +21,10 @@ const userRepository = {
 
 	getByUserName: async (userName) => {
 		try {
-			const user = await User.findOne({ include: Role, where: { userName: userName } });
+			const user = await User.findOne({
+				include: Role,
+				where: { userName: userName },
+			});
 			return user;
 		} catch (error) {
 			throw error;
@@ -32,9 +35,9 @@ const userRepository = {
 		try {
 			const userUpdated = await User.update(updatedFields, {
 				where: { userName: userName },
-                individualHooks: true,
+				individualHooks: true,
 			});
-			return userUpdated[0];
+			return userUpdated[1][0];
 		} catch (error) {
 			throw error;
 		}

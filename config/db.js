@@ -1,8 +1,6 @@
 import { Sequelize } from "sequelize";
 import dotenv from "dotenv";
-
-// Load environment variables
-dotenv.config({ path: ".env" });
+dotenv.config({ path: "./.env" });
 
 //Db configuration
 /**
@@ -10,25 +8,26 @@ dotenv.config({ path: ".env" });
  * @type {Sequelize}
  */
 const db = new Sequelize(
-	process.env.BD_NOMBRE,
-	process.env.BD_USER,
-	process.env.BD_PASS ?? " ",
-	{
-		host: process.env.BD_HOST,
-		port: process.env.BD_PORT,
-		dialect: "mysql",
+    process.env.DB_NAME,
+    process.env.DB_USER,
+    process.env.DB_PASS,
+    {
+        host: process.env.DB_HOST,
+        port: process.env.DB_PORT,
+        dialect: "mysql",
         timezone: "-06:00",
         logging: (msg) => console.log(msg),
-		define: {
-			timestamps: false,
-		},
-		pool: {
-			max: 5, // max allowed connections
-			min: 0, // min allowed connections
-			acquire: 30000, // maximum time, in milliseconds, that pool will try to get connection before throwing error
-			idle: 30000, // maximum time, in milliseconds, that a connection can be idle before being released
-		},
-	},
+        define: {
+            timestamps: true,
+            paranoid: true,
+        },
+        pool:{
+            acquire: 30000,
+            idle: 10000,
+            max: 5,
+            min: 0,
+        },
+    },
 );
 
 export default db;

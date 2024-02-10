@@ -1,14 +1,12 @@
-import express from 'express';
+import { Router } from 'express';
 import FlawController from '../controllers/flawController.js';
-import validateModel from '../middlewares/validateModel.js';
-import {Flaw} from '../models/index.js';
 
-const flawRouter = express.Router();
+const flawRouter = Router();
 
-flawRouter.post('/flaws', validateModel(Flaw) ,FlawController.postFlaw);
+flawRouter.post('/flaws', FlawController.postFlaw);
 flawRouter.get('/flaws', FlawController.getAllFlaws);
 flawRouter.get('/flaws/:id', FlawController.getFlawById);
-flawRouter.put('/flaws/:id',validateModel(Flaw), FlawController.putFlaw);
+flawRouter.put('/flaws/:id', FlawController.putFlaw);
 flawRouter.delete('/flaws/:id', FlawController.deleteFlaw);
 
 export default flawRouter;

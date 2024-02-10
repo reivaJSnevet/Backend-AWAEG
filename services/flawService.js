@@ -1,4 +1,5 @@
 import flawRepository from "../repositories/flawRepository.js";
+import { NotFoundError } from "../errors/index.js";
 
 const flawService = {
 	createFlaw: async (flaw) => {
@@ -6,27 +7,7 @@ const flawService = {
 			const newFlaw = await flawRepository.create(flaw);
 			return newFlaw;
 		} catch (error) {
-			const errors = [];
-			if (error.name === "SequelizeUniqueConstraintError") {
-				error.errors.forEach((e) => {
-					errors.push({
-						type: "Unique Constraint Error",
-						message: e.message,
-						field: e.path,
-					});
-				});
-			} else if (error.name === "SequelizeValidationError") {
-				error.errors.forEach((e) => {
-					errors.push({
-						type: "Validation Error",
-						message: e.message,
-						field: e.path,
-					});
-				});
-			} else {
-				throw error;
-			}
-			throw errors;
+            throw error;
 		}
 	},
 
@@ -42,6 +23,10 @@ const flawService = {
 	getFlawById: async (flawId) => {
 		try {
 			const flaw = await flawRepository.getById(flawId);
+            if (!flaw) {
+                throw new NotFoundError("Flaw", flawId);
+            }
+
 			return flaw;
 		} catch (error) {
 			throw error;
@@ -54,35 +39,23 @@ const flawService = {
 				flawId,
 				updatedFields,
 			);
-			return flawUpdated[0];
+            if (!flawUpdated) {
+                throw new NotFoundError("Flaw", flawId);
+            }
+
+			return flawUpdated;
 		} catch (error) {
-			const errors = [];
-			if (error.name === "SequelizeUniqueConstraintError") {
-				error.errors.forEach((e) => {
-					errors.push({
-						type: "Unique Constraint Error",
-						message: e.message,
-						field: e.path,
-					});
-				});
-			} else if (error.name === "SequelizeValidationError") {
-				error.errors.forEach((e) => {
-					errors.push({
-						type: "Validation Error",
-						message: e.message,
-						field: e.path,
-					});
-				});
-			} else {
-				throw error;
-			}
-			throw errors;
+			throw error;
 		}
 	},
 
 	deleteFlaw: async (flawId) => {
 		try {
 			const flawDeleted = await flawRepository.delete(flawId);
+            if (!flawDeleted) {
+                throw new NotFoundError("Flaw", flawId);
+            }
+
 			return flawDeleted;
 		} catch (error) {
 			throw error;

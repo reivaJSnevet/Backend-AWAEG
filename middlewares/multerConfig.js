@@ -1,9 +1,10 @@
 import fs from "fs";
 import multer from "multer";
 import { extname } from "path";
-import functionaryRepository from "../repositories/functionaryRepository.js";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
+import { ValidationError } from "../errors/index.js";
+import functionaryRepository from "../repositories/functionaryRepository.js";
 
 const __CURRENT_DIR = dirname(fileURLToPath(import.meta.url));
 const __FILE_DIR = join(__CURRENT_DIR, "../");
@@ -35,9 +36,9 @@ const destination = async (req, file, cb) => {
 		// Verify if functionary exists
 		const functionary = await functionaryRepository.getById(functionaryId);
 
-		// Verify if functionary exists or conatains letters
+		// Verify if functionary exists or contains letters
 		if (!functionary || !/^[0-9]+$/.test(functionaryId)) {
-			return cb(new Error("Invalid functionary id"));
+			return cb(new ValidationError("El funcionario no existe"));
 		}
 
 		// Set folder path
@@ -79,11 +80,11 @@ const limits = {
 const fileFilter = (req, file, cb) => {
 	// Only allow uploading of a single file
 	if (file.fieldname !== "file") {
-		cb(new Error("Invalid field name"));
+		cb(new ValidationError("No se ha seleccionado un archivo, o el campo es incorrecto"));
 	} else if (mimeTypes.includes(file.mimetype)) {
 		cb(null, true);
 	} else {
-		cb(new Error("Invalid file type"));
+		cb(new ValidationError("El tipo de archivo no es válido"));
 	}
 };
 

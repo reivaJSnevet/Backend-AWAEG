@@ -16,7 +16,7 @@
             "name": "Caregiver",
             "containerId": "",
             "created": "2023-10-02T22:19:51.558Z",
-            "sortNum": 4995.1
+            "sortNum": 4531.3
         },
         {
             "_id": "a019480e-0007-4f6f-9bd1-4eb92ce9f67f",
@@ -44,7 +44,7 @@
             "name": "Group",
             "containerId": "",
             "created": "2023-10-02T22:19:51.562Z",
-            "sortNum": 4996.4
+            "sortNum": 4609.4
         },
         {
             "_id": "d468bf84-589d-47aa-b152-77a1c8173c8a",
@@ -249,12 +249,12 @@
             "method": "POST",
             "sortNum": 70000,
             "created": "2023-10-02T22:19:51.562Z",
-            "modified": "2024-01-15T20:58:03.207Z",
+            "modified": "2024-02-03T02:20:22.168Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"caregiverId\": \"818050322\",\n  \"name\": \"Demorgan\",\n  \"middleName\": \"Fransoi\",\n  \"lastName\": \"Petricov\",\n  \"lastName2\": \"Coper\",\n  \"phoneNumber\": \"89650345\",\n  \"gender\": \"M\",\n  \"relationTo\": \"Padre\"\n}",
+                "raw": "{\n  \"id\": \"818050331\",\n  \"name\": \"Demorgan\",\n  \"middleName\": \"Fransoi\",\n  \"lastName\": \"Petricov\",\n  \"lastName2\": \"Coper\",\n  \"birthDate\": \"1989-09-28\",\n  \"gender\": \"M\",\n  \"address\": \"Barrio chorotega, de la entrada principal 250mts sur, 30mtrs este, casa de color amarillo\",\n  \"Caregiver\": {\n    \"phoneNumber\": \"89650345\",\n    \"relationTo\": \"Madre\"\n  }\n}",
                 "form": []
             },
             "tests": []
@@ -301,12 +301,12 @@
             "method": "POST",
             "sortNum": 120000,
             "created": "2023-10-02T22:19:51.567Z",
-            "modified": "2024-01-16T07:19:30.151Z",
+            "modified": "2024-02-01T22:03:10.742Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"subjectName\": \"Est.Sociales\"\n}",
+                "raw": "{\n  \"subjectName\": \"ciencias\"\n}",
                 "form": []
             },
             "tests": []
@@ -367,7 +367,7 @@
             "method": "POST",
             "sortNum": 70000,
             "created": "2023-10-02T22:19:51.571Z",
-            "modified": "2024-01-15T07:22:12.296Z",
+            "modified": "2024-02-03T07:04:05.808Z",
             "headers": [
                 {
                     "name": "Cookie",
@@ -378,7 +378,7 @@
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"studentId\": \"118050542\",\n  \"name\": \"Tirion\",\n  \"middleName\": \"Povlasky\",\n  \"lastName\": \"Draktlin\",\n  \"lastName2\": \"Monsseratte\",\n  \"birthDate\": \"2015-06-14\",\n  \"gender\": \"M\",\n  \"address\": \"Barrio chorotega, de la entrada principal 250mts sur,  30mtrs este, casa de color amarillo\",\n  \"caregiverId\": \"818050321\"\n}",
+                "raw": "{\n  \"id\": \"503200437\",\n  \"name\": \"Tirion\",\n  \"middleName\": \"Povlasky\",\n  \"lastName\": \"Drakattlin\",\n  \"lastName2\": \"Monsseratte\",\n  \"birthDate\": \"2015-06-14\",\n  \"gender\": \"M\",\n  \"address\": \"Barrio chorotega, de la entrada principal 250mts sur, 30mtrs este, casa de color amarillo\",\n  \"Student\": {\n    \"caregiverId\": \"818050321\"\n  }\n}",
                 "form": []
             },
             "tests": []
@@ -406,12 +406,12 @@
             "method": "POST",
             "sortNum": 10000,
             "created": "2023-10-02T22:19:51.573Z",
-            "modified": "2024-01-06T22:11:45.927Z",
+            "modified": "2024-02-03T07:20:38.141Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"functionaryId\": \"118050544\",\n  \"name\": \"Steven\",\n  \"middleName\": \"Javier\",\n  \"lastName\": \"Marín\",\n  \"lastName2\": \"Diaz\",\n  \"birthDate\": \"2000-01-18\",\n  \"age\": 0,\n  \"gender\": \"m\",\n  \"address\": \"Buenos Aires\"\n}",
+                "raw": "{\n  \"id\": \"118050546\",\n  \"name\": \"Steven\",\n  \"middleName\": \"Javier\",\n  \"lastName\": \"Marín\",\n  \"lastName2\": \"Diaz\",\n  \"birthDate\": \"2000-01-18\",\n  \"gender\": \"M\",\n  \"address\": \"Buenos Aires\",\n  \"Functionary\": {\n    \"degree\": \"Licensiado en Pedagogia\",\n    \"position\": \"Profesor\",\n    \"yearsService\": \"10\",\n    \"specialty\": \"Neuro ciencia\",\n    \"professionalGroup\": \"ET1\",\n    \"phoneNumber\": \"89650345\"\n  }\n}",
                 "form": []
             },
             "tests": []
@@ -654,12 +654,12 @@
             "method": "POST",
             "sortNum": 270000,
             "created": "2023-10-02T22:19:51.588Z",
-            "modified": "2024-01-15T03:24:43.983Z",
+            "modified": "2024-02-01T22:06:27.107Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n  \"roleName\": \"schema3\",\n  \"privilegeLevel\": \"5\",\n  \"description\": \"a\",\n  \"User\": [\n    {\n      \"s\":1\n    }]\n}",
+                "raw": "{\n  \"roleName\": \"schema3d\",\n  \"privilegeLevel\": \"5\",\n  \"description\": \"a\"\n}",
                 "form": []
             },
             "tests": []
@@ -1111,17 +1111,13 @@
             "method": "POST",
             "sortNum": 530000,
             "created": "2023-10-09T04:53:26.857Z",
-            "modified": "2023-10-09T08:06:46.209Z",
+            "modified": "2024-02-01T22:04:28.245Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
                 "raw": "{\n   \"nombreCateInsumo\":\"otra cosa\",\n   \"descripcionCateInsumo\":\"kk Electronicos\"\n}",
                 "form": []
-            },
-            "auth": {
-                "type": "bearer",
-                "bearer": "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6MSwicm9sIjoiRGlyZWN0b3IiLCJpYXQiOjE2OTY4Mzg3NjksImV4cCI6MTY5NjkyNTE2OX0.WbThYlq-4kcubAYw2l5P60tun-3jP2KlOuCIJk1Y1u"
             },
             "tests": []
         },
@@ -1370,7 +1366,7 @@
             "_id": "8b64997f-323d-4d27-bbb7-011605ef33e8",
             "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
             "containerId": "283f86a9-86d2-4967-8464-d1b7877a047c",
-            "name": "Dowload",
+            "name": "Download",
             "url": "files/3c9ef605-c1f7-44be-bac7-f1c68d6abd7f/dowload",
             "method": "GET",
             "sortNum": 420000,
@@ -1507,16 +1503,16 @@
             "colId": "129b9698-3fd5-4f08-84ab-5888d7525edb",
             "containerId": "a29da33b-9bcf-4432-b5ce-fda96bdda329",
             "name": "AddFunctionarySubject",
-            "url": "functionaries/712345443/subjects",
+            "url": "functionaries/990b012e-280e-4e09-b9ca-7e5123314274/subjects",
             "method": "POST",
             "sortNum": 10000,
             "created": "2023-12-23T21:11:14.873Z",
-            "modified": "2024-01-16T07:44:31.452Z",
+            "modified": "2024-02-01T22:00:00.237Z",
             "headers": [],
             "params": [],
             "body": {
                 "type": "json",
-                "raw": "{\n \"subjectId\": [1,2,4]\n}",
+                "raw": "{\n \"subjectId\": [1]\n}",
                 "form": []
             },
             "tests": []

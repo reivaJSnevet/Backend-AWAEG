@@ -1,6 +1,7 @@
 import { DataTypes, Op } from "sequelize";
 import bcrypt from "bcrypt";
 import db from "../config/db.js";
+import { ValidationError } from "../errors/index.js";
 
 const User = db.define(
 	"User",
@@ -13,14 +14,14 @@ const User = db.define(
 			validate: {
 				len: {
 					args: [1, 50],
-					msg: "The username must be between 1 and 50 characters long",
+					msg: "El nombre de usuario debe de contener entre 1 y 50 caracteres.",
 				},
 				is: {
 					args: /^[a-zA-Z0-9_áéíóúÁÉÍÓÚüÜñÑ]+$/i,
-					msg: "The username can only contain letters, numbers and underscores",
+					msg: "El nombre de usuario solo puede contener letras, numeros y guiones bajos."
 				},
 				notEmpty: {
-					msg: "The username can't be empty",
+					msg: "El nombre de usuario no puede estar vacío",
 				},
 			},
 		},
@@ -29,18 +30,18 @@ const User = db.define(
 			allowNull: false,
 			validate: {
 				isEmail: {
-					msg: "You must enter a valid email",
+					msg: "Debe de ingresar un correo electrónico",
 				},
 				notEmpty: {
-					msg: "Email can't be empty",
+					msg: "El correo electrónico no puede estar vacío",
 				},
 				len: {
 					args: [6, 255],
-					msg: "The email must be between 6 and 255 characters long",
+					msg: "El correo electrónico debe tener entre 6 y 255 caracteres",
 				},
 				is: {
 					args: /^[a-zA-Z0-9_.@áéíóúÁÉÍÓÚüÜñÑ]+$/i,
-					msg: "The email can only contain letters, numbers, underscores, periods, and arrobas",
+					msg: "El correo electrónico solo puede contener letras, números, guiones bajos, puntos y arrobas",
 				},
 			},
 		},
@@ -50,10 +51,10 @@ const User = db.define(
 			validate: {
 				len: {
 					args: [8, 255],
-					msg: "The password must be between 8 and 255 characters long",
+					msg: "La contraseña debe tener entre 8 y 255 caracteres",
 				},
 				notEmpty: {
-					msg: "Password can't be empty",
+					msg: "La contraseña no puede estar vacía",
 				},
 			},
 		},
@@ -71,7 +72,7 @@ const User = db.define(
 		paranoid: true, //Soft delete: deletedAt
 		defaultScope: {
             attributes: {
-                exclude: ["password", "createdAt", "updatedAt", "deletedAt"],
+                exclude: ["password", "createdAt", "updatedAt", "deletedAt", "token", "refreshToken", "recoveryToken"],
             },
         },
 		scopes: {
@@ -125,7 +126,7 @@ const hashPasswordBulk = async (users) => {
 // Class methods
 User.prototype.verifyPassword = function (password) {
 	if (!password || !this.password) {
-		throw new Error("Both password and hash need to be defined");
+		throw new ValidationError("No se ha ingresado una contraseña");
 	}
 	return bcrypt.compareSync(password, this.password); //return true or false
 };

@@ -1,11 +1,12 @@
 import { DataTypes } from "sequelize";
 import db from "../config/db.js";
+import { ValidationError } from "../errors/index.js";
 
 const Group = db.define(
 	"Group",
 	{
 		section: {
-			type: DataTypes.STRING,
+			type: DataTypes.STRING(10),
 			allowNull: false,
 			primaryKey: true,
 			unique: true,
@@ -13,9 +14,9 @@ const Group = db.define(
 				isSection(value) {
 					const pattern = /^[1-6]-[A-Za-z0-9]+$/;
 					if (!pattern.test(value)) {
-						throw new Error(
-							'section must be a string with the format "a-b" where a is a number between 1 and 6',
-						);
+                        throw new ValidationError(
+                            'La sección debe tener el formato "a-b" donde "a" es un número entre 1 y 6',
+                        );
 					}
 				},
 			},
@@ -49,7 +50,7 @@ const Group = db.define(
 							"sexto",
 						],
 					],
-					msg: "The grade must be materno, transición, primero, segundo, tercero, cuarto, quinto or sexto",
+					msg: "El grado debe ser materno, transición, primero, segundo, tercero, cuarto, quinto o sexto",
 				},
 			},
 			set(value) {
@@ -62,7 +63,7 @@ const Group = db.define(
 			validate: {
 				isIn: {
 					args: [["prescolar", "I", "II"]],
-					msg: "The cycle must be prescolar, I or II",
+					msg: "El ciclo debe ser prescolar, I o II",
 				},
 			},
 		},
@@ -72,14 +73,14 @@ const Group = db.define(
 			validate: {
 				len: {
 					args: [1, 20],
-					msg: "The classroom name must be between 1 and 20 characters long",
+					msg: "El nombre del salón debe tener entre 1 y 20 caracteres",
 				},
 				is: {
 					args: /^[a-zA-Z0-9_áéíóúÁÉÍÓÚüÜñÑ ]+$/i,
-					msg: "The username can only contain letters, numbers and underscores",
+					msg: "El nombre del salón solo puede contener letras, números y espacios",
 				},
 				notEmpty: {
-					msg: "The classroom name can't be empty",
+					msg: "El nombre del salón no puede estar vacío",
 				},
 			},
 		},
@@ -89,11 +90,11 @@ const Group = db.define(
 			defaultValue: 0,
 			validate: {
 				isNumeric: {
-					msg: "The student count must be a number",
+					msg: "El conteo de estudiantes debe ser un número entero",
 				},
 				min: {
 					args: [0],
-					msg: "The student count can't be less than 0",
+					msg: "El conteo de estudiantes no puede ser negativo, minimo 0",
 				},
 			},
 		},
@@ -103,7 +104,7 @@ const Group = db.define(
 			validate: {
 				isIn: {
 					args: [["matutino", "vespertino"]],
-					msg: "The shift must be matutino or vespertino",
+					msg: "El turno debe ser matutino o vespertino",
 				},
 			},
 			set(value) {
@@ -141,11 +142,9 @@ const avoidGroupConflict = async (group) => {
 	});
 
 	if (groups) {
-		const conflict = new Error(
-			"There is already a group with that classroom and shift",
-		);
-		conflict.name = "GroupConflict";
-		throw conflict;
+		throw new ValidationError(
+            "Ya existe un grupo con el mismo salón y turno",
+        );
 	}
 };
 

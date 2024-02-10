@@ -17,14 +17,14 @@ const Role = db.define(
 			validate: {
 				len: {
 					args: [3, 50],
-					msg: "The name must be between 3 and 50 characters long",
+					msg: "El nombre debe tener entre 3 y 50 caracteres",
 				},
 				is: {
 					args: /^[a-zA-Z0-9_ áéíóúÁÉÍÓÚüÜñÑ]+$/i,
-					msg: "The name can only contain letters, numbers, spaces, and underscores",
+					msg: "El nombre solo puede contener letras, números, espacios y guiones bajos",
 				},
 				notEmpty: {
-					msg: "The name can't be empty",
+					msg: "El nombre no puede estar vacío",
 				},
 			},
             set(value) {
@@ -36,11 +36,11 @@ const Role = db.define(
 			allowNull: false,
 			validate: {
 				isInt: {
-					msg: "The privilege level must be an integer",
+					msg: "El nivel de privilegio debe ser un número entero",
 				},
 				isIn: {
 					args: [[1, 2, 3, 4, 5]],
-					msg: "The privilege level must be between 1 and 5",
+					msg: "El nivel de privilegio debe estar entre 1 y 5",
 				},
 			},
 		},
@@ -50,15 +50,15 @@ const Role = db.define(
 			allowNull: false,
 			validate: {
 				notEmpty: {
-					msg: "The description can't be empty",
+					msg: "La descripción no puede estar vacía",
 				},
 				len: {
 					args: [0, 255],
-					msg: "The description has a maximum of 255 characters",
+					msg: "La descripción debe tener como máximo 255 caracteres",
 				},
 				is: {
 					args: /^[a-zA-Z0-9_ áéíóúÁÉÍÓÚüÜñÑ]+$/i,
-					msg: "The description can only contain letters, numbers, spaces, and underscores",
+					msg: "La descripción solo puede contener letras, números, espacios y guiones bajos",
 				},
 			},
 		},

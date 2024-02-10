@@ -1,18 +1,12 @@
-import express from 'express';
+import { Router } from 'express';
 import RoleController from '../controllers/roleController.js';
-import verifyRole from '../middlewares/verifyRole.js';
-import validateSchema from "../middlewares/validationMiddleware.js";
-import { roleSchemaCreate, roleSchemaUpdate } from '../models/Schemas/roleSchema.js';
 
+const roleRouter = Router();
 
-
-const roleRouter = express.Router();
-
-
-roleRouter.post('/roles', verifyRole(1), validateSchema(roleSchemaCreate) ,RoleController.postRole);
-roleRouter.get('/roles', verifyRole(1), RoleController.getAllRoles);
-roleRouter.get('/roles/:id', verifyRole(1), RoleController.getRoleById);
-roleRouter.put('/roles/:id', verifyRole(1), validateSchema(roleSchemaUpdate), RoleController.putRole);
-roleRouter.delete('/roles/:id', verifyRole(1), RoleController.deleteRole);
+roleRouter.post('/roles', RoleController.postRole);
+roleRouter.get('/roles', RoleController.getAllRoles);
+roleRouter.get('/roles/:id', RoleController.getRoleById);
+roleRouter.put('/roles/:id', RoleController.putRole);
+roleRouter.delete('/roles/:id', RoleController.deleteRole);
 
 export default roleRouter;

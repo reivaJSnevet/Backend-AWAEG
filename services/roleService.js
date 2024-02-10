@@ -1,4 +1,5 @@
 import roleRepository from "../repositories/roleRepository.js";
+import { NotFoundError, ValidationError } from "../errors/index.js";
 
 const roleService = {
 	createRol: async (role) => {
@@ -6,29 +7,7 @@ const roleService = {
 			const newRole = await roleRepository.create(role);
 			return newRole;
 		} catch (error) {
-			const errors = [];
-			if (error.name === "SequelizeUniqueConstraintError") {
-				error.errors.forEach((e) => {
-					errors.push({
-						type: "UniqueConstraintError",
-						message: e.message,
-						field: e.path,
-					});
-				});
-			} else if (error.name === "SequelizeValidationError") {
-				error.errors.forEach((e) => {
-					errors.push({
-						type: "ValidationError",
-						message: e.message,
-						field: e.path,
-					});
-				});
-			} else {
-				throw error;
-			}
-			throw errors;
-
-			//Podria poner codigo al error al personalizarlos, asi en la siguiente capa se pueda manejar en un if con el codigo de error http
+			throw error; 
 		}
 	},
 
@@ -44,6 +23,10 @@ const roleService = {
 	getRoleById: async (roleId) => {
 		try {
 			const role = await roleRepository.getById(roleId);
+            if (!role) {
+                throw new NotFoundError("Role", roleId);
+            }
+
 			return role;
 		} catch (error) {
 			throw error;
@@ -52,48 +35,30 @@ const roleService = {
 
 	updateRole: async (roleId, updatedFields) => {
 		try {
-
 			const roleUpdated = await roleRepository.update(
 				roleId,
 				updatedFields,
 			);
+            if (!roleUpdated) {
+                throw new NotFoundError("Role", roleId);
+            }
 
 			return roleUpdated;
 		} catch (error) {
-			const errors = [];
-			if (error.name === "SequelizeUniqueConstraintError") {
-				error.errors.forEach((e) => {
-					errors.push({
-						type: "UniqueConstraintError",
-						message: e.message,
-						field: e.path,
-					});
-				});
-			} else if (error.name === "SequelizeValidationError") {
-				error.errors.forEach((e) => {
-					errors.push({
-						type: "ValidationError",
-						message: e.message,
-						field: e.path,
-					});
-				});
-			} else {
-				throw error;
-			}
-			throw errors;
+			throw error;
 		}
 	},
 
 	deleteRole: async (roleId) => {
 		try {
 			const role = await roleRepository.getById(roleId);
-
+            if (!role) {
+                throw new NotFoundError("Role", roleId);
+            }
 			if (role?.privilegeLevel === 1) {
-				const forbiddenError = new Error(
-					`The role '${role.roleName}' must not be deleted. Please request assistance from the database administrator`,
-				);
-                forbiddenError.name = "ForbiddenError";
-                throw forbiddenError;
+				throw new ValidationError(
+                    "Cannot delete a role with privilege level 1",
+                );
 			}
 
 			const roleDeleted = await roleRepository.delete(roleId);

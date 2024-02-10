@@ -36,9 +36,10 @@ const preRegistrationRepository = {
 				updatedFields,
 				{
 					where: { preRegistrationId },
+                    individualHooks: true
 				},
 			);
-			return preRegistrationUpdated[0];
+			return preRegistrationUpdated[1][0];
 		} catch (error) {
 			throw error;
 		}

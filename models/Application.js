@@ -17,7 +17,7 @@ const Application = db.define(
 			validate: {
 				isIn: {
 					args: [["pending", "approved", "rejected"]],
-					msg: "The status must be pending, approved or rejected",
+					msg: "El estado debe ser 'pending', 'approved' o 'rejected'",
 				},
 			},
 		},
@@ -27,14 +27,14 @@ const Application = db.define(
 			validate: {
 				len: {
 					args: [1, 50],
-					msg: "The type must be between 1 and 50 characters long",
+					msg: "El tipo debe tener entre 1 y 50 caracteres",
 				},
 				is: {
 					args: /^[a-zA-Z áéíóúÁÉÍÓÚüÜñÑ]+$/i,
-					msg: "The type can only contain letters and spaces",
+					msg: "El tipo solo puede contener letras y espacios",
 				},
 				notEmpty: {
-					msg: "The type can't be empty",
+					msg: "El tipo no puede estar vacío",
 				},
 				set(value) {
 					this.setDataValue("type", value.toLowerCase());

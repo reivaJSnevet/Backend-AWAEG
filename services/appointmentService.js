@@ -1,4 +1,5 @@
 import appointmentRepository from "../repositories/appointmentRepository.js";
+import { NotFoundError } from "../errors/index.js";
 
 const appointmentService = {
 	createAppointment: async (appointment) => {
@@ -7,28 +8,7 @@ const appointmentService = {
 				await appointmentRepository.create(appointment);
 			return newAppointment;
 		} catch (error) {
-			const errors = [];
-
-			if (error.name === "SequelizeValidationError") {
-				if (error.errors) {
-					error.errors.forEach((e) => {
-						errors.push({
-							type: "ValidationError",
-							message: e.message,
-							field: e.path,
-						});
-					});
-				} else {
-					errors.push({
-						type: "ValidationError",
-						message: error.message,
-						field: error.path,
-					});
-				}
-			} else {
-				throw error;
-			}
-			throw errors;
+			throw error;
 		}
 	},
 
@@ -45,6 +25,11 @@ const appointmentService = {
 		try {
 			const appointment =
 				await appointmentRepository.getById(appointmentId);
+
+            if (!appointment) {
+                throw new NotFoundError("Appointment", appointmentId);
+            }
+
 			return appointment;
 		} catch (error) {
 			throw error;
@@ -57,23 +42,14 @@ const appointmentService = {
 				appointmentId,
 				updatedFields,
 			);
+
+            if (!appointmentUpdated) {
+                throw new NotFoundError("Appointment", appointmentId);
+            }
+
 			return appointmentUpdated;
 		} catch (error) {
-			const errors = [];
-
-			if (error.name === "SequelizeValidationError") {
-				const errors = [];
-				error.errors.forEach((e) => {
-					errors.push({
-						type: "ValidationError",
-						message: e.message,
-						field: e.path,
-					});
-				});
-			} else {
-				throw error;
-			}
-			throw errors;
+			throw error;
 		}
 	},
 
@@ -81,6 +57,11 @@ const appointmentService = {
 		try {
 			const appointmentDeleted =
 				await appointmentRepository.delete(appointmentId);
+
+            if (!appointmentDeleted) {
+                throw new NotFoundError("Appointment", appointmentId);
+            }
+            
 			return appointmentDeleted;
 		} catch (error) {
 			throw error;

@@ -1,11 +1,16 @@
+import bcrypt from "bcrypt";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 import path from "path";
+import { UnauthorizedError, ForbiddenError } from "../errors/index.js";
 import authRepository from "../repositories/authRepository.js";
-import { generateAccessToken, generateRefreshToken, verifySignature } from "../helpers/tokens/jwt.js";
+import {
+	generateAccessToken,
+	generateRefreshToken,
+	verifySignature,
+} from "../helpers/tokens/jwt.js";
 import { generateForgotToken } from "../helpers/tokens/forgotPasswordToken.js";
 import sendForgotPasswordEmail from "../helpers/emails/forgotPasswordEmail.js";
-import bcrypt from "bcrypt";
 
 const __CURRENT_DIR = dirname(fileURLToPath(import.meta.url));
 const __FILE_DIR = join(__CURRENT_DIR, "../");
@@ -15,22 +20,19 @@ const authService = {
 		try {
 			const user = await authRepository.getByUserName(username);
 			if (!user) {
-				const invalidUsername = new Error("Invalid username");
-				invalidUsername.name = "InvalidUsername";
-				throw invalidUsername;
+				throw new UnauthorizedError("Invalid username");
 			}
-
-            if(!user.verifyEmail) {
-                const invalidEmail = new Error("Please verify your email");
-                invalidEmail.name = "InvalidEmail";
-                throw invalidEmail;
-            }
 
 			const isMatch = await user.verifyPassword(password);
 			if (!isMatch) {
-				const invalidPassword = new Error("Invalid password");
-				invalidPassword.name = "InvalidPassword";
-				throw invalidPassword;
+				throw new UnauthorizedError("Invalid password");
+			}
+
+			if (!user.verifyEmail) {
+				throw new UnauthorizedError(
+					"authService login: Email not verified",
+					"Email not verified, please verify your email to be part of out system",
+				);
 			}
 
 			const accessToken = generateAccessToken(user);
@@ -39,7 +41,15 @@ const authService = {
 			user.refreshToken = refreshToken;
 			await user.save();
 
-			return { accessToken, refreshToken, user};
+			return {
+				accessToken,
+                refreshToken,
+				user: {
+					userName: user.userName,
+					personId: user.Person.id,
+					Role: user.Role.roleName,
+				},
+			};
 		} catch (error) {
 			throw error;
 		}
@@ -49,13 +59,8 @@ const authService = {
 		try {
 			const user = await authRepository.getByRefreshToken(refreshToken);
 			if (!user) {
-				const invalidRefreshToken = new Error(
-					"Invalid refresh token, user please login again",
-				);
-				invalidRefreshToken.name = "InvalidRefreshToken";
-				throw invalidRefreshToken;
+				throw new ForbiddenError(refreshToken);
 			}
-
 			user.refreshToken = null;
 			return await user.save();
 		} catch (error) {
@@ -68,22 +73,23 @@ const authService = {
 			const user = await authRepository.getByRefreshToken(refreshToken);
 
 			if (!user) {
-				const invalidRefreshToken = new Error(
-					"Invalid refresh token, user not found",
+				throw new ForbiddenError(
+					"authService handleRefreshToken: getByRefreshToken()",
+					refreshToken,
 				);
-				invalidRefreshToken.name = "InvalidRefreshToken";
-				throw invalidRefreshToken;
 			}
 
-            const decoded = await verifySignature(refreshToken, process.env.JWT_REFRESH_SECRET);
+			const decoded = await verifySignature(
+				refreshToken,
+				process.env.JWT_REFRESH_SECRET,
+			);
 
-            if(!decoded) {
-                const invalidRefreshToken = new Error(
-                    "Invalid refresh token, this token is not signed",
-                );
-                invalidRefreshToken.name = "InvalidRefreshToken";
-                throw invalidRefreshToken;
-            }
+			if (!decoded) {
+				throw new ForbiddenError(
+					"authService handleRefreshToken: verifySignature()",
+					refreshToken,
+				);
+			}
 
 			const accessToken = generateAccessToken(user);
 			return { accessToken };
@@ -97,64 +103,74 @@ const authService = {
 			const user = await authRepository.getByToken(token);
 
 			if (!user) {
-				const invalidTokenError = new Error("Invalid token");
-				invalidTokenError.name = "InvalidToken";
-				throw invalidTokenError;
+				throw new ForbiddenError(
+					"authService confirmEmail: getByToken()",
+					token,
+				);
 			}
 
 			user.verifyEmail = true;
 			user.token = null;
 
-            await user.save();
+			await user.save();
 
-            const confirmEmailView = path.join(__FILE_DIR, 'views', 'emailVerification.html');
-			return confirmEmailView
-
+			const confirmEmailView = path.join(
+				__FILE_DIR,
+				"views",
+				"emailVerification.html",
+			);
+			return confirmEmailView;
 		} catch (error) {
 			throw error;
 		}
 	},
 
-    forgotPassword: async (email) => {
-        try {
-            const user = await authRepository.getByEmail(email);
+	forgotPassword: async (email) => {
+		try {
+			const user = await authRepository.getByEmail(email);
 
-            if (!user || !user.verifyEmail) {
-                const invalidEmailError = new Error("Invalid email or email not verified");
-                invalidEmailError.name = "InvalidEmail";
-                throw invalidEmailError;
-            }
+			if (!user) {
+				throw new UnauthorizedError("Invalid email");
+			}
 
-            const token = generateForgotToken(user);
+			if (!user.verifyEmail) {
+				throw new UnauthorizedError("Email not verified");
+			}
 
-            user.recoveryToken = token;
-            await user.save();
+			const token = generateForgotToken(user);
 
-            return await sendForgotPasswordEmail(user.email, token);   
-        } catch (error) {
-            throw error;
-        }
-    },
+			user.recoveryToken = token;
+			await user.save();
 
-    resetPassword: async (token, password) => {
-        try {
-            const user = await authRepository.getByRecoveryToken(token);
+			return await sendForgotPasswordEmail(user.email, token);
+		} catch (error) {
+			throw error;
+		}
+	},
 
-            if (!user || !user.verifyEmail) {
-                const invalidTokenError = new Error("Invalid token or email not verified");
-                invalidTokenError.name = "InvalidToken";
-                throw invalidTokenError;
-            }
+	resetPassword: async (token, password) => {
+		try {
+			const user = await authRepository.getByRecoveryToken(token);
 
+			if (!user) {
+				throw new ForbiddenError(
+					"authService resetPassword: getByRecoveryToken()",
+					token,
+				);
+			}
 
-            const salt = await bcrypt.genSalt(10);
-            user.password = await bcrypt.hash(password, salt);
-            user.recoveryToken = null;
-            return await user.save();
-        } catch (error) {
-            throw error;
-        }
-    },  
+			if (!user.verifyEmail) {
+				throw new UnauthorizedError("Email not verified");
+			}
+
+			const salt = await bcrypt.genSalt(10);
+			user.password = await bcrypt.hash(password, salt);
+			user.recoveryToken = null;
+			return await user.save();
+		} catch (error) {
+			throw error;
+		}
+	},
 };
 
 export default authService;

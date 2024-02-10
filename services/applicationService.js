@@ -1,4 +1,5 @@
 import applicationRepository from "../repositories/applicationRepository.js";
+import { NotFoundError } from "../errors/index.js";
 
 const applicationService = {
 	getAll: async () => {
@@ -14,6 +15,9 @@ const applicationService = {
 		try {
 			const application =
 				await applicationRepository.getById(applicationId);
+            if (!application) {
+                throw new NotFoundError("Application", applicationId);
+            }
 			return application;
 		} catch (error) {
 			throw error;

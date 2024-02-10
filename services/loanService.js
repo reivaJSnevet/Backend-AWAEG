@@ -1,4 +1,5 @@
 import loanRepository from "../repositories/loanRepository.js";
+import { NotFoundError } from "../errors/index.js";
 
 const loanService = {
 	createLoan: async (loan) => {
@@ -6,27 +7,7 @@ const loanService = {
 			const newLoan = await loanRepository.create(loan);
 			return newLoan;
 		} catch (error) {
-			const errors = [];
-			if (error.name === "SequelizeUniqueConstraintError") {
-				error.errors.forEach((e) => {
-					errors.push({
-						type: "Unique Constraint Error",
-						message: e.message,
-						field: e.path,
-					});
-				});
-			} else if (error.name === "SequelizeValidationError") {
-				error.errors.forEach((e) => {
-					errors.push({
-						type: "Validation Error",
-						message: e.message,
-						field: e.path,
-					});
-				});
-			} else {
-				throw error;
-			}
-			throw errors;
+			throw error;
 		}
 	},
 
@@ -42,6 +23,10 @@ const loanService = {
 	getLoanById: async (loanId) => {
 		try {
 			const loan = await loanRepository.getById(loanId);
+			if (!loan) {
+				throw new NotFoundError("Loan", loanId);
+			}
+
 			return loan;
 		} catch (error) {
 			throw error;
@@ -54,35 +39,23 @@ const loanService = {
 				loanId,
 				updatedFields,
 			);
-			return loanUpdated[0];
-		} catch (error) {
-			const errors = [];
-			if (error.name === "SequelizeUniqueConstraintError") {
-				error.errors.forEach((e) => {
-					errors.push({
-						type: "Unique Constraint Error",
-						message: e.message,
-						field: e.path,
-					});
-				});
-			} else if (error.name === "SequelizeValidationError") {
-				error.errors.forEach((e) => {
-					errors.push({
-						type: "Validation Error",
-						message: e.message,
-						field: e.path,
-					});
-				});
-			} else {
-				throw error;
+			if (!loanUpdated) {
+				throw new NotFoundError("Loan", loanId);
 			}
-			throw errors;
+
+			return loanUpdated;
+		} catch (error) {
+			throw error;
 		}
 	},
 
 	deleteLoan: async (loanId) => {
 		try {
 			const loanDeleted = await loanRepository.delete(loanId);
+			if (!loanDeleted) {
+				throw new NotFoundError("Loan", loanId);
+			}
+
 			return loanDeleted;
 		} catch (error) {
 			throw error;

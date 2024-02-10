@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import db from "../config/db.js";
+import { ValidationError } from "../errors/index.js";
 
 const Appointment = db.define(
 	"Appointment",
@@ -15,14 +16,14 @@ const Appointment = db.define(
 			allowNull: false,
 			validate: {
 				notEmpty: {
-					msg: "The date can't be empty",
+					msg: "La fecha no puede estar vacía",
 				},
 				isDate: {
-					msg: "The date must be a valid date",
+					msg: "La fecha debe ser una fecha válida",
 				},
 				isAfter: {
 					args: new Date().toDateString(),
-					msg: "The date must be after today",
+					msg: "La fecha no puede ser anterior a hoy",
 				},
 			},
 		},
@@ -31,18 +32,18 @@ const Appointment = db.define(
 			allowNull: false,
 			validate: {
 				notEmpty: {
-					msg: "The hour can't be empty",
+					msg: "La hora no puede estar vacía",
 				},
 				isTime(value) {
 					if (!value.match(/^(0[0-9]|1[0-9]|2[0-3]):[0-5][0-9]$/)) {
-						throw new Error("The hour must be in the format HH:MM");
+						throw new ValidationError("La hora debe ser una hora válida");
 					}
 				},
 				isBetween(value) {
 					if (value < "08:00" || value > "15:00") {
-						throw new Error(
-							"The hour must be between 08:00 and 18:00 (8am and 5pm)",
-						);
+						throw new ValidationError(
+                            "La hora debe estar entre las 08:00 y las 15:00",
+                        );
 					}
 				},
 			},
@@ -53,18 +54,18 @@ const Appointment = db.define(
 			allowNull: false,
 			validate: {
 				notEmpty: {
-					msg: "The duration can't be empty",
+					msg: "La duración no puede estar vacía",
 				},
 				isInt: {
-					msg: "The duration must be an integer",
+					msg: "La duración debe ser un número entero",
 				},
 				min: {
 					args: [15],
-					msg: "The duration can't be less than 15 minutes",
+					msg: "La duración no puede ser menor a 15 minutos",
 				},
 				max: {
 					args: [60],
-					msg: "The duration can't be more than 60 minutes (1 hour)",
+					msg: "La duración no puede ser mayor a 60 minutos",
 				},
 			},
 		},
@@ -74,14 +75,14 @@ const Appointment = db.define(
 			validate: {
 				len: {
 					args: [1, 50],
-					msg: "The location must be between 1 and 50 characters long",
+					msg: "La ubicación no puede tener más de 50 caracteres",
 				},
 				is: {
 					args: /^[a-zA-Z áéíóúÁÉÍÓÚüÜñÑ,:"-]+$/i,
-					msg: "The location can only contain letters and spaces",
+					msg: "La ubicación solo puede contener letras, espacios, comas, guiones y comillas dobles",
 				},
 				notEmpty: {
-					msg: "The location can't be empty",
+					msg: "La ubicación no puede estar vacía",
 				},
 				set(value) {
 					this.setDataValue("location", value.toLowerCase());
@@ -94,11 +95,11 @@ const Appointment = db.define(
 			validate: {
 				len: {
 					args: [0, 255],
-					msg: "The description can't be more than 255 characters long",
+					msg: "La descripción no puede tener más de 255 caracteres",
 				},
 				is: {
 					args: /^[a-zA-Z áéíóúÁÉÍÓÚüÜñÑ-]+$/i,
-					msg: "The description can only contain letters and spaces",
+					msg: "La descripción solo puede contener letras, espacios y guiones",
 				},
 			},
 		},
@@ -123,7 +124,7 @@ const Appointment = db.define(
 							"expired",
 						],
 					],
-					msg: "The status must be available, booked, cancelled, completed or expired",
+					msg: "El estado no es válido, los valores válidos son: available, booked, cancelled, completed, expired",
 				},
 			},
 		},
@@ -169,17 +170,13 @@ const avoidConflict = async (appointment) => {
 		);
 
 		if (dateStart >= dateStart2 && dateStart <= dateEnd2) {
-			const error = new Error(
-				`You can not book an appointment on this date and hour, there is a conflict with another appointment ${appointment2.date} ${appointment2.hour}`,
-			);
-			error.name = "SequelizeValidationError";
-			throw error;
+			throw new ValidationError(
+                `No se puede agendar una cita en esta fecha y hora, hay un conflicto con otra cita ${appointment2.date} ${appointment2.hour}`,
+            );
 		} else if (dateEnd >= dateStart2 && dateEnd <= dateEnd2) {
-			const error = new Error(
-				`You can not book an appointment on this date and hour, there is a conflict with another appointment ${appointment2.date} ${appointment2.hour}`,
-			);
-			error.name = "SequelizeValidationError";
-			throw error;
+			throw new ValidationError(
+                `No se puede agendar una cita en esta fecha y hora, hay un conflicto con otra cita ${appointment2.date} ${appointment2.hour}`,
+            );
 		}
 	});
 };

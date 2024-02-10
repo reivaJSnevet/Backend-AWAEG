@@ -1,4 +1,5 @@
 import groupRepository from "../repositories/groupRepository.js";
+import { NotFoundError } from "../errors/index.js";
 
 const groupService = {
     createGroup: async (group) => {
@@ -6,28 +7,7 @@ const groupService = {
             const newGroup = await groupRepository.create(group);
             return newGroup;
         } catch (error) {
-            const errors = [];
-
-            if (error.name === "SequelizeUniqueConstraintError") {
-                error.errors.forEach((e) => {
-                    errors.push({
-                        type: "UniqueConstraintError",
-                        message: e.message,
-                        field: e.path,
-                    });
-                });
-            } else if (error.name === "SequelizeValidationError") {
-                error.errors.forEach((e) => {
-                    errors.push({
-                        type: "ValidationError",
-                        message: e.message,
-                        field: e.path,
-                    });
-                });
-            } else {
-                throw error;
-            }
-            throw errors;
+            throw error;
         }
     },
 
@@ -43,6 +23,10 @@ const groupService = {
     getGroupById: async (groupId) => {
         try {
             const group = await groupRepository.getById(groupId);
+            if (!group) {
+                throw new NotFoundError("Group", groupId);
+            }
+
             return group;
         } catch (error) {
             throw error;
@@ -52,36 +36,23 @@ const groupService = {
     updateGroup: async (groupId, updatedFields) => {
         try {
             const groupUpdated = await groupRepository.update(groupId, updatedFields);
+            if (!groupUpdated) {
+                throw new NotFoundError("Group", groupId);
+            }
+
             return groupUpdated;
         } catch (error) {
-            const errors = [];
-
-            if (error.name === "SequelizeUniqueConstraintError") {
-                error.errors.forEach((e) => {
-                    errors.push({
-                        type: "UniqueConstraintError",
-                        message: e.message,
-                        field: e.path,
-                    });
-                });
-            } else if (error.name === "SequelizeValidationError") {
-                error.errors.forEach((e) => {
-                    errors.push({
-                        type: "ValidationError",
-                        message: e.message,
-                        field: e.path,
-                    });
-                });
-            } else {
-                throw error;
-            }
-            throw errors;
+            throw error;
         }
     },
 
     deleteGroup: async (groupId) => {
         try {
             const groupDeleted = await groupRepository.delete(groupId);
+            if (!groupDeleted) {
+                throw new NotFoundError("Group", groupId);
+            }
+
             return groupDeleted;
         } catch (error) {
             throw error;

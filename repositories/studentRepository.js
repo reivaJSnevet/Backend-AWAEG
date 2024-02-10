@@ -1,5 +1,7 @@
+import db from "../config/db.js";
 import {
 	Student,
+	Person,
 	Caregiver,
 	Group,
 	User,
@@ -10,38 +12,46 @@ import {
 
 const studentRepository = {
 	create: async (student) => {
+		const t = await db.transaction();
 		try {
-			const newStudent = await Student.create(student);
+			const newStudent = await Person.create(
+				{ ...student, type: "student" },
+				{
+					include: [Student],
+					transaction: t,
+				},
+			);
+
+			await t.commit();
 			return newStudent;
 		} catch (error) {
+			await t.rollback();
 			throw error;
 		}
 	},
 
 	getAll: async () => {
 		try {
-			const students = await Student.findAll({
+			const students = await Person.findAll({
 				include: [
 					{
-						model: Caregiver,
-					},
-					{
-						model: Group,
-					},
-					{
 						model: User,
-						attributes: ["userName", "email"],
-						include: [
-							{
-								model: Role,
-							},
-						],
+						include: [Role],
 					},
 					{
-						model: Grade,
+						model: Student,
+						required: true,
 						include: [
 							{
-								model: Subject,
+								model: Caregiver,
+								include: [Person],
+							},
+							{
+								model: Grade,
+								include: [Subject],
+							},
+							{
+								model: Group,
 							},
 						],
 					},
@@ -55,7 +65,32 @@ const studentRepository = {
 
 	getById: async (studentId) => {
 		try {
-			const student = await Student.findByPk(studentId);
+			const student = await Person.findOne({
+				where: { id: studentId },
+				include: [
+					{
+						model: User,
+						include: [Role],
+					},
+					{
+						model: Student,
+						required: true,
+						include: [
+							{
+								model: Caregiver,
+								include: [Person],
+							},
+							{
+								model: Grade,
+								include: [Subject],
+							},
+							{
+								model: Group,
+							},
+						],
+					},
+				],
+			});
 			return student;
 		} catch (error) {
 			throw error;
@@ -65,10 +100,10 @@ const studentRepository = {
 	update: async (studentId, updatedFields) => {
 		try {
 			const studentUpdated = await Student.update(updatedFields, {
-				where: { studentId },
+				where: { personId: studentId },
 				individualHooks: true,
 			});
-			return studentUpdated[0];
+			return studentUpdated[1][0];
 		} catch (error) {
 			throw error;
 		}
@@ -76,8 +111,8 @@ const studentRepository = {
 
 	delete: async (studentId) => {
 		try {
-			const studentDeleted = await Student.destroy({
-				where: { studentId },
+			const studentDeleted = await Person.destroy({
+				where: { id: studentId },
 			});
 			return studentDeleted;
 		} catch (error) {

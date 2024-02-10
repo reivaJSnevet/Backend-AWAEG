@@ -1,5 +1,6 @@
 import Role from "./Role.js";
 import User from "./User.js";
+import Person from "./Person.js";
 import Functionary from "./Functionary.js";
 import Subject from "./Subject.js";
 import Application from "./Application.js";
@@ -12,9 +13,6 @@ import Group from "./Group.js";
 import Class from "./Class.js";
 import Grade from "./Grade.js";
 import Timetable from "./Timetable.js";
-import StudentSupplie from "./StudentSupplie.js";
-import CategorySupplie from "./CategorySupplie.js";
-import InstitutionalSupplie from "./InstitutionalSupplie.js";
 import Loan from "./Loan.js";
 import Flaw from "./Flaw.js";
 
@@ -23,12 +21,21 @@ import Flaw from "./Flaw.js";
 Role.hasMany(User, { foreignKey: "roleId" });
 User.belongsTo(Role, { foreignKey: "roleId" });
 
-// User-related associations
-User.hasOne(Functionary, { foreignKey: { name: "userName", allowNull: true }});
-Functionary.belongsTo(User, { foreignKey: "userName"});
+// Person-related associations
+Person.hasOne(User, { foreignKey: { name: "personId", allowNull: false }, onDelete: "CASCADE", });
+User.belongsTo(Person, { foreignKey: { name: "personId", allowNull: false }, onDelete: "CASCADE" });
 
-User.hasOne(Student, { foreignKey: { name: "userName", allowNull: true}});
-Student.belongsTo(User, { foreignKey: "userName"});
+Person.hasOne(Functionary, { foreignKey: { name: "personId", allowNull: false }, onDelete: "CASCADE" });
+Functionary.belongsTo(Person, { foreignKey: { name: "personId", allowNull: false }, onDelete: "CASCADE" });
+
+Person.hasOne(Student, { foreignKey: { name: "personId", allowNull: false }, unique: true, onDelete: "CASCADE" });
+Student.belongsTo(Person, { foreignKey: { name: "personId", allowNull: false }, unique: true, onDelete: "CASCADE" });
+
+Person.hasOne(Caregiver, { foreignKey: { name: "personId", allowNull: false }, onDelete: "CASCADE", onUpdate: "CASCADE"});
+Caregiver.belongsTo(Person, { foreignKey: { name: "personId", allowNull: false }, onDelete: "CASCADE", onUpdate: "CASCADE"});
+
+Person.hasMany(Loan, { foreignKey: {name: "userName", allowNull: false }, onDelete: "CASCADE", as: "Debtor" });
+Loan.belongsTo(Person, { foreignKey: {name: "userName", allowNull: false }, onDelete: "CASCADE", as: "Debtor" });
 
 // Functionary-related associations
 Functionary.belongsToMany(Subject, { through: "FunctionarySubjects", foreignKey: "functionaryId" });
@@ -43,20 +50,19 @@ Application.belongsTo(Functionary, { foreignKey: "functionaryId" });
 Functionary.hasMany(Appointment, { foreignKey: "functionaryId" });
 Appointment.belongsTo(Functionary, { foreignKey: "functionaryId" });
 
-Functionary.hasMany(Group, { foreignKey: "functionaryId" });
-Group.belongsTo(Functionary, { foreignKey: "functionaryId" });
+Functionary.hasMany(Group, { foreignKey: "functionaryId", onDelete: "SET NULL" });
+Group.belongsTo(Functionary, { foreignKey: "functionaryId", onDelete: "SET NULL" });
 
 //Group and File
 Group.belongsToMany(File, {through: "GroupFiles", foreignKey: "section"});
 File.belongsToMany(Group, {through: "GroupFiles", foreignKey: "fileId"});
 
 // Application-related associations
-Application.hasOne(File, { foreignKey: "applicationId", as: "file", unique: true });
-File.belongsTo(Application, { foreignKey: "applicationId", unique: true });
+Application.hasOne(File, { foreignKey: "applicationId", as: "file" });
+File.belongsTo(Application, { foreignKey: "applicationId" });
 
-Application.hasOne(PreRegistration, { foreignKey: "applicationId", as: "preregistration", unique: true });
-PreRegistration.belongsTo(Application, { foreignKey: "applicationId", unique: true });
-//Load-Application association here
+Application.hasOne(PreRegistration, { foreignKey: "applicationId", as: "preregistration" });
+PreRegistration.belongsTo(Application, { foreignKey: "applicationId" });
 
 // Student-related associations
 Student.hasMany(Appointment, { foreignKey: "studentId" });
@@ -94,38 +100,18 @@ Class.belongsTo(Subject, { foreignKey: "subjectId" });
 Functionary.hasMany(Class, { foreignKey: "functionaryId" });
 Class.belongsTo(Functionary, { foreignKey: "functionaryId" });
 
-
-//Relacion de uno a muchos entre !0an y Functionary
-Functionary.hasMany(Loan, { foreignKey: "functionaryId", mandatory: false });
-Loan.belongsTo(Functionary, { foreignKey: "functionaryId", mandatory: false });
-
 //Relacion de uno a uno entre !0an y F1aw
 Loan.hasOne(Flaw, { foreignKey: "loanId", mandatory: false });
 Flaw.belongsTo(Loan, { foreignKey: "loanId", mandatory: false });
 
-//Relacion de uno a muchos entre !0an y StudentSupplie
-StudentSupplie.hasMany(Loan, { foreignKey: "studentSupplieId", mandatory: false });
-Loan.belongsTo(StudentSupplie, { foreignKey: "studentSupplieId", mandatory: false });
-
-//Relacion de uno a muchos entre StudentSupplie y CategorySupplie
-CategorySupplie.hasMany(StudentSupplie, { foreignKey: "categorySupplieId", mandatory: false });
-StudentSupplie.belongsTo(CategorySupplie, { foreignKey: "categorySupplieId", mandatory: false });
-
-//Relacion de uno a muchos entre InstitutionalSupplie y CategorySupplie
-CategorySupplie.hasMany(InstitutionalSupplie, { foreignKey: "categorySupplieId", mandatory: false });
-InstitutionalSupplie.belongsTo(CategorySupplie, { foreignKey: "categorySupplieId", mandatory: false });
-
 Application.hasOne(Loan, { foreignKey: "applicationId"});
 Loan.belongsTo(Application, { foreignKey: "applicationId"});
-
-//Relacionde uno a muchos entre loan y User
-User.hasMany(Loan, { foreignKey: "userName", mandatory: false });
-Loan.belongsTo(User, { foreignKey: "userName", mandatory: false });
 
 
 export { 
     Role, 
     User, 
+    Person,
     Functionary, 
     Subject, 
     Application, 
@@ -138,10 +124,6 @@ export {
     Class,
     Grade,
     Timetable,
-    StudentSupplie,
-    CategorySupplie,
-    InstitutionalSupplie,
     Loan,
     Flaw,
-
 };

@@ -32,8 +32,9 @@ const timetableRepository = {
 		try {
 			const updatedTimetable = await Timetable.update(timetableData, {
 				where: { timetableId },
+                individualHooks: true,
 			});
-			return updatedTimetable[0];
+			return updatedTimetable[1][0];
 		} catch (error) {
 			throw error;
 		}

@@ -3,25 +3,28 @@
  * It initializes the Express server, establishes a connection to the database,
  * sets up middleware, defines routes, and starts the server.
  * @module index.js
- */
+*/
 
-// Import Node.js libraries
+// Importing Node.js modules
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import helmet from "helmet";
 
-// Import Configs
-import db from "./config/db.js";
-import corsOptions from "./config/corsOptions.js";
-import sequelize from "./config/db.js";
-import transporter from "./config/nodemailer.js";
 
-// Import Middlewares
-import credentials from "./middlewares/credentials.js";
+//Importing configs
+import db from "./config/db.js";
+import transporter from "./config/nodemailer.js";
+import corsOptions from "./config/corsOptions.js";
+
+//Importing Middlewares
+import errorHandler from "./middlewares/errorHandler.js";
 import verifyJWT from "./middlewares/verifyJWT.js";
 
-// Import Routes
+//Importing Hook global Trim()
+import { applyGlobalTrimHook } from "./hooks/globalTrimHook.js";
+
+// Importing routes
 import {
 	roleRoute,
 	userRoute,
@@ -40,37 +43,19 @@ import {
 	authRoute,
 	loanRoute,
 	flawRoute,
-	studentSupplieRoute,
-	categorySupplieRoute,
-	institutionalSupplieRoute,
+
 } from "./routes/index.js";
 
-// Import Hooks
-import { applyGlobalTrimHook } from "./hooks/globalTrimHook.js";
 
-// Import Node-Cron tasks
-import "./tasks/updateAge.js";
 
-// Express init
+// Initializing the Express server
 const app = express();
-
-// Credentials Cors middleware
-app.use(credentials);
-
-// Cors middleware
 app.use(cors(corsOptions));
-
-// Enable reading form data
 app.use(express.urlencoded({ extended: true }));
-
-// Enable reading JSON in URL
 app.use(express.json());
-
-// Cookies
 app.use(cookieParser());
-
-// Helmet
 app.use(helmet());
+
 
 /**
  * Establishes a connection to the database and synchronizes the models.
@@ -107,7 +92,7 @@ async function DbConnection() {
 			console.log(errorAuth);
 			console.log("\x1b[33m%s\x1b[0m", `Remaining attempts: ${attempts}`);
 			attempts--;
-			await new Promise((resolve) => setTimeout(resolve, 5000)); // Wait for 5 seconds before retrying
+			await new Promise((resolve) => setTimeout(resolve, 10000)); // Wait for 10 seconds before retrying
 		}
 	}
 
@@ -119,31 +104,34 @@ async function DbConnection() {
 	}
 }
 
-applyGlobalTrimHook(sequelize);
-
-// Call the function to connect to the database
 await DbConnection();
 
-//verify mail connection
-try {
-    await transporter.verify();
-    console.log(
-        "\x1b[36m%s\x1b[0m",
-        "Email server connection successful",
-    );
-} catch (error) {
-    console.log(
-        "\x1b[31m%s\x1b[0m",
-        "Error in email server connection:",
-    );
-    console.log(error);
+// Applying global trim hook
+applyGlobalTrimHook(db);
+
+async function NodemailerConnection() {
+    try {
+        await transporter.verify();
+        console.log(
+            "\x1b[36m%s\x1b[0m",
+            "Nodemailer transporter connection successful",
+        );
+    } catch (error) {
+        console.log("\x1b[31m%s\x1b[0m", "Error in Nodemailer transporter connection:");
+        console.log(error);
+    }
 }
 
-// Set up public routes
+await NodemailerConnection();
+
+
+// Public Routes
 app.use("/api/", authRoute);
-// Set up JWT verification middleware
+
+// Middleware to verify JWT token
 app.use(verifyJWT);
-// Set up private routes
+
+// Private Routes
 app.use("/api/", roleRoute);
 app.use("/api/", userRoute);
 app.use("/api/", functionaryRoute);
@@ -160,11 +148,8 @@ app.use("/api/", gradeRoute);
 app.use("/api/", timetableRoute);
 app.use("/api/", loanRoute);
 app.use("/api/", flawRoute);
-app.use("/api/", studentSupplieRoute);
-app.use("/api/", categorySupplieRoute);
-app.use("/api/", institutionalSupplieRoute);
 
-// Handle 404 errors
+// Handle 404 error on invalid routes
 app.all("*", (req, res) => {
 	res.status(404).json({
 		status: "fail",
@@ -173,18 +158,9 @@ app.all("*", (req, res) => {
 });
 
 // Error handling middleware
-app.use((err, req, res, next) => {
-	res.status(err.status || 500);
-	res.json({
-		error: {
-			type: err.name,
-			message: err.message,
-		},
-	});
-});
+app.use(errorHandler);
 
-// Define port and start the server
-const port = process.env.PORT || 3000;
+const port = process.env.PORT || 4000;
 app.listen(port, () => {
 	console.log(
 		"\x1b[32m%s\x1b[0m",

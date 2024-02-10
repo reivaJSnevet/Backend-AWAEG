@@ -1,4 +1,5 @@
 import preRegistrationRepository from "../repositories/preRegistrationRepository.js";
+import { NotFoundError } from "../errors/index.js";
 
 const preRegistrationService = {
 	createPreRegistration: async (preRegistration) => {
@@ -7,20 +8,7 @@ const preRegistrationService = {
 				await preRegistrationRepository.create(preRegistration);
 			return newPreRegistration;
 		} catch (error) {
-			const errors = [];
-
-			if (error.name === "SequelizeValidationError") {
-				error.errors.forEach((e) => {
-					errors.push({
-						type: "Validation Error",
-						message: e.message,
-						field: e.path,
-					});
-				});
-			} else {
-				throw error;
-			}
-			throw errors;
+			throw error;
 		}
 	},
 
@@ -37,6 +25,10 @@ const preRegistrationService = {
 		try {
 			const preRegistration =
 				await preRegistrationRepository.getById(preRegistrationId);
+			if (!preRegistration) {
+				throw new NotFoundError("PreRegistration", preRegistrationId);
+			}
+
 			return preRegistration;
 		} catch (error) {
 			throw error;
@@ -50,22 +42,14 @@ const preRegistrationService = {
 					preRegistrationId,
 					updatedFields,
 				);
+
+			if (!preRegistrationUpdated) {
+				throw new NotFoundError("PreRegistration", preRegistrationId);
+			}
+
 			return preRegistrationUpdated;
 		} catch (error) {
-			const errors = [];
-
-			if (error.name === "SequelizeValidationError") {
-				error.errors.forEach((e) => {
-					errors.push({
-						type: "Validation Error",
-						message: e.message,
-						field: e.path,
-					});
-				});
-			} else {
-				throw error;
-			}
-			throw errors;
+			throw error;
 		}
 	},
 
@@ -73,6 +57,10 @@ const preRegistrationService = {
 		try {
 			const preRegistrationDeleted =
 				await preRegistrationRepository.delete(preRegistrationId);
+			if (!preRegistrationDeleted) {
+				throw new NotFoundError("PreRegistration", preRegistrationId);
+			}
+
 			return preRegistrationDeleted;
 		} catch (error) {
 			throw error;

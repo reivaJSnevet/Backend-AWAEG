@@ -16,14 +16,14 @@ const Subject = db.define("Subject", {
 		validate: {
 			len: {
 				args: [3, 50],
-				msg: "The name must be between 3 and 50 characters long",
+				msg: "El nombre debe tener entre 3 y 50 caracteres",
 			},
 			is: {
 				args: /^[a-zA-Z0-9_ .áéíóúÁÉÍÓÚüÜñÑ]+$/i,
-				msg: "The name can only contain letters, numbers, spaces, and underscores",
+				msg: "El nombre solo puede contener letras, números, espacios y guiones bajos",
 			},
 			notEmpty: {
-				msg: "The name can't be empty",
+				msg: "El nombre no puede estar vacío",
 			},
 		},
 	},

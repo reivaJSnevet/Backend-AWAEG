@@ -1,4 +1,5 @@
 import subjectRepository from "../repositories/subjectRepository.js";
+import { NotFoundError } from "../errors/index.js";
 
 const subjectService = {
 	createSubject: async (subject) => {
@@ -6,17 +7,7 @@ const subjectService = {
 			const newSubject = await subjectRepository.create(subject);
 			return newSubject;
 		} catch (error) {
-			const errors = [];
-
-			if (error.name === "SequelizeValidationError") {
-				error.errors.forEach((e) => {
-					errors.push(e.message);
-				});
-			} else {
-				throw error;
-			}
-
-			throw errors;
+			throw error;
 		}
 	},
 
@@ -32,6 +23,9 @@ const subjectService = {
 	getSubjectById: async (subjectId) => {
 		try {
 			const subject = await subjectRepository.getById(subjectId);
+			if (!subject) {
+				throw new NotFoundError("Subject not found", subjectId);
+			}
 			return subject;
 		} catch (error) {
 			throw error;
@@ -44,35 +38,22 @@ const subjectService = {
 				subjectId,
 				updatedFields,
 			);
+			if (!subjectUpdated) {
+				throw new NotFoundError("Subject not found", subjectId);
+			}
 			return subjectUpdated;
 		} catch (error) {
-			const errors = [];
-			if (error.name === "SequelizeUniqueConstraintError") {
-				error.errors.forEach((e) => {
-					errors.push({
-						type: "UniqueConstraintError",
-						message: e.message,
-						field: e.path,
-					});
-				});
-			} else if (error.name === "SequelizeValidationError") {
-				error.errors.forEach((e) => {
-					errors.push({
-						type: "ValidationError",
-						message: e.message,
-						field: e.path,
-					});
-				});
-			} else {
-				throw error;
-			}
-			throw errors;
+			throw error;
 		}
 	},
 
 	deleteSubject: async (subjectId) => {
 		try {
 			const subjectDeleted = await subjectRepository.delete(subjectId);
+
+			if (!subjectDeleted) {
+				throw new NotFoundError("Subject not found", subjectId);
+			}
 			return subjectDeleted;
 		} catch (error) {
 			throw error;

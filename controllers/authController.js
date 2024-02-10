@@ -1,43 +1,34 @@
 import authService from "../services/authService.js";
+import authRepository from "../repositories/authRepository.js";
+import { generateAccessToken, verifySignature } from "../helpers/tokens/jwt.js";
 
 const authController = {
-	login: async (req, res) => {
+	login: async (req, res, next) => {
 		try {
 			const { userName, password } = req.body;
-			if (!userName || !password) {
-				return res
-					.status(400)
-					.json({ message: "Empty username or password" });
-			}
-
 			const { accessToken, refreshToken, user } = await authService.login(
 				userName,
 				password,
 			);
 
-			res.cookie("refreshToken", refreshToken, {
+			res.cookie("jwt", refreshToken, {
 				httpOnly: true,
 				secure: true,
-				sameSite: "none",
-				maxAge: 1000 * 60 * 60 * 24 * 1, //1 day
+				sameSite: "None",
+				maxAge: 24 * 60 * 60 * 1000, // 1 day
 			});
 
-			return res.status(200).json({accessToken, role: user.Role.roleName, id: user.Functionary.functionaryId});
+
+			return res.status(200).json({ accessToken, user });
 		} catch (error) {
-			if (error.name === "InvalidUsername") {
-				return res.status(401).json({ error:error.name, message: error.message });
-			} else if (error.name === "InvalidPassword") {
-				return res.status(401).json({ error: error.name, message: error.message });
-			} else {
-				return res.status(500).json({ error: error.name, message: error.message });
-			}
+			next(error);
 		}
 	},
-	logout: async (req, res) => {
+	logout: async (req, res, next) => {
 		try {
-			const { refreshToken } = req.cookies || {};
+			const { jwt } = req.cookies || {};
 
-			if (!refreshToken) {
+			if (!jwt) {
 				return res
 					.status(401)
 					.json({ message: "No refresh token provided" });
@@ -45,101 +36,105 @@ const authController = {
 
 			await authService.logout(refreshToken);
 
-			res.clearCookie("refreshToken", {
+			res.clearCookie("jwt", {
 				httpOnly: true,
 				secure: true,
 				sameSite: "none",
 			});
 			res.status(200).json({ message: "Logout successful" });
 		} catch (error) {
-			if (error.name === "InvalidRefreshToken") {
-				res.clearCookie("refreshToken", {
-					httpOnly: true,
-					secure: true,
-					sameSite: "none",
-				});
-				return res.status(401).json({ error: error.name, message: error.message });
-			} else {
-				return res.status(500).json({ error: error.name, message: error.message });
-			}
+			next(error);
 		}
 	},
-	handleRefreshToken: async (req, res) => {
+	handleRefreshToken: async (req, res, next) => {
 		try {
-			const { refreshToken } = req.cookies || {};
+            console.log("\x1b[31m%s\x1b[0m", req)
+			const cookies = req.cookies || {};
 
-			if (!refreshToken) {
+			if (!cookies?.jwt) {
 				return res
 					.status(401)
 					.json({ message: "No refresh token provided" });
 			}
 
-			const { accessToken } = await authService.handleRefreshToken(refreshToken);
+			const jwt = cookies.jwt;
+			const user = await authRepository.getByRefreshToken(jwt);
 
-			return res.status(200).json({ accessToken });
-		} catch (error) {
-
-			if (error.name === "InvalidRefreshToken") {
-				return res.status(401).json({ error: error.name, message: error.message });
-			} else {
-				return res.status(500).json({ error: error.name, message: error.message });
+			if (!user) {
+				return res
+					.status(403)
+					.json({ message: "Invalid refresh token" });
 			}
+
+			const decoded = await verifySignature(
+				jwt,
+				process.env.JWT_REFRESH_SECRET,
+			);
+
+			if (!decoded) {
+				return res
+					.status(403)
+					.json({ message: "Invalid refresh token" });
+			}
+            
+			const accessToken = generateAccessToken(user);
+
+			return res
+				.status(200)
+				.json({
+					accessToken,
+					user: {
+						userName: user.userName,
+						personId: user.Person.id,
+						Role: user.Role.roleName,
+					},
+				});
+		} catch (error) {
+			next(error);
 		}
 	},
-    confirmEmail: async (req, res) => {
-        try {
-            const { token } = req.params;
+	confirmEmail: async (req, res, next) => {
+		try {
+			const { token } = req.params;
 
-            if (!token) {
-                return res.status(401).json({ message: "No token provided" });
-            }
-            const confirmEmailView = await authService.confirmEmail(token);
-            return res.status(200).sendFile(confirmEmailView);
-        } catch (error) {
-            if (error.name === "InvalidToken") {
-                return res.status(401).json({ error: error.name, message: error.message });
-            } else {
-                return res.status(500).json({ error: error.name, message: error.message });
-            }
-        }
-    },
-    forgotPassword: async (req, res) => {
-        try {
-            const { email } = req.body;
-            if (!email) {
-                return res.status(400).json({ message: "Empty email" });
-            }
-            await authService.forgotPassword(email);
-            return res.status(200).json({ message: "Email sent" });
-        } catch (error) {
-            if (error.name === "InvalidEmail") {
-                return res.status(401).json({ error: error.name, message: error.message });
-            } else {
-                return res.status(500).json({ error: error.name, message: error.message });
-            }
-        }
-    },
+			if (!token) {
+				return res.status(401).json({ message: "No token provided" });
+			}
+			const confirmEmailView = await authService.confirmEmail(token);
+			return res.status(200).sendFile(confirmEmailView);
+		} catch (error) {
+			next(error);
+		}
+	},
+	forgotPassword: async (req, res, next) => {
+		try {
+			const { email } = req.body;
+			if (!email) {
+				return res.status(400).json({ message: "Empty email" });
+			}
+			await authService.forgotPassword(email);
+			return res.status(200).json({ message: "Email sent" });
+		} catch (error) {
+			next(error);
+		}
+	},
 
-    resetPassword: async (req, res) => {
-        try {
-            const { token } = req.params;
-            const { password } = req.body;
-            if (!token) {
-                return res.status(400).json({ message: "Empty token" });
-            }
-            if (!password) {
-                return res.status(400).json({ message: "Empty password" });
-            }
-            await authService.resetPassword(token, password);
-            return res.status(200).json({ message: "Password changed" });
-        } catch (error) {
-            if (error.name === "InvalidToken") {
-                return res.status(401).json({ error: error.name, message: error.message });
-            } else {
-                return res.status(500).json({ error: error.name, message: error.message });
-            }
-        }
-    },
+	resetPassword: async (req, res, next) => {
+		try {
+			const { token } = req.params;
+			const { password } = req.body;
+			if (!token) {
+				return res.status(400).json({ message: "Empty token" });
+			}
+			if (!password) {
+				return res.status(400).json({ message: "Empty password" });
+			}
+			await authService.resetPassword(token, password);
+			return res.status(200).json({ message: "Password changed" });
+		} catch (error) {
+			next(error);
+		}
+	},
 };
 
 export default authController;

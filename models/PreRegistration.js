@@ -1,6 +1,8 @@
 import { DataTypes } from "sequelize";
 import db from "../config/db.js";
+import { ValidationError } from "../errors/index.js";
 import { createApplication } from "../hooks/createApplicationHook.js";
+
 
 const PreRegistration = db.define(
 	"PreRegistration",
@@ -37,7 +39,7 @@ const PreRegistration = db.define(
 							"sexto",
 						],
 					],
-					msg: "The grade must be materno, transición, primero, segundo, tercero, cuarto, quinto or sexto",
+					msg: "El grado debe ser materno, transición, primero, segundo, tercero, cuarto, quinto o sexto",
 				},
 			},
 			set(value) {
@@ -50,7 +52,7 @@ const PreRegistration = db.define(
 			validate: {
 				isIn: {
 					args: [["prescolar", "I", "II"]],
-					msg: "The cycle must be prescolar, I or II",
+					msg: "El ciclo debe ser prescolar, I o II",
 				},
 			},
 		},
@@ -61,7 +63,7 @@ const PreRegistration = db.define(
 			validate: {
 				isIn: {
 					args: [["pending", "approved", "rejected"]],
-					msg: "The status must be pending, approved or rejected",
+					msg: "El estado debe ser pendiente, aprobado o rechazado",
 				},
 			},
 			set(value) {
@@ -101,8 +103,8 @@ const setCycle = (preRegistration) => {
 	if (grade in gradeToCycleMap) {
 		group.cycle = gradeToCycleMap[grade];
 	} else {
-		throw new Error(`Grado no reconocido: ${grade}`);
-	}
+        throw new ValidationError("El grado no es válido");
+    }
 };
 
 export default PreRegistration;

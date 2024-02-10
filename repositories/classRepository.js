@@ -3,11 +3,10 @@ import db from "../config/db.js";
 
 const classRepository = {
 	create: async (classData, timetablesData = []) => {
-        const t = await db.transaction();
+		const t = await db.transaction();
 		try {
+			console.log("\x1b[36m%s\x1b[0m", classData);
 
-            console.log("\x1b[36m%s\x1b[0m", classData);
-            
 			const createdClass = await Class.create(classData, {
 				transaction: t,
 			});
@@ -24,6 +23,7 @@ const classRepository = {
 			return createdClass;
 		} catch (error) {
 			await t.rollback();
+			console.log("\x1b[31m%s\x1b[0m", error);
 			throw error;
 		}
 	},
@@ -38,9 +38,9 @@ const classRepository = {
 					{
 						model: Subject,
 					},
-                    {
-                        model: Functionary,
-                    },
+					{
+						model: Functionary,
+					},
 				],
 			});
 			return classes;
@@ -62,9 +62,9 @@ const classRepository = {
 		try {
 			const updatedClass = await Class.update(classData, {
 				where: { classId },
-                individualHooks: true,
+				individualHooks: true,
 			});
-			return updatedClass[0];
+			return updatedClass[1][0];
 		} catch (error) {
 			throw error;
 		}

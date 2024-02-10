@@ -16,23 +16,29 @@ const FileRepository = {
 		}
 	},
 
-    findAll: async (section) => {
-        try {
-            return await File.findAll({
-                where: { active: true },
-                attributes: ["fileId", "fileName", "originalName", "mimeType", "active"],
-                include: [
-                    {
-                        model: Group,
-                        attributes: [],
-                        where: { section },
-                    }
-                ],
-            });
-        } catch (error) {
-            throw error;
-        }
-    },
+	findAll: async (section) => {
+		try {
+			return await File.findAll({
+				where: { active: true },
+				attributes: [
+					"fileId",
+					"fileName",
+					"originalName",
+					"mimeType",
+					"active",
+				],
+				include: [
+					{
+						model: Group,
+						attributes: [],
+						where: { section },
+					},
+				],
+			});
+		} catch (error) {
+			throw error;
+		}
+	},
 
 	findById: async (fileId) => {
 		try {
@@ -46,8 +52,9 @@ const FileRepository = {
 		try {
 			const fileUpdated = await File.update(file, {
 				where: { fileId },
+                individualHooks: true,
 			});
-			return fileUpdated[0];
+			return fileUpdated[1][0];
 		} catch (error) {
 			throw error;
 		}
@@ -62,13 +69,13 @@ const FileRepository = {
 		}
 	},
 
-    findWhere: async (where) => {
-        try {
-            return await File.findOne({ where });
-        } catch (error) {
-            throw error;
-        }
-    },
+	findWhere: async (where) => {
+		try {
+			return await File.findOne({ where });
+		} catch (error) {
+			throw error;
+		}
+	},
 };
 
 export default FileRepository;

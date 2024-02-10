@@ -1,5 +1,6 @@
 import { DataTypes } from "sequelize";
 import db from "../config/db.js";
+import { ValidationError } from "../errors/index.js";
 import Group from "./Group.js";
 
 const Class = db.define(
@@ -16,11 +17,11 @@ const Class = db.define(
 			allowNull: false,
 			validate: {
 				notEmpty: {
-					msg: "The shift can't be empty",
+					msg: "El turno no puede estar vacío",
 				},
 				isIn: {
 					args: [["matutino", "vespertino"]],
-					msg: "The shift must be matutino or vespertino",
+					msg: "El turno debe ser matutino o vespertino",
 				},
 				set(value) {
 					this.setDataValue("shift", value.toLowerCase());
@@ -53,9 +54,9 @@ const matchShift = async (classInstance) => {
 		const group = await Group.findByPk(classInstance.section);
 
 		if (group.shift !== classInstance.shift) {
-			throw new Error(
-				"The shift of the group and the class must be the same",
-			);
+            throw new ValidationError(
+                "El turno de la clase no coincide con el turno del gruoo",
+            );
 		}
 	} catch (error) {
 		throw error;

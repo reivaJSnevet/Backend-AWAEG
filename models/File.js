@@ -17,10 +17,10 @@ const File = db.define(
 			validate: {
 				is: {
 					args: /^[a-zA-Z0-9 áéíóúÁÉÍÓÚüÜñÑ.-]+$/i,
-					msg: "The name can only contain letters and spaces",
+					msg: "El nombre solo puede contener letras y espacios",
 				},
 				notEmpty: {
-					msg: "The name can't be empty",
+					msg: "El nombre no puede estar vacío",
 				},
 			},
 		},
@@ -30,14 +30,14 @@ const File = db.define(
 			validate: {
 				len: {
 					args: [1, 50],
-					msg: "The original name must be between 1 and 50 characters long",
+					msg: "El nombre original debe tener entre 1 y 50 caracteres",
 				},
 				is: {
 					args: /^[a-zA-Z0-9 áéíóúÁÉÍÓÚüÜñÑ.-]+$/i,
-					msg: "The original name can only contain letters and spaces",
+					msg: "El nombre original solo puede contener letras y espacios",
 				},
 				notEmpty: {
-					msg: "The original name can't be empty",
+					msg: "El nombre original no puede estar vacío",
 				},
 			},
 		},
@@ -47,14 +47,14 @@ const File = db.define(
 			validate: {
 				len: {
 					args: [1, 50],
-					msg: "The mimeType must be between 1 and 50 characters long",
+					msg: "El tipo de archivo debe tener entre 1 y 50 caracteres",
 				},
 				is: {
 					args: /^[a-zA-Z0-9/.-]+$/i,
-					msg: "The mimeType can only contain letters and numbers",
+					msg: "El tipo de archivo solo puede contener letras y espacios",
 				},
 				notEmpty: {
-					msg: "The mimeType can't be empty",
+					msg: "El tipo de archivo no puede estar vacío",
 				},
 			},
 		},
@@ -63,7 +63,7 @@ const File = db.define(
 			allowNull: false,
 			validate: {
 				notEmpty: {
-					msg: "The path can't be empty",
+					msg: "El path no puede estar vacío",
 				},
 			},
 		},
@@ -72,14 +72,14 @@ const File = db.define(
             allowNull: false,
             validate: {
                 isInt: {
-                    msg: "The size must be a number",
+                    msg: "El tamaño debe ser un número entero",
                 },
                 min: {
                     args: [0],
-                    msg: "The size must be greater than or equal to 0",
+                    msg: "El tamaño debe ser mayor a 0",
                 },
                 notEmpty: {
-                    msg: "The size can't be empty",
+                    msg: "El tamaño no puede estar vacío",
                 },
             },
         },

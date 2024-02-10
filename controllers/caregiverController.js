@@ -1,126 +1,50 @@
 import caregiverService from "../services/caregiverService.js";
 
 const caregiverController = {
-	postCaregiver: async (req, res) => {
+	postCaregiver: async (req, res, next) => {
 		try {
 			const newCaregiver = await caregiverService.createCaregiver(
 				req.body,
 			);
 			res.status(201).json(newCaregiver);
 		} catch (error) {
-			if (Array.isArray(error)) {
-				return res.status(400).json({ error });
-			} else {
-				res.status(500).json({
-					error: "Error creating caregiver",
-					message: error.message,
-				});
-			}
+			next(error);
 		}
 	},
-	getAllCaregivers: async (req, res) => {
+	getAllCaregivers: async (req, res, next) => {
 		try {
 			const caregivers = await caregiverService.getAllCaregivers();
 			res.status(200).json(caregivers);
 		} catch (error) {
-			console.error(error);
-			res.status(500).json({
-				error: "Error retrieving caregivers",
-				message: error.message,
-			});
+			next(error);
 		}
 	},
-	getCaregiverById: async (req, res) => {
+	getCaregiverById: async (req, res, next) => {
 		try {
-			if (!req.params.id) {
-				return res.status(400).json({
-					error: "Missing caregiver ID",
-					message: "You must specify a caregiver ID to retrieve it",
-				});
-			}
-
 			const caregiver = await caregiverService.getCaregiverById(
 				req.params.id,
 			);
-
-			if (caregiver) {
-				return res.status(200).json(caregiver);
-			} else {
-				return res.status(404).json({
-					error: `Caregiver not found`,
-					message: `No caregiver found with ID '${req.params.id}'`,
-				});
-			}
+			res.status(200).json(caregiver);
 		} catch (error) {
-			console.error(error);
-			res.status(500).json({
-				error: "Error retrieving caregiver",
-				message: error.message,
-			});
+			next(error);
 		}
 	},
-	putCaregiver: async (req, res) => {
+	putCaregiver: async (req, res, next) => {
 		try {
-			if (!req.params.id) {
-				return res.status(400).json({
-					error: "Missing caregiver ID",
-					message: "You must specify a caregiver ID to update it",
-				});
-			}
-
-			const caregiverUpdated = await caregiverService.updateCaregiver(
-				req.params.id,
-				req.body,
-			);
-
-			if (caregiverUpdated) {
-				return res.status(200).json({message: `caregiver '${req.params.id}' updated`});
-			} else {
-				return res.status(404).json({
-					error: `Caregiver not found`,
-					message: `No caregiver found with ID '${req.params.id}'`,
-				});
-			}
+			const caregiver = await caregiverService.updateCaregiver(req.params.id, req.body);
+			res.status(200).json(caregiver);
 		} catch (error) {
-			if (Array.isArray(error)) {
-				return res.status(400).json({ error });
-			} else {
-				res.status(500).json({
-					error: "Error updating caregiver",
-					message: error.message,
-				});
-			}
+			next(error);
 		}
 	},
-	deleteCaregiver: async (req, res) => {
+	deleteCaregiver: async (req, res, next) => {
 		try {
-			if (!req.params.id) {
-				return res.status(400).json({
-					error: "Missing caregiver ID",
-					message: "You must specify a caregiver ID to delete it",
-				});
-			}
-
-			const caregiverDeleted = await caregiverService.deleteCaregiver(
+			const caregiver = await caregiverService.deleteCaregiver(
 				req.params.id,
 			);
-
-			if (caregiverDeleted) {
-				return res.status(200).json({
-					message: `Caregiver with ID '${req.params.id}' deleted`,
-				});
-			} else {
-				return res.status(404).json({
-					error: `Caregiver not found`,
-					message: `No caregiver found with ID '${req.params.id}'`,
-				});
-			}
+			res.status(200).json(caregiver);
 		} catch (error) {
-			console.error(error);
-			res.status(500).json({
-				error: "Error deleting caregiver",
-				message: error.message,
-			});
+			next(error);
 		}
 	},
 };

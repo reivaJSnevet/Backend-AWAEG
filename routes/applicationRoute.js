@@ -1,11 +1,10 @@
-import applicationController from "../controllers/applicationController.js";
-import verifyRole from "../middlewares/verifyRole.js";
 import { Router } from "express";
+import applicationController from "../controllers/applicationController.js";
 
-const router = Router();
+const applicationRouter = Router();
 
-router.get("/applications", verifyRole(1), applicationController.getAll);
-router.get("/applications/:applicationId", verifyRole(1), applicationController.getById);
-router.get("/applications/type/:type", verifyRole(1), applicationController.getByType);
+applicationRouter.get("/applications", applicationController.getAll);
+applicationRouter.get("/applications/:applicationId", applicationController.getById);
+applicationRouter.get("/applications/type/:type", applicationController.getByType);
 
-export default router;
+export default applicationRouter;

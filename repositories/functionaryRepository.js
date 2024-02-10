@@ -1,31 +1,69 @@
-import { Functionary, User, Subject, Group } from "../models/index.js";
+import db from "../config/db.js";
+import {
+	Person,
+	Functionary,
+	User,
+	Subject,
+	Group,
+	Role,
+	Class,
+	Appointment,
+	Loan,
+	File,
+	Application,
+} from "../models/index.js";
 
 const functionaryRepository = {
 	create: async (functionary) => {
+		const t = await db.transaction();
 		try {
-			const newFunctionary = await Functionary.create(functionary);
+			const newFunctionary = await Person.create(
+				{ ...functionary, type: "functionary" },
+				{
+					include: [Functionary],
+					transaction: t,
+				},
+			);
+
+			await t.commit();
 			return newFunctionary;
 		} catch (error) {
+			await t.rollback();
 			throw error;
 		}
 	},
 
 	getAll: async () => {
 		try {
-			const functionaries = await Functionary.findAll({
+			const functionaries = await Person.findAll({
 				include: [
 					{
 						model: User,
-						attributes: ["userName", "email"],
+						include: [Role],
 					},
 					{
-						model: Subject,
+						model: Functionary,
+						required: true,
+						include: [
+							{
+								model: Subject,
+								attributes: ["subjectId", "subjectName"],
+								through: { attributes: [] },
+							},
+							{ model: Group },
+							{ model: Class },
+							{ model: Appointment },
+							{ model: File },
+							{ model: Application },
+						],
 					},
 					{
-						model: Group,
+						model: Loan,
+						as: "Debtor",
 					},
 				],
 			});
+
 			return functionaries;
 		} catch (error) {
 			throw error;
@@ -34,19 +72,38 @@ const functionaryRepository = {
 
 	getById: async (functionaryId) => {
 		try {
-			const functionary = await Functionary.findByPk(functionaryId, {
+			const functionary = await Person.findOne({
+				where: { id: functionaryId },
 				include: [
 					{
 						model: User,
+						include: [Role],
 					},
 					{
-						model: Subject,
+						model: Functionary,
+						required: true,
+						include: [
+							{
+								model: Subject,
+								attributes: ["subjectId", "subjectName"],
+								through: { attributes: [] },
+							},
+							{ model: Group },
+							{ model: Class },
+							{ model: Appointment },
+							{ model: File },
+							{ model: Application },
+						],
+					},
+					{
+						model: Loan,
+						as: "Debtor",
 					},
 				],
+				exclude: ["createdAt", "updatedAt", "deleteAt"],
 			});
 			return functionary;
 		} catch (error) {
-			console.log("EL ERROR ESTÁ AQUÍ EN FUNCTIONARY REPOSITORY");
 			throw error;
 		}
 	},
@@ -54,10 +111,10 @@ const functionaryRepository = {
 	update: async (functionaryId, updatedFields) => {
 		try {
 			const functionaryUpdated = await Functionary.update(updatedFields, {
-				where: { functionaryId },
+				where: { personId: functionaryId },
 				individualHooks: true,
 			});
-			return functionaryUpdated[0];
+			return functionaryUpdated[1][0];
 		} catch (error) {
 			throw error;
 		}
@@ -65,8 +122,8 @@ const functionaryRepository = {
 
 	delete: async (functionaryId) => {
 		try {
-			const functionaryDeleted = await Functionary.destroy({
-				where: { functionaryId },
+			const functionaryDeleted = await Person.destroy({
+				where: { id: functionaryId },
 			});
 			return functionaryDeleted;
 		} catch (error) {
@@ -74,30 +131,12 @@ const functionaryRepository = {
 		}
 	},
 
-	addSubject: async (functionaryId, subjectId) => {
-		try {
-			const functionary = await Functionary.findByPk(functionaryId);
-			await functionary.addSubject(subjectId);
-			return functionary;
-		} catch (error) {
-			throw error;
-		}
-	},
-
 	addSubjects: async (functionaryId, subjectsIds) => {
 		try {
-			const functionary = await Functionary.findByPk(functionaryId);
+			const functionary = await Functionary.findOne({
+				where: { personId: functionaryId },
+			});
 			await functionary.addSubjects(subjectsIds);
-			return functionary;
-		} catch (error) {
-			throw error;
-		}
-	},
-
-	deleteSubject: async (functionaryId, subjectId) => {
-		try {
-			const functionary = await Functionary.findByPk(functionaryId);
-			await functionary.removeSubject(subjectId);
 			return functionary;
 		} catch (error) {
 			throw error;
@@ -106,7 +145,9 @@ const functionaryRepository = {
 
 	deleteSubjects: async (functionaryId, subjectsIds) => {
 		try {
-			const functionary = await Functionary.findByPk(functionaryId);
+			const functionary = await Functionary.findOne({
+				where: { personId: functionaryId },
+			});
 			await functionary.removeSubjects(subjectsIds);
 			return functionary;
 		} catch (error) {

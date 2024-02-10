@@ -1,14 +1,13 @@
-import express from 'express';
-import FileController from '../controllers/fileController.js';
+import { Router } from 'express';
 import upload from "../middlewares/multerConfig.js"
-import verifyRole from '../middlewares/verifyRole.js';
+import FileController from '../controllers/fileController.js';
 
-const fileRouter = express.Router();
+const fileRouter = Router();
 
-fileRouter.post('/files', verifyRole(3), upload.single("file"), FileController.postFile);
-fileRouter.get('/files/:section', verifyRole(5), FileController.getAllFiles);
-fileRouter.get('/files/:id/dowload', verifyRole(5), FileController.getFileById);
-fileRouter.put('/files/:id', verifyRole(3), FileController.putFile);
-fileRouter.delete('/files/:id', verifyRole(3), FileController.deleteFile);
+fileRouter.post('/files', upload.single("file"), FileController.postFile);
+fileRouter.get('/files/:section', FileController.getAllFiles);
+fileRouter.get('/files/:id/download',FileController.getFileById);
+fileRouter.put('/files/:id', FileController.putFile);
+fileRouter.delete('/files/:id', FileController.deleteFile);
 
 export default fileRouter;

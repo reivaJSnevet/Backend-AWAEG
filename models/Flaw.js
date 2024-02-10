@@ -17,14 +17,14 @@ const Flaw = db.define(
             validate: {
                 len: {
                     args: [1, 255],
-                    msg: "The damage category must be between 1 and 255 characters long",
+                    msg: "La categoría de daño debe tener entre 1 y 255 caracteres",
                 },
                 is: {
                     args: /^[a-zA-Z ]+$/i,
-                    msg: "The damage category can only contain letters and spaces",
+                    msg: "La categoría de daño solo puede contener letras y espacios",
                 },
                 notEmpty: {
-                    msg: "The damage category can't be empty",
+                    msg: "La categoría de daño no puede estar vacía",
                 },
             },
         
@@ -36,14 +36,14 @@ const Flaw = db.define(
             validate: {
                 len: {
                     args: [1, 255],
-                    msg: "The description must be between 1 and 255 characters long",
+                    msg: "La descripción debe tener entre 1 y 255 caracteres",
                 },
                 is: {
                     args: /^[a-zA-Z ]+$/i,
-                    msg: "The description can only contain letters and spaces",
+                    msg: "La descripción solo puede contener letras y espacios",
                 },
                 notEmpty: {
-                    msg: "The description can't be empty",
+                    msg: "La descripción no puede estar vacía",
                 },
             },
         }

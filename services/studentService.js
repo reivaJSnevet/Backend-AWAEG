@@ -1,94 +1,81 @@
 import studentRepository from "../repositories/studentRepository.js";
+import personRepository from "../repositories/personRepository.js";
+import { NotFoundError, ValidationError } from "../errors/index.js";
 
 const studentService = {
-    createStudent: async (student) => {
-        try {
-            const newStudent = await studentRepository.create(student);
-            return newStudent;
-        } catch (error) {
-            const errors = [];
-            if (error.name === "SequelizeUniqueConstraintError") {
-                error.errors.forEach((e) => {
-                    errors.push({
-                        type: "Unique Constraint Error",
-                        message: e.message,
-                        field: e.path,
-                    });
-                });
-            } else if (error.name === "SequelizeValidationError") {
-                error.errors.forEach((e) => {
-                    errors.push({
-                        type: "Validation Error",
-                        message: e.message,
-                        field: e.path,
-                    });
-                });
-            } else {
-                throw error;
+	createStudent: async (student) => {
+		try {
+			if(!student.Student){
+                throw new ValidationError("Student object is required");
             }
-            throw errors;
-        }
-    },
 
-    getAllStudents: async () => {
-        try {
-            const students = await studentRepository.getAll();
-            return students;
-        } catch (error) {
-            throw error;
-        }
-    },
-
-    getStudentById: async (studentId) => {
-        try {
-            const student =
-                await studentRepository.getById(studentId);
-            return student;
-        } catch (error) {
-            throw error;
-        }
-    },
-
-    updateStudent: async (studentId, updatedFields) => {
-        try {
-            const studentUpdated = await studentRepository.update(
-                studentId,
-                updatedFields,
-            );
-            return studentUpdated;
-        } catch (error) {
-            const errors = [];
-            if (error.name === "SequelizeUniqueConstraintError") {
-                error.errors.forEach((e) => {
-                    errors.push({
-                        type: "Unique Constraint Error",
-                        message: e.message,
-                        field: e.path,
-                    });
-                });
-            } else if (error.name === "SequelizeValidationError") {
-                error.errors.forEach((e) => {
-                    errors.push({
-                        type: "Validation Error",
-                        message: e.message,
-                        field: e.path,
-                    });
-                });
-            } else {
-                throw error;
+            const person = await personRepository.getById(student.Student.caregiverId);
+            if(!person){
+                throw new NotFoundError("Student", student.Student.caregiverId);
             }
-            throw errors;
-        }
-    },
 
-    deleteStudent: async (studentId) => {
-        try {
-            const studentDeleted = await studentRepository.delete(studentId);
-            return studentDeleted;
-        } catch (error) {
-            throw error;
+            student.Student.caregiverId = person.Caregiver.caregiverId;
+			const newStudent = await studentRepository.create(student);
+
+			return newStudent;
+		} catch (error) {
+			throw error;
         }
-    },
+	},
+
+	getAllStudents: async () => {
+		try {
+			const students = await studentRepository.getAll();
+			return students;
+		} catch (error) {
+			throw error;
+		}
+	},
+
+	getStudentById: async (studentId) => {
+		try {
+			const student = await studentRepository.getById(studentId);
+            if (!student) {
+                throw new NotFoundError("Student", studentId);
+            }
+
+			return student;
+		} catch (error) {
+			throw error;
+		}
+	},
+
+	updateStudent: async (studentId, updatedFields) => {
+		try {	
+            const person = await personRepository.update(studentId, updatedFields);
+            const student = await studentRepository.update(studentId, updatedFields);
+            if(!studentUpdated && !personUpdated){
+                throw new NotFoundError("Student", studentId);
+            }
+
+            const personJSON = {
+                ...person.toJSON(),
+                Student: student,
+            };
+
+			return personJSON;
+		} catch (error) {
+			throw error;
+		}
+	},
+
+	deleteStudent: async (studentId) => {
+		try {
+			const studentDeleted = await studentRepository.delete(studentId);
+            if (!studentDeleted) {
+                throw new NotFoundError("Student", studentId);
+            }
+            
+			return studentDeleted;
+		} catch (error) {
+			throw error;
+		}
+	},
 };
 
 export default studentService;

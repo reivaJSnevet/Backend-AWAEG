@@ -1,130 +1,52 @@
 import appointmentService from "../services/appointmentService.js";
 
 const appointmentController = {
-	postAppointment: async (req, res) => {
+	postAppointment: async (req, res, next) => {
 		try {
 			const newAppointment = await appointmentService.createAppointment(
 				req.body,
 			);
 			res.status(201).json(newAppointment);
 		} catch (error) {
-			if (Array.isArray(error)) {
-				return res.status(400).json({ error });
-			} else {
-				res.status(500).json({
-					error: "Error creating appointment",
-					message: error.message,
-				});
-			}
+			next(error);
 		}
 	},
-
-	getAllAppointments: async (req, res) => {
+	getAllAppointments: async (req, res, next) => {
 		try {
 			const appointments = await appointmentService.getAllAppointments();
 			res.status(200).json(appointments);
 		} catch (error) {
-			console.error(error);
-			res.status(500).json({
-				error: "Error retrieving appointments",
-				message: error.message,
-			});
+			next(error);
 		}
 	},
-
-	getAppointmentById: async (req, res) => {
+	getAppointmentById: async (req, res, next) => {
 		try {
-			if (!req.params.id) {
-				return res.status(400).json({
-					error: "Missing appointment ID",
-					message:
-						"You must specify an appointment ID to retrieve it",
-				});
-			}
-
 			const appointment = await appointmentService.getAppointmentById(
 				req.params.id,
 			);
-
-			if (appointment) {
-				return res.status(200).json(appointment);
-			} else {
-				return res.status(404).json({
-					error: `Appointment not found`,
-					message: `No appointment found with ID '${req.params.id}'`,
-				});
-			}
+			res.status(200).json(appointment);
 		} catch (error) {
-			console.error(error);
-			res.status(500).json({
-				error: "Error retrieving appointment",
-				message: error.message,
-			});
+			next(error);
 		}
 	},
-
-	putAppointment: async (req, res) => {
+	putAppointment: async (req, res, next) => {
 		try {
-			if (!req.params.id) {
-				return res.status(400).json({
-					error: "Missing appointment ID",
-					message: "You must specify an appointment ID to update it",
-				});
-			}
-
-			const appointmentUpdated =
-				await appointmentService.updateAppointment(
-					req.params.id,
-					req.body,
-				);
-
-			if (appointmentUpdated) {
-				return res.status(200).json({message: `appointment '${req.params.id}' updated`});
-			} else {
-				return res.status(404).json({
-					error: `Appointment not found`,
-					message: `No appointment found with ID '${req.params.id}'`,
-				});
-			}
+			const appointment = await appointmentService.updateAppointment(
+				req.params.id,
+				req.body,
+			);
+			res.status(200).json(appointment);
 		} catch (error) {
-			if (Array.isArray(error)) {
-				return res.status(400).json({ error });
-			} else {
-				console.error(error);
-				res.status(500).json({
-					error: "Error updating appointment",
-					message: error.message,
-				});
-			}
+			next(error);
 		}
 	},
-
-	deleteAppointment: async (req, res) => {
+	deleteAppointment: async (req, res, next) => {
 		try {
-			if (!req.params.id) {
-				return res.status(400).json({
-					error: "Missing appointment ID",
-					message: "You must specify an appointment ID to delete it",
-				});
-			}
-
-			const appointmentDeleted =
+			const appointment =
 				await appointmentService.deleteAppointment(req.params.id);
-
-			if (appointmentDeleted) {
-				return res.status(200).json(appointmentDeleted);
-			} else {
-				return res.status(404).json({
-					error: `Appointment not found`,
-					message: `No appointment found with ID '${req.params.id}'`,
-				});
-			}
+			return res.status(200).json(appointment);
 		} catch (error) {
-			console.error(error);
-			res.status(500).json({
-				error: "Error deleting appointment",
-				message: error.message,
-			});
+			next(error);
 		}
 	},
 };

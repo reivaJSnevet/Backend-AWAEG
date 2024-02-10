@@ -15,15 +15,15 @@ const Grade = db.define(
 			allowNull: false,
 			validate: {
 				isNumeric: {
-					msg: "The score must be a number",
+					msg: "La calificación debe ser un número",
 				},
 				min: {
 					args: [0],
-					msg: "The score must be greater than 0",
+					msg: "La calificación debe ser mayor o igual a 0",
 				},
 				max: {
 					args: [100],
-					msg: "The score must be less than 100",
+					msg: "La calificación debe ser menor o igual a 100",
 				},
 			},
 		},
@@ -33,7 +33,7 @@ const Grade = db.define(
 			validate: {
 				isIn: {
 					args: [["primero", "segundo", "tercero"]],
-					msg: "The period must be primero, segundo or tercero",
+					msg: "El periodo debe ser primero, segundo o tercero",
 				},
 			},
 			set(value) {

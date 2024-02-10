@@ -16,10 +16,10 @@ const Loan = db.define(
             allowNull: false,
             validate: {
                 isDate: {
-                    msg: "The loan date must be a valid date",
+                    msg: "La fecha del préstamo debe ser una fecha válida",
                 },
                 notEmpty: {
-                    msg: "The loan date can't be empty",
+                    msg: "La fecha del préstamo no puede estar vacía",
                 },
             },
         },
@@ -29,10 +29,10 @@ const Loan = db.define(
             allowNull: false,
             validate: {
                 isDate: {
-                    msg: "The deadline must be a valid date",
+                    msg: "La fecha de devolución debe ser una fecha válida",
                 },
                 notEmpty: {
-                    msg: "The dead line can't be empty",
+                    msg: "La fecha de devolución no puede estar vacía",
                 },
             },
         },
@@ -43,10 +43,10 @@ const Loan = db.define(
             validate: {
                 isIn: {
                     args: [["PENDING", "APPROVED", "REJECTED", "RETURNED"]],
-                    msg: "The state must be PENDING, APPROVED, REJECTED or RETURNED",
+                    msg: "El estado del préstamo debe ser PENDING, APPROVED, REJECTED o RETURNED",
                 },
                 notEmpty: {
-                    msg: "The state can't be empty",
+                    msg: "El estado del préstamo no puede estar vacío",
                 },
             },
             

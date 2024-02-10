@@ -1,4 +1,5 @@
 import gradeRepository from "../repositories/gradeRepository.js";
+import { NotFoundError } from "../errors/index.js";
 
 const gradeService = {
 	createGrade: async (grade) => {
@@ -6,17 +7,7 @@ const gradeService = {
 			const newGrade = await gradeRepository.create(grade);
 			return newGrade;
 		} catch (error) {
-			const errors = [];
-
-			if (error.name === "SequelizeValidationError") {
-				error.errors.forEach((error) => {
-					errors.push(error.message);
-				});
-			} else {
-				throw error;
-			}
-
-			throw errors;
+			throw error;
 		}
 	},
     getAllGrades: async () => {
@@ -30,6 +21,10 @@ const gradeService = {
     getGradeById: async (gradeId) => {
         try {
             const grade = await gradeRepository.getById(gradeId);
+            if (!grade) {
+                throw new NotFoundError("Grade", gradeId);
+            }
+
             return grade;
         } catch (error) {
             throw error;
@@ -38,24 +33,22 @@ const gradeService = {
     updateGrade: async (gradeId, updatedFields) => {
         try {
             const gradeUpdated = await gradeRepository.update(gradeId, updatedFields);
-            return gradeUpdated;
-        } catch (error) {
-            const errors = [];
-
-            if (error.name === "SequelizeValidationError") {
-                error.errors.forEach((error) => {
-                    errors.push(error.message);
-                });
-            } else {
-                throw error;
+            if (!gradeUpdated) {
+                throw new NotFoundError("Grade", gradeId);
             }
 
-            throw errors;
+            return gradeUpdated;
+        } catch (error) {
+            throw error;
         }
     },
     deleteGrade: async (gradeId) => {
         try {
             const gradeDeleted = await gradeRepository.delete(gradeId);
+            if (!gradeDeleted) {
+                throw new NotFoundError("Grade", gradeId);
+            }
+
             return gradeDeleted;
         } catch (error) {
             throw error;

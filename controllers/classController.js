@@ -1,126 +1,44 @@
 import classService from "../services/classService.js";
 
 const classController = {
-	postClass: async (req, res) => {
+	postClass: async (req, res, next) => {
 		try {
 			const newClass = await classService.createClass(req.body);
 			res.status(201).send(newClass);
 		} catch (error) {
-			if (Array.isArray(error)) {
-				return res.status(400).json({ error });
-			} else {
-				res.status(500).json({
-					error: "Error creating class",
-					message: error.message,
-				});
-			}
+			next(error);
 		}
 	},
-
-	getAllClasses: async (req, res) => {
+	getAllClasses: async (req, res, next) => {
 		try {
 			const classes = await classService.getAllClasses();
 			res.status(200).json(classes);
 		} catch (error) {
-			console.error(error);
-			res.status(500).json({
-				error: "Error retrieving classes",
-				message: error.message,
-			});
+			next(error);
 		}
 	},
-
-	getClassById: async (req, res) => {
+	getClassById: async (req, res, next) => {
 		try {
-			if (!req.params.id) {
-				return res.status(400).json({
-					error: "Missing class ID",
-					message: "You must specify a class ID to retrieve it",
-				});
-			}
-
 			const classData = await classService.getClassById(req.params.id);
-
-			if (classData) {
-				return res.status(200).json(classData);
-			} else {
-				return res.status(404).json({
-					error: `Class not found`,
-					message: `No class found with ID '${req.params.id}'`,
-				});
-			}
+			res.status(200).json(classData);
 		} catch (error) {
-			console.error(error);
-			res.status(500).json({
-				error: "Error retrieving class",
-				message: error.message,
-			});
+			next(error);
 		}
 	},
-
-	putClass: async (req, res) => {
+	putClass: async (req, res, next) => {
 		try {
-			if (!req.params.id) {
-				return res.status(400).json({
-					error: "Missing class ID",
-					message: "You must specify a class ID to update it",
-				});
-			}
-
-			const classData = await classService.updateClass(
-				req.params.id,
-				req.body,
-			);
-
-			if (classData) {
-				return res
-					.status(200)
-					.json({ message: `class '${req.params.id}' updated` });
-			} else {
-				return res.status(404).json({
-					error: `Class not found`,
-					message: `No class found with ID '${req.params.id}'`,
-				});
-			}
+			const classData = await classService.updateClass(req.params.id, req.body);
+			res.status(200).json(classData);
 		} catch (error) {
-			if (Array.isArray(error)) {
-				return res.status(400).json({ error });
-			} else {
-				res.status(500).json({
-					error: "Error updating class",
-					message: error.message,
-				});
-			}
+			next(error);
 		}
 	},
-
-	deleteClass: async (req, res) => {
+	deleteClass: async (req, res, next) => {
 		try {
-			if (!req.params.id) {
-				return res.status(400).json({
-					error: "Missing class ID",
-					message: "You must specify a class ID to delete it",
-				});
-			}
-
 			const classData = await classService.deleteClass(req.params.id);
-
-			if (classData) {
-				return res
-					.status(200)
-					.json({ message: "Class deleted successfully" });
-			} else {
-				return res.status(404).json({
-					error: `Class not found`,
-					message: `No class found with ID '${req.params.id}'`,
-				});
-			}
+			res.status(200).json(classData);
 		} catch (error) {
-			console.error(error);
-			res.status(500).json({
-				error: "Error deleting class",
-				message: error.message,
-			});
+			next(error);
 		}
 	},
 };

@@ -1,4 +1,5 @@
 import allowedOrigins from "./allowedOrigins.js";
+import { UnauthorizedError } from "../errors/index.js";
  
 /**
  * Configuration options for CORS (Cross-Origin Resource Sharing).
@@ -11,7 +12,7 @@ const corsOptions = {
 		if (allowedOrigins.indexOf(origin) !== -1 || !origin) {
 			callback(null, true);
 		} else {
-			callback(new Error('Not allowed by CORS'));
+			callback(new UnauthorizedError("Not allowed by CORS"));
 		}
 	},
     optionsSuccessStatus: 200,

@@ -1,4 +1,6 @@
 import functionaryRepository from "../repositories/functionaryRepository.js";
+import personRepository from "../repositories/personRepository.js";
+import { NotFoundError } from "../errors/index.js";
 
 const functionaryService = {
 	createFunctionary: async (functionary) => {
@@ -7,27 +9,7 @@ const functionaryService = {
 				await functionaryRepository.create(functionary);
 			return newFunctionary;
 		} catch (error) {
-			const errors = [];
-			if (error.name === "SequelizeUniqueConstraintError") {
-				error.errors.forEach((e) => {
-					errors.push({
-						type: "Unique Constraint Error",
-						message: e.message,
-						field: e.path,
-					});
-				});
-			} else if (error.name === "SequelizeValidationError") {
-				error.errors.forEach((e) => {
-					errors.push({
-						type: "Validation Error",
-						message: e.message,
-						field: e.path,
-					});
-				});
-			} else {
-				throw error;
-			}
-			throw errors;
+			throw error;
 		}
 	},
 
@@ -44,6 +26,10 @@ const functionaryService = {
 		try {
 			const functionary =
 				await functionaryRepository.getById(functionaryId);
+			if (!functionary) {
+				throw new NotFoundError("Functionary", functionaryId);
+			}
+
 			return functionary;
 		} catch (error) {
 			throw error;
@@ -52,33 +38,21 @@ const functionaryService = {
 
 	updateFunctionary: async (functionaryId, updatedFields) => {
 		try {
+			const personUpdated = await personRepository.update(
+				functionaryId,
+				updatedFields,
+			);
 			const functionaryUpdated = await functionaryRepository.update(
 				functionaryId,
 				updatedFields,
 			);
-			return functionaryUpdated;
-		} catch (error) {
-			const errors = [];
-			if (error.name === "SequelizeUniqueConstraintError") {
-				error.errors.forEach((e) => {
-					errors.push({
-						type: "UniqueConstraintError",
-						message: e.message,
-						field: e.path,
-					});
-				});
-			} else if (error.name === "SequelizeValidationError") {
-				error.errors.forEach((e) => {
-					errors.push({
-						type: "ValidationError",
-						message: e.message,
-						field: e.path,
-					});
-				});
-			} else {
-				throw error;
+			if (!functionaryUpdated && !personUpdated) {
+				throw new NotFoundError("Functionary", functionaryId);
 			}
-			throw errors;
+
+			return true;
+		} catch (error) {
+			throw error;
 		}
 	},
 
@@ -86,6 +60,10 @@ const functionaryService = {
 		try {
 			const functionaryDeleted =
 				await functionaryRepository.delete(functionaryId);
+			if (!functionaryDeleted) {
+				throw new NotFoundError("Functionary", functionaryId);
+			}
+
 			return functionaryDeleted;
 		} catch (error) {
 			throw error;
@@ -94,26 +72,15 @@ const functionaryService = {
 
 	addSubject: async (functionaryId, subjectId) => {
 		try {
-			const functionary =
-				await functionaryRepository.getById(functionaryId);
-
-			if (!functionary || !subjectId) {
-				return null;
-			} else if (await functionary.hasSubject(subjectId)) {
+			const person = await functionaryRepository.getById(functionaryId);
+			const functionary = await person.getFunctionary();
+			if (!functionary) {
+				throw new NotFoundError("Functionary", functionaryId);
+			} else if (await functionary.hasSubjects(subjectId)) {
 				return { message: "The functionary already has the subject" };
 			}
 
-			if (Array.isArray(subjectId)) {
-				return functionaryRepository.addSubjects(
-					functionaryId,
-					subjectId,
-				);
-			} else if (subjectId) {
-				return functionaryRepository.addSubject(
-					functionaryId,
-					subjectId,
-				);
-			}
+			return functionaryRepository.addSubjects(functionaryId, subjectId);
 		} catch (error) {
 			throw error;
 		}
@@ -121,26 +88,16 @@ const functionaryService = {
 
 	deleteSubject: async (functionaryId, subjectId) => {
 		try {
-			const functionary =
-				await functionaryRepository.getById(functionaryId);
-
-			if (!functionary || !subjectId) {
-				return null;
-			} else if (!(await functionary.hasSubject(subjectId))) {
-				return null;
+			const person = await functionaryRepository.getById(functionaryId);
+			const functionary = await person.getFunctionary();
+			if (!functionary) {
+				throw new NotFoundError("Functionary", functionaryId);
 			}
 
-			if (Array.isArray(subjectId)) {
-				return await functionaryRepository.deleteSubjects(
-					functionaryId,
-					subjectId,
-				);
-			} else if (subjectId) {
-				return await functionaryRepository.deleteSubject(
-					functionaryId,
-					subjectId,
-				);
-			}
+			return functionaryRepository.deleteSubjects(
+				functionaryId,
+				subjectId,
+			);
 		} catch (error) {
 			throw error;
 		}

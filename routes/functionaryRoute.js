@@ -1,17 +1,14 @@
-import express from 'express';
-import FunctionaryController from '../controllers/functionaryController.js';
-import verifyRole from '../middlewares/verifyRole.js';
-import validateSchema from '../middlewares/validationMiddleware.js';
-import { functionarySchemaCreate, functionarySchemaUpdate, functionarySubjectSchema } from '../models/Schemas/functionarySchema.js';
+import { Router } from "express";
+import functionaryController from "../controllers/functionaryController.js";
 
-const functionaryRouter = express.Router();
+const functionaryRouter = Router();
 
-functionaryRouter.post('/functionaries', verifyRole(1), validateSchema(functionarySchemaCreate), FunctionaryController.postFunctionary);
-functionaryRouter.get('/functionaries', verifyRole(1), FunctionaryController.getAllFunctionaries);
-functionaryRouter.get('/functionaries/:id', verifyRole(1), FunctionaryController.getFunctionaryById);
-functionaryRouter.put('/functionaries/:id', verifyRole(1), validateSchema(functionarySchemaUpdate), FunctionaryController.putFunctionary);
-functionaryRouter.delete('/functionaries/:id', verifyRole(1), FunctionaryController.deleteFunctionary);
-functionaryRouter.post('/functionaries/:id/subjects', verifyRole(1), validateSchema(functionarySubjectSchema), FunctionaryController.addSubject);
-functionaryRouter.delete('/functionaries/:id/subjects', verifyRole(1), validateSchema(functionarySubjectSchema), FunctionaryController.deleteSubject);
+functionaryRouter.post("/functionaries", functionaryController.postFunctionary);
+functionaryRouter.get("/functionaries", functionaryController.getAllFunctionaries);
+functionaryRouter.get("/functionaries/:id", functionaryController.getFunctionaryById);
+functionaryRouter.put("/functionaries/:id", functionaryController.putFunctionary);
+functionaryRouter.delete("/functionaries/:id", functionaryController.deleteFunctionary);
+functionaryRouter.post("/functionaries/:id/subjects", functionaryController.addSubject);
+functionaryRouter.delete("/functionaries/:id/subjects", functionaryController.deleteSubject);
 
 export default functionaryRouter;

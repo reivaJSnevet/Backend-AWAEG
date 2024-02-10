@@ -1,6 +1,7 @@
 import userRepository from "../repositories/userRepository.js";
 import sendVerificationEmail from "../helpers/emails/verificationEmail.js";
 import { generateEmailToken } from "../helpers/tokens/emailVerifyToken.js";
+import { NotFoundError, ForbiddenError } from "../errors/index.js";
 
 const userService = {
 	createUser: async (user) => {
@@ -18,33 +19,7 @@ const userService = {
 
 			return userNoPassword;
 		} catch (error) {
-			const errors = [];
-			if (error.name === "SequelizeUniqueConstraintError") {
-				error.errors.forEach((e) => {
-					errors.push({
-						type: "UniqueConstraintError",
-						message: e.message,
-						field: e.path,
-					});
-				});
-			} else if (error.name === "SequelizeValidationError") {
-				error.errors.forEach((e) => {
-					errors.push({
-						type: "ValidationError",
-						message: e.message,
-						field: e.path,
-					});
-				});
-			} else if (error.name === "SequelizeForeignKeyConstraintError") {
-				errors.push({
-					type: "ForeignKeyConstraintError",
-					message: error.message,
-					fields: error.fields,
-				});
-			} else {
-				throw error;
-			}
-			throw errors;
+			throw error;
 		}
 	},
 
@@ -60,6 +35,9 @@ const userService = {
 	getUserByUserName: async (userName) => {
 		try {
 			const user = await userRepository.getByUserName(userName);
+			if (!user) {
+				throw new NotFoundError("User", userName);
+			}
 			return user;
 		} catch (error) {
 			throw error;
@@ -72,29 +50,13 @@ const userService = {
 				userName,
 				updatedFields,
 			);
+			if (!userUpdated) {
+				throw new NotFoundError("User", userName);
+			}
+
 			return userUpdated;
 		} catch (error) {
-			const errors = [];
-			if (error.name === "SequelizeUniqueConstraintError") {
-				error.errors.forEach((e) => {
-					errors.push({
-						type: "UniqueConstraintError",
-						message: e.message,
-						field: e.path,
-					});
-				});
-			} else if (error.name === "SequelizeValidationError") {
-				error.errors.forEach((e) => {
-					errors.push({
-						type: "ValidationError",
-						message: e.message,
-						field: e.path,
-					});
-				});
-			} else {
-				throw error;
-			}
-			throw errors;
+			throw error;
 		}
 	},
 
@@ -103,11 +65,12 @@ const userService = {
 			const user = await userRepository.getByUserName(userName);
 
 			if (user?.Role?.privilegeLevel === 1) {
-				const forbiddenError = new Error(
-					`User '${userName}' is an admin and cannot be deleted. Please contact an admin to delete this user.`,
-				);
-				forbiddenError.name = "ForbiddenError";
-				throw forbiddenError;
+				throw new ForbiddenError(
+                    "Cannot delete a user with privilege level 1",
+                );
+			}
+			if (!user) {
+				throw new NotFoundError("User", userName);
 			}
 
 			const userDeleted = await userRepository.delete(userName);

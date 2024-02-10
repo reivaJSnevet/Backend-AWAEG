@@ -22,7 +22,7 @@ const generateAccessToken = (user) => {
 			},
 			process.env.JWT_SECRET,
 			{
-				expiresIn: "1d",
+				expiresIn: "1d", //Change to 15m in production
 			},
 		);
 		return accessToken;
@@ -53,7 +53,7 @@ const generateRefreshToken = (user) => {
 			},
 			process.env.JWT_REFRESH_SECRET,
 			{
-				expiresIn: "1d",
+				expiresIn: "1d", //Change to 1h in production
 			},
 		);
 		return refreshToken;
@@ -69,16 +69,19 @@ const generateRefreshToken = (user) => {
  * @returns {Promise<object>} - A promise that resolves with the decoded payload of the JWT if the signature is valid, or rejects with an error if the signature is invalid.
  */
 const verifySignature = (token, secret) => {
-	return new Promise((resolve, reject) => {
-		jwt.verify(token, secret, (err, decoded) => {
-			if (err) {
-                err.name = "InvalidToken";
-                reject(err);
-			} else {
-				resolve(decoded);
-			}
+	try {
+		return new Promise((resolve, reject) => {
+			jwt.verify(token, secret, (err, decoded) => {
+				if (err) {
+					reject(new Error("Invalid token"));
+				} else {
+					resolve(decoded);
+				}
+			});
 		});
-	});
+	} catch (error) {
+		throw error;
+	}
 };
 
 export { generateAccessToken, generateRefreshToken, verifySignature };
