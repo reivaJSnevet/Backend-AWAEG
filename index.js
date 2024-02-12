@@ -19,6 +19,7 @@ import corsOptions from "./config/corsOptions.js";
 
 //Importing Middlewares
 import errorHandler from "./middlewares/errorHandler.js";
+import credentials from "./middlewares/credentials.js";
 import verifyJWT from "./middlewares/verifyJWT.js";
 
 //Importing Hook global Trim()
@@ -50,6 +51,7 @@ import {
 
 // Initializing the Express server
 const app = express();
+app.use(credentials);
 app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());

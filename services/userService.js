@@ -9,7 +9,7 @@ const userService = {
 			const userToken = { ...user, token: generateEmailToken() };
 			const newUser = await userRepository.create(userToken);
 
-            await sendVerificationEmail(newUser.email, newUser.token);
+            /* await sendVerificationEmail(newUser.email, newUser.token); */
 
 			const userNoPassword = {
 				...newUser.get(),

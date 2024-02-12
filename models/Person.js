@@ -32,7 +32,7 @@ const Person = db.define(
 		},
 		middleName: {
 			type: DataTypes.STRING,
-			allowNull: false,
+			allowNull: true,
 			validate: {
 				notEmpty: {
 					msg: "El segundo nombre no puede estar vacío",
@@ -60,7 +60,7 @@ const Person = db.define(
 		},
 		lastName2: {
 			type: DataTypes.STRING,
-			allowNull: false,
+			allowNull: true,
 			validate: {
 				notEmpty: {
 					msg: "El segundo apellido no puede estar vacío",

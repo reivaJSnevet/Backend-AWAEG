@@ -1,4 +1,4 @@
-import { User, Role } from "../models/index.js";
+import { User, Role, Person } from "../models/index.js";
 
 const userRepository = {
 	create: async (user) => {
@@ -12,7 +12,9 @@ const userRepository = {
 
 	getAll: async () => {
 		try {
-			const users = await User.findAll({ include: Role });
+			const users = await User.findAll({
+				include: [{ model: Role }, { model: Person }],
+			});
 			return users;
 		} catch (error) {
 			throw error;

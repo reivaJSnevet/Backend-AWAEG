@@ -66,11 +66,18 @@ const sequelizeErrorHandlerMap = {
 		});
 	},
 	SequelizeForeignKeyConstraintError: (err, res) => {
+        const errors = [];
+			errors.push({
+				type: "ForeignKeyConstraintError",
+				message: `El valor digitado no existe en la tabla ${err.table}`,
+				field: err.fields[0],
+            });
+
 		return res.status(400).json({
 			error: "ForeignKeyConstraintError",
 			message:
 				"An inserted value does not match its respective foreign key.",
-			key: err.fields[0],
+			unmetValidations: errors,
 		});
 	},
 };
@@ -79,6 +86,7 @@ const logError = (err) => {
 	console.error("\x1b[31m%s\x1b[0m", "Error name:", err.name);
 	console.error("\x1b[31m%s\x1b[0m", "Error message:", err.message);
 	console.error("\x1b[31m%s\x1b[0m", "Error stack:", err.stack || "🥞");
+    console.error("\x1b[31m%s\x1b[0m", "Error status code:", err.statusCode);
 };
 
 const defaultErrorHandler = (err, res) => {
@@ -94,7 +102,7 @@ const defaultErrorHandler = (err, res) => {
 const errorHandler = (err, req, res, next) => {
 	try {
 		logError(err);
-        console.log(err);
+        /* console.log(err); */
 
 		const sequelizeErrorFunction = sequelizeErrorHandlerMap[err.name];
 		if (sequelizeErrorFunction) {
