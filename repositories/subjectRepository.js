@@ -12,7 +12,9 @@ const subjectRepository = {
 
 	getAll: async () => {
 		try {
-			const subjects = await Subject.findAll();
+			const subjects = await Subject.findAll({
+                attributes:["subjectId", "subjectName"],
+            });
 			return subjects;
 		} catch (error) {
 			throw error;

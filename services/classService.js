@@ -50,9 +50,9 @@ const classService = {
 		}
 	},
 
-	getClassById: async (classId) => {
+	getClassesBySection: async (section) => {
 		try {
-			const classData = await classRepository.findById(classId);
+			const classData = await classRepository.findAllBySection(section);
             if (!classData) {
                 throw new NotFoundError("Class", classId);
             }

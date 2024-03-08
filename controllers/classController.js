@@ -17,9 +17,9 @@ const classController = {
 			next(error);
 		}
 	},
-	getClassById: async (req, res, next) => {
+	getClassesBySection: async (req, res, next) => {
 		try {
-			const classData = await classService.getClassById(req.params.id);
+			const classData = await classService.getClassesBySection(req.params.id);
 			res.status(200).json(classData);
 		} catch (error) {
 			next(error);

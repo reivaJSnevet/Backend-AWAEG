@@ -1,7 +1,7 @@
 import CustomError from "./customError.js";
 
 class UnauthorizedError extends CustomError {
-	constructor(where, message) {
+	constructor(message, where) {
 		super(message, 401);
 		this.name = "UnauthorizedError";
 		this.where = where;

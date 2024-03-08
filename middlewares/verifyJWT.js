@@ -5,11 +5,10 @@ const verifyJWT = async (req, res, next) => {
 	try {
 		const authHeader =
 			req.headers.authorization || req.headers.Authorization;
-
 		if (!authHeader?.startsWith("Bearer")) {
 			throw new UnauthorizedError(
 				"VerifyJWT startWithBearer",
-				"Invalid or missing authentication token in the 'Authorization' header. Please provide a valid jwt token code after 'Bearer'.",
+				"Invalid or missing authentication token in the 'Authorization' header. Please provide a valid jwt'.",
 			);
 		}
 

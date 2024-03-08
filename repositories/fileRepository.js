@@ -1,4 +1,4 @@
-import { File, Group } from "../models/index.js";
+import { File, Functionary, Group, Person } from "../models/index.js";
 import db from "../config/db.js";
 
 const FileRepository = {
@@ -26,13 +26,23 @@ const FileRepository = {
 					"originalName",
 					"mimeType",
 					"active",
+                    "size",
 				],
 				include: [
 					{
 						model: Group,
-						attributes: [],
+						attributes: ["section"],
 						where: { section },
 					},
+                    {
+                        model:Functionary,
+                        include: [
+                            {
+                                model: Person,
+                                attributes: ["name", "middleName", "lastName", "lastName2"]
+                            },
+                        ]
+                    }
 				],
 			});
 		} catch (error) {
@@ -60,9 +70,9 @@ const FileRepository = {
 		}
 	},
 
-	delete: async (fileId) => {
+	delete: async (fileId, transaction) => {
 		try {
-			const fileDeleted = await File.destroy({ where: { fileId } });
+			const fileDeleted = await File.destroy({ where: { fileId } }, { transaction });
 			return fileDeleted;
 		} catch (error) {
 			throw error;

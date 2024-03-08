@@ -1,6 +1,7 @@
 import { DataTypes } from "sequelize";
 import db from "../config/db.js";
 import { ValidationError } from "../errors/index.js";
+import Class from "./Class.js";
 
 const Timetable = db.define(
 	"Timetable",
@@ -110,7 +111,7 @@ const Timetable = db.define(
 const avoidOverlappingClasses = async (timetable) => {
 	const { day, startTime, endTime } = timetable;
 
-	const overlappingTimetable = await Timetable.findOne({
+	/* const overlappingTimetable = await Timetable.findOne({
 		where: {
 			day,
 			startTime: {
@@ -121,11 +122,12 @@ const avoidOverlappingClasses = async (timetable) => {
 			},
 		},
 	});
+
 	if (overlappingTimetable) {
 		throw new ValidationError(
             "La clase se superpone con otra clase existente",
         );
-	}
+	} */
 };
 
 //avoid duration more tha 40 minutes

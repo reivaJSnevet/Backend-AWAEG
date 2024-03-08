@@ -1,9 +1,11 @@
 import { Timetable } from "../models/index.js";
 
 const timetableRepository = {
-	create: async (timetable) => {
+	create: async (timetables) => {
 		try {
-			const newTimetable = await Timetable.create(timetable);
+			const newTimetable = timetables.map((timetable) => {
+                return Timetable.create(timetable);
+            });
 			return newTimetable;
 		} catch (error) {
 			throw error;
@@ -43,7 +45,7 @@ const timetableRepository = {
 	delete: async (timetableId) => {
 		try {
 			const deletedTimetable = await Timetable.destroy({
-				where: { timetableId },
+				where: { timetableId: timetableId },
 			});
 			return deletedTimetable;
 		} catch (error) {

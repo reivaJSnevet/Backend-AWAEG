@@ -1,21 +1,31 @@
-import { User, Role, Student, Functionary, Person } from "../models/index.js";
+import {
+	User,
+	Role,
+	Person,
+	Student,
+	Functionary,
+	Caregiver,
+	Group,
+} from "../models/index.js";
 
 const authRepository = {
 	getByUserName: async (username) => {
 		try {
-			const user = await User.findByPk(username, {
-				attributes: [
-					"userName",
-					"email",
-					"password",
-					"refreshToken",
-					"verifyEmail",
-				],
+			const user = await User.scope("session").findByPk(username, {
 				include: [
 					{ model: Role },
 					{
 						model: Person,
-						include: [{ model: Student }, { model: Functionary }],
+						include: [
+							{
+								model: Student,
+								include: [
+									{ model: Group },
+									{ model: Caregiver },
+								],
+							},
+							{ model: Functionary },
+						],
 					},
 				],
 			});
@@ -27,14 +37,22 @@ const authRepository = {
 
 	getByRefreshToken: async (refreshToken) => {
 		try {
-			const user = await User.findOne({
+			const user = await User.scope("session").findOne({
 				where: { refreshToken: refreshToken },
-				attributes: ["userName", "email", "password", "refreshToken"],
-				include: [
+                include: [
 					{ model: Role },
 					{
 						model: Person,
-						include: [{ model: Student }, { model: Functionary }],
+						include: [
+							{
+								model: Student,
+								include: [
+									{ model: Group },
+									{ model: Caregiver },
+								],
+							},
+							{ model: Functionary },
+						],
 					},
 				],
 			});
@@ -53,7 +71,16 @@ const authRepository = {
 					{ model: Role },
 					{
 						model: Person,
-						include: [{ model: Student }, { model: Functionary }],
+						include: [
+							{
+								model: Student,
+								include: [
+									{ model: Group },
+									{ model: Caregiver },
+								],
+							},
+							{ model: Functionary },
+						],
 					},
 				],
 			});
@@ -103,7 +130,16 @@ const authRepository = {
 					{ model: Role },
 					{
 						model: Person,
-						include: [{ model: Student }, { model: Functionary }],
+						include: [
+							{
+								model: Student,
+								include: [
+									{ model: Group },
+									{ model: Caregiver },
+								],
+							},
+							{ model: Functionary },
+						],
 					},
 				],
 			});

@@ -5,6 +5,8 @@ import FileRepository from "../repositories/fileRepository.js";
 import { NotFoundError, ValidationError } from "../errors/index.js";
 const __CURRENT_DIR = dirname(fileURLToPath(import.meta.url));
 const __FILE_DIR = join(__CURRENT_DIR, "../");
+import functionaryRepository from "../repositories/functionaryRepository.js";
+import db from "../config/db.js";
 
 const FileService = {
 	createFile: async (uploadedFile, userData) => {
@@ -22,13 +24,15 @@ const FileService = {
 
 			const sectionData = JSON.parse(userData.section);
 
+            const functionary = await functionaryRepository.getById(userData.functionaryId);
+
 			const fileData = {
 				fileName: uploadedFile.filename,
 				originalName: uploadedFile.originalname,
 				mimeType: uploadedFile.mimetype,
 				path: uploadedFile.path,
 				size: uploadedFile.size,
-				functionaryId: userData.functionaryId,
+				functionaryId: functionary.Functionary.functionaryId,
 			};
 
 			const newFile = await FileRepository.create(fileData, sectionData);
@@ -56,8 +60,7 @@ const FileService = {
 				throw new NotFoundError("File", fileId);
 			}
 
-			const filePath = join(__FILE_DIR, file.path);
-			return filePath;
+			return file.path;
 		} catch (error) {
 			throw error;
 		}
@@ -81,17 +84,20 @@ const FileService = {
 	},
 
 	deleteFile: async (fileId) => {
+        const t = await db.transaction();
 		try {
+
 			const file = await FileRepository.findById(fileId);
 			if (!file) {
 				throw new NotFoundError("File", fileId);
 			}
 
-			const filePath = join(__FILE_DIR, file.path);
-			const fileDeleted = await FileRepository.delete(fileId);
-			fs.unlinkSync(filePath);
+			const fileDeleted = await FileRepository.delete(fileId, t);
+			fs.unlinkSync(file.path);
+            await t.commit();
 			return fileDeleted;
 		} catch (error) {
+            await t.rollback();
 			throw error;
 		}
 	},

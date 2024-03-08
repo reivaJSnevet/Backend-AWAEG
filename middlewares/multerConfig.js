@@ -36,10 +36,9 @@ const destination = async (req, file, cb) => {
 		// Verify if functionary exists
 		const functionary = await functionaryRepository.getById(functionaryId);
 
-		// Verify if functionary exists or contains letters
-		if (!functionary || !/^[0-9]+$/.test(functionaryId)) {
-			return cb(new ValidationError("El funcionario no existe"));
-		}
+        if (!functionary) {
+            return cb(new ValidationError("El funcionario no existe"));
+        }
 
 		// Set folder path
 		const groupFolder = join(__FILE_DIR, `./uploads/functionary_${functionaryId}`);

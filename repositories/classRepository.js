@@ -49,9 +49,22 @@ const classRepository = {
 		}
 	},
 
-	findById: async (classId) => {
+	findAllBySection: async (section) => {
 		try {
-			const foundClass = await Class.findByPk(classId);
+			const foundClass = await Class.findAll({
+                where: { section },
+                include: [
+                    {
+                        model: Timetable,
+                    },
+                    {
+                        model: Subject,
+                    },
+                    {
+                        model: Functionary,
+                    },
+                ],
+            });
 			return foundClass;
 		} catch (error) {
 			throw error;

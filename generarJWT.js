@@ -5,7 +5,7 @@ dotenv.config();
 const user = {
     userName: "Luis",
     role: {
-        rolename:"Director",
+        rolename:"director",
         privilegeLevel: 1,
     },
 };

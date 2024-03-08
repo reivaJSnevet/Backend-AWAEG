@@ -49,7 +49,7 @@ const studentService = {
 		try {	
             const person = await personRepository.update(studentId, updatedFields);
             const student = await studentRepository.update(studentId, updatedFields);
-            if(!studentUpdated && !personUpdated){
+            if(!person && !student){
                 throw new NotFoundError("Student", studentId);
             }
 

@@ -76,19 +76,11 @@ const User = db.define(
             },
         },
 		scopes: {
-			security: {
-				attributes: {
-					include: [
-						"userName",
-						"email",
-						"password",
-						"verifyEmail",
-						"token",
-						"refreshToken",
-						"recoveryToken",
-					],
-				},
-			},
+            session: {
+                attributes: {
+                    exclude: ["createdAt", "updatedAt", "deletedAt", "token", "refreshToken", "recoveryToken"],
+                },
+            },
 			administration: {
 				where: {
 					deletedAt: {

@@ -35,6 +35,8 @@ const authService = {
 				);
 			}
 
+            delete user.dataValues.password;
+
 			const accessToken = generateAccessToken(user);
 			const refreshToken = generateRefreshToken(user);
 
@@ -44,11 +46,7 @@ const authService = {
 			return {
 				accessToken,
                 refreshToken,
-				user: {
-					userName: user.userName,
-					personId: user.Person.id,
-					Role: user.Role.roleName,
-				},
+				user
 			};
 		} catch (error) {
 			throw error;
@@ -91,14 +89,12 @@ const authService = {
 				);
 			}
 
+
+            delete user.dataValues.password;
 			const accessToken = generateAccessToken(user);
 			return {
 				accessToken,
-				user: {
-					userName: user.userName,
-					personId: user.Person.id,
-					Role: user.Role.roleName,
-				},
+				user: user,
 			};
 		} catch (error) {
 			throw error;

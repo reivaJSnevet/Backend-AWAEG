@@ -1,4 +1,5 @@
 import jwt from "jsonwebtoken";
+import { UnauthorizedError } from "../../errors/index.js";
 
 /**
  * Generates an access token for the given user.
@@ -73,7 +74,7 @@ const verifySignature = (token, secret) => {
 		return new Promise((resolve, reject) => {
 			jwt.verify(token, secret, (err, decoded) => {
 				if (err) {
-					reject(new Error("Invalid token"));
+					reject(new UnauthorizedError("jwt verifySignature", err.message));
 				} else {
 					resolve(decoded);
 				}
