@@ -46,6 +46,10 @@ import {
 	flawRoute,
 
 } from "./routes/index.js";
+import Role from "./models/Role.js";
+import Functionary from "./models/Functionary.js";
+import User from "./models/User.js";
+import Subject from "./models/Subject.js";
 
 
 
@@ -108,6 +112,86 @@ async function DbConnection() {
 
 await DbConnection();
 
+async function seed() {
+    try {
+        const roles = await Role.findAll();
+        if (roles.length === 0) {
+            await Role.bulkCreate([
+                {
+                    roleName: "director",
+                    privilegeLevel: 1,
+                    description: "admin"
+                },
+            ]);
+            console.log("\x1b[36m%s\x1b[0m", "Roles seeded successfully");
+        }
+
+        const functionaries = await Functionary.findAll();
+        if (functionaries.length === 0) {
+            await Functionary.bulkCreate([
+                {
+                    id: "503400435",
+                    name: "Simon",
+                    middleName: "Marshall",
+                    lastName: "bonibel",
+                    lastName2: "menttia",
+                    birthDate: "1989-09-28",
+                    gender: "M",
+                    address: "Barrio chorotega, de la entrada principal 250mts sur, 30mtrs este, casa de color amarillo",
+                    Functionary: {
+                      degree: "Licenciado en pedagogia",
+                      position: "maestro",
+                      yearsService: "7",
+                      specialty: "psycologia",
+                      professionalGroup: "ET3",
+                      phoneNumber: "89650345"
+                      }
+                  }
+            ]);
+            console.log("\x1b[36m%s\x1b[0m", "Functionaries seeded successfully");
+        }
+
+        const users = await User.findAll();
+        if (users.length === 0) {
+            await User.bulkCreate([
+                {
+                    userName: "Luis",
+                    email: "javierastdiaz@gmail.com",
+                    password: "password",
+                    roleId: 1,
+                    personId: "503400435"
+                  }
+            ]);
+            console.log("\x1b[36m%s\x1b[0m", "Users seeded successfully");
+        }
+
+      const subjects = await Subject.findAll(); 
+      if (subjects.length === 0) {
+          await Subject.bulkCreate([
+            { subjectName: 'Matematicas'},
+            { subjectName: 'Español'},
+            { subjectName: 'Ciencias'},
+            { subjectName: 'EstSociales'},
+            { subjectName: 'Inglés'},
+            { subjectName: 'EducaciónFísica' },
+            { subjectName: 'Artes' },
+            { subjectName: 'Música' },
+            { subjectName: 'Computo' },
+            { subjectName: 'Recreo' }
+          ]);
+          console.log("\x1b[36m%s\x1b[0m", "Subjects seeded successfully");
+      }
+
+
+    } catch (error) {
+        console.log("\x1b[31m%s\x1b[0m", "Error in seeding roles:");
+        console.log(error);
+    }
+}
+
+await seed();
+
+
 // Applying global trim hook
 applyGlobalTrimHook(db);
 
@@ -124,7 +208,7 @@ async function NodemailerConnection() {
     }
 }
 
-/* await NodemailerConnection(); */
+await NodemailerConnection();
 
 
 // Public Routes
