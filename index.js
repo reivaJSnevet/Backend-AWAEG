@@ -115,7 +115,7 @@ async function seed() {
 		const roles = await Role.findAll();
 		if (roles.length === 0) {
 			await roleService.createRol({
-				roleName: "admin",
+				roleName: "director",
                 privilegeLevel: 1,
 				description: "Administrator",
 			});
