@@ -15,10 +15,10 @@ const File = db.define(
 			type: DataTypes.STRING,
 			allowNull: false,
 			validate: {
-				is: {
+/* 				is: {
 					args: /^[a-zA-Z0-9 áéíóúÁÉÍÓÚüÜñÑ.-]+$/i,
 					msg: "El nombre solo puede contener letras y espacios",
-				},
+				}, */
 				notEmpty: {
 					msg: "El nombre no puede estar vacío",
 				},
@@ -32,10 +32,10 @@ const File = db.define(
 					args: [1, 50],
 					msg: "El nombre original debe tener entre 1 y 50 caracteres",
 				},
-				is: {
+/* 				is: {
 					args: /^[a-zA-Z0-9 áéíóúÁÉÍÓÚüÜñÑ.-]+$/i,
 					msg: "El nombre original solo puede contener letras y espacios",
-				},
+				}, */
 				notEmpty: {
 					msg: "El nombre original no puede estar vacío",
 				},
@@ -46,7 +46,7 @@ const File = db.define(
 			allowNull: false,
 			validate: {
 				len: {
-					args: [1, 50],
+					args: [1, 250],
 					msg: "El tipo de archivo debe tener entre 1 y 50 caracteres",
 				},
 				is: {

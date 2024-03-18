@@ -1,9 +1,50 @@
-import { Application } from "../models/index.js";
+import {
+	Application,
+	Functionary,
+	PreRegistration,
+	File,
+    Person,
+    Group,
+    Student,
+} from "../models/index.js";
 
 const applicationRepository = {
 	getAll: async () => {
 		try {
-			const applications = await Application.findAll();
+			const applications = await Application.findAll({ 
+                include: [
+                    {
+                        model: Functionary,
+                        
+                    },
+                    {
+                        model: PreRegistration,
+                        include: [
+                            {
+                                model: Student,
+                                include: [
+                                    {
+                                        model: Person,
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                    {
+                        model: File,
+                        include: [
+                            {
+                                model: Functionary,
+                                include: [
+                                    {
+                                        model: Person,
+                                    }
+                                ]
+                            }
+                        ]
+                    },
+                ] 
+            });
 			return applications;
 		} catch (error) {
 			throw error;
@@ -30,6 +71,18 @@ const applicationRepository = {
 			throw error;
 		}
 	},
+
+    update: async (applicationId, applicationData) => {
+        try {
+            const application = await Application.update(applicationData, {
+                where: { applicationId },
+                returning: true,
+            });
+            return application[1][0];
+        } catch (error) {
+            throw error;
+        }
+    },
 };
 
 export default applicationRepository;

@@ -23,6 +23,7 @@ const mimeTypes = [
 ];
 
 const fileName = (req, file, cb) => {
+    console.log(req.body, "linea 26");
 	const fileExt = extname(file.originalname);
 	const filename = file.originalname.split(fileExt)[0];
 	cb(null, `${filename}-${Date.now()}${fileExt}`);
@@ -32,6 +33,8 @@ const fileName = (req, file, cb) => {
 const destination = async (req, file, cb) => {
 	try {
 		const { functionaryId } = req.body;
+
+        console.log(req.body, "linea 38");
 
 		// Verify if functionary exists
 		const functionary = await functionaryRepository.getById(functionaryId);
@@ -77,6 +80,7 @@ const limits = {
 };
 
 const fileFilter = (req, file, cb) => {
+    console.log(req.body, "linea 83");
 	// Only allow uploading of a single file
 	if (file.fieldname !== "file") {
 		cb(new ValidationError("No se ha seleccionado un archivo, o el campo es incorrecto"));

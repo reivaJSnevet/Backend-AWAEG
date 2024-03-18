@@ -56,7 +56,7 @@ app.use(cors(corsOptions));
 app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
-/* app.use(helmet()); */
+app.use(helmet());
 
 
 /**
@@ -124,7 +124,7 @@ async function NodemailerConnection() {
     }
 }
 
-await NodemailerConnection();
+/* await NodemailerConnection(); */
 
 
 // Public Routes

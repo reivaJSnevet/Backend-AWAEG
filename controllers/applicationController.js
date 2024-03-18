@@ -29,6 +29,17 @@ const applicationController = {
 			next(error);
 		}
 	},
+    update: async (req, res, next) => {
+        try {
+            const application = await applicationService.update(
+                req.params.applicationId,
+                req.body,
+            );
+            res.status(200).json(application);
+        } catch (error) {
+            next(error);
+        }
+    },
 };
 
 export default applicationController;

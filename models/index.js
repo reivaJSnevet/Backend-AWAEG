@@ -15,6 +15,12 @@ import Grade from "./Grade.js";
 import Timetable from "./Timetable.js";
 import Loan from "./Loan.js";
 import Flaw from "./Flaw.js";
+import Category from "./Category.js";
+import Supplie from "./Supplie.js";
+import LoanSupplies from "./LoanSupplies.js";
+import SuppliesType from "./SuppliesType.js";
+import ElectronicSupplies from "./ElectronicSupplies.js";
+import Projector from "./Projector.js";
 
 
 // Role and User
@@ -58,10 +64,10 @@ Group.belongsToMany(File, {through: "GroupFiles", foreignKey: "section"});
 File.belongsToMany(Group, {through: "GroupFiles", foreignKey: "fileId"});
 
 // Application-related associations
-Application.hasOne(File, { foreignKey: "applicationId", as: "file" });
+Application.hasOne(File, { foreignKey: "applicationId" });
 File.belongsTo(Application, { foreignKey: "applicationId" });
 
-Application.hasOne(PreRegistration, { foreignKey: "applicationId", as: "preregistration" });
+Application.hasOne(PreRegistration, { foreignKey: "applicationId" });
 PreRegistration.belongsTo(Application, { foreignKey: "applicationId" });
 
 // Student-related associations
@@ -100,12 +106,23 @@ Class.belongsTo(Subject, { foreignKey: "subjectId" });
 Functionary.hasMany(Class, { foreignKey: "functionaryId" });
 Class.belongsTo(Functionary, { foreignKey: "functionaryId" });
 
-//Relacion de uno a uno entre !0an y F1aw
-Loan.hasOne(Flaw, { foreignKey: "loanId", mandatory: false });
-Flaw.belongsTo(Loan, { foreignKey: "loanId", mandatory: false });
-
 Application.hasOne(Loan, { foreignKey: "applicationId"});
 Loan.belongsTo(Application, { foreignKey: "applicationId"});
+
+Loan.belongsToMany(Supplie, { through: LoanSupplies});
+Supplie.belongsToMany(Loan, { through: LoanSupplies});
+
+SuppliesType.hasMany(Supplie, { foreignKey: "typeId" });
+Supplie.belongsTo(SuppliesType, { foreignKey: "typeId" });
+
+ElectronicSupplies.hasOne(SuppliesType, { foreignKey: "typeId" });
+SuppliesType.belongsTo(ElectronicSupplies, { foreignKey: "typeId" });
+
+ElectronicSupplies.hasOne(Projector, { foreignKey: "serialNumber" });
+Projector.belongsTo(ElectronicSupplies, { foreignKey: "serialNumber" });
+
+
+
 
 
 export { 
@@ -126,4 +143,11 @@ export {
     Timetable,
     Loan,
     Flaw,
+    Category,
+    Supplie,
+    LoanSupplies,
+    SuppliesType,
+    ElectronicSupplies,
+    Projector
+
 };

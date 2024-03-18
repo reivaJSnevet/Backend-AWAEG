@@ -100,8 +100,8 @@ const setCycle = (preRegistration) => {
 		sexto: "II",
 	};
 
-	if (grade in gradeToCycleMap) {
-		group.cycle = gradeToCycleMap[grade];
+	if (gradeToCycleMap[grade]) {
+		preRegistration.cycle = gradeToCycleMap[grade];
 	} else {
         throw new ValidationError("El grado no es válido");
     }

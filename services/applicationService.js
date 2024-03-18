@@ -32,6 +32,16 @@ const applicationService = {
 			throw error;
 		}
 	},
+
+    update: async (applicationId, applicationData) => {
+        try {
+            const application =
+                await applicationRepository.update(applicationId, applicationData);
+            return application;
+        } catch (error) {
+            throw error;
+        }
+    },
 };
 
 export default applicationService;

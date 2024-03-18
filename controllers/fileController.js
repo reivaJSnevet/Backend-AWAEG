@@ -7,6 +7,8 @@ const FileController = {
 				return res.status(400).json({ message: "File is required" });
 			}
 
+            console.log(req.body);
+
 			const file = await FileService.createFile(req.file, req.body);
 
 			res.status(201).json(file);
