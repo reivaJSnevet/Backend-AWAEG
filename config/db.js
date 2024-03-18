@@ -16,7 +16,7 @@ const db = new Sequelize(
         port: process.env.DB_PORT,
         dialect: "mysql",
         timezone: "-06:00",
-        logging: (msg) => console.log(msg),
+        logging: /* (msg) => console.log(msg) */ false,
         define: {
             timestamps: true,
             paranoid: true,

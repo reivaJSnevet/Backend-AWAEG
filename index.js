@@ -3,14 +3,13 @@
  * It initializes the Express server, establishes a connection to the database,
  * sets up middleware, defines routes, and starts the server.
  * @module index.js
-*/
+ */
 
 // Importing Node.js modules
 import express from "express";
 import cors from "cors";
 import cookieParser from "cookie-parser";
 import helmet from "helmet";
-
 
 //Importing configs
 import db from "./config/db.js";
@@ -44,14 +43,11 @@ import {
 	authRoute,
 	loanRoute,
 	flawRoute,
-
 } from "./routes/index.js";
-import Role from "./models/Role.js";
-import Functionary from "./models/Functionary.js";
-import User from "./models/User.js";
-import Subject from "./models/Subject.js";
-
-
+import roleService from "./services/roleService.js";
+import functionaryService from "./services/functionaryService.js";
+import userService from "./services/userService.js";
+import { Role, Functionary, User, Subject } from "./models/index.js";
 
 // Initializing the Express server
 const app = express();
@@ -61,7 +57,6 @@ app.use(express.urlencoded({ extended: true }));
 app.use(express.json());
 app.use(cookieParser());
 app.use(helmet());
-
 
 /**
  * Establishes a connection to the database and synchronizes the models.
@@ -112,104 +107,118 @@ async function DbConnection() {
 
 await DbConnection();
 
+// Applying global trim hook
+applyGlobalTrimHook(db);
+
 async function seed() {
-    try {
-        const roles = await Role.findAll();
-        if (roles.length === 0) {
-            await Role.bulkCreate([
-                {
-                    roleName: "director",
-                    privilegeLevel: 1,
-                    description: "admin"
-                },
-            ]);
-            console.log("\x1b[36m%s\x1b[0m", "Roles seeded successfully");
-        }
+	try {
+		const roles = await Role.findAll();
+		if (roles.length === 0) {
+			await roleService.createRol({
+				roleName: "admin",
+                privilegeLevel: 1,
+				description: "Administrator",
+			});
+			console.log("\x1b[36m%s\x1b[0m", "Roles seeded successfully");
+		}
+	} catch (error) {
+		console.log("\x1b[31m%s\x1b[0m", "Error Roles");
+		console.log(error);
+	}
 
-        const functionaries = await Functionary.findAll();
-        if (functionaries.length === 0) {
-            await Functionary.bulkCreate([
-                {
-                    id: "503400435",
-                    name: "Simon",
-                    middleName: "Marshall",
-                    lastName: "bonibel",
-                    lastName2: "menttia",
-                    birthDate: "1989-09-28",
-                    gender: "M",
-                    address: "Barrio chorotega, de la entrada principal 250mts sur, 30mtrs este, casa de color amarillo",
-                    Functionary: {
-                      degree: "Licenciado en pedagogia",
-                      position: "maestro",
-                      yearsService: "7",
-                      specialty: "psycologia",
-                      professionalGroup: "ET3",
-                      phoneNumber: "89650345"
-                      }
-                  }
-            ]);
-            console.log("\x1b[36m%s\x1b[0m", "Functionaries seeded successfully");
-        }
+	try {
+		const functionaries = await Functionary.findAll();
+		if (functionaries.length === 0) {
+			await functionaryService.createFunctionary({
+				id: "503400435",
+				name: "Simon",
+				middleName: "Marshall",
+				lastName: "bonibel",
+				lastName2: "menttia",
+				birthDate: "1989-09-28",
+				gender: "M",
+				address:
+					"Barrio chorotega, de la entrada principal 250mts sur, 30mtrs este, casa de color amarillo",
+				Functionary: {
+					degree: "Licenciado en pedagogia",
+					position: "maestro",
+					yearsService: "7",
+					specialty: "psycologia",
+					professionalGroup: "ET3",
+					phoneNumber: "89650345",
+				},
+			});
+			console.log(
+				"\x1b[36m%s\x1b[0m",
+				"Functionaries seeded successfully",
+			);
+		}
+	} catch (error) {
+		console.log("\x1b[31m%s\x1b[0m", "Error Functionaries");
+		console.log(error);
+	}
 
-        const users = await User.findAll();
-        if (users.length === 0) {
-            await User.bulkCreate([
-                {
-                    userName: "Luis",
-                    email: "javierastdiaz@gmail.com",
-                    password: "password",
-                    roleId: 1,
-                    personId: "503400435"
-                  }
-            ]);
-            console.log("\x1b[36m%s\x1b[0m", "Users seeded successfully");
-        }
+	try {
+		const users = await User.findAll();
+		if (users.length === 0) {
+			await userService.createUser({
+				userName: "Luis",
+				email: "javierastdiaz@gmail.com",
+				password: "password",
+				roleId: 1,
+				personId: "503400435",
+                verifyEmail: true,
+			});
+			console.log("\x1b[36m%s\x1b[0m", "Users seeded successfully");
+		}
+	} catch (error) {
+		console.log("\x1b[31m%s\x1b[0m", "Error Users");
+		console.log(error);
+	}
 
-      const subjects = await Subject.findAll(); 
-      if (subjects.length === 0) {
-          await Subject.bulkCreate([
-            { subjectName: 'Matematicas'},
-            { subjectName: 'Español'},
-            { subjectName: 'Ciencias'},
-            { subjectName: 'EstSociales'},
-            { subjectName: 'Inglés'},
-            { subjectName: 'EducaciónFísica' },
-            { subjectName: 'Artes' },
-            { subjectName: 'Música' },
-            { subjectName: 'Computo' },
-            { subjectName: 'Recreo' }
-          ]);
-          console.log("\x1b[36m%s\x1b[0m", "Subjects seeded successfully");
-      }
-
-
-    } catch (error) {
-        console.log("\x1b[31m%s\x1b[0m", "Error in seeding roles:");
-        console.log(error);
-    }
+	try {
+		const subjects = await Subject.findAll();
+		if (subjects.length === 0) {
+			await Subject.bulkCreate([
+				{ subjectName: "Matematicas" },
+				{ subjectName: "Español" },
+				{ subjectName: "Ciencias" },
+				{ subjectName: "EstSociales" },
+				{ subjectName: "Inglés" },
+				{ subjectName: "EducaciónFísica" },
+				{ subjectName: "Artes" },
+				{ subjectName: "Música" },
+				{ subjectName: "Computo" },
+				{ subjectName: "Recreo" },
+			]);
+			console.log("\x1b[36m%s\x1b[0m", "Subjects seeded successfully");
+		}
+	} catch (error) {
+		console.log("\x1b[31m%s\x1b[0m", "Error sujects");
+		console.log(error);
+	}
 }
 
 // Seed the database
 await seed();
 
-// Applying global trim hook
-applyGlobalTrimHook(db);
-
 async function NodemailerConnection() {
-    try {
-        await transporter.verify();
-        console.log(
-            "\x1b[36m%s\x1b[0m",
-            "Nodemailer transporter connection successful",
-        );
-    } catch (error) {
-        console.log("\x1b[31m%s\x1b[0m", "Error in Nodemailer transporter connection:");
-        console.log(error);
-    }
+	try {
+		await transporter.verify();
+		console.log(
+			"\x1b[36m%s\x1b[0m",
+			"Nodemailer transporter connection successful",
+		);
+	} catch (error) {
+		console.log(
+			"\x1b[31m%s\x1b[0m",
+			"Error in Nodemailer transporter connection:",
+		);
+		console.log(error);
+	}
 }
 
 await NodemailerConnection();
-
 
 // Public Routes
 app.use("/api/", authRoute);
@@ -253,3 +262,5 @@ app.listen(port, () => {
 		`Server started. The server is running on Port: ${port}`,
 	);
 });
+
+
