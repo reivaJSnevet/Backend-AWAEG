@@ -189,8 +189,8 @@ async function seed() {
     }
 }
 
+// Seed the database
 await seed();
-
 
 // Applying global trim hook
 applyGlobalTrimHook(db);
