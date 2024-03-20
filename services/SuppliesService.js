@@ -1,4 +1,4 @@
-import supplieRepository from "../repositories/supplieRepository.js";
+import supplieRepository from "../repositories/SupplieRepository.js";
 import { NotFoundError } from "../errors/index.js";
 
 const supplieService = {

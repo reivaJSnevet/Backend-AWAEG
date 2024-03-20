@@ -1,4 +1,4 @@
-import suppliesTypeRepository from "../repositories/suppliesTypeRepository.js";
+import suppliesTypeRepository from "../repositories/SuppliesTypeRepository.js";
 import { NotFoundError } from "../errors/index.js";
 
 const suppliesTypeService = {

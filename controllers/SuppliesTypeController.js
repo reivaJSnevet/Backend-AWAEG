@@ -1,4 +1,4 @@
-import suppliesTypeService from "../services/suppliesTypeService.js";
+import suppliesTypeService from "../services/SuppliesTypeService.js";
 
 const suppliesTypeController = {
 	postSuppliesType: async (req, res, next) => {

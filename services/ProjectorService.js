@@ -1,4 +1,4 @@
-import projectorRepository from "../repositories/projectorRepository.js";
+import projectorRepository from "../repositories/ProjectorRepository.js";
 import { NotFoundError } from "../errors/index.js";
 
 const projectorService = {

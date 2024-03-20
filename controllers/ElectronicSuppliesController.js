@@ -1,4 +1,4 @@
-import electronicSuppliesService from "../services/electronicSuppliesService.js";
+import electronicSuppliesService from "../services/ElectronicSuppliesService.js";
 
 const ElectronicSuppliesController
  = {

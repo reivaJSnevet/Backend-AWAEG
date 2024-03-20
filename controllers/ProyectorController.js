@@ -1,4 +1,4 @@
-import projectorService from "../services/projectorService.js";
+import projectorService from "../services/ProjectorService.js";
 
 const ProjectorController
  = {

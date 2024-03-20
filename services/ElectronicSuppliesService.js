@@ -1,4 +1,4 @@
-import electronicSuppliesRepository from "../repositories/electronicSuppliesRepository.js";
+import electronicSuppliesRepository from "../repositories/ElectronicSuppliesRepository.js";
 import { NotFoundError } from "../errors/index.js";
 
 const electronicSuppliesService = {
