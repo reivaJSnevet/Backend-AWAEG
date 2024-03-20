@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import SuppliesTypeController from '../controllers/suppliesTypeController.js';
+import SuppliesTypeController from '../controllers/SuppliesTypeController.js';
 
 const suppliesTypeRouter = Router();
 
