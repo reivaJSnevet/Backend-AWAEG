@@ -43,6 +43,10 @@ import {
 	authRoute,
 	loanRoute,
 	flawRoute,
+    projectorRoute,
+	supplieRoute,
+	suppliesTypeRoute,
+	electronicSuppliesRoute,
 } from "./routes/index.js";
 import roleService from "./services/roleService.js";
 import functionaryService from "./services/functionaryService.js";
@@ -243,6 +247,10 @@ app.use("/api/", gradeRoute);
 app.use("/api/", timetableRoute);
 app.use("/api/", loanRoute);
 app.use("/api/", flawRoute);
+app.use('/api', electronicSuppliesRoute);
+app.use('/api', projectorRoute);
+app.use('/api', supplieRoute);
+app.use('/api', suppliesTypeRoute);
 
 // Handle 404 error on invalid routes
 app.all("*", (req, res) => {

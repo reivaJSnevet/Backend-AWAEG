@@ -15,3 +15,7 @@ export {default as timetableRoute} from './timetableRoute.js';
 export {default as authRoute} from './authRoute.js';
 export { default as loanRoute } from './loanRoute.js';
 export { default as flawRoute } from './flawRoute.js';
+export { default as electronicSuppliesRoute } from './electronicSuppliesRoute.js';
+export { default as projectorRoute } from './projectorRoute.js';
+export { default as supplieRoute } from './SuppliesRoute.js';
+export { default as suppliesTypeRoute } from './suppliesTypeRoute.js';
