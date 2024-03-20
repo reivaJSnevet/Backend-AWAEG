@@ -31,7 +31,7 @@ const Supplie = db.define("Supplie", {
             notEmpty: true,
             notNull: true,
             isIn: {
-                args: [["activo", "Inactivo"]],
+                args: [["activo", "inactivo"]],
                 msg: "El estado debe ser 'activo' o 'inactivo'",
             },
         },
