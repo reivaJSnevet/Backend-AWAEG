@@ -74,13 +74,12 @@ const PreRegistration = db.define(
 	{
 		timestamps: true,
 		paranoid: true,
-		defaultScope: {
-			attributes: { exclude: ["createdAt", "updatedAt", "deletedAt"] },
-		},
 		hooks: {
 			beforeCreate: createApplication,
 			beforeValidate: (preRegistration) => {
+                if (preRegistration.changed("grade")){
 				setCycle(preRegistration);
+            }
 			},
 		},
 	},

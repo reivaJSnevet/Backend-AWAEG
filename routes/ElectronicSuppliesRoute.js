@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import ElectronicSuppliesController from '../controllers/electronicSuppliesController.js';
+import ElectronicSuppliesController from '../controllers/ElectronicSuppliesController.js';
 
 const electronicSuppliesRouter = Router();
 

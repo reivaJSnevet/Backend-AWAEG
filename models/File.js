@@ -91,7 +91,7 @@ const File = db.define(
 	},
 	{
 		timestamps: true,
-        paranoid: false,
+        paranoid: true,
         defaultScope: {
             attributes: { exclude: ["createdAt", "updatedAt"] },
         },

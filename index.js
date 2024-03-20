@@ -47,6 +47,7 @@ import {
 	supplieRoute,
 	suppliesTypeRoute,
 	electronicSuppliesRoute,
+    preregistrationPeriodRoute
 } from "./routes/index.js";
 import roleService from "./services/roleService.js";
 import functionaryService from "./services/functionaryService.js";
@@ -251,6 +252,7 @@ app.use('/api', electronicSuppliesRoute);
 app.use('/api', projectorRoute);
 app.use('/api', supplieRoute);
 app.use('/api', suppliesTypeRoute);
+app.use('/api', preregistrationPeriodRoute);
 
 // Handle 404 error on invalid routes
 app.all("*", (req, res) => {

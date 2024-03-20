@@ -19,3 +19,4 @@ export { default as electronicSuppliesRoute } from './ElectronicSuppliesRoute.js
 export { default as projectorRoute } from './ProjectorRoute.js';
 export { default as supplieRoute } from './SuppliesRoute.js';
 export { default as suppliesTypeRoute } from './SuppliesTypeRoute.js';
+export { default as preregistrationPeriodRoute } from './preregistrationPeriodRoute.js';

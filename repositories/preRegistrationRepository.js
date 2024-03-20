@@ -23,7 +23,9 @@ const preRegistrationRepository = {
 	getById: async (preRegistrationId) => {
 		try {
 			const preRegistration =
-				await PreRegistration.findByPk(preRegistrationId);
+				await PreRegistration.findAll({
+                    where: { studentId: preRegistrationId }
+                });
 			return preRegistration;
 		} catch (error) {
 			throw error;
