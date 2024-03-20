@@ -1,4 +1,10 @@
-import { Grade, Student, Person, Functionary, Subject } from "../models/index.js";
+import {
+	Grade,
+	Student,
+	Person,
+	Functionary,
+	Subject,
+} from "../models/index.js";
 
 const gradeRepository = {
 	create: async (grade) => {
@@ -22,14 +28,14 @@ const gradeRepository = {
 					},
 					{
 						model: Functionary,
-                        include: {
-                            model: Person,
-                        },
+						include: {
+							model: Person,
+						},
 					},
-                    {
-                        model: Subject,
-                        attributes: ["subjectName"],
-                    }
+					{
+						model: Subject,
+						attributes: ["subjectName"],
+					},
 				],
 			});
 			return grades;
@@ -40,7 +46,29 @@ const gradeRepository = {
 
 	getById: async (gradeId) => {
 		try {
-			const grade = await Grade.findByPk(gradeId);
+			const grade = await Grade.findAll({
+				where: {
+					studentId: gradeId,
+				},
+                include: [
+					{
+						model: Student,
+						include: {
+							model: Person,
+						},
+					},
+					{
+						model: Functionary,
+                        include: {
+                            model: Person,
+                        },
+					},
+                    {
+                        model: Subject,
+                        attributes: ["subjectName"],
+                    }
+				],
+			});
 			return grade;
 		} catch (error) {
 			throw error;

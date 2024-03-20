@@ -21,7 +21,10 @@ const authRepository = {
 								model: Student,
 								include: [
 									{ model: Group },
-									{ model: Caregiver },
+									{
+										model: Caregiver,
+										include: [{ model: Person }],
+									},
 								],
 							},
 							{ model: Functionary },
@@ -39,7 +42,7 @@ const authRepository = {
 		try {
 			const user = await User.scope("session").findOne({
 				where: { refreshToken: refreshToken },
-                include: [
+				include: [
 					{ model: Role },
 					{
 						model: Person,
@@ -48,7 +51,10 @@ const authRepository = {
 								model: Student,
 								include: [
 									{ model: Group },
-									{ model: Caregiver },
+									{ model: Caregiver,
+                                        include: [{ model: Person }],
+                                        
+                                    },
 								],
 							},
 							{ model: Functionary },
