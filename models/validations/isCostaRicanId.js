@@ -6,10 +6,11 @@ import { ValidationError } from "../../errors/index.js";
  * @throws {Error} If the ID format is not valid.
  */
 const isCostaRicanId = (id) => {
-    const pattern = /^(?:[1-8]|1558)\d{8}$/;
-    if (!pattern.test(id)) {
-        throw new ValidationError("El formato del número de cédula no es válido, debe ser una cedula costarricense.");
-    }
+    const pattern = /^(?:[1-9]|1558)\d{8}$/;
+    const passport = /^[A-Z0-9]{6,15}$/;
+    if (!pattern.test(id) && !passport.test(id)) {
+        throw new ValidationError("El formato del no es ni cédula ni pasaporte, debe ser una cédula costarricense o un pasaporte.");
+    } 
 };
 
 export { isCostaRicanId };

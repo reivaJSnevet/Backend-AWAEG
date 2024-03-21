@@ -1,4 +1,4 @@
-import { Appointment } from "../models/index.js";
+import { Appointment, Student, Functionary, Person } from "../models/index.js";
 
 const appointmentRepository = {
 	create: async (appointment) => {
@@ -12,7 +12,19 @@ const appointmentRepository = {
 
 	getAll: async () => {
 		try {
-			const appointments = await Appointment.findAll();
+			const appointments = await Appointment.findAll({
+				where: { studentId: null },
+				include: [
+					{
+						model: Functionary,
+						include: [
+							{
+								model: Person,
+							},
+						],
+					},
+				],
+			});
 			return appointments;
 		} catch (error) {
 			throw error;
@@ -21,7 +33,56 @@ const appointmentRepository = {
 
 	getById: async (appointmentId) => {
 		try {
-			const appointment = await Appointment.findByPk(appointmentId);
+			const appointment = await Appointment.findAll({
+				where: { studentId: appointmentId },
+                include: [
+                    {
+                        model: Student,
+                        include: [
+                            {
+                                model: Person,
+                            },
+                        ],
+                    },
+                    {
+                        model: Functionary,
+                        include: [
+                            {
+                                model: Person,
+                            },
+                        ],
+                    }
+                ],
+			});
+			return appointment;
+		} catch (error) {
+			throw error;
+		}
+	},
+
+	getByFunctionaryId: async (functionaryId) => {
+		try {
+			const appointment = await Appointment.findAll({
+				where: { functionaryId },
+                include: [
+                    {
+                        model: Student,
+                        include: [
+                            {
+                                model: Person,
+                            },
+                        ],
+                    },
+                    {
+                        model: Functionary,
+                        include: [
+                            {
+                                model: Person,
+                            },
+                        ],
+                    }
+                ],
+			});
 			return appointment;
 		} catch (error) {
 			throw error;
@@ -32,9 +93,9 @@ const appointmentRepository = {
 		try {
 			const appointmentUpdated = await Appointment.update(updatedFields, {
 				where: { appointmentId },
-                individualHooks: true
+				individualHooks: true,
 			});
-            
+
 			return appointmentUpdated[1][0];
 		} catch (error) {
 			throw error;

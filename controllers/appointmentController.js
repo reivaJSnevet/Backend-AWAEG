@@ -29,6 +29,16 @@ const appointmentController = {
 			next(error);
 		}
 	},
+    getAppointmentsByFunctionaryId: async (req, res, next) => {
+        try {
+            const appointments = await appointmentService.getAppointmentsByFunctionaryId(
+                req.params.id
+            );
+            res.status(200).json(appointments);
+        } catch (error) {
+            next(error);
+        }
+    },
 	putAppointment: async (req, res, next) => {
 		try {
 			const appointment = await appointmentService.updateAppointment(

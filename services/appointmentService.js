@@ -36,6 +36,17 @@ const appointmentService = {
 		}
 	},
 
+    getAppointmentsByFunctionaryId: async (functionaryId) => {
+        try {
+            const appointments = await appointmentRepository.getByFunctionaryId(
+                functionaryId
+            );
+            return appointments;
+        } catch (error) {
+            throw error;
+        }
+    },
+
 	updateAppointment: async (appointmentId, updatedFields) => {
 		try {
 			const appointmentUpdated = await appointmentRepository.update(
