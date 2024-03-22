@@ -6,6 +6,7 @@ import {
 	Functionary,
 	Caregiver,
 	Group,
+	Class,
 } from "../models/index.js";
 
 const authRepository = {
@@ -27,7 +28,24 @@ const authRepository = {
 									},
 								],
 							},
-							{ model: Functionary },
+							{
+								model: Functionary,
+								include: [
+									{
+										model: Class,
+										include: [
+											{
+												model: Group,
+												include: [
+													{
+														model: Student,
+													},
+												],
+											},
+										],
+									},
+								],
+							},
 						],
 					},
 				],
@@ -51,10 +69,10 @@ const authRepository = {
 								model: Student,
 								include: [
 									{ model: Group },
-									{ model: Caregiver,
-                                        include: [{ model: Person }],
-                                        
-                                    },
+									{
+										model: Caregiver,
+										include: [{ model: Person }],
+									},
 								],
 							},
 							{ model: Functionary },

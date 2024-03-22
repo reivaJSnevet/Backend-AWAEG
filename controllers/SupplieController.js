@@ -17,6 +17,15 @@ const supplieController = {
 			next(error);
 		}
 	},
+    getAllActiveSupplies: async (req, res, next) => {
+        try {
+            const supplies = await supplieService.getAllActiveSupplies();
+            res.status(200).json(supplies);
+        }
+        catch (error) {
+            next(error);
+        }
+    },
 	getSupplieById: async (req, res, next) => {
 		try {
 			const supplie = await supplieService.getSupplieById(req.params.id);

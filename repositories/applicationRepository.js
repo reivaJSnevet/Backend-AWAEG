@@ -4,8 +4,9 @@ import {
 	PreRegistration,
 	File,
     Person,
-    Group,
     Student,
+    Loan,
+    Supplie,
 } from "../models/index.js";
 
 const applicationRepository = {
@@ -43,6 +44,18 @@ const applicationRepository = {
                             }
                         ]
                     },
+                    {
+                        model: Loan,
+                        include: [
+                            {
+                                model: Supplie,
+                            },
+                            {
+                                model: Person,
+                                as: "Debtor",
+                            }
+                        ]
+                    }
                 ] 
             });
 			return applications;

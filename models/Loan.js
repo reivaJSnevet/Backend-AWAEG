@@ -1,5 +1,6 @@
 import { DataTypes,Op  } from "sequelize";
 import db from "../config/db.js";
+import { createApplication } from "../hooks/createApplicationHook.js";
 
 const Loan = db.define(
     "Loan",
@@ -75,6 +76,9 @@ const Loan = db.define(
 					},
 				},
 			},
+		},
+        hooks: {
+			beforeCreate: createApplication,
 		},
     }
 );

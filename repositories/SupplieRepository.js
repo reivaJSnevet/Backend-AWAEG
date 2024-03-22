@@ -19,6 +19,17 @@ const supplieRepository = {
         }
     },
 
+    getAllActive: async () => {
+        try {
+            const supplies = await Supplie.findAll({
+                where: { state: "activo" },
+            });
+            return supplies;
+        } catch (error) {
+            throw error;
+        }
+    },
+
     getById: async (supplieId) => {
         try {
             const supplie = await Supplie.findByPk(supplieId);

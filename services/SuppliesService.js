@@ -20,6 +20,16 @@ const supplieService = {
 		}
 	},
 
+    getAllActiveSupplies: async () => {
+        try {
+            const supplies = await supplieRepository.getAllActive();
+            return supplies;
+        }
+        catch (error) {
+            throw error;
+        }
+    },
+
 	getSupplieById: async (supplieId) => {
 		try {
 			const supplie = await supplieRepository.getById(supplieId);
