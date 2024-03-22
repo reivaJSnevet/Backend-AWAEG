@@ -1,5 +1,6 @@
 import appointmentRepository from "../repositories/appointmentRepository.js";
 import { NotFoundError } from "../errors/index.js";
+import cancelledAppointment from "../helpers/emails/cancelledAppointment.js";
 
 const appointmentService = {
 	createAppointment: async (appointment) => {
@@ -49,6 +50,11 @@ const appointmentService = {
 
 	updateAppointment: async (appointmentId, updatedFields) => {
 		try {
+
+            if(updatedFields.status === "cancelled"){
+                await cancelledAppointment(updatedFields.email);
+            }
+
 			const appointmentUpdated = await appointmentRepository.update(
 				appointmentId,
 				updatedFields,

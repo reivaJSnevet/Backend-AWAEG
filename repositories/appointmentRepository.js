@@ -1,4 +1,11 @@
-import { Appointment, Student, Functionary, Person } from "../models/index.js";
+import {
+	Appointment,
+	Student,
+	Functionary,
+	Person,
+	User,
+} from "../models/index.js";
+import { Op } from "sequelize";
 
 const appointmentRepository = {
 	create: async (appointment) => {
@@ -35,24 +42,24 @@ const appointmentRepository = {
 		try {
 			const appointment = await Appointment.findAll({
 				where: { studentId: appointmentId },
-                include: [
-                    {
-                        model: Student,
-                        include: [
-                            {
-                                model: Person,
-                            },
-                        ],
-                    },
-                    {
-                        model: Functionary,
-                        include: [
-                            {
-                                model: Person,
-                            },
-                        ],
-                    }
-                ],
+				include: [
+					{
+						model: Student,
+						include: [
+							{
+								model: Person,
+							},
+						],
+					},
+					{
+						model: Functionary,
+						include: [
+							{
+								model: Person,
+							},
+						],
+					},
+				],
 			});
 			return appointment;
 		} catch (error) {
@@ -63,25 +70,31 @@ const appointmentRepository = {
 	getByFunctionaryId: async (functionaryId) => {
 		try {
 			const appointment = await Appointment.findAll({
-				where: { functionaryId },
-                include: [
-                    {
-                        model: Student,
-                        include: [
-                            {
-                                model: Person,
-                            },
-                        ],
-                    },
-                    {
-                        model: Functionary,
-                        include: [
-                            {
-                                model: Person,
-                            },
-                        ],
-                    }
-                ],
+				where: { functionaryId, studentId: { [Op.not]: null } },
+
+				include: [
+					{
+						model: Student,
+						include: [
+							{
+								model: Person,
+								include: [
+									{
+										model: User,
+									},
+								],
+							},
+						],
+					},
+					{
+						model: Functionary,
+						include: [
+							{
+								model: Person,
+							},
+						],
+					},
+				],
 			});
 			return appointment;
 		} catch (error) {
